@@ -21,8 +21,8 @@ const Footer = () => (
                         India&apos;s #1 free image compression tool. Perfect for UPSC, SSC, banking forms, and web optimization. No signup. Always free.
                     </p>
                     <div className="flex items-center gap-4 text-gray-400 mb-6">
-                        <a href="#" className="hover:text-indigo-600 transition-colors bg-gray-50 p-2 rounded-lg hover:bg-indigo-50"><Twitter className="w-5 h-5" /></a>
-                        <a href="#" className="hover:text-indigo-600 transition-colors bg-gray-50 p-2 rounded-lg hover:bg-indigo-50"><Github className="w-5 h-5" /></a>
+                        <a href="#" aria-label="SmartToolsWala Twitter" className="hover:text-indigo-600 transition-colors bg-gray-50 p-2 rounded-lg hover:bg-indigo-50"><Twitter className="w-5 h-5" /></a>
+                        <a href="#" aria-label="SmartToolsWala GitHub" className="hover:text-indigo-600 transition-colors bg-gray-50 p-2 rounded-lg hover:bg-indigo-50"><Github className="w-5 h-5" /></a>
                     </div>
                     <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 max-w-sm">
                         <p className="text-[12px] text-amber-800 leading-snug">

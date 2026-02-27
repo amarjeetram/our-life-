@@ -3,9 +3,11 @@ import "./globals.css";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import GlobalDropZone from "../components/GlobalDropZone";
-import { Toaster } from "react-hot-toast";
+import dynamic from 'next/dynamic';
 import { GoogleAnalytics } from '@next/third-parties/google';
+
+const Toaster = dynamic(() => import('react-hot-toast').then(mod => mod.Toaster), { ssr: false });
+const GlobalDropZone = dynamic(() => import('../components/GlobalDropZone'), { ssr: false });
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });

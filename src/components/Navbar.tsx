@@ -43,6 +43,7 @@ const Navbar = () => {
                                 alt="SmartToolsWala Logo"
                                 width={38}
                                 height={38}
+                                priority
                                 className="rounded-xl group-hover:scale-110 transition-transform duration-300"
                             />
                             <span className="text-xl font-extrabold tracking-tight text-gray-900">

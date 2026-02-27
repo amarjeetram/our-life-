@@ -3,11 +3,9 @@ import "./globals.css";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import dynamic from 'next/dynamic';
+import ClientToaster from "../components/ClientToaster";
+import ClientDropZone from "../components/ClientDropZone";
 import { GoogleAnalytics } from '@next/third-parties/google';
-
-const Toaster = dynamic(() => import('react-hot-toast').then(mod => mod.Toaster), { ssr: false });
-const GlobalDropZone = dynamic(() => import('../components/GlobalDropZone'), { ssr: false });
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
@@ -83,9 +81,9 @@ export default function RootLayout({
             })
           }}
         />
-        <Toaster position="top-center" />
+        <ClientToaster />
         <Navbar />
-        <GlobalDropZone />
+        <ClientDropZone />
         <main>
           {children}
         </main>

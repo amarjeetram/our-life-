@@ -160,10 +160,10 @@ export default function HeroUploadZone() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            style={{ padding: "32px 24px", textAlign: "center" }}
+                            style={{ padding: "clamp(24px, 5vw, 32px) clamp(16px, 4vw, 24px)", textAlign: "center" }}
                         >
                             <div style={{
-                                width: "62px", height: "62px", borderRadius: "20px",
+                                width: "clamp(54px, 12vw, 62px)", height: "clamp(54px, 12vw, 62px)", borderRadius: "clamp(16px, 4vw, 20px)",
                                 background: isDragging
                                     ? "linear-gradient(135deg, #6366f1, #8b5cf6)"
                                     : "linear-gradient(135deg, #ede9fe, #dbeafe)",
@@ -172,9 +172,9 @@ export default function HeroUploadZone() {
                                 transition: "all 0.2s",
                                 boxShadow: isDragging ? "0 6px 20px rgba(99,102,241,0.4)" : "none",
                             }}>
-                                <Upload size={26} color={isDragging ? "#fff" : "#6366f1"} strokeWidth={2} />
+                                <Upload size={24} color={isDragging ? "#fff" : "#6366f1"} strokeWidth={2} />
                             </div>
-                            <p style={{ fontSize: "17px", fontWeight: 800, color: "#1e293b", marginBottom: "6px", letterSpacing: "-0.01em" }}>
+                            <p style={{ fontSize: "clamp(16px, 4vw, 17px)", fontWeight: 800, color: "#1e293b", marginBottom: "6px", letterSpacing: "-0.01em" }}>
                                 {isDragging ? "Release to upload 🎯" : "Drop images here"}
                             </p>
                             <p style={{ fontSize: "13px", color: "#94a3b8", marginBottom: "18px" }}>
@@ -262,7 +262,7 @@ export default function HeroUploadZone() {
                             </div>
 
                             {/* Target size + compress row */}
-                            <div style={{ display: "flex", gap: "10px", alignItems: "stretch" }}>
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", alignItems: "stretch" }}>
                                 {/* Size dropdown */}
                                 <div style={{ position: "relative", flexShrink: 0 }}>
                                     <button
@@ -370,20 +370,6 @@ export default function HeroUploadZone() {
                         </motion.div>
                     )}
                 </AnimatePresence>
-
-                {/* ── Trust Badge ── */}
-                <div style={{ marginTop: "24px", textAlign: "center" }}>
-                    <div style={{
-                        display: "inline-flex", alignItems: "center", gap: "6px",
-                        padding: "6px 14px", background: "#f0fdf4",
-                        borderRadius: "100px", border: "1px solid #bbf7d0"
-                    }}>
-                        <Zap size={14} color="#16a34a" />
-                        <span style={{ fontSize: "12px", fontWeight: 700, color: "#166534" }}>
-                            Processed securely. Images auto-deleted instantly. Zero storage policy.
-                        </span>
-                    </div>
-                </div>
             </div>
         </div>
     );

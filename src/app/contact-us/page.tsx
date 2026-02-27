@@ -45,7 +45,7 @@ export default function ContactPage() {
                 </p>
             </div>
 
-            <div style={{ maxWidth: "960px", margin: "0 auto", padding: "56px 24px", display: "grid", gridTemplateColumns: "1fr 2fr", gap: "40px" }}>
+            <div className="max-w-4xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10">
 
                 {/* Info column */}
                 <div>
@@ -107,7 +107,7 @@ export default function ContactPage() {
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit}>
-                                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px", marginBottom: "14px" }}>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                                     <div>
                                         <label style={{ fontSize: "13px", fontWeight: 700, color: "#374151", display: "block", marginBottom: "6px" }}>Name *</label>
                                         <input required style={inputStyle} placeholder="Your name"

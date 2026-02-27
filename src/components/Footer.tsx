@@ -42,6 +42,7 @@ const Footer = () => (
                             { name: 'Compress to 100KB', href: '/compress-image-to-100kb' },
                             { name: 'Compress to 200KB', href: '/compress-image-to-200kb' },
                             { name: 'MB to KB Converter', href: '/mb-to-kb-image-converter' },
+                            { name: 'Stylish Couple Names', href: '/stylish-couple-name-maker' },
                             { name: 'All Tools', href: '/#tools' },
                             { name: 'Blog', href: '/blog' },
                         ].map(link => (

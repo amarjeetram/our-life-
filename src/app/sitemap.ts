@@ -14,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { url: `${baseUrl}/compress-image-to-100kb`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 },
         { url: `${baseUrl}/compress-image-to-200kb`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 },
         { url: `${baseUrl}/mb-to-kb-image-converter`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${baseUrl}/stylish-couple-name-maker`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 },
         { url: `${baseUrl}/blog`, lastModified: currentDate, changeFrequency: 'daily', priority: 0.8 },
         { url: `${baseUrl}/about-us`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.5 },
         { url: `${baseUrl}/contact-us`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.5 },

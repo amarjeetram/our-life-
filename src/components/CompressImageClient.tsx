@@ -32,6 +32,12 @@ function dataUrlToFile(data: string, name: string): File {
 export default function CompressImageClient({ targetSizeKB, titleOverride, subtitleOverride, children }: { targetSizeKB: number, titleOverride?: React.ReactNode, subtitleOverride?: React.ReactNode, children?: React.ReactNode }) {
     const [items, setItems] = useState<FileResult[]>([]);
     const [isDragging, setIsDragging] = useState(false);
+    const [userTargetSize, setUserTargetSize] = useState<number>(targetSizeKB);
+    const [compressionStatus, setCompressionStatus] = useState<'IDLE' | 'COMPRESSING' | 'DONE'>('IDLE');
+    const [progress, setProgress] = useState(0);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    const presetSizes = [20, 30, 40, 50, 100, 200];
 
     // ── Compress one file and update its slot ─────────────────────────────────
     const compressOne = useCallback(async (id: string, imgFile: File) => {
@@ -39,7 +45,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
         try {
             const formData = new FormData();
             formData.append('file', imgFile);
-            formData.append('targetSize', targetSizeKB.toString());
+            formData.append('targetSize', userTargetSize.toString());
             const res = await fetch('/api/compress', { method: 'POST', body: formData });
 
             if (!res.ok) {
@@ -66,7 +72,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
             ));
             toast.error(`Failed to compress ${imgFile.name}. Please try again or select a different image.`);
         }
-    }, []);
+    }, [userTargetSize]);
 
     const retryCompression = useCallback((id: string) => {
         const item = items.find(it => it.id === id);
@@ -75,8 +81,8 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
         }
     }, [items, compressOne]);
 
-    // ── Add files and kick off parallel compression ───────────────────────────
-    const addAndCompress = useCallback((rawFiles: File[]) => {
+    // ── Add files and optionally kick off parallel compression ───────────────────────────
+    const addAndCompress = useCallback((rawFiles: File[], autoStart: boolean = false) => {
         const imageFiles = rawFiles.filter(f => {
             if (!f.type.startsWith('image/')) return false;
             if (f.size > 20 * 1024 * 1024) {
@@ -91,29 +97,45 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
             file: f,
             optimizedUrl: null,
             resultSize: null,
-            loading: true,
+            loading: autoStart,
             error: null,
         }));
         setItems(prev => [...prev, ...newItems].slice(0, 10));
-        newItems.forEach(item => compressOne(item.id, item.file));
+
+        if (autoStart) {
+            setCompressionStatus('COMPRESSING');
+            newItems.forEach(item => compressOne(item.id, item.file));
+        } else {
+            setCompressionStatus('IDLE');
+            setProgress(0);
+        }
     }, [compressOne]);
 
     const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(e.target.files ?? []);
-        if (files.length) addAndCompress(files);
+        if (files.length) addAndCompress(files, false);
         e.target.value = '';
     };
 
     const handleDrop = useCallback((e: React.DragEvent) => {
         e.preventDefault(); setIsDragging(false);
-        addAndCompress(Array.from(e.dataTransfer.files));
+        addAndCompress(Array.from(e.dataTransfer.files), false);
     }, [addAndCompress]);
 
     const removeItem = (id: string) => setItems(prev => prev.filter(it => it.id !== id));
-    const resetAll = () => setItems([]);
+    const resetAll = () => {
+        setItems([]);
+        setCompressionStatus('IDLE');
+        setProgress(0);
+    };
 
     // ── Auto-compress from homepage sessionStorage ────────────────────────────
     useEffect(() => {
+        const heroTargetSize = sessionStorage.getItem('hero_target_size');
+        if (heroTargetSize && !isNaN(parseInt(heroTargetSize))) {
+            setUserTargetSize(parseInt(heroTargetSize));
+        }
+
         // New multi-file format
         const raw = sessionStorage.getItem('hero_images');
         if (raw) {
@@ -121,7 +143,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
             sessionStorage.removeItem('hero_target_size');
             try {
                 const payload: { data: string; name: string }[] = JSON.parse(raw);
-                addAndCompress(payload.map(p => dataUrlToFile(p.data, p.name)));
+                addAndCompress(payload.map(p => dataUrlToFile(p.data, p.name)), true);
             } catch { /* silent */ }
             return;
         }
@@ -132,10 +154,49 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
             sessionStorage.removeItem('hero_image_data');
             sessionStorage.removeItem('hero_image_name');
             sessionStorage.removeItem('hero_target_size');
-            try { addAndCompress([dataUrlToFile(data, name)]); } catch { /* silent */ }
+            try { addAndCompress([dataUrlToFile(data, name)], true); } catch { /* silent */ }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    // ── Start Compression Manually ────────────────────────────────────────────
+    const handleStartCompression = () => {
+        setCompressionStatus('COMPRESSING');
+        setProgress(0);
+
+        // Fake progress animation
+        const interval = setInterval(() => {
+            setProgress(p => {
+                if (p >= 90) {
+                    clearInterval(interval);
+                    return p;
+                }
+                return p + Math.random() * 15;
+            });
+        }, 300);
+
+        items.forEach(item => {
+            if (!item.optimizedUrl) compressOne(item.id, item.file);
+        });
+
+        // Cleanup interval when done would ideally be handled, but simple approach:
+        setTimeout(() => {
+            clearInterval(interval);
+            setProgress(100);
+            setTimeout(() => setCompressionStatus('DONE'), 500);
+        }, 2000); // rough estimate or we can just rely on item loading states.
+    };
+
+    // Actual progress/status sync: if all items are not loading and we are compressing, complete progress.
+    useEffect(() => {
+        if (compressionStatus === 'COMPRESSING' && items.length > 0) {
+            const allDone = items.every(it => !it.loading);
+            if (allDone) {
+                setProgress(100);
+                setTimeout(() => setCompressionStatus('DONE'), 500);
+            }
+        }
+    }, [items, compressionStatus]);
 
     // ── Use cases ─────────────────────────────────────────────────────────────
     const useCases = [
@@ -217,13 +278,12 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                         border: '1px solid #e2e8f8',
                         boxShadow: '0 8px 8px -4px rgba(0,0,0,0.04), 0 24px 64px -12px rgba(99,102,241,0.14)',
                         marginBottom: '20px',
-                        overflow: 'hidden'
                     }}
                 >
                     {/* Card top accent */}
-                    <div style={{ height: '4px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7, #ec4899)' }} />
+                    <div style={{ height: '4px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7, #ec4899)', borderTopLeftRadius: '32px', borderTopRightRadius: '32px' }} />
 
-                    <div style={{ padding: '36px' }}>
+                    <div style={{ padding: 'clamp(20px, 4vw, 36px)' }}>
                         <AnimatePresence mode="wait">
                             {isEmpty ? (
                                 /* ── Upload State ── */
@@ -237,7 +297,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                             border: `2px dashed ${isDragging ? '#6366f1' : '#e2e8f0'}`,
                                             borderRadius: '24px',
                                             background: isDragging ? '#f5f3ff' : '#fafbff',
-                                            padding: '60px 24px',
+                                            padding: 'clamp(32px, 6vw, 60px) clamp(16px, 4vw, 24px)',
                                             textAlign: 'center',
                                             cursor: 'pointer',
                                             transition: 'all 0.25s ease',
@@ -247,19 +307,19 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                         <input id="file-input-20kb" type="file" hidden accept="image/*" multiple onChange={handleUpload} />
 
                                         <div style={{
-                                            width: '88px', height: '88px', borderRadius: '28px',
+                                            width: ' clamp(64px, 10vw, 88px)', height: 'clamp(64px, 10vw, 88px)', borderRadius: ' clamp(20px, 4vw, 28px)',
                                             margin: '0 auto 22px',
                                             background: 'linear-gradient(135deg, #ede9fe, #dbeafe)',
                                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                                             boxShadow: '0 12px 28px rgba(99,102,241,0.18)',
                                         }}>
-                                            <Upload size={34} color="#5b21b6" strokeWidth={1.6} />
+                                            <Upload size={30} color="#5b21b6" strokeWidth={1.6} />
                                         </div>
 
-                                        <p style={{ fontSize: '20px', fontWeight: 800, color: '#1e293b', marginBottom: '8px', letterSpacing: '-0.02em' }}>
+                                        <p style={{ fontSize: 'clamp(18px, 4vw, 20px)', fontWeight: 800, color: '#1e293b', marginBottom: '8px', letterSpacing: '-0.02em' }}>
                                             Drop your photos here
                                         </p>
-                                        <p style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '28px' }}>
+                                        <p style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#94a3b8', marginBottom: '28px' }}>
                                             or click to browse · JPG, PNG, WEBP · Up to 10 files, Max 20MB/file
                                         </p>
 
@@ -285,8 +345,8 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
 
                                     {/* Header row */}
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-                                        <p style={{ fontSize: '14px', fontWeight: 700, color: '#64748b' }}>
-                                            {items.length} image{items.length > 1 ? 's' : ''} compressing to {targetSizeKB}KB
+                                        <p style={{ fontSize: '15px', fontWeight: 800, color: '#1e293b' }}>
+                                            {items.length} image{items.length > 1 ? 's' : ''} {compressionStatus === 'IDLE' ? 'selected' : `compressing to ${userTargetSize}KB`}
                                         </p>
                                         <div style={{ display: 'flex', gap: '8px' }}>
                                             {/* Add more */}
@@ -320,11 +380,121 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                         </div>
                                     </div>
 
+                                    {/* Manual Compression Box */}
+                                    {compressionStatus === 'IDLE' && (
+                                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'stretch', justifyContent: 'center', gap: '16px', padding: '16px 20px', background: '#ffffff', borderRadius: '24px', marginBottom: '20px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
+
+                                            {/* Custom Dropdown */}
+                                            <div style={{ position: 'relative' }}>
+                                                <button
+                                                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                                                    style={{
+                                                        height: '100%', display: 'flex', alignItems: 'center', gap: '10px',
+                                                        padding: '0 20px', borderRadius: '16px', background: '#f8fafc',
+                                                        border: '1px solid #e2e8f0', fontSize: '15px', fontWeight: 800,
+                                                        color: '#4f46e5', cursor: 'pointer', transition: 'all 0.2s ease',
+                                                        boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.02)'
+                                                    }}
+                                                >
+                                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '24px', height: '24px', borderRadius: '50%', background: '#ede9fe' }}>
+                                                        <span style={{ fontSize: '12px' }}>🎯</span>
+                                                    </div>
+                                                    {userTargetSize} KB <span style={{ transform: isDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>▼</span>
+                                                </button>
+
+                                                {/* Dropdown Menu */}
+                                                <AnimatePresence>
+                                                    {isDropdownOpen && (
+                                                        <>
+                                                            <div
+                                                                style={{ position: 'fixed', inset: 0, zIndex: 40 }}
+                                                                onClick={() => setIsDropdownOpen(false)}
+                                                            />
+                                                            <motion.div
+                                                                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                                                                transition={{ duration: 0.15 }}
+                                                                style={{
+                                                                    position: 'absolute', top: 'calc(100% + 10px)', left: 0,
+                                                                    width: '180px', background: '#ffffff', borderRadius: '20px',
+                                                                    padding: '8px', zIndex: 50,
+                                                                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0,0,0,0.05)'
+                                                                }}
+                                                            >
+                                                                {presetSizes.map(size => (
+                                                                    <button
+                                                                        key={size}
+                                                                        onClick={() => { setUserTargetSize(size); setIsDropdownOpen(false); }}
+                                                                        style={{
+                                                                            width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                                                                            padding: '12px 16px', borderRadius: '12px', border: 'none',
+                                                                            background: userTargetSize === size ? '#f5f3ff' : 'transparent',
+                                                                            color: userTargetSize === size ? '#4f46e5' : '#475569',
+                                                                            fontSize: '15px', fontWeight: userTargetSize === size ? 800 : 600,
+                                                                            cursor: 'pointer', transition: 'background 0.2s', textAlign: 'left'
+                                                                        }}
+                                                                        onMouseEnter={e => { if (userTargetSize !== size) e.currentTarget.style.background = '#f8fafc' }}
+                                                                        onMouseLeave={e => { if (userTargetSize !== size) e.currentTarget.style.background = 'transparent' }}
+                                                                    >
+                                                                        {size} KB
+                                                                        {userTargetSize === size && <CheckCircle2 size={16} color="#4f46e5" />}
+                                                                    </button>
+                                                                ))}
+                                                                <div style={{ height: '1px', background: '#f1f5f9', margin: '8px 0' }} />
+                                                                <div style={{ padding: '0 8px 8px' }}>
+                                                                    <p style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '6px', fontWeight: 600, paddingLeft: '4px' }}>CUSTOM SIZE</p>
+                                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                                        <input
+                                                                            type="number"
+                                                                            value={userTargetSize}
+                                                                            onChange={e => setUserTargetSize(Number(e.target.value) || 20)}
+                                                                            style={{ width: '100%', padding: '8px 12px', borderRadius: '10px', border: '1px solid #e2e8f0', fontSize: '14px', fontWeight: 700, outline: 'none' }}
+                                                                            placeholder="e.g. 75"
+                                                                        />
+                                                                        <span style={{ fontSize: '13px', fontWeight: 700, color: '#64748b' }}>KB</span>
+                                                                    </div>
+                                                                </div>
+                                                            </motion.div>
+                                                        </>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
+
+                                            <button
+                                                onClick={handleStartCompression}
+                                                style={{ flex: 1, padding: '16px 24px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', borderRadius: '16px', fontSize: '16px', fontWeight: 800, border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', boxShadow: '0 4px 14px rgba(99,102,241,0.3)', transition: 'transform 0.2s' }}
+                                                onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
+                                                onMouseLeave={e => e.currentTarget.style.transform = 'none'}
+                                            >
+                                                <Zap size={20} fill="currentColor" /> Compress {items.length} Image{items.length > 1 ? 's' : ''} Now
+                                            </button>
+                                        </div>
+                                    )}
+
+                                    {/* Progress Bar */}
+                                    {compressionStatus === 'COMPRESSING' && (
+                                        <div style={{ padding: '24px', background: '#fff', borderRadius: '20px', marginBottom: '20px', border: '1px solid #e2e8f0' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                                                <span style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b' }}>Compressing...</span>
+                                                <span style={{ fontSize: '14px', fontWeight: 800, color: '#6366f1' }}>{Math.round(progress)}%</span>
+                                            </div>
+                                            <div style={{ height: '10px', background: '#f1f5f9', borderRadius: '5px', overflow: 'hidden' }}>
+                                                <motion.div
+                                                    initial={{ width: 0 }}
+                                                    animate={{ width: `${progress}%` }}
+                                                    transition={{ ease: "linear", duration: 0.3 }}
+                                                    style={{ height: '100%', background: 'linear-gradient(90deg, #6366f1, #a855f7)', borderRadius: '5px' }}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+
                                     {/* Per-file results */}
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                                         {items.map((item) => {
                                             const resultKB = item.resultSize ? item.resultSize / 1024 : null;
-                                            const isSuccess = resultKB !== null && resultKB <= (targetSizeKB + 0.5);
+                                            const isSuccess = resultKB !== null && resultKB <= (userTargetSize + 0.5);
                                             const saved = item.resultSize ? ((1 - item.resultSize / item.file.size) * 100).toFixed(0) : null;
 
                                             return (
@@ -392,7 +562,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                     </div>
                                                                 </div>
                                                                 <div>
-                                                                    <p style={{ fontSize: '14px', fontWeight: 700, color: '#5b21b6' }}>Compressing to {targetSizeKB} KB…</p>
+                                                                    <p style={{ fontSize: '14px', fontWeight: 700, color: '#5b21b6' }}>Compressing to {userTargetSize} KB…</p>
                                                                     <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>Optimizing quality &amp; dimensions</p>
                                                                 </div>
                                                             </div>

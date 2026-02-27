@@ -157,7 +157,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                     position: "absolute", inset: 0, opacity: 0.04,
                     backgroundImage: "repeating-linear-gradient(0deg, #fff 0px, #fff 1px, transparent 1px, transparent 40px), repeating-linear-gradient(90deg, #fff 0px, #fff 1px, transparent 1px, transparent 40px)",
                 }} />
-                <div style={{ maxWidth: "900px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "32px", position: "relative", zIndex: 1 }}>
+                <div style={{ maxWidth: "900px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 160px), 1fr))", gap: "32px", position: "relative", zIndex: 1 }}>
                     {stats.map((s, i) => (
                         <motion.div
                             key={i}
@@ -192,7 +192,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                         </h2>
                     </div>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "24px" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px" }}>
                         {[
                             {
                                 route: '/compress-image-to-20kb', title: 'Compress to 20KB',
@@ -223,6 +223,16 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 route: '/compress-image-to-200kb', title: 'Compress to 200KB',
                                 desc: 'Heavy files to 200KB for portals requiring larger HD formats.',
                                 tags: ['HD Docs', 'Websites']
+                            },
+                            {
+                                route: '/youtube-tag-extractor', title: 'YouTube Tag Extractor',
+                                desc: 'Extract SEO-optimized tags from any YouTube video to boost your content visibility.',
+                                tags: ['SEO', 'YouTube', 'Marketing']
+                            },
+                            {
+                                route: '/stylish-couple-name-maker', title: 'Couple Name Maker',
+                                desc: 'Combine two names into a stylish, emoji-filled romantic combo for Instagram & hashtags.',
+                                tags: ['New Utility', 'Social']
                             }
                         ].map((tool, index) => (
                             <motion.div
@@ -309,7 +319,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                         </h2>
                     </div>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "24px" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "24px" }}>
                         {steps.map((s, i) => (
                             <motion.div
                                 key={i}
@@ -358,7 +368,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                         </h2>
                     </div>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "20px" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "20px" }}>
                         {features.map((f, i) => (
                             <motion.div
                                 key={i}

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
+import DynamicBlogCTA from '@/components/DynamicBlogCTA';
 
 const WP_API = 'https://api.insanenotes.in/wp-json/wp/v2';
 
@@ -151,6 +152,9 @@ export default async function BlogPostPage({ params }: Props) {
                     </div>
                 )}
 
+                {/* Top Dynamic CTA Banner */}
+                <DynamicBlogCTA categories={categories} />
+
                 {/* Blog Content */}
                 <div
                     className="blog-content prose prose-gray prose-base max-w-none"
@@ -170,15 +174,14 @@ export default async function BlogPostPage({ params }: Props) {
                     </div>
                 </div>
 
-                {/* CTA */}
-                <div className="mt-10 p-6 bg-blue-50 border border-blue-100 rounded-2xl">
-                    <h3 className="font-bold text-gray-900 mb-1">Need to compress your image?</h3>
-                    <p className="text-sm text-gray-600 mb-4">Use our free tools to resize images to 20KB, 100KB, or 200KB in seconds.</p>
-                    <Link href="/compress-image-to-20kb" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors">
-                        Compress Image Free →
-                    </Link>
+                {/* Bottom Dynamic CTA Banner */}
+                <div className="mt-8 mb-8">
+                    <DynamicBlogCTA categories={categories} />
                 </div>
             </article>
+
+            {/* Sticky Floating CTA */}
+            <DynamicBlogCTA categories={categories} variant="floating" />
         </div>
     );
 }

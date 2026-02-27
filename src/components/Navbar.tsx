@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, Image as ImageIcon, ChevronRight, Home, Wrench, BookOpen, Zap } from 'lucide-react';
+import { Menu, X, Image as ImageIcon, ChevronRight, Home, Wrench, BookOpen, Zap, Heart } from 'lucide-react';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,17 +18,23 @@ const Navbar = () => {
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden'; // Lock HTML tag too
         } else {
             document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
         }
-        return () => { document.body.style.overflow = ''; };
+        return () => {
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+        };
     }, [isOpen]);
 
     const navLinks = [
         { name: 'Home', href: '/', icon: <Home className="w-5 h-5" /> },
         { name: 'All Tools', href: '/#tools', icon: <Wrench className="w-5 h-5" /> },
         { name: 'Blog', href: '/blog', icon: <BookOpen className="w-5 h-5" /> },
-        { name: 'Image Optimizer', href: '/image-optimizer', icon: <Zap className="w-5 h-5" /> },
+        { name: 'Couple Names', href: '/stylish-couple-name-maker', icon: <Heart className="w-5 h-5" /> },
+        { name: 'YouTube Tags', href: '/youtube-tag-extractor', icon: <Zap className="w-5 h-5" /> },
     ];
 
     return (
@@ -46,7 +52,7 @@ const Navbar = () => {
                                 priority
                                 className="rounded-xl group-hover:scale-110 transition-transform duration-300"
                             />
-                            <span className="text-xl font-extrabold tracking-tight text-gray-900">
+                            <span className="text-[1.1rem] sm:text-xl font-extrabold tracking-tight text-gray-900">
                                 SmartTools<span className="text-gradient">Wala</span>
                             </span>
                         </Link>
@@ -119,7 +125,7 @@ const Navbar = () => {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 20px', borderBottom: '1px solid #f1f5f9' }}>
                     <Link href="/" onClick={() => setIsOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
                         <Image src="/logo.svg" alt="SmartToolsWala Logo" width={32} height={32} style={{ borderRadius: '10px' }} />
-                        <span style={{ fontSize: '16px', fontWeight: 800, color: '#111827' }}>
+                        <span style={{ fontSize: '15px', fontWeight: 800, color: '#111827' }}>
                             SmartTools<span style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Wala</span>
                         </span>
                     </Link>

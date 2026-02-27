@@ -1,0 +1,4 @@
+C:\Users\AMARJEET\.gemini\antigravity\playground\OUR LIFE\next-app\src\app\compress-image-to-20kb\ClientCompressor.tsx :: @typescript-eslint/no-unused-vars :: 'HelpCircle' is defined but never used.
+C:\Users\AMARJEET\.gemini\antigravity\playground\OUR LIFE\next-app\src\app\compress-image-to-20kb\ClientCompressor.tsx :: @typescript-eslint/no-unused-vars :: 'FileText' is defined but never used.
+C:\Users\AMARJEET\.gemini\antigravity\playground\OUR LIFE\next-app\src\app\compress-image-to-20kb\ClientCompressor.tsx :: react/no-unescaped-entities :: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`.
+C:\Users\AMARJEET\.gemini\antigravity\playground\OUR LIFE\next-app\src\components\GenericCompressorClient.tsx :: react-hooks/exhaustive-deps :: React Hook useCallback has a missing dependency: 'handleFile'. Either include it or remove the dependency array.

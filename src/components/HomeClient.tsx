@@ -210,7 +210,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 tags: ['General', 'High Quality']
                             },
                             {
-                                route: '/mb-to-kb-image-converter', title: 'MB to KB Converter',
+                                route: '/mb-to-kb-converter', title: 'MB to KB Converter',
                                 desc: 'Shrink massive megabyte photos down to optimized kilobytes instantly.',
                                 tags: ['Universal', 'Smart Convert']
                             },

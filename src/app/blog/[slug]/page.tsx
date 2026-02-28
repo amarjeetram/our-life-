@@ -4,6 +4,9 @@ import { notFound } from 'next/navigation';
 import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
 import DynamicBlogCTA from '@/components/DynamicBlogCTA';
 
+export const dynamicParams = true;
+export const revalidate = 3600;
+
 const WP_API = 'https://api.insanenotes.in/wp-json/wp/v2';
 
 interface WPPost {

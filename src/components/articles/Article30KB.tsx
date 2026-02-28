@@ -68,7 +68,7 @@ export default function Article30KB() {
                     <li className="pl-0"><Link href="/compress-image-to-50kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress to 50KB</Link></li>
                     <li className="pl-0"><Link href="/compress-image-to-100kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress to 100KB</Link></li>
                     <li className="pl-0"><Link href="/compress-image-to-200kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress to 200KB</Link></li>
-                    <li className="pl-0 sm:col-span-2"><Link href="/mb-to-kb-image-converter" className="text-indigo-600 hover:text-indigo-800 font-bold no-underline flex items-center gap-2 transition-colors"><span>→</span> Universal MB to KB Converter</Link></li>
+                    <li className="pl-0 sm:col-span-2"><Link href="/mb-to-kb-converter" className="text-indigo-600 hover:text-indigo-800 font-bold no-underline flex items-center gap-2 transition-colors"><span>→</span> Universal MB to KB Converter</Link></li>
                 </ul>
             </div>
         </div>

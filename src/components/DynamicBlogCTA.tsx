@@ -127,7 +127,7 @@ export default function DynamicBlogCTA({ categories = [], variant = "block" }: P
             title: "MB to KB Image Converter",
             subtitle: "Got a huge multi-megabyte photo? Shrink it down to kilobytes in one swift click.",
             buttonText: "Open MB to KB Converter",
-            buttonLink: "/mb-to-kb-image-converter",
+            buttonLink: "/mb-to-kb-converter",
             icon: <Zap size={22} />,
             gradient: "linear-gradient(135deg, #f59e0b, #d97706)", // Amber
             badge: "Smart Converter"

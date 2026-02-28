@@ -4,11 +4,11 @@ import SEOBottomSection from '@/components/SEOBottomSection';
 import ArticleMBtoKB from '@/components/articles/ArticleMBtoKB';
 
 export const metadata: Metadata = {
-    title: 'MB to KB Image Converter Online Free – Fast Photo Compressor',
-    description: 'Free MB to KB converter online. Reduce photo MB to KB quickly and securely. Convert any large image file to KB without losing quality.',
-    keywords: 'mb to kb conveter, mb to kb converter, mb to kb, photo mb to kb, photo mb to kb converter, convert mb to kb, mb to kb conveter jpg',
+    title: 'MB to KB Converter Online Free – Fast Compressor',
+    description: 'Free MB to KB converter online. Reduce MB to KB quickly and securely. Convert any large file to KB without losing quality.',
+    keywords: 'mb to kb conveter, mb to kb converter, mb to kb, mb to kb converter, convert mb to kb, mb to kb conveter jpg',
     alternates: {
-        canonical: 'https://smarttoolswala.com/mb-to-kb-image-converter',
+        canonical: 'https://smarttoolswala.com/mb-to-kb-converter',
     },
 };
 
@@ -21,9 +21,9 @@ export default function Page() {
                     __html: JSON.stringify({
                         "@context": "https://schema.org",
                         "@type": "WebApplication",
-                        "name": "MB to KB Image Converter",
-                        "url": "https://smarttoolswala.com/mb-to-kb-image-converter",
-                        "description": "Convert photo MB to KB. A versatile image compressor designed to handle megabytes and safely shrink them to kilobytes.",
+                        "name": "MB to KB Converter",
+                        "url": "https://smarttoolswala.com/mb-to-kb-converter",
+                        "description": "Convert MB to KB. A versatile compressor designed to handle megabytes and safely shrink them to kilobytes.",
                         "applicationCategory": "Utility",
                         "operatingSystem": "All",
                         "browserRequirements": "Requires JavaScript",
@@ -37,11 +37,11 @@ export default function Page() {
             />
             <CompressImageClient
                 targetSizeKB={100}
-                titleOverride={<>MB to KB Image <span style={{
+                titleOverride={<>MB to KB <span style={{
                     background: 'linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7)',
                     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
                 }}>Converter</span></>}
-                subtitleOverride="Use our MB to KB converter to convert MB to KB instantly. Photo MB to KB conversion reduces large images into optimized kilobyte sizes for faster uploads."
+                subtitleOverride="Use our MB to KB converter to convert MB to KB instantly. MB to KB conversion reduces large sizes into optimized kilobyte sizes for faster uploads."
             >
                 <SEOBottomSection
                     keyword="mb to kb converter"

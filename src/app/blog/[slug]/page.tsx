@@ -31,10 +31,15 @@ interface Props {
 
 async function getPost(slug: string): Promise<WPPost | null> {
     try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
         const res = await fetch(
             `${WP_API}/posts?_embed=1&slug=${slug}`,
-            { next: { revalidate: 3600 } }
+            { next: { revalidate: 3600 }, signal: controller.signal }
         );
+        clearTimeout(timeoutId);
+
         if (!res.ok) return null;
         const posts = await res.json();
         return posts[0] || null;
@@ -45,7 +50,15 @@ async function getPost(slug: string): Promise<WPPost | null> {
 
 async function getAllSlugs(): Promise<{ slug: string }[]> {
     try {
-        const res = await fetch(`${WP_API}/posts?per_page=50&_fields=slug`, { next: { revalidate: 3600 } });
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+        const res = await fetch(`${WP_API}/posts?per_page=50&_fields=slug`, {
+            next: { revalidate: 3600 },
+            signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+
         if (!res.ok) return [];
         return res.json();
     } catch {

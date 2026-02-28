@@ -27,9 +27,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
 
     try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
         const res = await fetch(`${WP_API}/posts?_fields=slug,modified&per_page=100`, {
-            next: { revalidate: 3600 } // Revalidate every hour
+            next: { revalidate: 3600 },
+            signal: controller.signal
         });
+        clearTimeout(timeoutId);
 
         if (res.ok) {
             const posts = await res.json();

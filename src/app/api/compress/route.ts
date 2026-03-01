@@ -49,7 +49,6 @@ export async function POST(req: NextRequest) {
         // Step 1: Binary search on quality (80 -> 5)
         let low = 5, high = 85;
         outputBuffer = await sharp(buffer)
-            .withMetadata({})
             .jpeg({ quality: high, progressive: true, mozjpeg: true })
             .toBuffer();
 
@@ -59,7 +58,6 @@ export async function POST(req: NextRequest) {
             while (low < high - 1) {
                 quality = Math.floor((low + high) / 2);
                 outputBuffer = await sharp(buffer)
-                    .withMetadata({})
                     .jpeg({ quality, progressive: true, mozjpeg: true })
                     .toBuffer();
 
@@ -70,7 +68,6 @@ export async function POST(req: NextRequest) {
                 }
             }
             outputBuffer = await sharp(buffer)
-                .withMetadata({})
                 .jpeg({ quality: low, progressive: true, mozjpeg: true })
                 .toBuffer();
         }
@@ -83,7 +80,6 @@ export async function POST(req: NextRequest) {
                 const newWidth = Math.max(100, Math.floor(originalWidth * scaleFactor));
                 outputBuffer = await sharp(buffer)
                     .resize({ width: newWidth, withoutEnlargement: true })
-                    .withMetadata({})
                     .jpeg({ quality: 40, progressive: true, mozjpeg: true })
                     .toBuffer();
                 scaleFactor -= 0.1;

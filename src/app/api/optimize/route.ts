@@ -13,8 +13,8 @@ export async function POST(req: NextRequest) {
         }
 
         const buffer = Buffer.from(await file.arrayBuffer());
-        // Strip all metadata (EXIF, GPS, etc.) for privacy
-        let pipeline = sharp(buffer).withMetadata({});
+        // Strip all metadata (EXIF, GPS, etc.) for privacy by not including it
+        let pipeline = sharp(buffer);
 
         if (format === 'jpeg' || format === 'jpg') {
             pipeline = pipeline.jpeg({ quality, progressive: true, mozjpeg: true });

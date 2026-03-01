@@ -13,6 +13,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { url: `${baseUrl}/compress-image-to-50kb`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 },
         { url: `${baseUrl}/compress-image-to-100kb`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 },
         { url: `${baseUrl}/compress-image-to-200kb`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${baseUrl}/resize-image-to-100kb`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 },
         { url: `${baseUrl}/mb-to-kb-converter`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 },
         { url: `${baseUrl}/stylish-couple-name-maker`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 },
         { url: `${baseUrl}/blog`, lastModified: currentDate, changeFrequency: 'daily', priority: 0.8 },
@@ -24,6 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { url: `${baseUrl}/shipping-policy`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.3 },
         { url: `${baseUrl}/cancellation-and-refund`, lastModified: currentDate, changeFrequency: 'monthly', priority: 0.3 },
         { url: `${baseUrl}/youtube-tag-extractor`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${baseUrl}/blog/reduce-image-size-to-200kb`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.8 },
     ];
 
     try {

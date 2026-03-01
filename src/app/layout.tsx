@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import Navbar from "../components/Navbar";
@@ -81,14 +82,20 @@ export default function RootLayout({
             })
           }}
         />
-        <ClientToaster />
+        <Suspense fallback={null}>
+          <ClientToaster />
+        </Suspense>
         <Navbar />
-        <ClientDropZone />
+        <Suspense fallback={null}>
+          <ClientDropZone />
+        </Suspense>
         <main>
           {children}
         </main>
         <Footer />
-        <GoogleAnalytics gaId="G-L992WKXBPV" />
+        <Suspense fallback={null}>
+          <GoogleAnalytics gaId="G-L992WKXBPV" />
+        </Suspense>
       </body>
     </html>
   );

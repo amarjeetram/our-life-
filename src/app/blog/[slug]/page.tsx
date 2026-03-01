@@ -48,6 +48,7 @@ async function getPost(slug: string): Promise<WPPost | null> {
     }
 }
 
+
 async function getAllSlugs(): Promise<{ slug: string }[]> {
     try {
         const controller = new AbortController();
@@ -66,6 +67,25 @@ async function getAllSlugs(): Promise<{ slug: string }[]> {
     }
 }
 
+async function getLatestPosts(excludeSlug: string): Promise<WPPost[]> {
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+
+        const res = await fetch(
+            `${WP_API}/posts?_embed=1&per_page=7`,
+            { next: { revalidate: 3600 }, signal: controller.signal }
+        );
+        clearTimeout(timeoutId);
+
+        if (!res.ok) return [];
+        const posts: WPPost[] = await res.json();
+        return posts.filter(post => post.slug !== excludeSlug).slice(0, 6);
+    } catch {
+        return [];
+    }
+}
+
 export async function generateStaticParams() {
     const posts = await getAllSlugs();
     return posts.map((p) => ({ slug: p.slug }));
@@ -76,15 +96,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const post = await getPost(slug);
     if (!post) return { title: 'Post Not Found' };
 
-    const title = post.title.rendered.replace(/<[^>]+>/g, '');
-    const description = post.excerpt.rendered.replace(/<[^>]+>/g, '').slice(0, 160);
+    // Decode HTML entities in title if WP sends them (e.g. &#8211; for dash)
+    let originalTitle = post.title.rendered.replace(/<[^>]+>/g, '');
+    const isTruncated = originalTitle.endsWith('[&amp;hellip;]') || originalTitle.endsWith('[...]');
+    if (isTruncated) {
+        // Fallback: If WP API is already truncating it, try to fetch full from somewhere else or just clean it up
+        originalTitle = originalTitle.replace(/\[&amp;hellip;\]/g, '').replace(/\[\.\.\.\]/g, '').trim();
+    }
+
+    // Sometimes yoast/rankmath puts the full title in the yoast_head or similar. 
+    // But working with standard WP REST API, title shouldn't be truncated unless it's the excerpt.
+    // Let's make sure we are definitely using title, not excerpt.
+
+    const description = post.excerpt.rendered
+        .replace(/<[^>]+>/g, '') // Remove HTML tags
+        .replace(/\[&hellip;\]/g, '...') // Replace WP's [&hellip;] with standard ellipsis
+        .slice(0, 160);
+
+    const keywords = post._embedded?.['wp:term']?.[1]?.map(tag => tag.name) || [];
 
     return {
-        title: `${title} | SmartToolsWala Blog`,
+        title: originalTitle, // Layout auto-appends " | SmartToolsWala"
         description,
+        keywords,
         alternates: { canonical: `https://smarttoolswala.com/blog/${slug}` },
         openGraph: {
-            title,
+            title: originalTitle, // Use full title for OG
             description,
             images: post._embedded?.['wp:featuredmedia']?.[0]?.source_url
                 ? [post._embedded['wp:featuredmedia'][0].source_url]
@@ -110,13 +147,40 @@ export default async function BlogPostPage({ params }: Props) {
 
     if (!post) notFound();
 
+    const latestPosts = await getLatestPosts(slug);
+
     const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
     const authorName = post._embedded?.author?.[0]?.name || 'SmartToolsWala';
     const categories = post._embedded?.['wp:term']?.[0] || [];
     const mins = readingTime(post.content.rendered);
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": post.title.rendered.replace(/<[^>]+>/g, ''),
+        "datePublished": new Date(post.date).toISOString(),
+        "dateModified": new Date(post.modified).toISOString(),
+        "author": {
+            "@type": "Person",
+            "name": authorName,
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "SmartToolsWala",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://smarttoolswala.com/logo.png"
+            }
+        },
+        "image": featuredImage ? [featuredImage] : [],
+    };
+
     return (
         <div className="page-bg min-h-screen pb-16">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             {/* Back button */}
             <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-24 pb-6">
                 <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-blue-600 transition-colors font-medium">
@@ -195,6 +259,39 @@ export default async function BlogPostPage({ params }: Props) {
                     <DynamicBlogCTA categories={categories} />
                 </div>
             </article>
+
+            {/* Latest Posts Section */}
+            {latestPosts.length > 0 && (
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 my-16 border-t border-gray-100 pt-12">
+                    <h3 className="text-2xl font-extrabold text-gray-900 mb-8 border-l-4 border-blue-600 pl-4">Read Latest Articles</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {latestPosts.map((relatedPost) => {
+                            const relatedImage = relatedPost._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+                            const relatedDate = formatDate(relatedPost.date);
+
+                            return (
+                                <Link href={`/blog/${relatedPost.slug}`} key={relatedPost.id} className="group flex flex-col bg-white rounded-2xl p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all duration-300 border border-gray-100 hover:border-blue-100 hover:-translate-y-1">
+                                    {relatedImage ? (
+                                        <div className="w-full aspect-[16/10] rounded-xl bg-gray-50 overflow-hidden mb-4">
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <img src={relatedImage} alt={relatedPost.title.rendered.replace(/<[^>]+>/g, '')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" />
+                                        </div>
+                                    ) : (
+                                        <div className="w-full aspect-[16/10] rounded-xl bg-gray-50 mb-4 flex items-center justify-center text-gray-400">
+                                            <span className="text-sm font-medium">No image</span>
+                                        </div>
+                                    )}
+                                    <h4 className="font-bold text-gray-900 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors" dangerouslySetInnerHTML={{ __html: relatedPost.title.rendered }} />
+                                    <div className="mt-3 flex items-center justify-between text-xs text-gray-500 w-full mt-auto pt-2">
+                                        <span className="flex items-center gap-1.5 font-medium"><Calendar className="w-3.5 h-3.5 text-gray-400" /> {relatedDate}</span>
+                                        <span className="text-blue-600 font-medium group-hover:underline">Read →</span>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
 
             {/* Sticky Floating CTA */}
             <DynamicBlogCTA categories={categories} variant="floating" />

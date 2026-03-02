@@ -52,7 +52,7 @@ async function getPosts(): Promise<WPPost[]> {
                 id: p.id || p.slug,
                 slug: p.slug,
                 title: { rendered: p.title },
-                excerpt: { rendered: p.metaDescription || p.content.substring(0, 150) + "..." },
+                excerpt: { rendered: p.metaDescription || (p.content || "").substring(0, 150) + "..." },
                 date: dateStr,
                 featured_media: 0,
                 _embedded: {

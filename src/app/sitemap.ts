@@ -30,9 +30,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { url: `${baseUrl}/blog/reduce-image-size-to-200kb`, lastModified: currentDate, changeFrequency: 'weekly', priority: 0.8 },
     ];
 
+    // 1. Fetch WordPress Posts
+    let blogRoutes: MetadataRoute.Sitemap = [];
     try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
 
         const res = await fetch(`${WP_API}/posts?_fields=slug,modified&per_page=100`, {
             next: { revalidate: 3600 },
@@ -42,33 +44,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         if (res.ok) {
             const posts = await res.json();
-            const blogRoutes: MetadataRoute.Sitemap = posts.map((post: { slug: string; modified: string }) => ({
+            blogRoutes = posts.map((post: { slug: string; modified: string }) => ({
                 url: `${baseUrl}/blog/${post.slug}`,
                 lastModified: new Date(post.modified),
                 changeFrequency: 'weekly',
                 priority: 0.7,
             }));
-
-            // Also fetch Firestore (admin panel) posts
-            let firestoreRoutes: MetadataRoute.Sitemap = [];
-            try {
-                const firestorePosts = await getPublishedPosts();
-                firestoreRoutes = firestorePosts.map((post) => ({
-                    url: `${baseUrl}/blog/${post.slug}`,
-                    lastModified: post.updatedAt ? new Date((post.updatedAt as Timestamp).seconds * 1000) : currentDate,
-                    changeFrequency: 'weekly' as const,
-                    priority: 0.7,
-                }));
-            } catch {
-                // If Firestore is not configured yet, skip
-            }
-
-            return [...staticRoutes, ...blogRoutes, ...firestoreRoutes];
         }
     } catch (error) {
-        console.error('Error generating dynamic sitemap:', error);
+        console.error('Error fetching WP posts for sitemap:', error);
     }
 
-    // Fallback to static routes if API fetching fails entirely
-    return staticRoutes;
+    // 2. Fetch Firestore (Admin Panel) Posts
+    let firestoreRoutes: MetadataRoute.Sitemap = [];
+    try {
+        const firestorePosts = await getPublishedPosts();
+        firestoreRoutes = firestorePosts.map((post) => ({
+            url: `${baseUrl}/blog/${post.slug}`,
+            lastModified: post.updatedAt ? new Date((post.updatedAt as Timestamp).seconds * 1000) : currentDate,
+            changeFrequency: 'weekly' as const,
+            priority: 0.7,
+        }));
+    } catch (error) {
+        console.error('Error fetching Firestore posts for sitemap:', error);
+    }
+
+    return [...staticRoutes, ...blogRoutes, ...firestoreRoutes];
 }

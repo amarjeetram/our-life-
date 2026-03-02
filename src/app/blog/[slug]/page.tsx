@@ -124,7 +124,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (!post) return { title: 'Post Not Found' };
 
     // Decode HTML entities in title if WP sends them (e.g. &#8211; for dash)
-    let originalTitle = post.title.rendered.replace(/<[^>]+>/g, '');
+    let originalTitle = (post.title?.rendered || '').replace(/<[^>]+>/g, '').trim();
+    if (!originalTitle) originalTitle = slug.replace(/-/g, ' ');
+
     const isTruncated = originalTitle.endsWith('[&amp;hellip;]') || originalTitle.endsWith('[...]');
     if (isTruncated) {
         // Fallback: If WP API is already truncating it, try to fetch full from somewhere else or just clean it up
@@ -135,25 +137,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     // But working with standard WP REST API, title shouldn't be truncated unless it's the excerpt.
     // Let's make sure we are definitely using title, not excerpt.
 
-    const description = post.excerpt.rendered
+    const rawExcerpt = post.excerpt?.rendered || post.content?.rendered || '';
+    const description = rawExcerpt
         .replace(/<[^>]+>/g, '') // Remove HTML tags
         .replace(/\[&hellip;\]/g, '...') // Replace WP's [&hellip;] with standard ellipsis
+        .trim()
         .slice(0, 160);
 
     const keywords = post._embedded?.['wp:term']?.[1]?.map(tag => tag.name) || [];
 
+    // Construct Canonical URL explicitly ensuring no trailing slashes or weird characters
+    const canonicalUrl = `https://smarttoolswala.com/blog/${slug}`;
+
     return {
         title: originalTitle, // Layout auto-appends " | SmartToolsWala"
-        description,
+        description: description || originalTitle,
         keywords,
-        alternates: { canonical: `https://smarttoolswala.com/blog/${slug}` },
+        alternates: { canonical: canonicalUrl },
         openGraph: {
             title: originalTitle, // Use full title for OG
-            description,
+            description: description || originalTitle,
+            url: canonicalUrl,
             images: post._embedded?.['wp:featuredmedia']?.[0]?.source_url
                 ? [post._embedded['wp:featuredmedia'][0].source_url]
                 : [],
+            type: 'article',
         },
+        twitter: {
+            card: 'summary_large_image',
+            title: originalTitle,
+            description: description || originalTitle,
+        }
     };
 }
 

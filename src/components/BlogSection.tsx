@@ -1,58 +1,30 @@
 // Server Component — NO "use client"
 import Link from 'next/link';
 import { ArrowRight, BookOpen, Calendar } from 'lucide-react';
-import { getPublishedPosts } from '@/lib/firebase/firestore';
-
-interface WPPost {
-    id: number | string;
-    slug: string;
-    title: { rendered: string };
-    excerpt: { rendered: string };
-    date: string;
-    _embedded?: {
-        'wp:featuredmedia'?: Array<{ source_url: string }>;
-    };
-}
 
 function formatDate(dateStr: string) {
     return new Date(dateStr).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
-export default async function BlogSection() {
-    let wpPosts: WPPost[] = [];
-    try {
-        const res = await fetch(
-            'https://api.insanenotes.in/wp-json/wp/v2/posts?_embed=1&per_page=3',
-            { next: { revalidate: 3600 } }
-        );
-        if (res.ok) wpPosts = await res.json();
-    } catch { /* silently fail */ }
-
-    let fbPosts: WPPost[] = [];
-    try {
-        const publishedFb = await getPublishedPosts();
-        fbPosts = publishedFb.map((p) => {
-            const dateStr = p.createdAt && (p.createdAt as any).seconds
-                ? new Date((p.createdAt as any).seconds * 1000).toISOString()
-                : new Date().toISOString();
-
-            return {
-                id: p.id || p.slug,
-                slug: p.slug,
-                title: { rendered: p.title },
-                excerpt: { rendered: p.metaDescription || p.content.substring(0, 150) + "..." },
-                date: dateStr,
-                featured_media: 0,
-                _embedded: {
-                    'wp:featuredmedia': p.thumbnailUrl ? [{ source_url: p.thumbnailUrl }] : undefined,
-                }
-            } as any;
-        });
-    } catch { }
-
-    const allPosts = [...fbPosts, ...wpPosts];
-    allPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-    const posts = allPosts.slice(0, 3);
+export default function BlogSection() {
+    const posts = [
+        {
+            id: 'stylish-couple-name-maker-with-meaning-find-unique-names-with-romantic-significance',
+            slug: 'stylish-couple-name-maker-with-meaning-find-unique-names-with-romantic-significance',
+            title: { rendered: 'Stylish Couple Name Maker with Meaning – Find Unique Names with Romantic Significance' },
+            excerpt: { rendered: 'Combine two names to generate a stylish, romantic couple name instantly for Instagram or weddings! Love is not just an emotion; it is an identity that two people build together.' },
+            date: '2026-01-19T00:00:00Z',
+            _embedded: {}
+        },
+        {
+            id: 'reduce-image-size-to-200kb',
+            slug: 'reduce-image-size-to-200kb',
+            title: { rendered: 'Reduce Image Size to 200KB Online Free | High Quality Compression' },
+            excerpt: { rendered: 'Need to reduce your image size to exactly 200KB or less for online forms? Discover the fastest, free online tool to compress JPG, PNG, and WEBP files without losing quality.' },
+            date: '2026-03-01T12:00:00Z',
+            _embedded: {}
+        }
+    ];
 
     if (posts.length === 0) return null;
 
@@ -85,7 +57,6 @@ export default async function BlogSection() {
                 {/* Cards Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     {posts.map((post, idx) => {
-                        const img = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
                         const excerpt = post.excerpt.rendered.replace(/<[^>]+>/g, '').slice(0, 110) + '...';
                         const isFeatured = idx === 0;
 
@@ -97,21 +68,9 @@ export default async function BlogSection() {
                             >
                                 {/* Image */}
                                 <div className="relative h-44 bg-gradient-to-br from-indigo-50 to-purple-50 overflow-hidden flex-shrink-0">
-                                    {img ? (
-                                        // eslint-disable-next-line @next/next/no-img-element
-                                        <img
-                                            src={img}
-                                            alt=""
-                                            loading="lazy"
-                                            decoding="async"
-                                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center">
-                                            <BookOpen className="w-10 h-10 text-indigo-200" />
-                                        </div>
-                                    )}
-                                    {/* Gradient overlay at bottom */}
+                                    <div className="w-full h-full flex items-center justify-center">
+                                        <BookOpen className="w-10 h-10 text-indigo-200" />
+                                    </div>
                                     <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white/30 to-transparent" />
                                     {isFeatured && (
                                         <span className="absolute top-3 left-3 px-2.5 py-1 bg-indigo-600 text-white text-[10px] font-bold rounded-full uppercase tracking-wide shadow">

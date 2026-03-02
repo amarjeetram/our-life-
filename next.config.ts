@@ -4,19 +4,9 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "api.insanenotes.in",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "firebasestorage.googleapis.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "*.firebasestorage.app",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'api.insanenotes.in',
+        pathname: '/**',
       },
     ],
     formats: ["image/avif", "image/webp"],

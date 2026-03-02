@@ -1,23 +1,7 @@
-import Link from 'next/link';
 import { Metadata } from 'next';
-import { BookOpen, Clock, TrendingUp, ArrowRight } from 'lucide-react';
+import { BookOpen, Clock, TrendingUp } from 'lucide-react';
 import { FeaturedCard, BlogCards } from '@/components/BlogCards';
-import { getPublishedPosts } from '@/lib/firebase/firestore';
-
-const WP_API = 'https://api.insanenotes.in/wp-json/wp/v2';
-
-interface WPPost {
-    id: number | string;
-    slug: string;
-    title: { rendered: string };
-    excerpt: { rendered: string };
-    date: string;
-    featured_media: number;
-    _embedded?: {
-        'wp:featuredmedia'?: Array<{ source_url: string; alt_text: string }>;
-        author?: Array<{ name: string }>;
-    };
-}
+import { fetchPosts, type WPPost } from '@/lib/wordpress';
 
 export const metadata: Metadata = {
     title: 'Blog - Image Compression Tips & Guides | SmartToolsWala',
@@ -25,55 +9,15 @@ export const metadata: Metadata = {
     alternates: { canonical: 'https://smarttoolswala.com/blog' },
 };
 
-async function getPosts(): Promise<WPPost[]> {
-    let wpPosts: WPPost[] = [];
-    try {
-        const res = await fetch(`${WP_API}/posts?_embed&per_page=12`, {
-            next: { revalidate: 3600 } // Cache for 1 hour
-        });
-        if (res.ok) {
-            wpPosts = await res.json();
-        } else {
-            console.error('Failed to fetch WordPress posts:', res.statusText);
-        }
-    } catch (error) {
-        console.error('Error fetching WordPress posts:', error);
-    }
-
-    let fbPosts: WPPost[] = [];
-    try {
-        const publishedFb = await getPublishedPosts();
-        fbPosts = publishedFb.map((p) => {
-            const dateStr = p.createdAt && (p.createdAt as any).seconds
-                ? new Date((p.createdAt as any).seconds * 1000).toISOString()
-                : new Date().toISOString();
-
-            return {
-                id: p.id || p.slug,
-                slug: p.slug,
-                title: { rendered: p.title },
-                excerpt: { rendered: p.metaDescription || (p.content || "").substring(0, 150) + "..." },
-                date: dateStr,
-                featured_media: 0,
-                _embedded: {
-                    'wp:featuredmedia': p.thumbnailUrl ? [{ source_url: p.thumbnailUrl, alt_text: p.title }] : undefined,
-                    author: [{ name: 'SmartToolsWala' }],
-                }
-            } as any;
-        });
-    } catch (error) {
-        console.error('Error fetching Firebase posts:', error);
-    }
-
-    const allPosts = [...fbPosts, ...wpPosts];
-    allPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-    return allPosts;
-}
+// Revalidate this page every 1 hour (ISR)
+export const revalidate = 3600;
 
 export default async function BlogPage() {
-    const posts = await getPosts();
-    const featured = posts[0];
+    // Fetch from WordPress CMS (api.insanenotes.in)
+    const cmsPosts: WPPost[] = await fetchPosts(1, 50);
+
+    const posts = cmsPosts;
+    const featured = posts[0] ?? null;
     const rest = posts.slice(1);
 
     return (
@@ -93,20 +37,20 @@ export default async function BlogPage() {
                     padding: '6px 16px', marginBottom: '20px',
                     fontSize: '13px', fontWeight: 700, color: '#6366f1',
                 }}>
-                    <BookOpen size={14} /> Blog & Resources
+                    <BookOpen size={14} /> Blog &amp; Resources
                 </div>
                 <h1 style={{
                     fontSize: 'clamp(30px, 5vw, 52px)', fontWeight: 900,
                     color: '#0f172a', letterSpacing: '-0.04em',
                     lineHeight: 1.1, marginBottom: '16px'
                 }}>
-                    Tips, Guides &{' '}
+                    Tips, Guides &amp;{' '}
                     <span style={{ background: 'linear-gradient(135deg, #6366f1, #a855f7, #ec4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                         Tutorials
                     </span>
                 </h1>
                 <p style={{ fontSize: '17px', color: '#64748b', maxWidth: '520px', margin: '0 auto', lineHeight: 1.7 }}>
-                    Helpful articles on image compression, sizing for government forms, and web optimization. Curated for Indian students & professionals.
+                    Helpful articles on image compression, sizing for government forms, and web optimization. Curated for Indian students &amp; professionals.
                 </p>
 
                 {/* Stats */}
@@ -136,13 +80,7 @@ export default async function BlogPage() {
                             <BookOpen size={32} />
                         </div>
                         <h2 style={{ fontSize: '22px', fontWeight: 800, color: '#0f172a', marginBottom: '10px' }}>No posts yet</h2>
-                        <p style={{ color: '#94a3b8', marginBottom: '28px' }}>We&apos;re working on great content. Check back soon!</p>
-                        <Link href="/" style={{
-                            display: 'inline-flex', alignItems: 'center', gap: '8px',
-                            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                            color: '#fff', fontWeight: 700, fontSize: '14px',
-                            padding: '12px 24px', borderRadius: '12px', textDecoration: 'none'
-                        }}>← Back to Home</Link>
+                        <p style={{ color: '#94a3b8' }}>We&apos;re working on great content. Check back soon!</p>
                     </div>
                 ) : (
                     <>
@@ -153,7 +91,7 @@ export default async function BlogPage() {
                                     <div style={{ height: '3px', width: '28px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6)', borderRadius: '100px' }} />
                                     <span style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#6366f1' }}>Featured Article</span>
                                 </div>
-                                <FeaturedCard post={featured} />
+                                <FeaturedCard post={featured as any} />
                             </div>
                         )}
 
@@ -164,7 +102,7 @@ export default async function BlogPage() {
                                     <div style={{ height: '3px', width: '28px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6)', borderRadius: '100px' }} />
                                     <span style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#6366f1' }}>All Articles</span>
                                 </div>
-                                <BlogCards posts={rest} />
+                                <BlogCards posts={rest as any[]} />
                             </>
                         )}
 
@@ -179,9 +117,9 @@ export default async function BlogPage() {
                                 Compress Your Image Now
                             </h2>
                             <p style={{ fontSize: '15px', color: '#94a3b8', marginBottom: '26px' }}>
-                                Free, fast, no signup. Perfect for UPSC, SSC & banking forms.
+                                Free, fast, no signup. Perfect for UPSC, SSC &amp; banking forms.
                             </p>
-                            <Link href="/compress-image-to-20kb" style={{
+                            <a href="/compress-image-to-20kb" style={{
                                 display: 'inline-flex', alignItems: 'center', gap: '8px',
                                 background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
                                 color: '#fff', fontWeight: 800, fontSize: '15px',
@@ -189,8 +127,8 @@ export default async function BlogPage() {
                                 boxShadow: '0 4px 20px rgba(99,102,241,0.45)',
                                 textDecoration: 'none', letterSpacing: '-0.01em'
                             }}>
-                                Compress to 20KB — Free <ArrowRight size={16} />
-                            </Link>
+                                Compress to 20KB — Free →
+                            </a>
                         </div>
                     </>
                 )}

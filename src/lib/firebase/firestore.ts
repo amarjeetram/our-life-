@@ -73,8 +73,12 @@ export async function getPublishedPosts(): Promise<BlogPost[]> {
         );
         const snapshot = await getDocs(q);
 
-        // Sort manually to avoid needing a Firestore composite index
-        const posts = snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as BlogPost));
+        // Sort manually to avoid needing a Firestore composite index and strip 'content' to save bandwidth
+        const posts = snapshot.docs.map((d) => {
+            const data = d.data();
+            const { content, ...rest } = data; // strip huge Base64 content
+            return { id: d.id, ...rest } as BlogPost;
+        });
         return posts.sort((a, b) => {
             const timeA = (a.createdAt as any)?.seconds || 0;
             const timeB = (b.createdAt as any)?.seconds || 0;

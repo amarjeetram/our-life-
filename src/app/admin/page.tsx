@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getAllPosts, type BlogPost } from "@/lib/firebase/firestore";
+import { fetchAdminPostsAction, type LightBlogPost } from "@/app/admin/actions";
 import { FileText, PlusCircle, Eye, EyeOff, TrendingUp, Loader2 } from "lucide-react";
 
 function StatCard({ icon: Icon, label, value, color }: { icon: React.ElementType; label: string; value: number; color: string }) {
@@ -20,11 +20,11 @@ function StatCard({ icon: Icon, label, value, color }: { icon: React.ElementType
 }
 
 export default function AdminDashboard() {
-    const [posts, setPosts] = useState<BlogPost[]>([]);
+    const [posts, setPosts] = useState<LightBlogPost[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getAllPosts()
+        fetchAdminPostsAction()
             .then((data) => {
                 setPosts(data);
                 setLoading(false);

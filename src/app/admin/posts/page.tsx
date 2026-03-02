@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getAllPosts, deletePost, type BlogPost } from "@/lib/firebase/firestore";
+import { deletePost } from "@/lib/firebase/firestore";
+import { fetchAdminPostsAction, type LightBlogPost } from "@/app/admin/actions";
 import { Loader2, PlusCircle, Edit2, Trash2, Eye, EyeOff, Search } from "lucide-react";
 
 export default function AdminPostsPage() {
-    const [posts, setPosts] = useState<BlogPost[]>([]);
+    const [posts, setPosts] = useState<LightBlogPost[]>([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [deleting, setDeleting] = useState<string | null>(null);
@@ -14,7 +15,7 @@ export default function AdminPostsPage() {
     const loadPosts = async () => {
         setLoading(true);
         try {
-            const data = await getAllPosts();
+            const data = await fetchAdminPostsAction();
             setPosts(data);
         } catch (err) {
             console.error("Error loading posts:", err);

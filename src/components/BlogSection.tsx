@@ -1,9 +1,10 @@
 // Server Component — NO "use client"
 import Link from 'next/link';
 import { ArrowRight, BookOpen, Calendar } from 'lucide-react';
+import { getPublishedPosts } from '@/lib/firebase/firestore';
 
 interface WPPost {
-    id: number;
+    id: number | string;
     slug: string;
     title: { rendered: string };
     excerpt: { rendered: string };
@@ -18,14 +19,40 @@ function formatDate(dateStr: string) {
 }
 
 export default async function BlogSection() {
-    let posts: WPPost[] = [];
+    let wpPosts: WPPost[] = [];
     try {
         const res = await fetch(
-            'https://api.insanenotes.in/wp-json/wp/v2/posts?_embed=1&per_page=3&_fields=id,slug,title,excerpt,date,featured_media,_links',
+            'https://api.insanenotes.in/wp-json/wp/v2/posts?_embed=1&per_page=3',
             { next: { revalidate: 3600 } }
         );
-        if (res.ok) posts = await res.json();
+        if (res.ok) wpPosts = await res.json();
     } catch { /* silently fail */ }
+
+    let fbPosts: WPPost[] = [];
+    try {
+        const publishedFb = await getPublishedPosts();
+        fbPosts = publishedFb.map((p) => {
+            const dateStr = p.createdAt && (p.createdAt as any).seconds
+                ? new Date((p.createdAt as any).seconds * 1000).toISOString()
+                : new Date().toISOString();
+
+            return {
+                id: p.id || p.slug,
+                slug: p.slug,
+                title: { rendered: p.title },
+                excerpt: { rendered: p.metaDescription || p.content.substring(0, 150) + "..." },
+                date: dateStr,
+                featured_media: 0,
+                _embedded: {
+                    'wp:featuredmedia': p.thumbnailUrl ? [{ source_url: p.thumbnailUrl }] : undefined,
+                }
+            } as any;
+        });
+    } catch { }
+
+    const allPosts = [...fbPosts, ...wpPosts];
+    allPosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const posts = allPosts.slice(0, 3);
 
     if (posts.length === 0) return null;
 

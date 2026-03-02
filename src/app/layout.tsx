@@ -2,10 +2,8 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import "./globals.css";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import SiteShell from "../components/SiteShell";
 import ClientToaster from "../components/ClientToaster";
-import ClientDropZone from "../components/ClientDropZone";
 import { GoogleAnalytics } from '@next/third-parties/google';
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -62,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`scroll-smooth ${inter.variable} ${jakarta.variable}`}>
+    <html lang="en" className={`scroll-smooth ${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <head>
       </head>
       <body className="antialiased" suppressHydrationWarning>
@@ -85,14 +83,9 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <ClientToaster />
         </Suspense>
-        <Navbar />
-        <Suspense fallback={null}>
-          <ClientDropZone />
-        </Suspense>
-        <main>
+        <SiteShell>
           {children}
-        </main>
-        <Footer />
+        </SiteShell>
         <Suspense fallback={null}>
           <GoogleAnalytics gaId="G-L992WKXBPV" />
         </Suspense>

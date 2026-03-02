@@ -1,16 +1,18 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
 import DynamicBlogCTA from '@/components/DynamicBlogCTA';
+import { getPostBySlug, getPublishedPosts } from '@/lib/firebase/firestore';
 
 export const dynamicParams = true;
-export const revalidate = 3600;
+export const revalidate = 7200; // Cache for 2 hours
 
 const WP_API = 'https://api.insanenotes.in/wp-json/wp/v2';
 
 interface WPPost {
-    id: number;
+    id: number | string;
     slug: string;
     title: { rendered: string };
     content: { rendered: string };
@@ -29,17 +31,41 @@ interface Props {
     params: Promise<{ slug: string }>;
 }
 
+function mapFirebaseToWP(fbPost: any): WPPost {
+    const dateStr = fbPost.createdAt && fbPost.createdAt.seconds
+        ? new Date(fbPost.createdAt.seconds * 1000).toISOString()
+        : new Date().toISOString();
+    return {
+        id: fbPost.id || fbPost.slug,
+        slug: fbPost.slug,
+        title: { rendered: fbPost.title },
+        content: { rendered: fbPost.content },
+        excerpt: { rendered: fbPost.metaDescription || fbPost.content.substring(0, 150) },
+        date: dateStr,
+        modified: dateStr,
+        featured_media: 0,
+        _embedded: {
+            'wp:featuredmedia': fbPost.thumbnailUrl ? [{ source_url: fbPost.thumbnailUrl, alt_text: fbPost.title }] : undefined,
+            author: [{ name: 'SmartToolsWala', description: 'Admin' }],
+            'wp:term': [fbPost.tags ? fbPost.tags.map((t: string) => ({ name: t, slug: t.toLowerCase() })) : []],
+        }
+    };
+}
+
 async function getPost(slug: string): Promise<WPPost | null> {
+    // 1. Try Firebase First
     try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000);
+        const fbPost = await getPostBySlug(slug);
+        if (fbPost && fbPost.status === 'PUBLISHED') {
+            return mapFirebaseToWP(fbPost);
+        }
+    } catch (e) {
+        console.error('Error fetching fb post', e);
+    }
 
-        const res = await fetch(
-            `${WP_API}/posts?_embed=1&slug=${slug}`,
-            { next: { revalidate: 3600 }, signal: controller.signal }
-        );
-        clearTimeout(timeoutId);
-
+    // 2. Fallback to WP API
+    try {
+        const res = await fetch(`${WP_API}/posts?_embed=1&slug=${slug}`, { next: { revalidate: 3600 } });
         if (!res.ok) return null;
         const posts = await res.json();
         return posts[0] || null;
@@ -48,42 +74,43 @@ async function getPost(slug: string): Promise<WPPost | null> {
     }
 }
 
-
 async function getAllSlugs(): Promise<{ slug: string }[]> {
+    let slugs: { slug: string }[] = [];
     try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000);
+        const fbPosts = await getPublishedPosts();
+        slugs = fbPosts.map(p => ({ slug: p.slug }));
+    } catch (e) { }
 
-        const res = await fetch(`${WP_API}/posts?per_page=50&_fields=slug`, {
-            next: { revalidate: 3600 },
-            signal: controller.signal
-        });
-        clearTimeout(timeoutId);
+    try {
+        const res = await fetch(`${WP_API}/posts?per_page=50&_fields=slug`, { next: { revalidate: 3600 } });
+        if (res.ok) {
+            const wpSlugs = await res.json();
+            slugs = [...slugs, ...wpSlugs];
+        }
+    } catch (e) { }
 
-        if (!res.ok) return [];
-        return res.json();
-    } catch {
-        return [];
-    }
+    return slugs;
 }
 
 async function getLatestPosts(excludeSlug: string): Promise<WPPost[]> {
+    let fbPosts: WPPost[] = [];
     try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000);
+        const rawFb = await getPublishedPosts();
+        fbPosts = rawFb.filter(p => p.slug !== excludeSlug).map(mapFirebaseToWP);
+    } catch (e) { }
 
-        const res = await fetch(
-            `${WP_API}/posts?_embed=1&per_page=7`,
-            { next: { revalidate: 3600 }, signal: controller.signal }
-        );
-        clearTimeout(timeoutId);
+    let wpPosts: WPPost[] = [];
+    try {
+        const res = await fetch(`${WP_API}/posts?_embed=1&per_page=7`, { next: { revalidate: 3600 } });
+        if (res.ok) {
+            const posts = await res.json();
+            wpPosts = posts.filter((p: WPPost) => p.slug !== excludeSlug);
+        }
+    } catch (e) { }
 
-        if (!res.ok) return [];
-        const posts: WPPost[] = await res.json();
-        return posts.filter(post => post.slug !== excludeSlug).slice(0, 6);
-    } catch {
-        return [];
-    }
+    const all = [...fbPosts, ...wpPosts];
+    all.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    return all.slice(0, 6);
 }
 
 export async function generateStaticParams() {
@@ -222,12 +249,14 @@ export default async function BlogPostPage({ params }: Props) {
 
                 {/* Featured Image */}
                 {featuredImage && (
-                    <div className="rounded-2xl overflow-hidden mb-8 shadow-sm">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                    <div className="rounded-2xl overflow-hidden mb-8 shadow-sm relative w-full" style={{ aspectRatio: '16/9' }}>
+                        <Image
                             src={featuredImage}
                             alt={post.title.rendered.replace(/<[^>]+>/g, '')}
-                            className="w-full h-auto max-h-96 object-cover"
+                            fill
+                            priority
+                            sizes="(max-width: 768px) 100vw, 768px"
+                            className="object-cover"
                         />
                     </div>
                 )}
@@ -272,9 +301,15 @@ export default async function BlogPostPage({ params }: Props) {
                             return (
                                 <Link href={`/blog/${relatedPost.slug}`} key={relatedPost.id} className="group flex flex-col bg-white rounded-2xl p-4 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all duration-300 border border-gray-100 hover:border-blue-100 hover:-translate-y-1">
                                     {relatedImage ? (
-                                        <div className="w-full aspect-[16/10] rounded-xl bg-gray-50 overflow-hidden mb-4">
-                                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                                            <img src={relatedImage} alt={relatedPost.title.rendered.replace(/<[^>]+>/g, '')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" />
+                                        <div className="w-full aspect-[16/10] rounded-xl bg-gray-50 overflow-hidden mb-4 relative">
+                                            <Image
+                                                src={relatedImage}
+                                                alt={relatedPost.title.rendered.replace(/<[^>]+>/g, '')}
+                                                fill
+                                                loading="lazy"
+                                                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                                className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                                            />
                                         </div>
                                     ) : (
                                         <div className="w-full aspect-[16/10] rounded-xl bg-gray-50 mb-4 flex items-center justify-center text-gray-400">

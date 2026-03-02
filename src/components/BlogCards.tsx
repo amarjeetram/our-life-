@@ -1,10 +1,11 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { Calendar, User, ArrowRight, BookOpen, Clock } from 'lucide-react';
 
 interface WPPost {
-    id: number;
+    id: number | string;
     slug: string;
     title: { rendered: string };
     excerpt: { rendered: string };
@@ -71,9 +72,14 @@ export function FeaturedCard({ post }: { post: WPPost }) {
                     style={{ background: img ? undefined : ACCENTS[0] }}
                 >
                     {img ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={img} alt={post.title.rendered}
-                            style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }} />
+                        <Image
+                            src={img}
+                            alt={post.title.rendered.replace(/<[^>]+>/g, '')}
+                            fill
+                            priority
+                            sizes="(max-width: 640px) 100vw, 50vw"
+                            style={{ objectFit: 'cover' }}
+                        />
                     ) : (
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
                             <BookOpen size={48} color="rgba(255,255,255,0.6)" />
@@ -144,11 +150,13 @@ export function BlogCards({ posts }: { posts: WPPost[] }) {
                             {/* Thumbnail */}
                             <div style={{ height: '190px', background: img ? undefined : accent, overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
                                 {img ? (
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    <img src={img} alt={post.title.rendered}
-                                        style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.4s' }}
-                                        onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.06)')}
-                                        onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
+                                    <Image
+                                        src={img}
+                                        alt={post.title.rendered.replace(/<[^>]+>/g, '')}
+                                        fill
+                                        loading="lazy"
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                        style={{ objectFit: 'cover', transition: 'transform 0.4s' }}
                                     />
                                 ) : (
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>

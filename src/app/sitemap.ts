@@ -1,4 +1,6 @@
 import { MetadataRoute } from 'next';
+import { getPublishedPosts } from '@/lib/firebase/firestore';
+import type { Timestamp } from 'firebase/firestore';
 
 const WP_API = 'https://api.insanenotes.in/wp-json/wp/v2';
 
@@ -40,14 +42,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         if (res.ok) {
             const posts = await res.json();
-            const blogRoutes: MetadataRoute.Sitemap = posts.map((post: any) => ({
+            const blogRoutes: MetadataRoute.Sitemap = posts.map((post: { slug: string; modified: string }) => ({
                 url: `${baseUrl}/blog/${post.slug}`,
                 lastModified: new Date(post.modified),
                 changeFrequency: 'weekly',
                 priority: 0.7,
             }));
 
-            return [...staticRoutes, ...blogRoutes];
+            // Also fetch Firestore (admin panel) posts
+            let firestoreRoutes: MetadataRoute.Sitemap = [];
+            try {
+                const firestorePosts = await getPublishedPosts();
+                firestoreRoutes = firestorePosts.map((post) => ({
+                    url: `${baseUrl}/blog/${post.slug}`,
+                    lastModified: post.updatedAt ? new Date((post.updatedAt as Timestamp).seconds * 1000) : currentDate,
+                    changeFrequency: 'weekly' as const,
+                    priority: 0.7,
+                }));
+            } catch {
+                // If Firestore is not configured yet, skip
+            }
+
+            return [...staticRoutes, ...blogRoutes, ...firestoreRoutes];
         }
     } catch (error) {
         console.error('Error generating dynamic sitemap:', error);

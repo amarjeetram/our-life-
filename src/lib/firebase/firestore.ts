@@ -55,35 +55,44 @@ export async function deletePost(id: string) {
 
 // Get all posts (for admin)
 export async function getAllPosts(): Promise<BlogPost[]> {
-    const q = query(collection(db, COLLECTION), orderBy("createdAt", "desc"));
-    const snapshot = await getDocs(q);
-    return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as BlogPost));
+    if (!db || !db.type) return [];
+    try {
+        const q = query(collection(db, COLLECTION), orderBy("createdAt", "desc"));
+        const snapshot = await getDocs(q);
+        return snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as BlogPost));
+    } catch { return []; }
 }
 
 // Get only published posts (for public blog)
 export async function getPublishedPosts(): Promise<BlogPost[]> {
-    const q = query(
-        collection(db, COLLECTION),
-        where("status", "==", "PUBLISHED")
-    );
-    const snapshot = await getDocs(q);
+    if (!db || !db.type) return [];
+    try {
+        const q = query(
+            collection(db, COLLECTION),
+            where("status", "==", "PUBLISHED")
+        );
+        const snapshot = await getDocs(q);
 
-    // Sort manually to avoid needing a Firestore composite index
-    const posts = snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as BlogPost));
-    return posts.sort((a, b) => {
-        const timeA = (a.createdAt as any)?.seconds || 0;
-        const timeB = (b.createdAt as any)?.seconds || 0;
-        return timeB - timeA;
-    });
+        // Sort manually to avoid needing a Firestore composite index
+        const posts = snapshot.docs.map((d) => ({ id: d.id, ...d.data() } as BlogPost));
+        return posts.sort((a, b) => {
+            const timeA = (a.createdAt as any)?.seconds || 0;
+            const timeB = (b.createdAt as any)?.seconds || 0;
+            return timeB - timeA;
+        });
+    } catch { return []; }
 }
 
 // Get post by slug
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
-    const q = query(collection(db, COLLECTION), where("slug", "==", slug));
-    const snapshot = await getDocs(q);
-    if (snapshot.empty) return null;
-    const d = snapshot.docs[0];
-    return { id: d.id, ...d.data() } as BlogPost;
+    if (!db || !db.type) return null;
+    try {
+        const q = query(collection(db, COLLECTION), where("slug", "==", slug));
+        const snapshot = await getDocs(q);
+        if (snapshot.empty) return null;
+        const d = snapshot.docs[0];
+        return { id: d.id, ...d.data() } as BlogPost;
+    } catch { return null; }
 }
 
 // Get post by ID

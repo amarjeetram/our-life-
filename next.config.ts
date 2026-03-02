@@ -1,6 +1,27 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "api.insanenotes.in",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.firebasestorage.app",
+        pathname: "/**",
+      },
+    ],
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 86400, // Cache images for 24 hours
+  },
   async redirects() {
     return [
       {

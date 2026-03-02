@@ -18,6 +18,13 @@ export default function AdminLoginPage() {
         e.preventDefault();
         setLoading(true);
         setError("");
+
+        if (!auth || Object.keys(auth).length === 0) {
+            setError("Firebase configuration is missing on the live server. Please double-check your Netlify Environment setup.");
+            setLoading(false);
+            return;
+        }
+
         try {
             await signInWithEmailAndPassword(auth, email, password);
             router.replace("/admin");

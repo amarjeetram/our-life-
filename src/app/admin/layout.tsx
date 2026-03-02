@@ -30,6 +30,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const pathname = usePathname();
 
     useEffect(() => {
+        if (!auth || Object.keys(auth).length === 0) {
+            console.error("Firebase Auth is missing. Did you add the API Keys in Netlify?");
+            if (pathname !== "/admin/login") {
+                router.replace("/admin/login");
+            }
+            setChecking(false);
+            return;
+        }
+
         const unsub = onAuthStateChanged(auth, (user) => {
             if (!user && pathname !== "/admin/login") {
                 router.replace("/admin/login");
@@ -92,8 +101,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 href={href}
                                 onClick={() => setSidebarOpen(false)}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${isActive
-                                        ? "bg-violet-600/20 text-violet-300 border border-violet-500/30 shadow-sm shadow-violet-500/10"
-                                        : "text-gray-400 hover:bg-gray-800 hover:text-white"
+                                    ? "bg-violet-600/20 text-violet-300 border border-violet-500/30 shadow-sm shadow-violet-500/10"
+                                    : "text-gray-400 hover:bg-gray-800 hover:text-white"
                                     }`}
                             >
                                 <Icon className="w-4 h-4" />

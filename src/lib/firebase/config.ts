@@ -12,12 +12,14 @@ const firebaseConfig = {
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase only if not already initialized
+// Check if API key is present before attempting to initialize
 let app;
-try {
-    app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-} catch (error) {
-    console.warn("Firebase initialization failed (probably missing env variables in build):", error);
+if (process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
+    try {
+        app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+    } catch (error) {
+        console.warn("Firebase initialization skipped:", error);
+    }
 }
 
 export const db = app ? getFirestore(app) : ({} as any);

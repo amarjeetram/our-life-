@@ -10,3 +10,14 @@
 
 [functions."*"]
   timeout = 20
+
+# Disable caching for Next.js internal chunks to prevent 404 errors during client-side hydration or routing after a new deployment
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_next/data/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import SiteShell from "../components/SiteShell";
 import ClientToaster from "../components/ClientToaster";
+import ClientDropZone from "../components/ClientDropZone";
 import { GoogleAnalytics } from '@next/third-parties/google';
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -82,6 +83,9 @@ export default function RootLayout({
         />
         <Suspense fallback={null}>
           <ClientToaster />
+        </Suspense>
+        <Suspense fallback={null}>
+          <ClientDropZone />
         </Suspense>
         <SiteShell>
           {children}

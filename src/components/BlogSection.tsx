@@ -23,6 +23,30 @@ export default function BlogSection() {
             excerpt: { rendered: 'Need to reduce your image size to exactly 200KB or less for online forms? Discover the fastest, free online tool to compress JPG, PNG, and WEBP files without losing quality.' },
             date: '2026-03-01T12:00:00Z',
             _embedded: {}
+        },
+        {
+            id: 'free-mb-to-kb-converter-online',
+            slug: 'free-mb-to-kb-converter-online',
+            title: { rendered: 'Free MB to KB Converter Online – Compress Image from MB to KB Instantly' },
+            excerpt: { rendered: 'Need a free MB to KB converter online? Compress any image from MB to KB instantly without installing any software. Perfect for government forms, bank applications, and more.' },
+            date: '2026-03-05T08:00:00Z',
+            _embedded: {}
+        },
+        {
+            id: 'mb-to-kb-converter-tool',
+            slug: 'mb-to-kb-converter-tool',
+            title: { rendered: 'MB to KB Converter Tool – Reduce Image Size from MB to KB Without Losing Quality' },
+            excerpt: { rendered: 'Use the best MB to KB converter tool to reduce your image from megabytes to exact kilobytes without quality loss. Perfect for UPSC, SSC, and banking photo uploads.' },
+            date: '2026-03-05T08:10:00Z',
+            _embedded: {}
+        },
+        {
+            id: 'photo-mb-to-kb-converter-online',
+            slug: 'photo-mb-to-kb-converter-online',
+            title: { rendered: 'Photo MB to KB Converter Online – Compress Image to Exact KB Size Free' },
+            excerpt: { rendered: 'Use our photo MB to KB converter online to compress any image to an exact KB size for free. No signup needed. Works for UPSC, SSC, bank, and college forms instantly.' },
+            date: '2026-03-05T08:20:00Z',
+            _embedded: {}
         }
     ];
 

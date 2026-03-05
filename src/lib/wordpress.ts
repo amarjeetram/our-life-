@@ -68,7 +68,7 @@ export async function fetchAllPostSlugs(): Promise<WPSlugEntry[]> {
         while (true) {
             const url = `${WP_API}/posts?fields=slug,modified&page=${page}&per_page=${perPage}&status=publish`;
             const res = await fetch(url, {
-                next: { revalidate: 3600 },
+                cache: 'no-store',
             });
             if (!res.ok) break;
 

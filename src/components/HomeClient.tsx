@@ -233,6 +233,11 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 route: '/stylish-couple-name-maker', title: 'Couple Name Maker',
                                 desc: 'Combine two names into a stylish, emoji-filled romantic combo for Instagram & hashtags.',
                                 tags: ['New Utility', 'Social']
+                            },
+                            {
+                                route: '/tnpsc-photo-compressor', title: 'TNPSC Photo Compressor',
+                                desc: 'Compress TNPSC photo to 20-50KB and signature to 10-20KB as per official TNPSC requirements.',
+                                tags: ['TNPSC', 'Tamil Nadu', 'Govt Exam']
                             }
                         ].map((tool, index) => (
                             <motion.div

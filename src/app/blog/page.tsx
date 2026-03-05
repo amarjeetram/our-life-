@@ -2,21 +2,32 @@ import { Metadata } from 'next';
 import { BookOpen, Clock, TrendingUp } from 'lucide-react';
 import { FeaturedCard, BlogCards } from '@/components/BlogCards';
 import { fetchPosts, type WPPost } from '@/lib/wordpress';
+import { STATIC_POSTS } from '@/lib/static-posts';
 
 export const metadata: Metadata = {
-    title: 'Blog - Image Compression Tips & Guides | SmartToolsWala',
-    description: 'Read our latest articles on image compression, optimization, and online tools. Learn how to reduce image size for UPSC, SSC, and more.',
+    title: 'Blog – Image Compression Tips & Guides | SmartToolsWala',
+    description: 'Read expert articles on image compression, photo resizing for TNPSC, UPSC, SSC and bank exams. Learn how to compress photos to 20KB–50KB online free.',
     alternates: { canonical: 'https://smarttoolswala.com/blog' },
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+    openGraph: {
+        title: 'Blog – Image Compression Tips & Guides',
+        description: 'Expert articles on image compression, photo resizing for TNPSC, UPSC, SSC and bank exams.',
+        url: 'https://smarttoolswala.com/blog',
+        type: 'website',
+        siteName: 'SmartToolsWala',
+    },
 };
 
-// Revalidate this page every 1 hour (ISR)
+// Revalidate every 1 hour (ISR)
 export const revalidate = 3600;
 
+
 export default async function BlogPage() {
-    // Fetch from WordPress CMS (api.insanenotes.in)
+    // Fetch from WordPress CMS and merge with static posts
     const cmsPosts: WPPost[] = await fetchPosts(1, 50);
 
-    const posts = cmsPosts;
+    // Merge: CMS posts first, then static posts (cast to any for unified rendering)
+    const posts = [...cmsPosts, ...STATIC_POSTS] as any[];
     const featured = posts[0] ?? null;
     const rest = posts.slice(1);
 

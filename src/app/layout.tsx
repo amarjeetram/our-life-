@@ -18,9 +18,6 @@ export const metadata: Metadata = {
   },
   description: "Free, fast, and SEO-optimized image tools. Compress images to 20kb, optimize for web, and convert formats with industrial Sharp engine precision.",
   keywords: ["image optimizer", "compress to 20kb", "png to jpg", "webp converter", "seo image tools", "online image compressor"],
-  alternates: {
-    canonical: '/',
-  },
   authors: [{ name: "SmartToolsWala Team" }],
   icons: {
     icon: "/logo.svg",

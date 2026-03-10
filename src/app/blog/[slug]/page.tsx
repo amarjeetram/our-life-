@@ -213,7 +213,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                 {/* Article content — fully server rendered using MDXRemote */}
                 <div className="blog-content prose prose-gray prose-base max-w-none mt-8">
-                    <MDXRemote source={post.content} />
+                    <MDXRemote source={post.content} components={{
+                        // Remap headings: MDX `#` → <h2>, `##` → <h3>, `###` → <h4>
+                        // This ensures only ONE <h1> exists on the page (the title above)
+                        h1: (props) => <h2 className="text-2xl font-bold mt-8 mb-3" {...props} />,
+                        h2: (props) => <h3 className="text-xl font-bold mt-6 mb-2" {...props} />,
+                        h3: (props) => <h4 className="text-lg font-semibold mt-4 mb-2" {...props} />,
+                        h4: (props) => <h5 className="text-base font-semibold mt-3 mb-1" {...props} />,
+                    }} />
                 </div>
 
                 {/* Footer meta */}

@@ -141,11 +141,43 @@ export default function CoupleNameClient() {
     };
 
     const handleCopy = (text: string, id: string) => {
-        navigator.clipboard.writeText(text).then(() => {
+        const onSuccess = () => {
             setCopiedId(id);
             toast.success('Copied to clipboard!', { icon: '✨' });
             setTimeout(() => setCopiedId(null), 2000);
-        });
+        };
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(onSuccess).catch(err => {
+                console.error("Clipboard API failed: ", err);
+                fallbackCopy(text, onSuccess);
+            });
+        } else {
+            fallbackCopy(text, onSuccess);
+        }
+    };
+
+    const fallbackCopy = (text: string, onSuccess: () => void) => {
+        try {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            const successful = document.execCommand('copy');
+            document.body.removeChild(textArea);
+            if (successful) {
+                onSuccess();
+            } else {
+                toast.error("Copy failed on this device.");
+            }
+        } catch (err) {
+            console.error('Fallback copy failed', err);
+            toast.error("Copy failed on this device.");
+        }
     };
 
     return (

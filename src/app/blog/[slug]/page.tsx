@@ -6,6 +6,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
 import { getPostBySlug, getAllPosts } from '@/lib/mdx';
 import FloatingCTA from '@/components/FloatingCTA';
+import CoupleNameClient from '@/components/CoupleNameClient';
 
 // EXPLICIT FORCE STATIC - Critical for fast indexing and crawling
 export const dynamic = 'force-static';
@@ -222,6 +223,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         CTAYoutubeTitle: () => <MDXInlineCTA config={TAG_CTA['cta-youtube-title']} />,
         CTAYoutubeDescription: () => <MDXInlineCTA config={TAG_CTA['cta-youtube-description']} />,
         CTACoupleName: () => <MDXInlineCTA config={TAG_CTA['cta-couple-name']} />,
+        InteractiveCoupleName: () => (
+            <div className="my-12 not-prose border border-pink-100 rounded-3xl bg-white shadow-xl overflow-hidden relative z-50">
+                <div className="bg-pink-50/50 p-4 text-center border-b border-pink-100">
+                    <span className="text-sm font-bold text-pink-600 uppercase tracking-widest">Interactive Tool</span>
+                </div>
+                <div className="p-2 sm:p-6">
+                    <CoupleNameClient />
+                </div>
+            </div>
+        )
     };
 
     return (
@@ -258,6 +269,19 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                                 <Clock className="w-4 h-4" /> {readingTime} min read
                             </span>
                         </div>
+
+                        {/* Interactive Tool Injection (Before Content/Description) */}
+                        {post.slug === 'stylish-couple-name-maker-with-meaning-find-unique-names-with-romantic-significance' && (
+                            <div className="my-10 w-full bg-white border border-pink-100 rounded-[2rem] shadow-xl overflow-hidden relative z-50 ring-4 ring-pink-50/50">
+                                <div className="bg-pink-50/80 p-5 text-center border-b border-pink-100 flex items-center justify-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></div>
+                                    <span className="text-sm font-black text-pink-600 uppercase tracking-widest">Stylish Couple Name Maker</span>
+                                </div>
+                                <div className="p-4 sm:p-8 bg-gradient-to-b from-white to-pink-50/20">
+                                    <CoupleNameClient />
+                                </div>
+                            </div>
+                        )}
 
                         {/* Description */}
                         <p className="text-xl text-slate-600 leading-relaxed font-medium mb-8">

@@ -4,9 +4,6 @@ import YoutubeDescriptionClient from '@/components/YoutubeDescriptionClient';
 import ArticleYoutubeDescription from '@/components/articles/ArticleYoutubeDescription';
 import { ArrowLeft } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
 export const metadata: Metadata = {
     title: 'YouTube Description Extractor - Auto Copy Text, Views & Tags',
     description: 'Instantly extract YouTube video titles, descriptions, views, likes, and comments for free. Improve your video SEO and content research using our online YouTube description extractor tool.',

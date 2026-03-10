@@ -6,6 +6,7 @@ import SiteShell from "../components/SiteShell";
 import ClientToaster from "../components/ClientToaster";
 import ClientDropZone from "../components/ClientDropZone";
 import Script from "next/script";
+import DeferredGTM from "../components/DeferredGTM";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap", preload: false });
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap", preload: false });
@@ -85,18 +86,10 @@ export default function RootLayout({
           <ClientDropZone />
         </Suspense>
         <SiteShell>
+          {/* GTM will be loaded via a client wrapper to defer it completely */}
           {children}
         </SiteShell>
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-L992WKXBPV" strategy="lazyOnload" />
-        <Script id="google-analytics" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){window.dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-L992WKXBPV');
-          `}
-        </Script>
+        <DeferredGTM />
       </body>
     </html>
   );

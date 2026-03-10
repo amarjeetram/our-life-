@@ -1,59 +1,22 @@
 // Server Component — NO "use client"
 import Link from 'next/link';
-import { ArrowRight, BookOpen, Calendar } from 'lucide-react';
-
-function formatDate(dateStr: string) {
-    return new Date(dateStr).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-}
+import { ArrowRight, BookOpen } from 'lucide-react';
+import { getAllPosts } from '@/lib/mdx';
+import { BlogCards, FeaturedCard } from '@/components/BlogCards';
 
 export default function BlogSection() {
-    const posts = [
-        {
-            id: 'stylish-couple-name-maker-with-meaning-find-unique-names-with-romantic-significance',
-            slug: 'stylish-couple-name-maker-with-meaning-find-unique-names-with-romantic-significance',
-            title: { rendered: 'Stylish Couple Name Maker with Meaning – Find Unique Names with Romantic Significance' },
-            excerpt: { rendered: 'Combine two names to generate a stylish, romantic couple name instantly for Instagram or weddings! Love is not just an emotion; it is an identity that two people build together.' },
-            date: '2026-01-19T00:00:00Z',
-            _embedded: {}
-        },
-        {
-            id: 'reduce-image-size-to-200kb',
-            slug: 'reduce-image-size-to-200kb',
-            title: { rendered: 'Reduce Image Size to 200KB Online Free | High Quality Compression' },
-            excerpt: { rendered: 'Need to reduce your image size to exactly 200KB or less for online forms? Discover the fastest, free online tool to compress JPG, PNG, and WEBP files without losing quality.' },
-            date: '2026-03-01T12:00:00Z',
-            _embedded: {}
-        },
-        {
-            id: 'free-mb-to-kb-converter-online',
-            slug: 'free-mb-to-kb-converter-online',
-            title: { rendered: 'Free MB to KB Converter Online – Compress Image from MB to KB Instantly' },
-            excerpt: { rendered: 'Need a free MB to KB converter online? Compress any image from MB to KB instantly without installing any software. Perfect for government forms, bank applications, and more.' },
-            date: '2026-03-05T08:00:00Z',
-            _embedded: {}
-        },
-        {
-            id: 'mb-to-kb-converter-tool',
-            slug: 'mb-to-kb-converter-tool',
-            title: { rendered: 'MB to KB Converter Tool – Reduce Image Size from MB to KB Without Losing Quality' },
-            excerpt: { rendered: 'Use the best MB to KB converter tool to reduce your image from megabytes to exact kilobytes without quality loss. Perfect for UPSC, SSC, and banking photo uploads.' },
-            date: '2026-03-05T08:10:00Z',
-            _embedded: {}
-        },
-        {
-            id: 'photo-mb-to-kb-converter-online',
-            slug: 'photo-mb-to-kb-converter-online',
-            title: { rendered: 'Photo MB to KB Converter Online – Compress Image to Exact KB Size Free' },
-            excerpt: { rendered: 'Use our photo MB to KB converter online to compress any image to an exact KB size for free. No signup needed. Works for UPSC, SSC, bank, and college forms instantly.' },
-            date: '2026-03-05T08:20:00Z',
-            _embedded: {}
-        }
-    ];
+    // Fetch live posts and slice to latest 3
+    const posts = getAllPosts().slice(0, 3);
 
+    // Fallback if no posts
     if (posts.length === 0) return null;
 
+    // Pick a featured post (latest) and the rest
+    const featured = posts[0];
+    const rest = posts.slice(1);
+
     return (
-        <section className="py-20 px-4">
+        <section className="py-20 px-4 bg-gray-50/50">
             <div className="max-w-6xl mx-auto">
 
                 {/* Section Header */}
@@ -78,59 +41,21 @@ export default function BlogSection() {
                     </Link>
                 </div>
 
-                {/* Cards Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    {posts.map((post, idx) => {
-                        const excerpt = post.excerpt.rendered.replace(/<[^>]+>/g, '').slice(0, 110) + '...';
-                        const isFeatured = idx === 0;
+                {/* Responsive Grid with Featured Card */}
+                <div className="flex flex-col gap-6">
+                    {/* The main featured card, matching the /blog page aesthetic */}
+                    <div className="w-full">
+                        <FeaturedCard post={featured} />
+                    </div>
 
-                        return (
-                            <Link
-                                key={post.id}
-                                href={`/blog/${post.slug}`}
-                                className={`group flex flex-col bg-white rounded-3xl border border-gray-200/80 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-indigo-500/8 hover:-translate-y-1 transition-all duration-300 ${isFeatured ? 'sm:col-span-1 ring-1 ring-indigo-100' : ''}`}
-                            >
-                                {/* Image */}
-                                <div className="relative h-44 bg-gradient-to-br from-indigo-50 to-purple-50 overflow-hidden flex-shrink-0">
-                                    <div className="w-full h-full flex items-center justify-center">
-                                        <BookOpen className="w-10 h-10 text-indigo-200" />
-                                    </div>
-                                    <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white/30 to-transparent" />
-                                    {isFeatured && (
-                                        <span className="absolute top-3 left-3 px-2.5 py-1 bg-indigo-600 text-white text-[10px] font-bold rounded-full uppercase tracking-wide shadow">
-                                            Featured
-                                        </span>
-                                    )}
-                                </div>
-
-                                {/* Content */}
-                                <div className="p-5 flex-1 flex flex-col gap-3">
-                                    {/* Date */}
-                                    <div className="flex items-center gap-1.5 text-gray-400 text-xs font-medium">
-                                        <Calendar className="w-3.5 h-3.5" />
-                                        {formatDate(post.date)}
-                                    </div>
-
-                                    {/* Title */}
-                                    <h3
-                                        className="text-base font-bold text-gray-900 group-hover:text-indigo-600 transition-colors leading-snug line-clamp-2"
-                                        dangerouslySetInnerHTML={{ __html: post.title.rendered }}
-                                    />
-
-                                    {/* Excerpt */}
-                                    <p className="text-sm text-gray-500 flex-1 line-clamp-3 leading-relaxed">
-                                        {excerpt}
-                                    </p>
-
-                                    {/* Read More */}
-                                    <div className="mt-1 inline-flex items-center gap-1.5 text-indigo-600 text-sm font-bold group-hover:gap-2.5 transition-all">
-                                        Read article <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                    </div>
-                                </div>
-                            </Link>
-                        );
-                    })}
+                    {/* Rest of the recent posts */}
+                    {rest.length > 0 && (
+                        <div className="mt-2">
+                            <BlogCards posts={rest} />
+                        </div>
+                    )}
                 </div>
+
             </div>
         </section>
     );

@@ -28,6 +28,7 @@ export type Post = {
     author: string;
     content: string;
     image?: string;
+    tags?: string[];
 };
 
 export function getPostBySlug(slug: string): Post | null {
@@ -61,6 +62,7 @@ export function getPostBySlug(slug: string): Post | null {
             date: dateVal || new Date().toISOString(),
             author: data.author || 'SmartToolsWala',
             image: data.image,
+            tags: Array.isArray(data.tags) ? data.tags : [],
             content,
         };
     } catch (e) {

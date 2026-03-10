@@ -1,13 +1,91 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
 import { getPostBySlug, getAllPosts } from '@/lib/mdx';
+import FloatingCTA from '@/components/FloatingCTA';
 
 // EXPLICIT FORCE STATIC - Critical for fast indexing and crawling
 export const dynamic = 'force-static';
 const SITE = 'https://smarttoolswala.com';
+
+// Tag → CTA mapping: intent-based — each tag points to the most relevant tool
+const TAG_CTA: Record<string, { title: string; badge: string; buttonLink: string; gradient: string }> = {
+    'cta-mb-to-kb': {
+        title: 'Free MB to KB Converter – Try Now!',
+        badge: '🚀 Free Tool',
+        buttonLink: '/mb-to-kb-converter',
+        gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+    },
+    'cta-compress-50kb': {
+        title: 'Compress Image to 50KB – Free & Instant!',
+        badge: '✅ Free Tool',
+        buttonLink: '/compress-image-to-50kb',
+        gradient: 'linear-gradient(135deg, #0ea5e9, #6366f1)',
+    },
+    'cta-compress-100kb': {
+        title: 'Compress Image to 100KB – High Quality!',
+        badge: '⚡ Free Tool',
+        buttonLink: '/compress-image-to-100kb',
+        gradient: 'linear-gradient(135deg, #f59e0b, #d97706)',
+    },
+    'cta-compress-20kb': {
+        title: 'Compress Image to 20KB – Exams Ready!',
+        badge: '📝 Free Tool',
+        buttonLink: '/compress-image-to-20kb',
+        gradient: 'linear-gradient(135deg, #ec4899, #be185d)',
+    },
+    'cta-compress-30kb': {
+        title: 'Compress Image to 30KB – Exact Size!',
+        badge: '🎯 Free Tool',
+        buttonLink: '/compress-image-to-30kb',
+        gradient: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
+    },
+    'cta-compress-200kb': {
+        title: 'Compress Image to 200KB – Best Quality!',
+        badge: '🖼️ Free Tool',
+        buttonLink: '/compress-image-to-200kb',
+        gradient: 'linear-gradient(135deg, #14b8a6, #0f766e)',
+    },
+    'cta-resize-100kb': {
+        title: 'Resize Image to 100KB – Online Forms!',
+        badge: '📐 Free Tool',
+        buttonLink: '/resize-image-to-100kb',
+        gradient: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+    },
+    'cta-tnpsc': {
+        title: 'TNPSC Photo Compressor – Auto Size!',
+        badge: '💯 Free Tool',
+        buttonLink: '/tnpsc-photo-compressor',
+        gradient: 'linear-gradient(135deg, #f43f5e, #be123c)',
+    },
+    'cta-youtube-tags': {
+        title: 'Extract YouTube Tags – Boost Views!',
+        badge: '📈 Free Tool',
+        buttonLink: '/youtube-tag-extractor',
+        gradient: 'linear-gradient(135deg, #10b981, #059669)',
+    },
+    'cta-youtube-title': {
+        title: 'Generate Viral YouTube Titles – Try Now!',
+        badge: '🔥 Free Tool',
+        buttonLink: '/youtube-title-generator',
+        gradient: 'linear-gradient(135deg, #ef4444, #b91c1c)',
+    },
+    'cta-youtube-description': {
+        title: 'Extract YouTube Descriptions – Rank High!',
+        badge: '✨ Free Tool',
+        buttonLink: '/youtube-description-extractor',
+        gradient: 'linear-gradient(135deg, #8b5cf6, #4c1d95)',
+    },
+    'cta-couple-name': {
+        title: 'Stylish Couple Name Maker – Try Now!',
+        badge: '💖 Free Tool',
+        buttonLink: '/stylish-couple-name-maker',
+        gradient: 'linear-gradient(135deg, #ec4899, #f43f5e)',
+    },
+};
 
 export async function generateStaticParams() {
     const posts = getAllPosts();
@@ -16,7 +94,6 @@ export async function generateStaticParams() {
     }));
 }
 
-// Next.js 16: params must be awaited before accessing properties
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const post = getPostBySlug(slug);
@@ -53,7 +130,35 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
 }
 
-// Next.js 16: params must be awaited before accessing properties
+// Reusable CTA button to inject via MDX components
+const MDXInlineCTA = ({ config }: { config?: { title: string; badge: string; buttonLink: string; gradient: string } }) => {
+    if (!config) return null;
+    return (
+        <Link href={config.buttonLink} style={{
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            gap: "16px", background: config.gradient,
+            borderRadius: "16px", padding: "16px 20px", margin: "36px 0",
+            textDecoration: "none", boxShadow: "0 4px 24px rgba(99,102,241,0.25)"
+        }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+                <span style={{ fontSize: "11px", fontWeight: 800, color: "rgba(255,255,255,0.75)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                    {config.badge}
+                </span>
+                <span style={{ fontSize: "15px", fontWeight: 800, color: "#ffffff" }}>
+                    {config.title}
+                </span>
+            </div>
+            <span style={{
+                flexShrink: 0, background: "rgba(255,255,255,0.2)", color: "#fff",
+                padding: "8px 16px", borderRadius: "100px", fontSize: "13px", fontWeight: 700,
+                border: "1px solid rgba(255,255,255,0.3)", whiteSpace: "nowrap"
+            }}>
+                Open Tool →
+            </span>
+        </Link>
+    );
+};
+
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const post = getPostBySlug(slug);
@@ -69,13 +174,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     const wordCount = post.content.split(/\s+/g).length;
     const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
-    // Determine Absolute URL for Schema (Fixing previous validation bug)
     let schemaImageUrl = `${SITE}/og-image.png`;
     if (post.image) {
         schemaImageUrl = post.image.startsWith('http') ? post.image : `${SITE}${post.image}`;
     }
 
-    // Comprehensive Schema
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -103,48 +206,90 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         }
     };
 
+    const ctaConfig = post.tags?.map((t) => TAG_CTA[t]).find(Boolean) ?? null;
+
+    // Define custom MDX components corresponding to the tags injected in MDX files
+    const mdxComponents = {
+        CTAMBToKB: () => <MDXInlineCTA config={TAG_CTA['cta-mb-to-kb']} />,
+        CTACompress50KB: () => <MDXInlineCTA config={TAG_CTA['cta-compress-50kb']} />,
+        CTACompress100KB: () => <MDXInlineCTA config={TAG_CTA['cta-compress-100kb']} />,
+        CTACompress20KB: () => <MDXInlineCTA config={TAG_CTA['cta-compress-20kb']} />,
+        CTACompress30KB: () => <MDXInlineCTA config={TAG_CTA['cta-compress-30kb']} />,
+        CTACompress200KB: () => <MDXInlineCTA config={TAG_CTA['cta-compress-200kb']} />,
+        CTAResize100KB: () => <MDXInlineCTA config={TAG_CTA['cta-resize-100kb']} />,
+        CTATnpsc: () => <MDXInlineCTA config={TAG_CTA['cta-tnpsc']} />,
+        CTAYoutubeTags: () => <MDXInlineCTA config={TAG_CTA['cta-youtube-tags']} />,
+        CTAYoutubeTitle: () => <MDXInlineCTA config={TAG_CTA['cta-youtube-title']} />,
+        CTAYoutubeDescription: () => <MDXInlineCTA config={TAG_CTA['cta-youtube-description']} />,
+        CTACoupleName: () => <MDXInlineCTA config={TAG_CTA['cta-couple-name']} />,
+    };
+
     return (
-        <article className="min-h-screen bg-slate-50 pb-20">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
+        <>
+            <article className="min-h-screen bg-slate-50 pb-20">
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
 
-            {/* Header Section */}
-            <header className="bg-white border-b border-slate-200/60 pt-28 pb-16 relative">
-                <div className="absolute top-0 inset-x-0 h-[300px] bg-gradient-to-b from-indigo-50/50 to-transparent pointer-events-none"></div>
+                {/* Header Section */}
+                <header className="bg-white border-b border-slate-200/60 pt-28 pb-16 relative">
+                    <div className="absolute top-0 inset-x-0 h-[300px] bg-gradient-to-b from-indigo-50/50 to-transparent pointer-events-none"></div>
 
-                <div className="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
-                    <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-indigo-600 transition-colors font-medium mb-10">
-                        <ArrowLeft className="w-4 h-4" /> Back to Blog
-                    </Link>
+                    <div className="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
+                        <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-indigo-600 transition-colors font-medium mb-10">
+                            <ArrowLeft className="w-4 h-4" /> Back to Blog
+                        </Link>
 
-                    {/* Metadata Header Row */}
-                    <div className="flex flex-wrap items-center gap-5 text-sm text-slate-500 font-medium mb-6">
-                        <span className="flex items-center gap-2 bg-slate-100 px-3 py-1 rounded-full text-slate-700">
-                            <User className="w-4 h-4 text-indigo-500" /> {post.author}
-                        </span>
-                        <span className="flex items-center gap-2">
-                            <Calendar className="w-4 h-4" /> {datePublishedStr}
-                        </span>
-                        <span className="flex items-center gap-2">
-                            <Clock className="w-4 h-4" /> {readingTime} min read
-                        </span>
+                        {/* Title (H1 First) */}
+                        <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-black text-slate-900 tracking-tight leading-[1.15] mb-6">
+                            {post.title}
+                        </h1>
+
+                        {/* Metadata Header Row */}
+                        <div className="flex flex-wrap items-center gap-5 text-sm text-slate-500 font-medium mb-6">
+                            <span className="flex items-center gap-2 bg-slate-100 px-3 py-1 rounded-full text-slate-700">
+                                <User className="w-4 h-4 text-indigo-500" /> {post.author}
+                            </span>
+                            <span className="flex items-center gap-2">
+                                <Calendar className="w-4 h-4" /> {datePublishedStr}
+                            </span>
+                            <span className="flex items-center gap-2">
+                                <Clock className="w-4 h-4" /> {readingTime} min read
+                            </span>
+                        </div>
+
+                        {/* Description */}
+                        <p className="text-xl text-slate-600 leading-relaxed font-medium mb-8">
+                            {post.description}
+                        </p>
+
+                        {/* Featured Image */}
+                        {post.image && (
+                            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-md mb-8 aspect-video">
+                                <Image
+                                    src={post.image}
+                                    alt={post.title}
+                                    width={1200}
+                                    height={675}
+                                    className="w-full h-full object-cover"
+                                    priority
+                                />
+                            </div>
+                        )}
+
+                        {/* CTA Button Immediately After Image */}
+                        {ctaConfig && (
+                            <div className="mb-2 w-full">
+                                <MDXInlineCTA config={ctaConfig} />
+                            </div>
+                        )}
                     </div>
+                </header>
 
-                    <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-black text-slate-900 tracking-tight leading-[1.15] mb-6">
-                        {post.title}
-                    </h1>
-
-                    <p className="text-xl text-slate-600 leading-relaxed font-medium mb-8">
-                        {post.description}
-                    </p>
-                </div>
-            </header>
-
-            {/* Content Section */}
-            <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-12">
-                <div className="blog-content prose prose-slate prose-lg md:prose-xl max-w-none 
+                {/* Content Section */}
+                <div className="max-w-3xl mx-auto px-4 sm:px-6 pt-8">
+                    <div className="blog-content prose prose-slate prose-lg md:prose-xl max-w-none 
                     prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900
                     prose-p:text-slate-700 prose-p:leading-relaxed prose-p:font-medium
                     prose-a:text-indigo-600 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
@@ -152,25 +297,36 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     prose-li:text-slate-700 marker:text-indigo-500
                     prose-img:rounded-3xl prose-img:border prose-img:border-slate-200 prose-img:shadow-lg
                 ">
-                    <MDXRemote source={post.content} />
-                </div>
-
-                {/* Footer */}
-                <div className="mt-16 pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg">
-                            {post.author.charAt(0)}
-                        </div>
-                        <div>
-                            <p className="text-sm text-slate-500 font-medium">Written by</p>
-                            <p className="font-bold text-slate-900">{post.author}</p>
-                        </div>
+                        <MDXRemote source={post.content} components={mdxComponents} />
                     </div>
-                    <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:underline">
-                        <ArrowLeft className="w-4 h-4" /> More Articles
-                    </Link>
+
+                    {/* Footer */}
+                    <div className="mt-16 pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
+                        <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg">
+                                {post.author.charAt(0)}
+                            </div>
+                            <div>
+                                <p className="text-sm text-slate-500 font-medium">Written by</p>
+                                <p className="font-bold text-slate-900">{post.author}</p>
+                            </div>
+                        </div>
+                        <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:underline">
+                            <ArrowLeft className="w-4 h-4" /> More Articles
+                        </Link>
+                    </div>
                 </div>
-            </div>
-        </article>
+            </article>
+
+            {/* Floating CTA — shown only when post has a matching tool tag */}
+            {ctaConfig && (
+                <FloatingCTA
+                    title={ctaConfig.title}
+                    badge={ctaConfig.badge}
+                    buttonLink={ctaConfig.buttonLink}
+                    gradient={ctaConfig.gradient}
+                />
+            )}
+        </>
     );
 }

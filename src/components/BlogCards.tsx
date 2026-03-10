@@ -24,7 +24,7 @@ export default function BlogCards({ posts }: { posts: Post[] }) {
                     <Link key={post.slug} href={`/blog/${post.slug}`} className="group flex flex-col bg-white rounded-3xl border border-gray-200/80 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
 
                         {/* Image Container with matching aesthetic */}
-                        <div className="aspect-[16/10] relative overflow-hidden bg-slate-50 flex items-center justify-center p-6 border-b border-gray-100">
+                        <div className="aspect-video relative overflow-hidden bg-slate-50 flex items-center justify-center p-6 border-b border-gray-100">
                             {post.image ? (
                                 <Image
                                     src={post.image}

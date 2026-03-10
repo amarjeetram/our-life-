@@ -185,10 +185,10 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
 
                     <div style={{ textAlign: "center", marginBottom: "40px" }}>
                         <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6366f1", marginBottom: "12px" }}>
-                            Our Tools
+                            Image Tools
                         </span>
                         <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
-                            Complete Compression Suite
+                            Photo & Image Compression
                         </h2>
                     </div>
 
@@ -223,21 +223,6 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 route: '/compress-image-to-200kb', title: 'Compress to 200KB',
                                 desc: 'Heavy files to 200KB for portals requiring larger HD formats.',
                                 tags: ['HD Docs', 'Websites']
-                            },
-                            {
-                                route: '/youtube-tag-extractor', title: 'YouTube Tag Extractor',
-                                desc: 'Extract SEO-optimized tags from any YouTube video to boost your content visibility.',
-                                tags: ['SEO', 'YouTube', 'Marketing']
-                            },
-                            {
-                                route: '/youtube-description-extractor', title: 'YouTube Description Extractor',
-                                desc: 'Instantly extract titles, views, likes, comments, and full descriptions from any YouTube URL.',
-                                tags: ['Data', 'YouTube', 'Research']
-                            },
-                            {
-                                route: '/stylish-couple-name-maker', title: 'Couple Name Maker',
-                                desc: 'Combine two names into a stylish, emoji-filled romantic combo for Instagram & hashtags.',
-                                tags: ['New Utility', 'Social']
                             },
                             {
                                 route: '/tnpsc-photo-compressor', title: 'TNPSC Photo Compressor',
@@ -306,6 +291,187 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
                                         color: "#6366f1", fontWeight: 800, fontSize: "14px"
+                                    }}>
+                                        <span>Use Tool Free</span>
+                                        <ArrowRight size={16} />
+                                    </div>
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* YOUTUBE TOOLS SECTION */}
+                    <div style={{ textAlign: "center", marginBottom: "40px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#ef4444", marginBottom: "12px" }}>
+                            YouTube Tools
+                        </span>
+                        <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
+                            Boost Video Growth
+                        </h2>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", marginBottom: "72px" }}>
+                        {[
+                            {
+                                route: '/youtube-tag-extractor', title: 'YouTube Tag Extractor',
+                                desc: 'Extract SEO-optimized tags from any YouTube video to boost your content visibility.',
+                                tags: ['SEO', 'YouTube', 'Marketing']
+                            },
+                            {
+                                route: '/youtube-description-extractor', title: 'YouTube Description Extractor',
+                                desc: 'Instantly extract titles, views, likes, comments, and full descriptions from any YouTube URL.',
+                                tags: ['Data', 'YouTube', 'Research']
+                            }
+                        ].map((tool, index) => (
+                            <motion.div
+                                key={tool.route}
+                                initial={{ opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                            >
+                                <Link href={tool.route} style={{
+                                    display: "flex", flexDirection: "column", height: "100%",
+                                    background: "#ffffff", borderRadius: "24px",
+                                    border: "1px solid #f1f5f9",
+                                    boxShadow: "0 4px 24px rgba(239,68,68,0.06), 0 1px 3px rgba(0,0,0,0.02)",
+                                    overflow: "hidden", textDecoration: "none",
+                                    transition: "transform 0.2s, box-shadow 0.2s",
+                                }}
+                                    onMouseEnter={e => {
+                                        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
+                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(239,68,68,0.12), 0 2px 8px rgba(0,0,0,0.04)";
+                                    }}
+                                    onMouseLeave={e => {
+                                        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(239,68,68,0.06), 0 1px 3px rgba(0,0,0,0.02)";
+                                    }}
+                                >
+                                    <div style={{ height: "4px", background: "linear-gradient(90deg, #ef4444, #dc2626)" }} />
+
+                                    <div style={{ padding: "32px", display: "flex", flexDirection: "column", gap: "16px", flexGrow: 1 }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "4px" }}>
+                                            <div style={{
+                                                width: "52px", height: "52px", borderRadius: "16px",
+                                                background: "linear-gradient(135deg, #fee2e2, #fecaca)",
+                                                display: "flex", alignItems: "center", justifyContent: "center",
+                                                color: "#ef4444", flexShrink: 0,
+                                                boxShadow: "0 2px 10px rgba(239,68,68,0.15)"
+                                            }}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" className="mr-0"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" /></svg>
+
+                                            </div>
+                                            <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.01em" }}>
+                                                {tool.title}
+                                            </h3>
+                                        </div>
+
+                                        <p style={{ fontSize: "15px", color: "#64748b", lineHeight: 1.6 }}>
+                                            {tool.desc}
+                                        </p>
+
+                                        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "auto", paddingTop: "8px" }}>
+                                            {tool.tags.map(tag => (
+                                                <span key={tag} style={{
+                                                    padding: "4px 10px", borderRadius: "100px",
+                                                    background: "#fef2f2", border: "1px solid #fee2e2",
+                                                    fontSize: "11px", fontWeight: 700, color: "#b91c1c"
+                                                }}>{tag}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div style={{
+                                        background: "#fafbff", borderTop: "1px solid #f1f5f9",
+                                        padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
+                                        color: "#ef4444", fontWeight: 800, fontSize: "14px"
+                                    }}>
+                                        <span>Use Tool Free</span>
+                                        <ArrowRight size={16} />
+                                    </div>
+                                </Link>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* OTHER TOOLS SECTION */}
+                    <div style={{ textAlign: "center", marginBottom: "40px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8b5cf6", marginBottom: "12px" }}>
+                            Other Tools
+                        </span>
+                        <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
+                            Social & Utilities
+                        </h2>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", marginBottom: "72px" }}>
+                        {[
+                            {
+                                route: '/stylish-couple-name-maker', title: 'Couple Name Maker',
+                                desc: 'Combine two names into a stylish, emoji-filled romantic combo for Instagram & hashtags.',
+                                tags: ['New Utility', 'Social']
+                            }
+                        ].map((tool, index) => (
+                            <motion.div
+                                key={tool.route}
+                                initial={{ opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                            >
+                                <Link href={tool.route} style={{
+                                    display: "flex", flexDirection: "column", height: "100%",
+                                    background: "#ffffff", borderRadius: "24px",
+                                    border: "1px solid #f1f5f9",
+                                    boxShadow: "0 4px 24px rgba(139,92,246,0.06), 0 1px 3px rgba(0,0,0,0.02)",
+                                    overflow: "hidden", textDecoration: "none",
+                                    transition: "transform 0.2s, box-shadow 0.2s",
+                                }}
+                                    onMouseEnter={e => {
+                                        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
+                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(139,92,246,0.12), 0 2px 8px rgba(0,0,0,0.04)";
+                                    }}
+                                    onMouseLeave={e => {
+                                        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(139,92,246,0.06), 0 1px 3px rgba(0,0,0,0.02)";
+                                    }}
+                                >
+                                    {/* Rainbow top bar */}
+                                    <div style={{ height: "4px", background: "linear-gradient(90deg, #8b5cf6, #d946ef)" }} />
+
+                                    <div style={{ padding: "32px", display: "flex", flexDirection: "column", gap: "16px", flexGrow: 1 }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "4px" }}>
+                                            <div style={{
+                                                width: "52px", height: "52px", borderRadius: "16px",
+                                                background: "linear-gradient(135deg, #f3e8ff, #fae8ff)",
+                                                display: "flex", alignItems: "center", justifyContent: "center",
+                                                color: "#d946ef", flexShrink: 0,
+                                                boxShadow: "0 2px 10px rgba(217,70,239,0.15)"
+                                            }}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" /></svg>
+                                            </div>
+                                            <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.01em" }}>
+                                                {tool.title}
+                                            </h3>
+                                        </div>
+
+                                        <p style={{ fontSize: "15px", color: "#64748b", lineHeight: 1.6 }}>
+                                            {tool.desc}
+                                        </p>
+
+                                        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "auto", paddingTop: "8px" }}>
+                                            {tool.tags.map(tag => (
+                                                <span key={tag} style={{
+                                                    padding: "4px 10px", borderRadius: "100px",
+                                                    background: "#fdf4ff", border: "1px solid #fae8ff",
+                                                    fontSize: "11px", fontWeight: 700, color: "#c026d3"
+                                                }}>{tag}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div style={{
+                                        background: "#fafbff", borderTop: "1px solid #f1f5f9",
+                                        padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
+                                        color: "#d946ef", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />

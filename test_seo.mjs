@@ -1,5 +1,5 @@
 import fs from 'fs';
-fetch('http://localhost:3000/blog/free-mb-to-kb-converter-online')
+fetch('http://localhost:3000/blog/google-gemini-ai-photo-editor-tricks')
     .then(res => res.text())
     .then(html => {
         const canonicalMatch = html.match(/<link[^>]*rel="canonical"[^>]*>/i);

@@ -1,7 +1,11 @@
-import { Metadata } from 'next';
+﻿import { Metadata } from 'next';
 import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import Article20KB from '@/components/articles/Article20KB';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata: Metadata = {
     title: 'Compress Image to 20KB Online Free – Instant Photo Reducer',
     description: 'Easily reduce image size to 20kb online. Free photo size reducer to resize image to 20kb. Convert your JPGs quickly perfectly.',

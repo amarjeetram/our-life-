@@ -1,7 +1,11 @@
-import { Metadata } from 'next';
+﻿import { Metadata } from 'next';
 import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import ArticleTNPSC from '@/components/articles/ArticleTNPSC';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 
 export const metadata: Metadata = {
     title: 'TNPSC Photo Compressor – Compress Photo & Signature to 20KB/50KB Free',

@@ -1,8 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { Mail, MapPin, Clock, CheckCircle2 } from "lucide-react";
+
+
 
 export default function ContactPage() {
     const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });

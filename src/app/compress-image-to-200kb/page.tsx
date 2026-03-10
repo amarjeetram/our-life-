@@ -1,7 +1,11 @@
-import { Metadata } from 'next';
+﻿import { Metadata } from 'next';
 import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import Article200KB from '@/components/articles/Article200KB';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 
 export const metadata: Metadata = {
     title: 'Compress Image to 200KB Online Free – Reduce Image Size',

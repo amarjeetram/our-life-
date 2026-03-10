@@ -4,17 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Calendar, User, ArrowRight, BookOpen, Clock } from 'lucide-react';
 
-interface WPPost {
-    id: number | string;
-    slug: string;
-    title: { rendered: string };
-    excerpt: { rendered: string };
-    date: string;
-    _embedded?: {
-        'wp:featuredmedia'?: Array<{ source_url: string }>;
-        author?: Array<{ name: string }>;
-    };
-}
+import { type MDXPost } from '@/lib/mdx';
 
 function formatDate(dateStr: string) {
     return new Date(dateStr).toLocaleDateString('en-IN', {
@@ -44,8 +34,8 @@ const ACCENTS = [
     'linear-gradient(135deg, #8b5cf6, #ec4899)',
 ];
 
-export function FeaturedCard({ post }: { post: WPPost }) {
-    const img = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+export function FeaturedCard({ post }: { post: MDXPost }) {
+    const img = post.image;
 
     return (
         <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
@@ -74,7 +64,7 @@ export function FeaturedCard({ post }: { post: WPPost }) {
                     {img ? (
                         <Image
                             src={img}
-                            alt={post.title.rendered.replace(/<[^>]+>/g, '')}
+                            alt={post.title.replace(/<[^>]+>/g, '')}
                             fill
                             priority
                             sizes="(max-width: 640px) 100vw, 50vw"
@@ -100,15 +90,15 @@ export function FeaturedCard({ post }: { post: WPPost }) {
                             <Calendar size={12} /> {formatDate(post.date)}
                         </span>
                         <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                            <Clock size={12} /> {readTime(post.excerpt.rendered)}
+                            <Clock size={12} /> {readTime(post.description)}
                         </span>
                     </div>
                     <h2
                         style={{ fontSize: 'clamp(17px, 2.5vw, 24px)', fontWeight: 900, color: '#0f172a', lineHeight: 1.3, marginBottom: '12px', letterSpacing: '-0.02em' }}
-                        dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+                        dangerouslySetInnerHTML={{ __html: post.title }}
                     />
                     <p style={{ fontSize: '15px', color: '#64748b', lineHeight: 1.75, marginBottom: '24px' }}>
-                        {stripHtml(post.excerpt.rendered).slice(0, 160)}...
+                        {stripHtml(post.description).slice(0, 160)}...
                     </p>
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#6366f1', fontWeight: 800, fontSize: '14px' }}>
                         Read Article <ArrowRight size={15} />
@@ -119,17 +109,17 @@ export function FeaturedCard({ post }: { post: WPPost }) {
     );
 }
 
-export function BlogCards({ posts }: { posts: WPPost[] }) {
+export function BlogCards({ posts }: { posts: MDXPost[] }) {
     return (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '22px' }}>
             {posts.map((post, i) => {
-                const img = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
-                const author = post._embedded?.author?.[0]?.name || 'SmartToolsWala';
-                const excerpt = stripHtml(post.excerpt.rendered).slice(0, 130);
+                const img = post.image;
+                const author = post.author || 'SmartToolsWala';
+                const excerpt = stripHtml(post.description).slice(0, 130);
                 const accent = ACCENTS[(i + 1) % ACCENTS.length];
 
                 return (
-                    <Link key={post.id} href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'flex' }}>
+                    <Link key={post.slug} href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'flex' }}>
                         <div
                             style={{
                                 borderRadius: '22px', overflow: 'hidden',
@@ -152,7 +142,7 @@ export function BlogCards({ posts }: { posts: WPPost[] }) {
                                 {img ? (
                                     <Image
                                         src={img}
-                                        alt={post.title.rendered.replace(/<[^>]+>/g, '')}
+                                        alt={post.title.replace(/<[^>]+>/g, '')}
                                         fill
                                         loading="lazy"
                                         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -170,7 +160,7 @@ export function BlogCards({ posts }: { posts: WPPost[] }) {
                                     padding: '4px 10px', borderRadius: '100px',
                                     display: 'flex', alignItems: 'center', gap: '4px'
                                 }}>
-                                    <Clock size={10} /> {readTime(post.excerpt.rendered)}
+                                    <Clock size={10} /> {readTime(post.description)}
                                 </div>
                             </div>
 
@@ -187,7 +177,7 @@ export function BlogCards({ posts }: { posts: WPPost[] }) {
                                 </div>
                                 <h2
                                     style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', lineHeight: 1.4, marginBottom: '8px', letterSpacing: '-0.01em' }}
-                                    dangerouslySetInnerHTML={{ __html: post.title.rendered }}
+                                    dangerouslySetInnerHTML={{ __html: post.title }}
                                 />
                                 <p style={{ fontSize: '14px', color: '#64748b', lineHeight: 1.7, flex: 1 }}>
                                     {excerpt}...

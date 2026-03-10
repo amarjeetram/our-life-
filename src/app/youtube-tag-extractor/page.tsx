@@ -1,8 +1,12 @@
-import { Metadata } from 'next';
+﻿import { Metadata } from 'next';
 import Link from 'next/link';
 import YoutubeTagClient from '@/components/YoutubeTagClient';
 import ArticleYoutubeTags from '@/components/articles/ArticleYoutubeTags';
 import { ArrowLeft } from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 
 export const metadata: Metadata = {
     title: 'YouTube Tag Extractor - Get Hidden SEO Tags from Any Video',

@@ -1,6 +1,10 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { Code, TrendingUp, Megaphone, CheckCircle2, Rocket, Globe } from "lucide-react";
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 
 export const metadata: Metadata = {
     title: "About Us | SmartToolsWala",

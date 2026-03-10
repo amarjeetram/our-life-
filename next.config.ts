@@ -12,6 +12,18 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 86400, // Cache images for 24 hours
   },
+  async headers() {
+    return [
+      {
+        // Apply no-cache headers to all pages so Vercel never serves stale HTML
+        source: '/(.*)',
+        headers: [
+          { key: 'Cache-Control', value: 'no-store, must-revalidate' },
+          { key: 'Pragma', value: 'no-cache' },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       {

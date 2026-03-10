@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
 import { BookOpen, Clock, TrendingUp } from 'lucide-react';
 import { FeaturedCard, BlogCards } from '@/components/BlogCards';
-import { fetchPosts, type WPPost } from '@/lib/wordpress';
-import { STATIC_POSTS } from '@/lib/static-posts';
+import { getAllPosts, type MDXPost } from '@/lib/mdx';
 
 export const metadata: Metadata = {
     title: 'Blog – Image Compression Tips & Guides | SmartToolsWala',
@@ -18,16 +17,13 @@ export const metadata: Metadata = {
     },
 };
 
-// Revalidate every 1 hour (ISR)
-export const revalidate = 3600;
+// Force dynamic rendering — never statically cache this page on Vercel
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 
 export default async function BlogPage() {
-    // Fetch from WordPress CMS and merge with static posts
-    const cmsPosts: WPPost[] = await fetchPosts(1, 50);
-
-    // Merge: CMS posts first, then static posts (cast to any for unified rendering)
-    const posts = [...cmsPosts, ...STATIC_POSTS] as any[];
+    const posts: MDXPost[] = getAllPosts();
     const featured = posts[0] ?? null;
     const rest = posts.slice(1);
 
@@ -102,7 +98,7 @@ export default async function BlogPage() {
                                     <div style={{ height: '3px', width: '28px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6)', borderRadius: '100px' }} />
                                     <span style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#6366f1' }}>Featured Article</span>
                                 </div>
-                                <FeaturedCard post={featured as any} />
+                                <FeaturedCard post={featured} />
                             </div>
                         )}
 
@@ -113,7 +109,7 @@ export default async function BlogPage() {
                                     <div style={{ height: '3px', width: '28px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6)', borderRadius: '100px' }} />
                                     <span style={{ fontSize: '12px', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#6366f1' }}>All Articles</span>
                                 </div>
-                                <BlogCards posts={rest as any[]} />
+                                <BlogCards posts={rest} />
                             </>
                         )}
 

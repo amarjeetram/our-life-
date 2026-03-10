@@ -1,7 +1,11 @@
-import { Metadata } from 'next';
+﻿import { Metadata } from 'next';
 import Link from 'next/link';
 import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
 import DynamicBlogCTA from '@/components/DynamicBlogCTA';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 
 export const metadata: Metadata = {
     title: 'Resize Image to 100KB Download Free Online Tool to Quickly Reduce File Size Without Any Software Installation',

@@ -136,7 +136,7 @@ const Footer = () => (
                 </div>
 
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                    <p className="text-sm text-slate-500 font-medium">
+                    <p className="text-sm text-slate-400 font-medium">
                         © {new Date().getFullYear()} SmartTools<span className="text-indigo-400">Wala</span>. All rights reserved.
                     </p>
 

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/third-parties": "^16.1.6",
+    "critters": "^0.0.23",
     "framer-motion": "^12.34.3",
     "gray-matter": "^4.0.3",
     "lru-cache": "^11.2.6",

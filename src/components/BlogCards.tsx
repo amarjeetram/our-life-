@@ -53,8 +53,8 @@ export default function BlogCards({ posts }: { posts: Post[] }) {
 
                         <div className="p-6 flex flex-col flex-grow relative">
                             {/* Meta Info */}
-                            <div className="flex items-center gap-4 text-xs font-semibold text-gray-500 mb-4">
-                                <span className="flex items-center gap-1.5 text-indigo-600/80">
+                            <div className="flex items-center gap-4 text-xs font-semibold text-gray-600 mb-4">
+                                <span className="flex items-center gap-1.5 text-indigo-700/80">
                                     <Calendar className="w-3.5 h-3.5" />
                                     {new Date(post.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
                                 </span>

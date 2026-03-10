@@ -230,6 +230,11 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 tags: ['SEO', 'YouTube', 'Marketing']
                             },
                             {
+                                route: '/youtube-description-extractor', title: 'YouTube Description Extractor',
+                                desc: 'Instantly extract titles, views, likes, comments, and full descriptions from any YouTube URL.',
+                                tags: ['Data', 'YouTube', 'Research']
+                            },
+                            {
                                 route: '/stylish-couple-name-maker', title: 'Couple Name Maker',
                                 desc: 'Combine two names into a stylish, emoji-filled romantic combo for Instagram & hashtags.',
                                 tags: ['New Utility', 'Social']

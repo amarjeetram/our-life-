@@ -1,9 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/mdx';
 
-// Force sitemap to be fully dynamic so new posts appear instantly
-export const dynamic = 'force-dynamic';
-
+// Sitemap configuration
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://smarttoolswala.com';
 

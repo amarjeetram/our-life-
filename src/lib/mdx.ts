@@ -2,7 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-const postsDirectory = path.join(process.cwd(), 'content/blogs');
+// Pointing to the content/blogs directory, with fallback to next-app/content/blogs if root is missing
+const rootDirectoryPath = path.join(process.cwd(), 'content', 'blogs');
+const fallbackDirectoryPath = path.join(process.cwd(), 'next-app', 'content', 'blogs');
+const postsDirectory = fs.existsSync(rootDirectoryPath) ? rootDirectoryPath : fallbackDirectoryPath;
 
 export interface MDXPost {
     slug: string;

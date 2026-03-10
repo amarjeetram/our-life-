@@ -3,8 +3,6 @@ import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import ArticleMBtoKB from '@/components/articles/ArticleMBtoKB';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
 
 export const metadata: Metadata = {

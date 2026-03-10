@@ -3,8 +3,6 @@ import Link from 'next/link';
 import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
 import DynamicBlogCTA from '@/components/DynamicBlogCTA';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
 
 export const metadata: Metadata = {

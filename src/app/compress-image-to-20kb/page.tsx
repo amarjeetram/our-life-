@@ -3,8 +3,6 @@ import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import Article20KB from '@/components/articles/Article20KB';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
 export const metadata: Metadata = {
     title: 'Compress Image to 20KB Online Free – Instant Photo Reducer',

@@ -4,8 +4,6 @@ import CoupleNameClient from "../../components/CoupleNameClient";
 import Link from 'next/link';
 import { Heart, Sparkles, Hash, Copy, Type } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
 
 export const metadata: Metadata = {

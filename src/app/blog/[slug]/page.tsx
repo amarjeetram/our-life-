@@ -20,9 +20,9 @@ function readingTime(text: string) {
     return Math.max(1, Math.ceil(wordCount / 200));
 }
 
-// Force dynamic rendering — never serve cached HTML on Vercel after a new deploy
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// ISR: regenerate each blog post page at most once per hour
+// This allows generateStaticParams to work correctly at build time
+export const revalidate = 3600;
 
 // ─── Static Params (SSG at build time) ────────────────────────────────────────
 

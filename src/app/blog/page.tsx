@@ -17,9 +17,8 @@ export const metadata: Metadata = {
     },
 };
 
-// Force dynamic rendering — never statically cache this page on Vercel
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// ISR: regenerate blog listing at most once per hour
+export const revalidate = 3600;
 
 
 export default async function BlogPage() {

@@ -15,8 +15,8 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // Apply no-cache headers to all pages so Vercel never serves stale HTML
-        source: '/(.*)',
+        // Only API routes should never be cached
+        source: '/api/(.*)',
         headers: [
           { key: 'Cache-Control', value: 'no-store, must-revalidate' },
           { key: 'Pragma', value: 'no-cache' },

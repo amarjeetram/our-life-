@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { HelpCircle, Star, Target, CheckCircle2, TrendingUp, Search } from 'lucide-react';
 
 export default function ArticleYoutubeTitle() {
@@ -15,7 +16,7 @@ export default function ArticleYoutubeTitle() {
                     What is a YouTube Title Extractor?
                 </h2>
                 <p className="text-lg text-slate-600 leading-relaxed text-left">
-                    Welcome to the easiest tool on the internet! If you want to know how to do a <strong>youtube title copy</strong> fast, you are in the right place. Have you ever seen a great video on YouTube? Did you want to save its title? Maybe you want to make a video just like it. But copying the title from the YouTube app is very hard. Sometimes it does not let you highlight the words. That is why we built this tool. Our free tool helps you do a <strong>youtube video title copy</strong> in one second. You just paste the link, and we give you the words!
+                    Welcome to the easiest tool on the internet! If you want to know how to do a <strong>youtube title copy</strong> fast, you are in the right place. Have you ever seen a great video on YouTube? Did you want to save its title? Maybe you want to make a video just like it. But copying the title from the YouTube app is very hard. Sometimes it does not let you highlight the words. That is why we built this tool. Our free tool helps you do a <strong>youtube video title copy</strong> in one second. You just paste the link, and we give you the words! If you also need to optimize images for your thumbnails, try our <Link href="/compress-image-to-50kb" className="text-red-500 hover:underline font-semibold">50KB photo compressor</Link>.
                 </p>
             </header>
 
@@ -71,7 +72,7 @@ export default function ArticleYoutubeTitle() {
                 </h3>
                 <div className="text-slate-600 space-y-6 text-lg leading-relaxed">
                     <p>
-                        Now that you know how to do a <strong>youtube video title copy</strong>, you might want to make your own videos! Getting views on YouTube can be hard. But knowing how to make a great title is half the battle. When you look at successful titles, you will notice a few patterns. Let us talk about them.
+                        Now that you know how to do a <strong>youtube video title copy</strong>, you might want to make your own videos! Getting views on YouTube can be hard. But knowing how to make a great title is half the battle. When you look at successful titles, you will notice a few patterns. Let us talk about them. Or if you need to extract tags, simply head over to our <Link href="/youtube-tag-extractor" className="text-red-500 hover:underline font-semibold">YouTube Tag Extractor</Link>.
                     </p>
                     <ul className="list-disc pl-6 space-y-4 font-medium text-slate-800 my-8">
                         <li><strong>Keep it short:</strong> People read fast. If your title is too long, YouTube will cut it off. Try to keep it under 60 characters long.</li>
@@ -80,7 +81,7 @@ export default function ArticleYoutubeTitle() {
                         <li><strong>Ask a question:</strong> If your title is a question, people will watch the video to find the answer. For example, "Can a Dog Fly?" will get lots of clicks!</li>
                     </ul>
                     <p>
-                        By using our <strong>youtube title and description extractor</strong> tools, you can study these patterns. You can look at 10 different videos about cats. Look at all their titles. You will see which ones are the best. Then, you can use those ideas to make an even better title for your own cat video! This is how the smartest creators grow their channels.
+                        By using our <strong>title and description extractor</strong> tools, you can study these patterns. You can look at 10 different videos about cats. Look at all their titles. You will see which ones are the best. Then, you can use those ideas to make an even better title for your own cat video! This is how the smartest creators grow their channels.
                     </p>
                 </div>
             </section>
@@ -91,10 +92,10 @@ export default function ArticleYoutubeTitle() {
                 </h3>
                 <div className="text-slate-600 space-y-6 text-lg leading-relaxed">
                     <p>
-                        You might hear people talk about different tools. Our website has many tools! We have this one, the title extractor. But we also have a <strong>description extractor youtube</strong> tool. What is the difference? Why do you need both?
+                        You might hear people talk about different tools. Our website has many tools! We have this one, the title extractor. But we also have a <Link href="/youtube-description-extractor" className="text-red-500 hover:underline font-semibold">youtube description extractor</Link> tool. What is the difference? Why do you need both?
                     </p>
                     <p>
-                        The title is the short name of the video. It is the big text at the top. The description is the very long text below the video. The description can have links, rules, social media pages, and lots of reading. If you want to copy the long text, you need to use our <strong>yt description extractor</strong>.
+                        The title is the short name of the video. It is the big text at the top. The description is the very long text below the video. The description can have links, rules, social media pages, and lots of reading. If you want to copy the long text, you need to use our <Link href="/youtube-description-extractor" className="text-red-500 hover:underline font-semibold">yt description extractor</Link>.
                     </p>
                     <p>
                         Some people try to find an <strong>instagram description extractor</strong>. Instagram is a different app. It is for photos. YouTube is for videos. Our tools are made just for YouTube videos right now! We make sure they work perfectly for YouTube so you always get the right words without any mistakes.

@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { HelpCircle, Shield, Zap, Search, Eye, BookOpen, Clock } from 'lucide-react';
 
 export default function ArticleYoutubeDescription() {
@@ -14,7 +15,7 @@ export default function ArticleYoutubeDescription() {
                     What is a YouTube Description Extractor?
                 </h2>
                 <p className="text-lg text-slate-600 leading-relaxed text-left">
-                    Are you trying to find a good <strong>youtube description extractor</strong>? You have found the best one! Have you ever watched a YouTube video and wanted to copy the link to a song they used? Or maybe you wanted to see their affiliate links. Trying to highlight the text on your phone is very hard. It keeps jumping around. That is why we built a powerful <strong>description extractor youtube</strong> tool. It pulls out all the text, views, likes, and comments for you automatically!
+                    Are you trying to find a good <strong>youtube description extractor</strong>? You have found the best one! Have you ever watched a YouTube video and wanted to copy the link to a song they used? Or maybe you wanted to see their affiliate links. Trying to highlight the text on your phone is very hard. It keeps jumping around. That is why we built a powerful <Link href="/youtube-description-extractor" className="text-indigo-600 hover:underline font-semibold">description extractor youtube</Link> tool. It pulls out all the text, views, likes, and comments for you automatically! We also offer other great utilities outside of YouTube, such as a beautiful <Link href="/stylish-couple-name-maker" className="text-indigo-600 hover:underline font-semibold">stylish couple name maker</Link> tool.
                 </p>
                 <div className="mt-8 p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm text-slate-500 text-left">
                     <div className="flex items-start gap-3">
@@ -84,7 +85,7 @@ export default function ArticleYoutubeDescription() {
                 </div>
 
                 <p className="text-slate-600 mb-8 text-lg leading-relaxed">
-                    Some people ask, "Why do I need to do a <strong>youtube description copy</strong>?" That is a great question! When you make a youtube video, the words below it are like an instruction manual. They tell search engines like Google what the video is about.
+                    Some people ask, "Why do I need to do a <strong>youtube description copy</strong>?" That is a great question! When you make a youtube video, the words below it are like an instruction manual. They tell search engines like Google what the video is about. If you also need to grab the video's title, you can use our <Link href="/youtube-title-extractor" className="text-indigo-600 hover:underline font-semibold">YouTube Title Extractor</Link>.
                 </p>
 
                 <div className="grid md:grid-cols-2 gap-6">
@@ -101,7 +102,7 @@ export default function ArticleYoutubeDescription() {
                             <Clock className="w-6 h-6 text-blue-500" /> Save Lots of Time
                         </h4>
                         <p className="text-slate-600 text-base leading-relaxed">
-                            Sometimes creators put long recipes or song lyrics in the box below the video. Have you ever tried to type out a whole recipe from a video? It takes forever! Our <strong>youtube video description extractor</strong> does all the reading for you instantly so you can copy and paste the recipe!
+                            Sometimes creators put long recipes or song lyrics in the box below the video. Have you ever tried to type out a whole recipe from a video? It takes forever! Our <strong>youtube video description extractor</strong> does all the reading for you instantly so you can copy and paste the recipe! If you need tags, remember to visit our <Link href="/youtube-tag-extractor" className="text-indigo-600 hover:underline font-semibold">YouTube Tag Extractor</Link> tool.
                         </p>
                     </div>
                 </div>

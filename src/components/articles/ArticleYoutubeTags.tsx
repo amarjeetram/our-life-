@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { HelpCircle, Shield, Zap, Search, Eye, BookOpen, Clock, Hash } from 'lucide-react';
 
 export default function ArticleYoutubeTags() {
@@ -14,7 +15,7 @@ export default function ArticleYoutubeTags() {
                     What is a YouTube Tag Extractor?
                 </h2>
                 <p className="text-lg text-slate-600 leading-relaxed text-left">
-                    Welcome to the magical world of tags! Have you ever wondered how some videos get millions of views while others get zero? The secret ingredient is often invisible words called "Tags." When you look at a video, you cannot see the tags on the screen. But Google can! A YouTube tag extractor is like wearing magic x-ray glasses. It lets you see the invisible words that famous YouTubers use to get so famous. Our free tool pulls those hidden words out from the dark and puts them right on a list for you to copy and study.
+                    Welcome to the magical world of tags! Have you ever wondered how some videos get millions of views while others get zero? The secret ingredient is often invisible words called "Tags." When you look at a video, you cannot see the tags on the screen. But Google can! A YouTube tag extractor is like wearing magic x-ray glasses. It lets you see the invisible words that famous YouTubers use to get so famous. Our free tool pulls those hidden words out from the dark and puts them right on a list for you to copy and study. When you are done getting tags, you can easily grab the <Link href="/youtube-title-extractor" className="text-indigo-600 hover:underline font-semibold">youtube video title copy</Link> via our other tool.
                 </p>
                 <div className="mt-8 p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm text-slate-500 text-left">
                     <div className="flex items-start gap-3">
@@ -45,7 +46,7 @@ export default function ArticleYoutubeTags() {
                         Tags are just like those sticky notes. YouTube is a giant box filled with billions of videos. When someone searches for "Funny Cats", YouTube needs to find the cat videos fast. Creators stick invisible tags like "cat", "funny", and "cute animal" onto their video. The tags tell YouTube what the video is about. If you use good tags, YouTube will put your video at the very top of the list!
                     </p>
                     <p>
-                        If you do not use tags, your video might get lost in the giant box forever. Nobody wants that! This is why knowing how to find tags and how to write them is a superpower.
+                        If you do not use tags, your video might get lost in the giant box forever. Nobody wants that! This is why knowing how to find tags and how to write them is a superpower. If you also need to grab the large text below a video, we built a custom <Link href="/youtube-description-extractor" className="text-indigo-600 hover:underline font-semibold">yt description extractor</Link> just for that!
                     </p>
                 </div>
             </section>
@@ -60,7 +61,7 @@ export default function ArticleYoutubeTags() {
                 </div>
 
                 <p className="text-slate-600 mb-8 text-lg leading-relaxed">
-                    Some people worry that looking at other people's tags is cheating. It is not! It is called doing research. Here are the three biggest reasons you should always use an extractor tool before you post a video:
+                    Some people worry that looking at other people's tags is cheating. It is not! It is called doing research. Here are the three biggest reasons you should always use an extractor tool before you post a video. By the way, if you need to compress photos for your YouTube thumbnail, use our <Link href="/compress-image-to-20kb" className="text-indigo-600 hover:underline font-semibold">20KB image compressor</Link>.
                 </p>
 
                 <div className="grid md:grid-cols-3 gap-6">
@@ -106,7 +107,7 @@ export default function ArticleYoutubeTags() {
                         Click on the video that has the most views. Under the video player, click the button that says "Share". A little box will pop up. Click the button that says "Copy Link."
                     </p>
                     <p>
-                        Now, come back to this wonderful website! At the very top, there is a big box waiting for you. Paste your copied link into that box. Then, click the shiny red "Extract Tags" button. The page will think for a few seconds. Suddenly, a block full of words separated by commas will appear! You can click "Copy Tags" to save them all to your clipboard.
+                        Now, come back to this wonderful website! At the very top, there is a big box waiting for you. Paste your copied link into that box. Then, click the shiny red "Extract Tags" button. The page will think for a few seconds. Suddenly, a block full of words separated by commas will appear! You can click "Copy Tags" to save them all to your clipboard. You can also paste that same link into our <Link href="/youtube-description-extractor" className="text-indigo-600 hover:underline font-semibold">youtube description extractor</Link> to get the rest of the metadata.
                     </p>
                 </div>
             </section>

@@ -7,8 +7,8 @@ import ClientToaster from "../components/ClientToaster";
 import ClientDropZone from "../components/ClientDropZone";
 import Script from "next/script";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap", preload: false });
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap", preload: false });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smarttoolswala.com"),

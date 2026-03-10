@@ -16,7 +16,7 @@ export default function BlogSection() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
                 {/* Header Sequence matching User's requested style */}
                 <div className="text-center max-w-2xl mx-auto mb-16 relative">
-                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100/50 text-indigo-600 text-sm font-black uppercase tracking-widest mb-6">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-100/50 text-indigo-700 text-sm font-black uppercase tracking-widest mb-6">
                         <Sparkles className="w-4 h-4" /> Optimization Guides
                     </span>
                     <h2 className="text-4xl md:text-[2.75rem] font-black text-slate-900 tracking-tight leading-[1.1] mb-6">

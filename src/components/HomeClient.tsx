@@ -59,7 +59,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                 <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 20px", position: "relative", zIndex: 10 }}>
 
                     {/* Badge */}
-                    <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+                    <div>
                         <span style={{
                             display: "inline-flex", alignItems: "center", gap: "8px",
                             background: "rgba(255,255,255,0.85)", backdropFilter: "blur(12px)",
@@ -74,13 +74,10 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                             </span>
                             #1 Free Image Compression Tool in India
                         </span>
-                    </motion.div>
+                    </div>
 
                     {/* Headline */}
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.05 }}
+                    <h1
                         style={{ fontSize: "clamp(38px, 7vw, 72px)", fontWeight: 900, color: "#0f172a", lineHeight: 1.08, letterSpacing: "-0.04em", marginBottom: "20px" }}
                     >
                         Compress Images to
@@ -88,26 +85,20 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                         <span style={{ background: "linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
                             Any Size, Instantly
                         </span>
-                    </motion.h1>
+                    </h1>
 
                     {/* Subtitle */}
-                    <motion.p
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
+                    <p
                         style={{ fontSize: "clamp(15px, 2.5vw, 19px)", color: "#64748b", maxWidth: "600px", margin: "0 auto 36px", lineHeight: 1.7 }}
                     >
                         Compress image to 20KB, 50KB, 100KB or any target size online. Free image size reducer perfect for UPSC, SSC, banking forms, and web optimization. <strong style={{ color: "#0f172a" }}>No signup required.</strong>
-                    </motion.p>
+                    </p>
 
                     {/* ── Hero Upload Zone ── */}
                     <HeroUploadZone />
 
                     {/* CTAs */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.15 }}
+                    <div
                         style={{ display: "flex", flexWrap: "wrap", gap: "12px", justifyContent: "center", marginBottom: "44px" }}
                     >
                         <Link href="/#tools" style={{
@@ -121,13 +112,10 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                         }}>
                             <ImageIcon size={18} /> Explore All Tools <ArrowRight size={17} />
                         </Link>
-                    </motion.div>
+                    </div>
 
                     {/* Social proof pills */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.25 }}
+                    <div
                         style={{ display: "flex", flexWrap: "wrap", gap: "10px", justifyContent: "center" }}
                     >
                         {[
@@ -146,7 +134,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 <span style={{ color: "#10b981" }}>{p.icon}</span> {p.label}
                             </span>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 

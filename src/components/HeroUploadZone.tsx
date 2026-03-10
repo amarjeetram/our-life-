@@ -157,7 +157,7 @@ export default function HeroUploadZone() {
                     {isEmpty ? (
                         <motion.div
                             key="empty"
-                            initial={{ opacity: 0 }}
+                            initial={{ opacity: 1 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             style={{ padding: "clamp(24px, 5vw, 32px) clamp(16px, 4vw, 24px)", textAlign: "center" }}

@@ -50,6 +50,14 @@ export default function DeferredGTM() {
           gtag('config', 'G-L992WKXBPV');
         `}
             </Script>
+
+            {/* Google AdSense Deferred Script */}
+            <Script
+                async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7117465882400046"
+                crossOrigin="anonymous"
+                strategy="afterInteractive"
+            />
         </>
     );
 }

@@ -321,6 +321,11 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 route: '/youtube-description-extractor', title: 'YouTube Description Extractor',
                                 desc: 'Instantly extract titles, views, likes, comments, and full descriptions from any YouTube URL.',
                                 tags: ['Data', 'YouTube', 'Research']
+                            },
+                            {
+                                route: '/youtube-title-extractor', title: 'YouTube Title Extractor',
+                                desc: 'Easily view and copy the exact title from any YouTube video for your own research.',
+                                tags: ['Title', 'YouTube', 'Copy']
                             }
                         ].map((tool, index) => (
                             <motion.div

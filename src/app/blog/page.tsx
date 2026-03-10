@@ -17,6 +17,8 @@ export const metadata: Metadata = {
     },
 };
 
+// Enforce strictly static page generation as requested by user
+export const dynamic = 'force-static';
 // ISR: regenerate blog listing at most once per hour
 export const revalidate = 3600;
 

@@ -20,8 +20,8 @@ function readingTime(text: string) {
     return Math.max(1, Math.ceil(wordCount / 200));
 }
 
-// ISR: regenerate each blog post page at most once per hour
-// This allows generateStaticParams to work correctly at build time
+// Enforce strictly static page generation as requested by user
+export const dynamic = 'force-static';
 export const revalidate = 3600;
 
 // ─── Static Params (SSG at build time) ────────────────────────────────────────
@@ -102,7 +102,7 @@ function buildArticleJsonLd(opts: {
             logo: { '@type': 'ImageObject', url: `${SITE}/logo.png` },
         },
         mainEntityOfPage: { '@type': 'WebPage', '@id': opts.url },
-        ...(opts.image ? { image: { '@type': 'ImageObject', url: opts.image } } : {}),
+        ...(opts.image ? { image: { '@type': 'ImageObject', url: opts.image.startsWith('http') ? opts.image : `${SITE}${opts.image}` } } : {}),
     };
 }
 

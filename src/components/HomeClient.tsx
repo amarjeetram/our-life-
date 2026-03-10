@@ -184,7 +184,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                 <div style={{ maxWidth: "820px", margin: "0 auto" }}>
 
                     <div style={{ textAlign: "center", marginBottom: "40px" }}>
-                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6366f1", marginBottom: "12px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4f46e5", marginBottom: "12px" }}>
                             Image Tools
                         </span>
                         <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
@@ -302,7 +302,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
 
                     {/* YOUTUBE TOOLS SECTION */}
                     <div style={{ textAlign: "center", marginBottom: "40px" }}>
-                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#ef4444", marginBottom: "12px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#dc2626", marginBottom: "12px" }}>
                             YouTube Tools
                         </span>
                         <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
@@ -400,7 +400,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
 
                     {/* OTHER TOOLS SECTION */}
                     <div style={{ textAlign: "center", marginBottom: "40px" }}>
-                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#8b5cf6", marginBottom: "12px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "12px" }}>
                             Other Tools
                         </span>
                         <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
@@ -492,7 +492,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
             <section style={{ padding: "72px 20px", background: "#f8faff", borderTop: "1px solid #f1f5f9" }}>
                 <div style={{ maxWidth: "900px", margin: "0 auto" }}>
                     <div style={{ textAlign: "center", marginBottom: "48px" }}>
-                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6366f1", marginBottom: "12px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4f46e5", marginBottom: "12px" }}>
                             Simple as 1-2-3
                         </span>
                         <h2 style={{ fontSize: "clamp(24px, 4vw, 36px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em" }}>

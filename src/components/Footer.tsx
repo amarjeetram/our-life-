@@ -140,10 +140,10 @@ const Footer = () => (
                         © {new Date().getFullYear()} SmartTools<span className="text-indigo-400">Wala</span>. All rights reserved.
                     </p>
 
-                    <div className="flex gap-6 text-sm text-slate-500">
+                    <div className="flex gap-6 text-sm text-slate-400">
                         <Link href="/cancellation-and-refund" className="hover:text-indigo-400 transition-colors">Refunds</Link>
                         <Link href="/shipping-policy" className="hover:text-indigo-400 transition-colors">Shipping</Link>
-                        <span className="text-slate-700">•</span>
+                        <span className="text-slate-600">•</span>
                         <span>Made with ❤️ in India</span>
                     </div>
                 </div>

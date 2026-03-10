@@ -1,6 +1,5 @@
 ﻿"use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import {
     Zap, ArrowRight, ShieldCheck, Lock, CheckCircle2,
@@ -147,12 +146,9 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                 }} />
                 <div style={{ maxWidth: "900px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 160px), 1fr))", gap: "32px", position: "relative", zIndex: 1 }}>
                     {stats.map((s, i) => (
-                        <motion.div
+                        <div
                             key={i}
-                            initial={{ opacity: 0, y: 16 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.08 }}
+                            className={`native-fade-in delay-${(i % 5 + 1) * 100}`}
                             style={{ textAlign: "center" }}
                         >
                             <div style={{ display: "flex", justifyContent: "center", marginBottom: "10px", color: "#818cf8" }}>
@@ -162,7 +158,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 {s.value}
                             </p>
                             <p style={{ fontSize: "13px", color: "#64748b", fontWeight: 600 }}>{s.label}</p>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </section>
@@ -218,12 +214,9 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 tags: ['TNPSC', 'Tamil Nadu', 'Govt Exam']
                             }
                         ].map((tool, index) => (
-                            <motion.div
+                            <div
                                 key={tool.route}
-                                initial={{ opacity: 0, y: 24 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
                             >
                                 <Link href={tool.route} style={{
                                     display: "flex", flexDirection: "column", height: "100%",
@@ -284,7 +277,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                         <ArrowRight size={16} />
                                     </div>
                                 </Link>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
 
@@ -316,12 +309,9 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 tags: ['Title', 'YouTube', 'Copy']
                             }
                         ].map((tool, index) => (
-                            <motion.div
+                            <div
                                 key={tool.route}
-                                initial={{ opacity: 0, y: 24 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
                             >
                                 <Link href={tool.route} style={{
                                     display: "flex", flexDirection: "column", height: "100%",
@@ -382,7 +372,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                         <ArrowRight size={16} />
                                     </div>
                                 </Link>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
 
@@ -404,12 +394,9 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 tags: ['New Utility', 'Social']
                             }
                         ].map((tool, index) => (
-                            <motion.div
+                            <div
                                 key={tool.route}
-                                initial={{ opacity: 0, y: 24 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
                             >
                                 <Link href={tool.route} style={{
                                     display: "flex", flexDirection: "column", height: "100%",
@@ -470,7 +457,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                         <ArrowRight size={16} />
                                     </div>
                                 </Link>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -490,12 +477,9 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
 
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))", gap: "24px" }}>
                         {steps.map((s, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
+                                className={`native-fade-in delay-${(i % 5 + 1) * 100}`}
                                 style={{
                                     background: "#fff", borderRadius: "24px",
                                     padding: "28px 24px", border: "1px solid #e8eaf0",
@@ -514,7 +498,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 </div>
                                 <h3 style={{ fontSize: "17px", fontWeight: 800, color: "#0f172a", marginBottom: "8px" }}>{s.title}</h3>
                                 <p style={{ fontSize: "14px", color: "#64748b", lineHeight: 1.65 }}>{s.desc}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -539,19 +523,23 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
 
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "20px" }}>
                         {features.map((f, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 24 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
+                                className={`native-fade-in delay-${(i % 5 + 1) * 100}`}
                                 style={{
                                     background: "rgba(255,255,255,0.04)", backdropFilter: "blur(8px)",
                                     borderRadius: "24px", padding: "32px 28px",
                                     border: "1px solid rgba(255,255,255,0.07)",
                                     transition: "background 0.2s, transform 0.2s",
                                 }}
-                                whileHover={{ y: -4, backgroundColor: "rgba(255,255,255,0.07)" }}
+                                onMouseEnter={e => {
+                                    (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
+                                    (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.07)";
+                                }}
+                                onMouseLeave={e => {
+                                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+                                    (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.04)";
+                                }}
                             >
                                 <div style={{
                                     width: "52px", height: "52px", borderRadius: "16px",
@@ -566,15 +554,13 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     {f.title}
                                 </h3>
                                 <p style={{ fontSize: "14px", color: "#94a3b8", lineHeight: 1.7 }}>{f.desc}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
 
                     {/* Bottom CTA inside dark section */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 16 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                    <div
+                        className="native-fade-in delay-200"
                         style={{ textAlign: "center", marginTop: "56px" }}
                     >
                         <Link href="/compress-image-to-20kb" style={{
@@ -590,7 +576,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                         <p style={{ marginTop: "14px", fontSize: "13px", color: "#475569" }}>
                             No signup · No watermarks · No limits
                         </p>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 

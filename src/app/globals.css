@@ -252,6 +252,33 @@ body {
   animation: float 4s ease-in-out infinite;
 }
 
+/* Base class for elements that will be animated natively, ensuring they fade in if JS is slow but wait for CSS */
+.native-fade-in {
+  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+/* Staggered delays for children elements */
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
 @keyframes pulse-glow {
   0% {
     box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.4);

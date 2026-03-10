@@ -1,7 +1,6 @@
 ﻿import { Metadata } from 'next';
 import Link from 'next/link';
 import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
-import DynamicBlogCTA from '@/components/DynamicBlogCTA';
 
 
 
@@ -80,9 +79,6 @@ export default function ArticlePage() {
                     </span>
                 </div>
 
-                {/* Top Dynamic CTA Banner */}
-                <DynamicBlogCTA categories={[{ name: 'Optimization', slug: 'optimization' }]} />
-
                 {/* Blog Content */}
                 <div className="blog-content prose prose-gray prose-base max-w-none mt-8">
                     <p className="lead">
@@ -130,20 +126,9 @@ export default function ArticlePage() {
                         <div>
                             <p className="text-sm text-gray-500">Written by <span className="font-semibold text-gray-800">{authorName}</span></p>
                         </div>
-                        <Link href="/blog" className="flex items-center gap-2 text-sm font-semibold text-blue-600 hover:underline">
-                            <ArrowLeft className="w-4 h-4" /> More articles
-                        </Link>
                     </div>
                 </div>
-
-                {/* Bottom Dynamic CTA Banner */}
-                <div className="mt-8 mb-8">
-                    <DynamicBlogCTA categories={[{ name: 'Optimization', slug: 'optimization' }]} />
-                </div>
             </article>
-
-            {/* Sticky Floating CTA */}
-            <DynamicBlogCTA categories={[{ name: 'Optimization', slug: 'optimization' }]} variant="floating" />
         </div>
     );
 }

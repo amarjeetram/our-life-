@@ -1,195 +1,87 @@
-"use client";
-
 import Link from 'next/link';
 import Image from 'next/image';
-import { Calendar, User, ArrowRight, BookOpen, Clock } from 'lucide-react';
+import { Calendar, User, ArrowRight, Play, FileText, Image as ImageIcon } from 'lucide-react';
+import { Post } from '@/lib/mdx';
 
-import { type MDXPost } from '@/lib/mdx';
-
-function formatDate(dateStr: string) {
-    return new Date(dateStr).toLocaleDateString('en-IN', {
-        day: 'numeric', month: 'short', year: 'numeric'
-    });
-}
-
-function stripHtml(html: string) {
-    if (!html) return '';
-    return html.replace(/<[^>]+>/g, '').replace(/\[&hellip;\]/g, '...').replace(/&#8230;/g, '...').trim();
-}
-
-function readTime(excerpt: string) {
-    if (!excerpt) return '2 min read';
-    const cleanText = stripHtml(excerpt);
-    const wordCount = cleanText.split(/\s+/).filter(word => word.length > 0).length;
-    const time = Math.max(1, Math.ceil(wordCount / 200));
-    return time + ' min read';
-}
-
-const ACCENTS = [
-    'linear-gradient(135deg, #6366f1, #8b5cf6)',
-    'linear-gradient(135deg, #0ea5e9, #6366f1)',
-    'linear-gradient(135deg, #ec4899, #8b5cf6)',
-    'linear-gradient(135deg, #10b981, #0ea5e9)',
-    'linear-gradient(135deg, #f59e0b, #ef4444)',
-    'linear-gradient(135deg, #8b5cf6, #ec4899)',
-];
-
-export function FeaturedCard({ post }: { post: MDXPost }) {
-    const img = post.image;
-
-    return (
-        <Link href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
-            <div
-                className="featured-card-grid"
-                style={{
-                    borderRadius: '28px', overflow: 'hidden',
-                    background: '#fff', border: '1px solid #e8eaf0',
-                    boxShadow: '0 4px 32px rgba(99,102,241,0.10)',
-                    transition: 'transform 0.2s, box-shadow 0.2s',
-                }}
-                onMouseEnter={e => {
-                    e.currentTarget.style.transform = 'translateY(-3px)';
-                    e.currentTarget.style.boxShadow = '0 12px 48px rgba(99,102,241,0.18)';
-                }}
-                onMouseLeave={e => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 32px rgba(99,102,241,0.10)';
-                }}
-            >
-                {/* Image */}
-                <div
-                    className="featured-card-image"
-                    style={{ background: img ? undefined : ACCENTS[0] }}
-                >
-                    {img ? (
-                        <Image
-                            src={img}
-                            alt={post.title.replace(/<[^>]+>/g, '')}
-                            fill
-                            priority
-                            sizes="(max-width: 640px) 100vw, 50vw"
-                            style={{ objectFit: 'cover' }}
-                        />
-                    ) : (
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-                            <BookOpen size={48} color="rgba(255,255,255,0.6)" />
-                        </div>
-                    )}
-                    <div style={{
-                        position: 'absolute', top: '16px', left: '16px',
-                        background: 'rgba(99,102,241,0.88)', backdropFilter: 'blur(8px)',
-                        color: '#fff', fontSize: '11px', fontWeight: 800,
-                        padding: '5px 12px', borderRadius: '100px', letterSpacing: '0.05em'
-                    }}>FEATURED</div>
-                </div>
-
-                {/* Content */}
-                <div className="featured-card-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <div style={{ display: 'flex', gap: '14px', fontSize: '12px', color: '#94a3b8', fontWeight: 600, marginBottom: '14px' }}>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                            <Calendar size={12} /> {formatDate(post.date)}
-                        </span>
-                        <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                            <Clock size={12} /> {readTime(post.description)}
-                        </span>
-                    </div>
-                    <h2
-                        style={{ fontSize: 'clamp(17px, 2.5vw, 24px)', fontWeight: 900, color: '#0f172a', lineHeight: 1.3, marginBottom: '12px', letterSpacing: '-0.02em' }}
-                        dangerouslySetInnerHTML={{ __html: post.title }}
-                    />
-                    <p style={{ fontSize: '15px', color: '#64748b', lineHeight: 1.75, marginBottom: '24px' }}>
-                        {stripHtml(post.description).slice(0, 160)}...
-                    </p>
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: '#6366f1', fontWeight: 800, fontSize: '14px' }}>
-                        Read Article <ArrowRight size={15} />
-                    </div>
-                </div>
+export default function BlogCards({ posts }: { posts: Post[] }) {
+    if (!posts || posts.length === 0) {
+        return (
+            <div className="text-center py-16 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                <FileText className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-lg font-bold text-gray-900">No tools or articles found</h3>
+                <p className="text-gray-500 mt-2 text-sm">Check back soon for new photo optimization guides.</p>
             </div>
-        </Link>
-    );
-}
+        );
+    }
 
-export function BlogCards({ posts }: { posts: MDXPost[] }) {
     return (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '22px' }}>
-            {posts.map((post, i) => {
-                const img = post.image;
-                const author = post.author || 'SmartToolsWala';
-                const excerpt = stripHtml(post.description).slice(0, 130);
-                const accent = ACCENTS[(i + 1) % ACCENTS.length];
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {posts.map((post, index) => {
+                // Determine icon and color based on index or category context
+                const isImportant = index === 0;
 
                 return (
-                    <Link key={post.slug} href={`/blog/${post.slug}`} style={{ textDecoration: 'none', display: 'flex' }}>
-                        <div
-                            style={{
-                                borderRadius: '22px', overflow: 'hidden',
-                                background: '#fff', border: '1px solid #e8eaf0',
-                                boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
-                                transition: 'transform 0.2s, box-shadow 0.2s',
-                                width: '100%', display: 'flex', flexDirection: 'column'
-                            }}
-                            onMouseEnter={e => {
-                                e.currentTarget.style.transform = 'translateY(-4px)';
-                                e.currentTarget.style.boxShadow = '0 12px 36px rgba(99,102,241,0.15)';
-                            }}
-                            onMouseLeave={e => {
-                                e.currentTarget.style.transform = 'translateY(0)';
-                                e.currentTarget.style.boxShadow = '0 2px 12px rgba(0,0,0,0.05)';
-                            }}
-                        >
-                            {/* Thumbnail */}
-                            <div style={{ height: '190px', background: img ? undefined : accent, overflow: 'hidden', position: 'relative', flexShrink: 0 }}>
-                                {img ? (
-                                    <Image
-                                        src={img}
-                                        alt={post.title.replace(/<[^>]+>/g, '')}
-                                        fill
-                                        loading="lazy"
-                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                                        style={{ objectFit: 'cover', transition: 'transform 0.4s' }}
-                                    />
-                                ) : (
-                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-                                        <BookOpen size={34} color="rgba(255,255,255,0.5)" />
+                    <Link key={post.slug} href={`/blog/${post.slug}`} className="group flex flex-col bg-white rounded-3xl border border-gray-200/80 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+
+                        {/* Image Container with matching aesthetic */}
+                        <div className="aspect-[16/10] relative overflow-hidden bg-slate-50 flex items-center justify-center p-6 border-b border-gray-100">
+                            {post.image ? (
+                                <Image
+                                    src={post.image}
+                                    alt={post.title}
+                                    fill
+                                    className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                                />
+                            ) : (
+                                <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-purple-50/50 group-hover:scale-105 transition-transform duration-500">
+                                    <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(#6366f1 1px, transparent 1px)', backgroundSize: '24px 24px' }}></div>
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <ImageIcon className="w-16 h-16 text-indigo-400/50" />
                                     </div>
-                                )}
-                                <div style={{
-                                    position: 'absolute', bottom: '10px', right: '10px',
-                                    background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(6px)',
-                                    color: '#fff', fontSize: '11px', fontWeight: 700,
-                                    padding: '4px 10px', borderRadius: '100px',
-                                    display: 'flex', alignItems: 'center', gap: '4px'
-                                }}>
-                                    <Clock size={10} /> {readTime(post.description)}
                                 </div>
+                            )}
+
+                            {/* Floating Category Badge */}
+                            <div className="absolute top-4 left-4 z-10">
+                                <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wide shadow-sm
+                                    ${isImportant ? 'bg-indigo-600 text-white' : 'bg-white/90 backdrop-blur-sm text-indigo-600 border border-indigo-100'}
+                                `}>
+                                    Guide
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="p-6 flex flex-col flex-grow relative">
+                            {/* Meta Info */}
+                            <div className="flex items-center gap-4 text-xs font-semibold text-gray-500 mb-4">
+                                <span className="flex items-center gap-1.5 text-indigo-600/80">
+                                    <Calendar className="w-3.5 h-3.5" />
+                                    {new Date(post.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}
+                                </span>
+                                <span className="flex items-center gap-1.5 shrink-0">
+                                    <User className="w-3.5 h-3.5" />
+                                    {post.author}
+                                </span>
                             </div>
 
-                            {/* Content */}
-                            <div style={{ padding: '22px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px', fontSize: '12px', color: '#94a3b8', fontWeight: 600 }}>
-                                    <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                        <Calendar size={11} /> {formatDate(post.date)}
-                                    </span>
-                                    <span>·</span>
-                                    <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                                        <User size={11} /> {author}
-                                    </span>
-                                </div>
-                                <h2
-                                    style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a', lineHeight: 1.4, marginBottom: '8px', letterSpacing: '-0.01em' }}
-                                    dangerouslySetInnerHTML={{ __html: post.title }}
-                                />
-                                <p style={{ fontSize: '14px', color: '#64748b', lineHeight: 1.7, flex: 1 }}>
-                                    {excerpt}...
-                                </p>
-                                <div style={{
-                                    marginTop: '16px', paddingTop: '12px',
-                                    borderTop: '1px solid #f1f5f9',
-                                    display: 'flex', justifyContent: 'flex-end',
-                                    gap: '5px', fontSize: '13px', fontWeight: 700, color: '#6366f1',
-                                    alignItems: 'center'
-                                }}>
-                                    Read more <ArrowRight size={14} />
+                            {/* Title */}
+                            <h3 className="text-[1.25rem] leading-[1.4] font-extrabold tracking-tight text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-2 mb-3">
+                                {post.title}
+                            </h3>
+
+                            {/* Description */}
+                            <p className="text-[15px] leading-relaxed text-gray-600 mb-6 line-clamp-3">
+                                {post.description}
+                            </p>
+
+                            {/* Action Button */}
+                            <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                                <span className="text-sm font-bold text-indigo-600 flex items-center gap-1.5 group-hover:gap-2 transition-all">
+                                    Read Article
+                                    <ArrowRight className="w-4 h-4" />
+                                </span>
+                                <div className="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white text-indigo-600 transition-colors">
+                                    <Play className="w-3.5 h-3.5 ml-0.5" fill="currentColor" />
                                 </div>
                             </div>
                         </div>

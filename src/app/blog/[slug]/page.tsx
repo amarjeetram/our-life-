@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { Calendar, User, ArrowLeft, Clock, Share2 } from 'lucide-react';
+import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
 import { getPostBySlug, getAllPosts } from '@/lib/mdx';
 
 // EXPLICIT FORCE STATIC - Critical for fast indexing and crawling
@@ -16,8 +16,10 @@ export async function generateStaticParams() {
     }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-    const post = getPostBySlug(params.slug);
+// Next.js 16: params must be awaited before accessing properties
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const post = getPostBySlug(slug);
 
     if (!post) {
         return {
@@ -27,8 +29,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
     const canonical = `${SITE}/blog/${post.slug}`;
     const publishedTime = post.date || new Date().toISOString();
-
-    // Handle Image Resolution for OG
     const ogImage = post.image ? `${SITE}${post.image}` : `${SITE}/og-image.png`;
 
     return {
@@ -53,8 +53,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-    const post = getPostBySlug(params.slug);
+// Next.js 16: params must be awaited before accessing properties
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const post = getPostBySlug(slug);
 
     if (!post) {
         notFound();
@@ -153,7 +155,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                     <MDXRemote source={post.content} />
                 </div>
 
-                {/* Footer sharing */}
+                {/* Footer */}
                 <div className="mt-16 pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6">
                     <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg">
@@ -164,6 +166,9 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                             <p className="font-bold text-slate-900">{post.author}</p>
                         </div>
                     </div>
+                    <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:underline">
+                        <ArrowLeft className="w-4 h-4" /> More Articles
+                    </Link>
                 </div>
             </div>
         </article>

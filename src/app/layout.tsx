@@ -61,6 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <head>
+        <script src="https://analytics.ahrefs.com/analytics.js" data-key="d8ok06KdnbbIqz7qNwaXMw" async></script>
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <script

@@ -90,8 +90,8 @@ export default function AboutPage() {
                         <div className="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mb-4 shadow-inner">
                             <Megaphone size={30} />
                         </div>
-                        <h4 className="text-lg font-bold text-slate-900">Abhishek Baghel</h4>
-                        <span className="text-xs font-bold text-rose-600 mb-3 uppercase tracking-wider block mt-1">Digital Marketing Expert</span>
+                        <h4 className="text-lg font-bold text-slate-900">Satender</h4>
+                        <p className="text-sm text-slate-500 font-medium mt-1">Lead Developer</p>
                         <p className="text-slate-600 text-sm leading-relaxed">
                             Leads our digital marketing efforts, helping SmartToolsWala reach users across India and beyond. From SEO to social media campaigns, he ensures our tools reach the people who need them most.
                         </p>

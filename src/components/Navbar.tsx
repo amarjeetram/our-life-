@@ -9,6 +9,8 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
+    const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
+
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
@@ -31,7 +33,16 @@ const Navbar = () => {
 
     const navLinks = [
         { name: 'Home', href: '/', icon: <Home className="w-5 h-5" /> },
-        { name: 'All Tools', href: '/#tools', icon: <Wrench className="w-5 h-5" /> },
+        {
+            name: 'All Tools',
+            isDropdown: true,
+            icon: <Wrench className="w-5 h-5" />,
+            subItems: [
+                { name: 'Photo & Image Tools', href: '/photo-and-image-compression-tools' },
+                { name: 'YouTube Tools', href: '/youtube-tools' },
+                { name: 'Other Tools', href: '/other-tools' },
+            ]
+        },
         { name: 'Blog', href: '/blog', icon: <BookOpen className="w-5 h-5" /> },
         { name: 'Couple Names', href: '/stylish-couple-name-maker', icon: <Heart className="w-5 h-5" /> },
         { name: 'YouTube Tags', href: '/youtube-tag-extractor', icon: <Zap className="w-5 h-5" /> },
@@ -58,15 +69,47 @@ const Navbar = () => {
                         </Link>
 
                         {/* Desktop Nav */}
-                        <div className="hidden md:flex items-center gap-2 bg-white/40 backdrop-blur-md px-2 py-1.5 rounded-2xl border border-white/60 shadow-sm">
+                        <div className="hidden md:flex items-center gap-2 bg-white/40 backdrop-blur-md px-2 py-1.5 rounded-2xl border border-white/60 shadow-sm relative">
                             {navLinks.map((link) => (
-                                <Link
-                                    key={link.name}
-                                    href={link.href}
-                                    className="px-5 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-white/80 rounded-xl transition-all duration-200"
-                                >
-                                    {link.name}
-                                </Link>
+                                link.isDropdown ? (
+                                    <div
+                                        key={link.name}
+                                        className="relative"
+                                        onMouseEnter={() => setIsToolsDropdownOpen(true)}
+                                        onMouseLeave={() => setIsToolsDropdownOpen(false)}
+                                    >
+                                        <button className="px-5 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-white/80 rounded-xl transition-all duration-200 flex items-center gap-1">
+                                            {link.name}
+                                            <svg className={`w-4 h-4 transition-transform duration-200 ${isToolsDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                                        </button>
+
+                                        {/* Dropdown Menu */}
+                                        <div
+                                            className={`absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden transition-all duration-200 origin-top-left ${isToolsDropdownOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}
+                                            style={{ zIndex: 1000 }}
+                                        >
+                                            <div className="py-2">
+                                                {link.subItems?.map(sub => (
+                                                    <Link
+                                                        key={sub.name}
+                                                        href={sub.href}
+                                                        className="block px-4 py-2 text-sm text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 font-medium transition-colors"
+                                                    >
+                                                        {sub.name}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <Link
+                                        key={link.name}
+                                        href={link.href || '#'}
+                                        className="px-5 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-white/80 rounded-xl transition-all duration-200"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                )
                             ))}
                         </div>
 
@@ -141,17 +184,47 @@ const Navbar = () => {
                 {/* Nav Links */}
                 <nav style={{ flex: 1, padding: '12px', overflowY: 'auto' }}>
                     {navLinks.map((link) => (
-                        <Link
-                            key={link.name}
-                            href={link.href}
-                            onClick={() => setIsOpen(false)}
-                            style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', color: '#374151', fontWeight: 600, fontSize: '15px', borderRadius: '14px', textDecoration: 'none', marginBottom: '4px', transition: 'background 0.15s' }}
-                            onMouseEnter={e => (e.currentTarget.style.background = '#eef2ff')}
-                            onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-                        >
-                            <span style={{ color: '#9ca3af' }}>{link.icon}</span>
-                            {link.name}
-                        </Link>
+                        <div key={link.name}>
+                            {link.isDropdown ? (
+                                <div>
+                                    <div
+                                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', color: '#374151', fontWeight: 600, fontSize: '15px', borderRadius: '14px', cursor: 'default', marginBottom: '4px', background: '#f8fafc' }}
+                                    >
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                            <span style={{ color: '#9ca3af' }}>{link.icon}</span>
+                                            {link.name}
+                                        </div>
+                                    </div>
+                                    {/* Mobile Submenu Items */}
+                                    <div style={{ paddingLeft: '24px', marginBottom: '8px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                        {link.subItems?.map(sub => (
+                                            <Link
+                                                key={sub.name}
+                                                href={sub.href}
+                                                onClick={() => setIsOpen(false)}
+                                                style={{ display: 'flex', alignItems: 'center', padding: '10px 16px', color: '#475569', fontWeight: 500, fontSize: '14px', borderRadius: '10px', textDecoration: 'none', transition: 'background 0.15s' }}
+                                                onMouseEnter={e => (e.currentTarget.style.background = '#eef2ff')}
+                                                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                                            >
+                                                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#cbd5e1', marginRight: '10px' }}></div>
+                                                {sub.name}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            ) : (
+                                <Link
+                                    href={link.href || '#'}
+                                    onClick={() => setIsOpen(false)}
+                                    style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', color: '#374151', fontWeight: 600, fontSize: '15px', borderRadius: '14px', textDecoration: 'none', marginBottom: '4px', transition: 'background 0.15s' }}
+                                    onMouseEnter={e => (e.currentTarget.style.background = '#eef2ff')}
+                                    onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                                >
+                                    <span style={{ color: '#9ca3af' }}>{link.icon}</span>
+                                    {link.name}
+                                </Link>
+                            )}
+                        </div>
                     ))}
                 </nav>
 

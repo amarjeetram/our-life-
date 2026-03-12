@@ -168,6 +168,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         notFound();
     }
 
+    // Get 3 related/recent posts (excluding the current one)
+    const allPosts = getAllPosts();
+    const relatedPosts = allPosts.filter(p => p.slug !== post.slug).slice(0, 3);
+
     const canonical = `${SITE}/blog/${post.slug}`;
     const datePublishedStr = new Date(post.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -340,6 +344,38 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         </Link>
                     </div>
                 </div>
+
+                {/* Related Articles Section for improved crawling/indexing */}
+                {relatedPosts.length > 0 && (
+                    <div className="bg-white border-t border-slate-200 mt-20 py-20">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                            <h2 className="text-2xl font-black text-slate-900 mb-8 border-b border-slate-100 pb-4">
+                                Related Articles
+                            </h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                {relatedPosts.map(rp => (
+                                    <Link key={rp.slug} href={`/blog/${rp.slug}`} className="group block bg-slate-50 rounded-2xl p-5 border border-slate-100 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                                        <div className="flex items-center gap-2 text-xs font-semibold text-indigo-600 mb-3">
+                                            <Calendar className="w-3.5 h-3.5" />
+                                            {new Date(rp.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                                        </div>
+                                        <h3 className="font-bold text-slate-900 text-lg mb-2 line-clamp-2 group-hover:text-indigo-600 transition-colors">
+                                            {rp.title}
+                                        </h3>
+                                        <p className="text-sm text-slate-600 line-clamp-2">
+                                            {rp.description}
+                                        </p>
+                                    </Link>
+                                ))}
+                            </div>
+                            <div className="text-center mt-12">
+                                <Link href="/blog" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm transition-colors">
+                                    View All Articles
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </article>
 
             {/* Floating CTA — shown only when post has a matching tool tag */}

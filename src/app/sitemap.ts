@@ -36,9 +36,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // ── Dynamic blog posts from MDX ─────────────────────────────────
     // Always use today's date so Google treats these as fresh and recrawls them
     const allPosts = getAllPosts();
-    const blogRoutes: MetadataRoute.Sitemap = allPosts.map(({ slug, date }) => ({
+    const blogRoutes: MetadataRoute.Sitemap = allPosts.map(({ slug }) => ({
         url: `${baseUrl}/blog/${slug}`,
-        lastModified: new Date(date),
+        lastModified: new Date(),
         changeFrequency: 'daily',
         priority: 0.85,
     }));

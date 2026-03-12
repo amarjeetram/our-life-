@@ -9,10 +9,10 @@ const Footer = () => (
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 xl:gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 xl:gap-8">
 
                 {/* Brand & Mission */}
-                <div className="lg:col-span-4 xl:col-span-5 flex flex-col items-start pr-4">
+                <div className="lg:col-span-4 xl:col-span-4 flex flex-col items-start pr-4">
                     <Link href="/" className="flex items-center gap-3 mb-6 group w-fit transition-transform hover:scale-105 duration-300">
                         <div className="relative w-10 h-10 rounded-xl overflow-hidden shadow-lg shadow-indigo-500/20 ring-1 ring-white/10">
                             <Image src="/logo.svg" alt="SmartToolsWala Logo" fill sizes="40px" className="object-cover" />
@@ -55,8 +55,27 @@ const Footer = () => (
                     </div>
                 </div>
 
-                {/* Popular Tools */}
+                {/* Quick Links / Categories */}
                 <div className="lg:col-span-3 xl:col-span-2">
+                    <h4 className="text-sm font-bold text-white mb-6 uppercase tracking-wider relative inline-block">
+                        Categories
+                        <div className="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-indigo-500 rounded-full"></div>
+                    </h4>
+                    <ul className="space-y-3.5 mb-8">
+                        {[
+                            { name: 'Photo & Image Tools', href: '/photo-and-image-compression-tools' },
+                            { name: 'YouTube Tools', href: '/youtube-tools' },
+                            { name: 'Other Tools', href: '/other-tools' },
+                        ].map(link => (
+                            <li key={link.name}>
+                                <Link href={link.href} className="text-sm text-slate-400 hover:text-white transition-colors flex items-center group">
+                                    <ChevronRight className="w-4 h-4 mr-2 text-indigo-500/0 group-hover:text-indigo-400 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300" />
+                                    <span className="transform -translate-x-2 group-hover:translate-x-0 transition-transform duration-300">{link.name}</span>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+
                     <h4 className="text-sm font-bold text-white mb-6 uppercase tracking-wider relative inline-block">
                         Popular Tools
                         <div className="absolute -bottom-2 left-0 w-1/2 h-0.5 bg-indigo-500 rounded-full"></div>

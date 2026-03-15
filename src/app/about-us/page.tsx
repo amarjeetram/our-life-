@@ -1,6 +1,6 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { Code, TrendingUp, Megaphone, CheckCircle2, Rocket, Globe } from "lucide-react";
+import { Code, TrendingUp, Megaphone, CheckCircle2, Rocket, Globe, Search } from "lucide-react";
 
 
 
@@ -63,7 +63,7 @@ export default function AboutPage() {
 
                 {/* Team Section */}
                 <h3 className="text-2xl font-bold text-center text-slate-900 mb-10">Meet the Team</h3>
-                <div className="grid md:grid-cols-3 gap-6 mb-20">
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
                         <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 shadow-inner">
                             <Code size={30} />
@@ -94,6 +94,17 @@ export default function AboutPage() {
                         <span className="text-xs font-bold text-rose-600 mb-3 uppercase tracking-wider block mt-1">Digital Marketing Expert</span>
                         <p className="text-slate-600 text-sm leading-relaxed">
                             Leads our digital marketing efforts, helping SmartToolsWala reach users across India and beyond. From SEO to social media campaigns, he ensures our tools reach the people who need them most.
+                        </p>
+                    </div>
+
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
+                        <div className="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mb-4 shadow-inner">
+                            <Search size={30} />
+                        </div>
+                        <h4 className="text-lg font-bold text-slate-900">Abhishek Baghel</h4>
+                        <span className="text-xs font-bold text-amber-600 mb-3 uppercase tracking-wider block mt-1">SEO Expert</span>
+                        <p className="text-slate-600 text-sm leading-relaxed">
+                            Spearheads our SEO strategies to improve search engine rankings, ensuring our platform is highly visible and easily accessible to users actively searching for online tools.
                         </p>
                     </div>
                 </div>

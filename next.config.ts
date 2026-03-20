@@ -36,6 +36,16 @@ const nextConfig: NextConfig = {
         destination: '/youtube-tag-extractor',
         permanent: true,
       },
+      {
+        source: '/signature-resize',
+        destination: '/govt-exam-tools/signature-resize',
+        permanent: true,
+      },
+      {
+        source: '/tnpsc-photo-compressor',
+        destination: '/govt-exam-tools/tnpsc-photo-compressor',
+        permanent: true,
+      },
 
     ];
   },

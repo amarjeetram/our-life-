@@ -214,12 +214,12 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 tags: ['HD Docs', 'Websites']
                             },
                             {
-                                route: '/tnpsc-photo-compressor', title: 'TNPSC Photo Compressor',
+                                route: '/govt-exam-tools/tnpsc-photo-compressor', title: 'TNPSC Photo Compressor',
                                 desc: 'Compress TNPSC photo to 20-50KB and signature to 10-20KB as per official TNPSC requirements.',
                                 tags: ['TNPSC', 'Tamil Nadu', 'Govt Exam']
                             },
                             {
-                                route: '/signature-resize', title: 'Signature Resize',
+                                route: '/govt-exam-tools/signature-resize', title: 'Signature Resize',
                                 desc: 'Resize your signature to exact pixels or cm, and compress to target KB — perfect for UPSC, SSC & banking forms.',
                                 tags: ['Signature', 'Resize', 'Govt Forms']
                             }

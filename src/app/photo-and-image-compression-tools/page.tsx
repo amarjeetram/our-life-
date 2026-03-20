@@ -53,12 +53,12 @@ export default function ImageCompressionToolsPage() {
             tags: ['Resize', 'Web']
         },
         {
-            route: '/tnpsc-photo-compressor', title: 'TNPSC Photo Compressor',
+            route: '/govt-exam-tools/tnpsc-photo-compressor', title: 'TNPSC Photo Compressor',
             desc: 'Compress TNPSC photo to 20-50KB and signature to 10-20KB as per official TNPSC requirements.',
             tags: ['TNPSC', 'Tamil Nadu', 'Govt Exam']
         },
         {
-            route: '/signature-resize', title: 'Signature Resize',
+            route: '/govt-exam-tools/signature-resize', title: 'Signature Resize',
             desc: 'Resize your signature to 10-20KB, specify dimensions in cm or pixels for exams like SSC & RRB.',
             tags: ['Signature', 'SSC', 'RRB']
         }

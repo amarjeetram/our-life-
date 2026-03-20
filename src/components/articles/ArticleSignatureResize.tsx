@@ -256,25 +256,25 @@ export default function ArticleSignatureResize() {
                                 "@type": "HowToStep",
                                 "name": "Upload Your Signature Image",
                                 "text": "Take a clear picture of your signature on white paper. Drag and drop it into the upload zone, or browse from your mobile gallery. Ensure there are no shadows.",
-                                "url": "https://smarttoolswala.com/signature-resize#step1"
+                                "url": "https://smarttoolswala.com/govt-exam-tools/signature-resize#step1"
                             },
                             {
                                 "@type": "HowToStep",
                                 "name": "Select Dimensions (CM or Pixels)",
                                 "text": "Check your official notification. If it asks for 3.5cm x 1.5cm, select the 'Centimeter' toggle and enter those numbers. This flawlessly handles your signature resize width and height in cm.",
-                                "url": "https://smarttoolswala.com/signature-resize#step2"
+                                "url": "https://smarttoolswala.com/govt-exam-tools/signature-resize#step2"
                             },
                             {
                                 "@type": "HowToStep",
                                 "name": "Set Target File Size (KB)",
                                 "text": "If the portal enforces a signature resize 10 to 20 kb limit, enter '20' in the target size box to achieve the optimal signature resize 20kb constraint.",
-                                "url": "https://smarttoolswala.com/signature-resize#step3"
+                                "url": "https://smarttoolswala.com/govt-exam-tools/signature-resize#step3"
                             },
                             {
                                 "@type": "HowToStep",
                                 "name": "Resize and Download",
                                 "text": "Click the process button. The tool will instantly generate your new, perfectly formatted compliant image. Download it and upload it safely to your exam portal.",
-                                "url": "https://smarttoolswala.com/signature-resize#step4"
+                                "url": "https://smarttoolswala.com/govt-exam-tools/signature-resize#step4"
                             }
                         ]
                     })

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     description: 'Free TNPSC photo compressor tool. Compress your TNPSC photo to 20-50KB and signature to 10-20KB as per official TNPSC requirements. Fast, secure, and no signup needed.',
     keywords: 'tnpsc photo compressor, tnpsc photo size reducer, tnpsc photo resize, tnpsc signature compressor, compress tnpsc photo to 50kb, tnpsc image size reducer online',
     alternates: {
-        canonical: 'https://smarttoolswala.com/tnpsc-photo-compressor',
+        canonical: 'https://smarttoolswala.com/govt-exam-tools/tnpsc-photo-compressor',
     },
 };
 
@@ -48,7 +48,7 @@ export default function Page() {
                             {
                                 "@type": "WebApplication",
                                 "name": "TNPSC Photo Compressor",
-                                "url": "https://smarttoolswala.com/tnpsc-photo-compressor",
+                                "url": "https://smarttoolswala.com/govt-exam-tools/tnpsc-photo-compressor",
                                 "applicationCategory": "Utility",
                                 "operatingSystem": "All",
                                 "browserRequirements": "Requires JavaScript",
@@ -79,19 +79,19 @@ export default function Page() {
                                         "@type": "HowToStep",
                                         "name": "Upload your file",
                                         "text": "Select your scanned photo or signature and upload it to the tool's dropzone area securely.",
-                                        "url": "https://smarttoolswala.com/tnpsc-photo-compressor#upload"
+                                        "url": "https://smarttoolswala.com/govt-exam-tools/tnpsc-photo-compressor#upload"
                                     },
                                     {
                                         "@type": "HowToStep",
                                         "name": "Select Document Type and Target Size",
                                         "text": "For your TNPSC profile photo, select 50KB as the target. For your TNPSC signature, select 20KB or 15KB as the target.",
-                                        "url": "https://smarttoolswala.com/tnpsc-photo-compressor#target"
+                                        "url": "https://smarttoolswala.com/govt-exam-tools/tnpsc-photo-compressor#target"
                                     },
                                     {
                                         "@type": "HowToStep",
                                         "name": "Download Validated File",
                                         "text": "Click compress. The tool guarantees the final output file strictly satisfies TNPSC's size and format constraints instantly. Download and upload to the TNPSC portal securely.",
-                                        "url": "https://smarttoolswala.com/tnpsc-photo-compressor#download"
+                                        "url": "https://smarttoolswala.com/govt-exam-tools/tnpsc-photo-compressor#download"
                                     }
                                 ]
                             },
@@ -115,7 +115,7 @@ export default function Page() {
                                         "@type": "ListItem",
                                         "position": 3,
                                         "name": "TNPSC Photo Compressor",
-                                        "item": "https://smarttoolswala.com/tnpsc-photo-compressor"
+                                        "item": "https://smarttoolswala.com/govt-exam-tools/tnpsc-photo-compressor"
                                     }
                                 ]
                             },

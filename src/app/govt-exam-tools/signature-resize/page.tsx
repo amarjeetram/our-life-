@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     description: 'Resize your signature to 10KB, 20KB or any size online. Perfect for SSC & RRB exams. Adjust size, width & height instantly. Free, fast, no signup.',
     keywords: 'signature resize, signature resize 10 to 20 kb, ssc signature resize, signature resize width and height in cm, rrb signature resize, signature resize 20kb, signature resize in kb',
     alternates: {
-        canonical: 'https://smarttoolswala.com/signature-resize',
+        canonical: 'https://smarttoolswala.com/govt-exam-tools/signature-resize',
     },
 };
 
@@ -34,7 +34,7 @@ export default function Page() {
                             {
                                 "@type": "WebApplication",
                                 "name": "Signature Resize Tool",
-                                "url": "https://smarttoolswala.com/signature-resize",
+                                "url": "https://smarttoolswala.com/govt-exam-tools/signature-resize",
                                 "description": "Resize your signature to 10KB, 20KB or any size online. Perfect for SSC & RRB exams. Adjust size, width & height instantly. Free, fast, no signup.",
                                 "applicationCategory": "Utility",
                                 "operatingSystem": "All",
@@ -75,7 +75,7 @@ export default function Page() {
                                         "@type": "ListItem",
                                         "position": 3,
                                         "name": "Signature Resize Tool",
-                                        "item": "https://smarttoolswala.com/signature-resize"
+                                        "item": "https://smarttoolswala.com/govt-exam-tools/signature-resize"
                                     }
                                 ]
                             }

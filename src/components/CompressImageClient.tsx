@@ -760,7 +760,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                     {[
                                         { href: '/compress-image-to-20kb', label: 'Compress 20KB' },
                                         { href: '/compress-image-to-50kb', label: 'Compress 50KB' },
-                                        { href: '/signature-resize', label: 'Signature Resize' },
+                                        { href: '/govt-exam-tools/signature-resize', label: 'Signature Resize' },
                                         { href: '/mb-to-kb-converter', label: 'MB to KB' },
                                     ].map(t => (
                                         <Link key={t.href} href={t.href} style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}

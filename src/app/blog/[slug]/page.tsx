@@ -59,7 +59,7 @@ const TAG_CTA: Record<string, { title: string; badge: string; buttonLink: string
     'cta-tnpsc': {
         title: 'TNPSC Photo Compressor – Auto Size!',
         badge: '💯 Free Tool',
-        buttonLink: '/tnpsc-photo-compressor',
+        buttonLink: '/govt-exam-tools/tnpsc-photo-compressor',
         gradient: 'linear-gradient(135deg, #f43f5e, #be123c)',
     },
     'cta-youtube-tags': {
@@ -326,6 +326,25 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     prose-img:rounded-3xl prose-img:border prose-img:border-slate-200 prose-img:shadow-lg
                 ">
                         <MDXRemote source={post.content} components={mdxComponents} />
+                        
+                        {/* Contextual Internal Linking (SEO: "Also Read") */}
+                        {relatedPosts.length > 0 && (
+                            <div className="mt-12 p-6 md:p-8 bg-gradient-to-br from-slate-50 to-indigo-50/30 rounded-[2rem] border border-indigo-100/60 shadow-sm not-prose">
+                                <h3 className="text-[17px] font-black text-slate-900 mb-4 flex items-center gap-2 uppercase tracking-wide">
+                                    <span className="text-indigo-600">📚</span> Recommended Reading
+                               </h3>
+                                <ul className="space-y-3 m-0 p-0 list-none">
+                                    {relatedPosts.map(rp => (
+                                        <li key={rp.slug} className="flex items-start gap-3">
+                                            <span className="text-indigo-400 font-bold mt-0.5 select-none">→</span>
+                                            <Link href={`/blog/${rp.slug}`} className="text-indigo-700 font-semibold text-[17px] leading-tight hover:text-indigo-900 hover:underline transition-colors decoration-indigo-300 underline-offset-4">
+                                                {rp.title}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                     </div>
 
                     {/* Footer */}

@@ -1,6 +1,8 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/mdx';
 
+export const dynamic = 'force-dynamic';
+
 // Sitemap configuration
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://smarttoolswala.com';

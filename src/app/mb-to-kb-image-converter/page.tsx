@@ -1,0 +1,126 @@
+import { Metadata } from 'next';
+import CompressImageClient from '@/components/CompressImageClient';
+import SEOBottomSection from '@/components/SEOBottomSection';
+import ArticleMBtoKBImage from '@/components/articles/ArticleMBtoKBImage';
+
+export const metadata: Metadata = {
+    title: 'MB to KB Image Converter Online Free – Fast Compressor',
+    description: 'Free MB to KB image converter online. Reduce image MB to KB quickly and securely. Convert any large image file to KB without losing quality.',
+    keywords: 'mb to kb image converter, mb to kb image, convert image mb to kb, mb to kb image online, image mb to kb converter, mb to kb photo converter, compress image mb to kb',
+    alternates: {
+        canonical: 'https://smarttoolswala.com/mb-to-kb-image-converter',
+    },
+};
+
+const faqs = [
+    { q: "What is a MB to KB image converter?", a: "A MB to KB image converter is a free online tool that reduces the size of your image from Megabytes (MB) to Kilobytes (KB). You just upload your photo, choose the target KB size, and download the compressed image in seconds." },
+    { q: "How do I convert photo MB to KB online?", a: "Just open our tool, click 'Choose Images', upload your photo, select your target size like 50 KB or 100 KB, and click Compress. Your image will be ready in 2 to 3 seconds. Then click Download to save it." },
+    { q: "Is this MB to KB image converter free?", a: "Yes, it is 100% free. No signup, no login, no payment, and no hidden charges. You can compress as many images as you want for free anytime." },
+    { q: "Does the photo quality become bad after compression?", a: "Our tool uses smart compression technology. It keeps the photo quality as good as possible. For passport photos and document images, the face and text will remain clearly visible after compression." },
+    { q: "How many images can I compress at one time?", a: "You can upload and compress up to 10 images at the same time. Each image can be up to 20 MB in size." },
+    { q: "Is my photo safe when I upload it?", a: "Yes, completely safe. We do not store your photos. Both the original and compressed images are deleted from our server immediately after you download. We do not sell or share your data." },
+    { q: "Can I use this tool on my mobile phone?", a: "Yes! Our MB to KB image converter works perfectly on Android and iPhone. Just open the website in your phone browser like Chrome or Safari. No app download needed." },
+    { q: "What image formats does the tool support?", a: "We support JPG, JPEG, PNG, and WEBP image formats. If you upload a PNG, our tool will convert it to JPG automatically to get the best compression result." },
+];
+
+export default function Page() {
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@graph": [
+                            {
+                                "@type": "Organization",
+                                "name": "SmartToolsWala",
+                                "url": "https://smarttoolswala.com",
+                                "logo": "https://smarttoolswala.com/logo.svg",
+                                "sameAs": [
+                                    "https://twitter.com/smarttoolswala",
+                                    "https://github.com/smarttoolswala",
+                                    "https://www.youtube.com/@SmartToolsWala"
+                                ]
+                            },
+                            {
+                                "@type": "WebApplication",
+                                "name": "MB to KB Image Converter",
+                                "url": "https://smarttoolswala.com/mb-to-kb-image-converter",
+                                "applicationCategory": "Utility",
+                                "operatingSystem": "All",
+                                "browserRequirements": "Requires JavaScript",
+                                "description": "Free MB to KB image converter online. Reduce image MB to KB quickly and securely. Convert any large image file to KB without losing quality.",
+                                "featureList": [
+                                    "MB to KB image conversion",
+                                    "Bulk image compression",
+                                    "Fast and secure"
+                                ],
+                                "offers": {
+                                    "@type": "Offer",
+                                    "price": "0",
+                                    "priceCurrency": "USD"
+                                },
+                                "aggregateRating": {
+                                    "@type": "AggregateRating",
+                                    "ratingValue": "4.8",
+                                    "ratingCount": "7200"
+                                }
+                            },
+                            {
+                                "@context": "https://schema.org",
+                                "@type": "BreadcrumbList",
+                                "itemListElement": [
+                                    {
+                                        "@type": "ListItem",
+                                        "position": 1,
+                                        "name": "Home",
+                                        "item": "https://smarttoolswala.com"
+                                    },
+                                    {
+                                        "@type": "ListItem",
+                                        "position": 2,
+                                        "name": "Photo & Image Tools",
+                                        "item": "https://smarttoolswala.com/photo-and-image-compression-tools"
+                                    },
+                                    {
+                                        "@type": "ListItem",
+                                        "position": 3,
+                                        "name": "MB to KB Image Converter",
+                                        "item": "https://smarttoolswala.com/mb-to-kb-image-converter"
+                                    }
+                                ]
+                            },
+                            {
+                                "@type": "FAQPage",
+                                "mainEntity": faqs.map(f => ({
+                                    "@type": "Question",
+                                    "name": f.q,
+                                    "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": f.a
+                                    }
+                                }))
+                            }
+                        ]
+                    })
+                }}
+            />
+            <CompressImageClient
+                targetSizeKB={100}
+                titleOverride={<>MB to KB <span style={{
+                    background: 'linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7)',
+                    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                }}>Image Converter</span></>}
+                subtitleOverride="Upload your image and instantly convert MB to KB. Preview your compressed photo before downloading — no signup, no watermark, 100% free."
+            >
+                <SEOBottomSection
+                    keyword="mb to kb image converter"
+                    faqs={faqs}
+                >
+                    <ArticleMBtoKBImage />
+                </SEOBottomSection>
+            </CompressImageClient>
+        </>
+    );
+}

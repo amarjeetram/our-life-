@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Sparkles, Copy, Heart, Hash, RefreshCcw, CheckCircle2 } from 'lucide-react';
+import Link from 'next/link';
+import { Sparkles, Copy, Heart, Hash, RefreshCcw, CheckCircle2, Zap } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -280,6 +281,77 @@ export default function CoupleNameClient() {
                     )}
                 </AnimatePresence>
             </div>
+
+            {/* ── Are you a happy user? Card ── */}
+            <AnimatePresence>
+                {results.length > 0 && (
+                    <motion.div
+                        key="happy-user-card"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                        style={{ background: '#fff', borderRadius: '20px', border: '1px solid #e2e8f0', boxShadow: '0 4px 24px rgba(0,0,0,0.06)', overflow: 'hidden', marginTop: '32px' }}
+                    >
+                        <div style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', padding: '16px 24px' }}>
+                            <p style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>Are you a happy user? 😊</p>
+                        </div>
+                        <div className="ci-happy-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 24px', flexWrap: 'wrap', gap: '12px', borderBottom: '1px solid #e2e8f0' }}>
+                            <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Use our other tools</span>
+                            <div className="ci-happy-btns" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                                {[
+                                    { href: '/youtube-tag-extractor', label: 'YouTube Tags' },
+                                    { href: '/youtube-title-generator', label: 'YouTube Title' },
+                                    { href: '/youtube-description-extractor', label: 'YT Description' },
+                                    { href: '/compress-image-to-20kb', label: 'Compress Image' },
+                                ].map(t => (
+                                    <Link key={t.href} href={t.href} style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
+                                        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
+                                        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                                    ><Zap size={12} /> {t.label}</Link>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="ci-happy-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 24px', flexWrap: 'wrap', gap: '12px', borderBottom: '1px solid #e2e8f0' }}>
+                            <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Support Our Work ❤️</span>
+                            <Link href="/donate" style={{ padding: '8px 18px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
+                                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
+                                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                            >☕ Donate</Link>
+                        </div>
+                        <div className="ci-happy-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 24px', flexWrap: 'wrap', gap: '12px', borderBottom: '1px solid #e2e8f0' }}>
+                            <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Sharing is caring 🤝</span>
+                            <div className="ci-happy-btns" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                                {[
+                                    { label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com')}` },
+                                    { label: 'Twitter', href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com')}&text=Free+useful+tools` },
+                                    { label: 'WhatsApp', href: `https://wa.me/?text=${encodeURIComponent('Check out this tool: ' + (typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com'))}` },
+                                    { label: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com')}` },
+                                ].map(s => (
+                                    <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" style={{ padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
+                                        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
+                                        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                                    >{s.label}</a>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="ci-happy-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 24px', flexWrap: 'wrap', gap: '12px', borderBottom: '1px solid #e2e8f0' }}>
+                            <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Come back! 🔖</span>
+                            <button onClick={() => alert('Press Ctrl+D (or ⌘+D on Mac) to bookmark this page!')} style={{ padding: '8px 18px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', cursor: 'pointer' }}
+                                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
+                                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                            >🔖 Bookmark Page</button>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', padding: '16px 24px', flexWrap: 'wrap', gap: '12px' }}>
+                            <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151', flex: 1 }}>Send Feedback ✉️</span>
+                            <Link href="/contact-us" style={{ padding: '8px 18px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
+                                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
+                                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                            >✉️ Contact us</Link>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

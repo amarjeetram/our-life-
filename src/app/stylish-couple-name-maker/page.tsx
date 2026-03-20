@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Metadata } from 'next';
 import CoupleNameClient from "../../components/CoupleNameClient";
 import Link from 'next/link';
@@ -23,6 +23,91 @@ export const metadata: Metadata = {
 export default function StylishCoupleNameMakerPage() {
     return (
         <div className="min-h-screen bg-[#FAFAFA] pt-28 pb-20">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@graph": [
+                            {
+                                "@type": "Organization",
+                                "name": "SmartToolsWala",
+                                "url": "https://smarttoolswala.com",
+                                "logo": "https://smarttoolswala.com/logo.svg",
+                                "sameAs": [
+                                    "https://twitter.com/smarttoolswala",
+                                    "https://github.com/smarttoolswala",
+                                    "https://www.youtube.com/@SmartToolsWala"
+                                ]
+                            },
+                            {
+                                "@type": "WebApplication",
+                                "name": "Stylish Couple Name Maker",
+                                "url": "https://smarttoolswala.com/stylish-couple-name-maker",
+                                "description": "Create beautiful, stylish couple names perfectly blended from two names. Free couple name maker with stylish fonts and emojis.",
+                                "applicationCategory": "Utility",
+                                "operatingSystem": "All",
+                                "offers": {
+                                    "@type": "Offer",
+                                    "price": "0",
+                                    "priceCurrency": "USD"
+                                },
+                                "aggregateRating": {
+                                    "@type": "AggregateRating",
+                                    "ratingValue": "4.9",
+                                    "ratingCount": "9200"
+                                }
+                            },
+                            {
+                                "@type": "FAQPage",
+                                "mainEntity": [
+                                    {
+                                        "@type": "Question",
+                                        "name": "Is this couple name generator free to use?",
+                                        "acceptedAnswer": {
+                                            "@type": "Answer",
+                                            "text": "Yes! Our romantic couple name generator is 100% free with no hidden charges, daily limits, or signup requirements."
+                                        }
+                                    },
+                                    {
+                                        "@type": "Question",
+                                        "name": "Can I use the generated couple names on Instagram?",
+                                        "acceptedAnswer": {
+                                            "@type": "Answer",
+                                            "text": "Absolutely. This is built as a perfect couple name generator for Instagram. The stylish unicode fonts we generate are fully supported across all major social media platforms."
+                                        }
+                                    },
+                                    {
+                                        "@type": "Question",
+                                        "name": "Does this work as a wedding hashtag generator?",
+                                        "acceptedAnswer": {
+                                            "@type": "Answer",
+                                            "text": "Yes, it features a dedicated hashtag couple name generator logic that automatically prepends # and mixes your names with popular wedding tags."
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "@type": "BreadcrumbList",
+                                "itemListElement": [
+                                    {
+                                        "@type": "ListItem",
+                                        "position": 1,
+                                        "name": "Home",
+                                        "item": "https://smarttoolswala.com"
+                                    },
+                                    {
+                                        "@type": "ListItem",
+                                        "position": 2,
+                                        "name": "Stylish Couple Name Maker",
+                                        "item": "https://smarttoolswala.com/stylish-couple-name-maker"
+                                    }
+                                ]
+                            }
+                        ]
+                    })
+                }}
+            />
             {/* Header / Hero Section */}
             <div className="max-w-4xl mx-auto px-4 sm:px-6 mb-12 text-center relative z-10">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-pink-100 border border-pink-200 text-pink-700 text-xs font-bold uppercase tracking-wider mb-6 shadow-sm">

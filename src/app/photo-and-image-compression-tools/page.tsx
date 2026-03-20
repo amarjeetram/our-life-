@@ -33,6 +33,11 @@ export default function ImageCompressionToolsPage() {
             tags: ['Universal', 'Smart Convert']
         },
         {
+            route: '/mb-to-kb-image-converter', title: 'MB to KB Image Converter',
+            desc: 'Convert image from MB to KB online. Preview your compressed photo before downloading — free & instant.',
+            tags: ['Image', 'MB to KB', 'Preview']
+        },
+        {
             route: '/compress-image-to-30kb', title: 'Compress to 30KB',
             desc: 'Strictly under 30KB for specific government compliance formats.',
             tags: ['Compliance', 'State Exams']
@@ -51,6 +56,11 @@ export default function ImageCompressionToolsPage() {
             route: '/tnpsc-photo-compressor', title: 'TNPSC Photo Compressor',
             desc: 'Compress TNPSC photo to 20-50KB and signature to 10-20KB as per official TNPSC requirements.',
             tags: ['TNPSC', 'Tamil Nadu', 'Govt Exam']
+        },
+        {
+            route: '/signature-resize', title: 'Signature Resize',
+            desc: 'Resize your signature to 10-20KB, specify dimensions in cm or pixels for exams like SSC & RRB.',
+            tags: ['Signature', 'SSC', 'RRB']
         }
     ];
 
@@ -125,7 +135,7 @@ export default function ImageCompressionToolsPage() {
                                     <div style={{
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-                                        color: "#6366f1", fontWeight: 800, fontSize: "14px"
+                                        color: "#4338ca", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />

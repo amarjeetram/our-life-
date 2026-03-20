@@ -2,10 +2,11 @@
 
 import React, { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import {
     Upload, Download, RefreshCw, CheckCircle2, XCircle,
     FileImage, Trash2, Zap, ShieldCheck, Clock, ImageIcon,
-    GraduationCap, Building2, Award, AlertCircle
+    GraduationCap, Building2, Award, AlertCircle, ArrowRight
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -210,7 +211,28 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
 
     return (
         <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #f8faff 0%, #f1f5ff 60%, #faf5ff 100%)', paddingBottom: '80px' }}>
-            <div style={{ maxWidth: '900px', margin: '0 auto', padding: '110px 20px 0' }}>
+            <style>{`
+                @keyframes spin { to { transform: rotate(360deg); } }
+                .ci-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 10px; flex-wrap: wrap; }
+                .ci-compress-box { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: center; gap: 16px; padding: 16px 20px; background: #ffffff; border-radius: 24px; margin-bottom: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+                .ci-compress-btn { flex: 1; min-width: 200px; padding: 16px 24px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border-radius: 16px; font-size: 16px; font-weight: 800; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 14px rgba(99,102,241,0.3); transition: transform 0.2s; }
+                .ci-result-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+                .ci-result-badge { flex: 1; min-width: 160px; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; }
+                .ci-filename { font-size: 13px; font-weight: 700; color: #1e293b; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+                .ci-happy-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid #f1f5f9; flex-wrap: wrap; gap: 10px; }
+                .ci-happy-row:last-child { border-bottom: none; }
+                .ci-happy-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+                .ci-link-row { display: flex; align-items: center; gap: 8px; flex: 1; max-width: 380px; min-width: 200px; width: 100%; }
+                .ci-link-input { flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 12px; color: #64748b; background: #f8fafc; outline: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+                @media (max-width: 480px) {
+                    .ci-header-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+                    .ci-compress-btn { min-width: 100%; }
+                    .ci-filename { max-width: 120px; }
+                    .ci-happy-row { padding: 12px 16px; }
+                    .ci-link-row { max-width: 100%; }
+                }
+            `}</style>
+            <div style={{ maxWidth: '900px', margin: '0 auto', padding: 'clamp(80px, 12vh, 110px) 16px 0' }}>
 
                 {/* ── Header ── */}
                 <motion.div
@@ -344,7 +366,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                 <motion.div key="results" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
 
                                     {/* Header row */}
-                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                                    <div className="ci-header-row">
                                         <p style={{ fontSize: '15px', fontWeight: 800, color: '#1e293b' }}>
                                             {items.length} image{items.length > 1 ? 's' : ''} {compressionStatus === 'IDLE' ? 'selected' : `compressing to ${userTargetSize}KB`}
                                         </p>
@@ -382,7 +404,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
 
                                     {/* Manual Compression Box */}
                                     {compressionStatus === 'IDLE' && (
-                                        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'stretch', justifyContent: 'center', gap: '16px', padding: '16px 20px', background: '#ffffff', borderRadius: '24px', marginBottom: '20px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
+                                        <div className="ci-compress-box">
 
                                             {/* Custom Dropdown */}
                                             <div style={{ position: 'relative' }}>
@@ -462,8 +484,8 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                             </div>
 
                                             <button
+                                                className="ci-compress-btn"
                                                 onClick={handleStartCompression}
-                                                style={{ flex: 1, padding: '16px 24px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: 'white', borderRadius: '16px', fontSize: '16px', fontWeight: 800, border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', boxShadow: '0 4px 14px rgba(99,102,241,0.3)', transition: 'transform 0.2s' }}
                                                 onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-2px)'}
                                                 onMouseLeave={e => e.currentTarget.style.transform = 'none'}
                                             >
@@ -524,9 +546,8 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                 <FileImage size={18} color="#6366f1" />
                                                             </div>
                                                             <div>
-                                                                <p style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b', maxWidth: '260px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                                                    {item.file.name}
-                                                                </p>
+                                                            <p className="ci-filename">{item.file.name}</p>
+
                                                                 <p style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>
                                                                     Original: {(item.file.size / 1024).toFixed(1)} KB
                                                                 </p>
@@ -612,13 +633,8 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                 </div>
 
                                                                 {/* Result badge + download */}
-                                                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                                                                    <div style={{
-                                                                        flex: 1, display: 'flex', alignItems: 'center', gap: '10px',
-                                                                        padding: '10px 14px', borderRadius: '12px',
-                                                                        background: isSuccess ? 'linear-gradient(135deg, #f0fdf4, #dcfce7)' : 'linear-gradient(135deg, #fff1f2, #ffe4e6)',
-                                                                        border: `1px solid ${isSuccess ? '#86efac' : '#fda4af'}`,
-                                                                    }}>
+                                                                <div className="ci-result-row">
+                                                                    <div className="ci-result-badge" style={{ background: isSuccess ? 'linear-gradient(135deg, #f0fdf4, #dcfce7)' : 'linear-gradient(135deg, #fff1f2, #ffe4e6)', border: `1px solid ${isSuccess ? '#86efac' : '#fda4af'}` }}>
                                                                         {isSuccess
                                                                             ? <CheckCircle2 size={18} color="#16a34a" />
                                                                             : <XCircle size={18} color="#e11d48" />
@@ -723,6 +739,84 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                         </span>
                     ))}
                 </motion.div>
+
+                {/* ── Are you a happy user? Card ── */}
+                <AnimatePresence>
+                    {(compressionStatus === 'DONE' || items.some(it => it.error)) && (
+                        <motion.div
+                            key="happy-user-card"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.5 }}
+                            style={{ background: '#fff', borderRadius: '20px', border: '1px solid #e2e8f0', boxShadow: '0 4px 24px rgba(0,0,0,0.06)', overflow: 'hidden', marginBottom: '24px' }}
+                        >
+                            <div style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', padding: '16px 24px' }}>
+                                <p style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>Are you a happy user? 😊</p>
+                            </div>
+                            <div className="ci-happy-row">
+                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Use our other tools</span>
+                                <div className="ci-happy-btns">
+                                    {[
+                                        { href: '/compress-image-to-20kb', label: 'Compress 20KB' },
+                                        { href: '/compress-image-to-50kb', label: 'Compress 50KB' },
+                                        { href: '/signature-resize', label: 'Signature Resize' },
+                                        { href: '/mb-to-kb-converter', label: 'MB to KB' },
+                                    ].map(t => (
+                                        <Link key={t.href} href={t.href} style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
+                                            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
+                                            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                                        ><Zap size={12} /> {t.label}</Link>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="ci-happy-row">
+                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Support Our Work ❤️</span>
+                                <Link href="/donate" style={{ padding: '8px 18px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
+                                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
+                                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                                >☕ Donate</Link>
+                            </div>
+                            <div className="ci-happy-row">
+                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Sharing is caring 🤝</span>
+                                <div className="ci-happy-btns">
+                                    {[
+                                        { label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com')}` },
+                                        { label: 'Twitter', href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com')}&text=Free+image+compression+tool` },
+                                        { label: 'WhatsApp', href: `https://wa.me/?text=${encodeURIComponent('Free image compression tool: ' + (typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com'))}` },
+                                        { label: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com')}` },
+                                    ].map(s => (
+                                        <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" style={{ padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
+                                            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
+                                            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                                        >{s.label}</a>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="ci-happy-row">
+                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Come back! 🔖</span>
+                                <button onClick={() => alert('Press Ctrl+D (or ⌘+D on Mac) to bookmark this page!')} style={{ padding: '8px 18px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', cursor: 'pointer' }}
+                                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
+                                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                                >🔖 Bookmark Page</button>
+                            </div>
+                            <div className="ci-happy-row">
+                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Link to this tool 🔗</span>
+                                <div className="ci-link-row">
+                                    <input readOnly value={typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com'} className="ci-link-input" />
+                                    <button onClick={() => { navigator.clipboard.writeText(window.location.href); toast.success('Link copied!'); }} style={{ padding: '8px 16px', borderRadius: '8px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: '#fff', border: 'none', fontSize: '13px', fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>📋 Copy</button>
+                                </div>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 24px', flexWrap: 'wrap', gap: '12px' }}>
+                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Send Feedback ✉️</span>
+                                <Link href="/contact-us" style={{ padding: '8px 18px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
+                                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
+                                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                                >✉️ Contact us</Link>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
                 {/* ── How it Works ── */}
                 <motion.div

@@ -43,6 +43,9 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    "max-snippet": -1,
+    "max-video-preview": -1,
+    "max-image-preview": "large",
     googleBot: {
       index: true,
       follow: true,
@@ -64,22 +67,6 @@ export default function RootLayout({
         <script src="https://analytics.ahrefs.com/analytics.js" data-key="d8ok06KdnbbIqz7qNwaXMw" async></script>
       </head>
       <body className="antialiased" suppressHydrationWarning>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "SmartToolsWala",
-              "url": "https://smarttoolswala.com",
-              "logo": "https://smarttoolswala.com/logo.png",
-              "sameAs": [
-                "https://twitter.com/smarttoolswala",
-                "https://github.com/smarttoolswala"
-              ]
-            })
-          }}
-        />
         <Suspense fallback={null}>
           <ClientToaster />
         </Suspense>

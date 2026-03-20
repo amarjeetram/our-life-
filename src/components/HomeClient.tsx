@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import {
@@ -199,6 +199,11 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 tags: ['Universal', 'Smart Convert']
                             },
                             {
+                                route: '/mb-to-kb-image-converter', title: 'MB to KB Image Converter',
+                                desc: 'Convert image from MB to KB online. Preview your compressed photo before downloading — free & instant.',
+                                tags: ['Image', 'MB to KB', 'Preview']
+                            },
+                            {
                                 route: '/compress-image-to-30kb', title: 'Compress to 30KB',
                                 desc: 'Strictly under 30KB for specific government compliance formats.',
                                 tags: ['Compliance', 'State Exams']
@@ -212,6 +217,11 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 route: '/tnpsc-photo-compressor', title: 'TNPSC Photo Compressor',
                                 desc: 'Compress TNPSC photo to 20-50KB and signature to 10-20KB as per official TNPSC requirements.',
                                 tags: ['TNPSC', 'Tamil Nadu', 'Govt Exam']
+                            },
+                            {
+                                route: '/signature-resize', title: 'Signature Resize',
+                                desc: 'Resize your signature to exact pixels or cm, and compress to target KB — perfect for UPSC, SSC & banking forms.',
+                                tags: ['Signature', 'Resize', 'Govt Forms']
                             }
                         ].map((tool, index) => (
                             <div
@@ -271,7 +281,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     <div style={{
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-                                        color: "#6366f1", fontWeight: 800, fontSize: "14px"
+                                        color: "#4338ca", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />
@@ -366,7 +376,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     <div style={{
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-                                        color: "#ef4444", fontWeight: 800, fontSize: "14px"
+                                        color: "#b91c1c", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />
@@ -443,7 +453,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                                 <span key={tag} style={{
                                                     padding: "4px 10px", borderRadius: "100px",
                                                     background: "#fdf4ff", border: "1px solid #fae8ff",
-                                                    fontSize: "11px", fontWeight: 700, color: "#c026d3"
+                                                    fontSize: "11px", fontWeight: 700, color: "#86198f"
                                                 }}>{tag}</span>
                                             ))}
                                         </div>
@@ -451,7 +461,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     <div style={{
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-                                        color: "#d946ef", fontWeight: 800, fontSize: "14px"
+                                        color: "#a21caf", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />

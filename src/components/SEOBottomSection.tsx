@@ -50,6 +50,7 @@ export default function SEOBottomSection({ keyword, faqs, children }: SEOBottomS
             <p className="text-xs text-gray-400 text-center pb-4">
                 Looking for <strong>{keyword}</strong>? SmartToolsWala offers the best free {keyword} tool online.
             </p>
+
         </div>
     );
 }

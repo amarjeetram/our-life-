@@ -101,7 +101,7 @@ export default function YouTubeToolsPage() {
                                     <div style={{
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-                                        color: "#ef4444", fontWeight: 800, fontSize: "14px"
+                                        color: "#b91c1c", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />

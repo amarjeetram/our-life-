@@ -26,59 +26,117 @@ export const metadata: Metadata = {
 
 export default function YoutubeTitleExtractorPage() {
     // Schema SoftwareApplication
-    const softwareSchema = {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "YouTube Title Extractor",
-        "operatingSystem": "All",
-        "applicationCategory": "UtilitiesApplication",
-        "description": "A free online tool to instantly extract and copy the title from any YouTube video.",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        }
-    };
+    const faqs = [
+        { q: "Is it legal to doing a youtube title copy?", a: "Yes, absolutely! Copying a title is just like reading the cover of a book. Titles are public text meant for everyone to read." },
+        { q: "Does this tool cost any money?", a: "No! This tool is completely free. We will never ask you for your credit card. We will never ask you for money." },
+        { q: "Can I also extract descriptions here?", a: "On this specific page, we only extract the title. But do not worry! If you need the full description, you can just click on 'YouTube Description Extractor'." },
+        { q: "Why not just copy from the YouTube app?", a: "If you try to press your finger on the title to copy it on the app, it often just plays the video instead. Our tool removes all that frustration." },
+        { q: "Does this work for YouTube Shorts?", a: "Yes! Our tool is smart enough to read the link of a YouTube Short and fetch the correct title for it too." }
+    ];
 
-    // Breadcrumb Schema
-    const breadcrumbSchema = {
+    const jsonLd = {
         "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
+        "@graph": [
             {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://smarttoolswala.com/"
+                "@type": "Organization",
+                "name": "SmartToolsWala",
+                "url": "https://smarttoolswala.com",
+                "logo": "https://smarttoolswala.com/logo.svg",
+                "sameAs": [
+                    "https://twitter.com/smarttoolswala",
+                    "https://github.com/smarttoolswala",
+                    "https://www.youtube.com/@SmartToolsWala"
+                ]
             },
             {
-                "@type": "ListItem",
-                "position": 2,
+                "@type": "WebApplication",
                 "name": "YouTube Title Extractor",
-                "item": "https://smarttoolswala.com/youtube-title-extractor"
+                "url": "https://smarttoolswala.com/youtube-title-extractor",
+                "operatingSystem": "All",
+                "applicationCategory": "UtilitiesApplication",
+                "description": "A free online tool to instantly extract and copy the title from any YouTube video.",
+                "featureList": [
+                    "YouTube title copy",
+                    "Extract YouTube title",
+                    "YouTube video title copy"
+                ],
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                },
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": "4.9",
+                    "ratingCount": "19300"
+                }
+            },
+            {
+                "@type": "HowTo",
+                "name": "How to Copy a YouTube Video Title",
+                "description": "Easily extract and copy the exact title of any YouTube video without accidentally clicking it.",
+                "step": [
+                    {
+                        "@type": "HowToStep",
+                        "name": "Find the YouTube Video",
+                        "text": "Locate the video on the YouTube app or website and copy its shareable link.",
+                        "url": "https://smarttoolswala.com/youtube-title-extractor#find"
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "name": "Paste URL",
+                        "text": "Paste the YouTube link into our title extractor's input box.",
+                        "url": "https://smarttoolswala.com/youtube-title-extractor#paste"
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "name": "Extract and Copy",
+                        "text": "Click exactly to extract the title, then use the 1-click copy button to save it to your clipboard.",
+                        "url": "https://smarttoolswala.com/youtube-title-extractor#copy"
+                    }
+                ]
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": "https://smarttoolswala.com/"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "YouTube Title Extractor",
+                        "item": "https://smarttoolswala.com/youtube-title-extractor"
+                    }
+                ]
+            },
+            {
+                "@type": "FAQPage",
+                "mainEntity": faqs.map(f => ({
+                    "@type": "Question",
+                    "name": f.q,
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": f.a
+                    }
+                }))
             }
         ]
     };
 
-    const faqSchema = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            { "@type": "Question", "name": "Is it legal to doing a youtube title copy?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, absolutely! Copying a title is just like reading the cover of a book. Titles are public text meant for everyone to read." } },
-            { "@type": "Question", "name": "Does this tool cost any money?", "acceptedAnswer": { "@type": "Answer", "text": "No! This tool is completely free. We will never ask you for your credit card. We will never ask you for money." } },
-            { "@type": "Question", "name": "Can I also extract descriptions here?", "acceptedAnswer": { "@type": "Answer", "text": "On this specific page, we only extract the title. But do not worry! If you need the full description, you can just click on 'YouTube Description Extractor'." } },
-            { "@type": "Question", "name": "Why not just copy from the YouTube app?", "acceptedAnswer": { "@type": "Answer", "text": "If you try to press your finger on the title to copy it on the app, it often just plays the video instead. Our tool removes all that frustration." } },
-            { "@type": "Question", "name": "Does this work for YouTube Shorts?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! Our tool is smart enough to read the link of a YouTube Short and fetch the correct title for it too." } }
-        ]
-    };
 
     return (
         <main className="min-h-screen bg-slate-50 flex flex-col pt-24">
 
             {/* JSON-LD Schemas */}
-            <Script id="schema-software" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }} />
-            <Script id="schema-breadcrumb" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-            <Script id="schema-faq" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+            <Script
+                id="schema-graph"
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
 
             <YoutubeTitleClient />
 

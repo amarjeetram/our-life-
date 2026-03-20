@@ -53,6 +53,15 @@ const Footer = () => (
                             <Mail className="w-5 h-5 text-slate-400 group-hover:text-indigo-400 transition-colors" />
                         </a>
                     </div>
+
+                    {/* Donate Button */}
+                    <Link
+                        href="/donate"
+                        className="mt-6 inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-sm font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(236,72,153,0.4)]"
+                        style={{ background: 'linear-gradient(135deg, #6366f1, #ec4899)', boxShadow: '0 4px 14px rgba(99,102,241,0.35)' }}
+                    >
+                        ❤️ Support Us — Donate
+                    </Link>
                 </div>
 
                 {/* Quick Links / Categories */}
@@ -109,6 +118,7 @@ const Footer = () => (
                         {[
                             { name: 'About Us', href: '/about-us' },
                             { name: 'Contact Us', href: '/contact-us' },
+                            { name: '❤️ Donate', href: '/donate' },
                             { name: 'Disclaimer', href: '/disclaimer' },
                             { name: 'Privacy Policy', href: '/privacy-policy' },
                             { name: 'Terms & Conditions', href: '/terms-and-conditions' },

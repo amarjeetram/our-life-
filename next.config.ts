@@ -36,11 +36,7 @@ const nextConfig: NextConfig = {
         destination: '/youtube-tag-extractor',
         permanent: true,
       },
-      {
-        source: '/mb-to-kb-image-converter',
-        destination: '/mb-to-kb-converter',
-        permanent: true,
-      },
+
     ];
   },
   experimental: {

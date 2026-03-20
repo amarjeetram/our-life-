@@ -82,7 +82,7 @@ export default function OtherToolsPage() {
                                                 <span key={tag} style={{
                                                     padding: "4px 10px", borderRadius: "100px",
                                                     background: "#fdf4ff", border: "1px solid #fae8ff",
-                                                    fontSize: "11px", fontWeight: 700, color: "#c026d3"
+                                                    fontSize: "11px", fontWeight: 700, color: "#86198f"
                                                 }}>{tag}</span>
                                             ))}
                                         </div>

@@ -44,45 +44,44 @@ export async function POST(req: NextRequest) {
         const originalWidth = metadata.width || 800;
 
         let outputBuffer: Buffer;
-        let quality = 85;
 
-        // Step 1: Binary search on quality (80 -> 5)
-        let low = 5, high = 85;
+        // Step 1: Binary search on quality (5 -> 90)
+        let low = 5, high = 90;
         outputBuffer = await sharp(buffer)
-            .jpeg({ quality: high, progressive: true, mozjpeg: true })
+            .jpeg({ quality: high, progressive: true })
             .toBuffer();
 
         if (outputBuffer.length <= targetBytes) {
-            // Already fits, return as-is
+            // Already fits at high quality, return as-is
         } else {
             while (low < high - 1) {
-                quality = Math.floor((low + high) / 2);
+                const mid = Math.floor((low + high) / 2);
                 outputBuffer = await sharp(buffer)
-                    .jpeg({ quality, progressive: true, mozjpeg: true })
+                    .jpeg({ quality: mid, progressive: true })
                     .toBuffer();
 
                 if (outputBuffer.length <= targetBytes) {
-                    low = quality;
+                    low = mid;
                 } else {
-                    high = quality;
+                    high = mid;
                 }
             }
             outputBuffer = await sharp(buffer)
-                .jpeg({ quality: low, progressive: true, mozjpeg: true })
+                .jpeg({ quality: low, progressive: true })
                 .toBuffer();
         }
 
         // Step 2: If still too large, progressively resize
         if (outputBuffer.length > targetBytes) {
-            let scaleFactor = 0.9;
+            let scaleFactor = 0.85;
             let attempts = 0;
-            while (outputBuffer.length > targetBytes && scaleFactor > 0.1 && attempts < 15) {
-                const newWidth = Math.max(100, Math.floor(originalWidth * scaleFactor));
+            while (outputBuffer.length > targetBytes && scaleFactor > 0.05 && attempts < 20) {
+                const newWidth = Math.max(80, Math.floor(originalWidth * scaleFactor));
                 outputBuffer = await sharp(buffer)
                     .resize({ width: newWidth, withoutEnlargement: true })
-                    .jpeg({ quality: 40, progressive: true, mozjpeg: true })
+                    .jpeg({ quality: Math.max(20, low), progressive: true })
                     .toBuffer();
-                scaleFactor -= 0.1;
+                scaleFactor -= 0.05;
                 attempts++;
             }
         }

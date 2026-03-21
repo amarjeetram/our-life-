@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, useEffect } from 'react';
+import imageCompression from 'browser-image-compression';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import {
@@ -41,11 +42,38 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
     const presetSizes = [20, 30, 40, 50, 100, 200];
 
     // ── Compress one file and update its slot ─────────────────────────────────
+    // ── Client-side smart pre-shrink using browser-image-compression ─────────
+    // Next.js App Router has a hardcoded ~4MB body limit for route handlers.
+    // We use browser-image-compression (same algo as Squoosh) to intelligently
+    // reduce file size before uploading — quality is preserved far better than Canvas.
+    const preshrinkFile = useCallback(async (file: File): Promise<File> => {
+        const MAX_PAYLOAD_MB = 3.5;
+        if (file.size <= MAX_PAYLOAD_MB * 1024 * 1024) return file;
+
+        try {
+            const compressed = await imageCompression(file, {
+                maxSizeMB: MAX_PAYLOAD_MB,
+                maxWidthOrHeight: 4096,   // keep up to 4K resolution
+                useWebWorker: true,
+                preserveExif: false,
+                initialQuality: 0.85,
+            });
+            // Return as File with original name
+            return new File([compressed], file.name, { type: compressed.type });
+        } catch {
+            // If compression fails, send as-is and let server handle the error
+            return file;
+        }
+    }, []);
+
     const compressOne = useCallback(async (id: string, imgFile: File) => {
         setItems(prev => prev.map(it => it.id === id ? { ...it, loading: true, error: null } : it));
         try {
+            // Pre-shrink on client if file is too large for the API body limit
+            const fileToSend = await preshrinkFile(imgFile);
+
             const formData = new FormData();
-            formData.append('file', imgFile);
+            formData.append('file', fileToSend);
             formData.append('targetSize', userTargetSize.toString());
             const res = await fetch('/api/compress', { method: 'POST', body: formData });
 
@@ -73,7 +101,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
             ));
             toast.error(`Failed to compress ${imgFile.name}. Please try again or select a different image.`);
         }
-    }, [userTargetSize]);
+    }, [userTargetSize, preshrinkFile]);
 
     const retryCompression = useCallback((id: string) => {
         const item = items.find(it => it.id === id);
@@ -148,7 +176,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
             } catch { /* silent */ }
             return;
         }
-        // Legacy single-file fallback
+        // Legay single-file fallback
         const data = sessionStorage.getItem('hero_image_data');
         const name = sessionStorage.getItem('hero_image_name') || 'image.jpg';
         if (data) {
@@ -157,6 +185,20 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
             sessionStorage.removeItem('hero_target_size');
             try { addAndCompress([dataUrlToFile(data, name)], true); } catch { /* silent */ }
         }
+
+        // ── Listen for custom event from GlobalDropZone ──────────────────────────
+        const handleGlobalDrop = (e: Event) => {
+            const customEvent = e as CustomEvent;
+            if (customEvent.detail?.files?.length) {
+                addAndCompress(customEvent.detail.files, false);
+            }
+        };
+
+        window.addEventListener('global-drop-compress', handleGlobalDrop);
+
+        return () => {
+            window.removeEventListener('global-drop-compress', handleGlobalDrop);
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

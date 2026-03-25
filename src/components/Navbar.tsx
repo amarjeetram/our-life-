@@ -40,7 +40,8 @@ const Navbar = () => {
             subItems: [
                 { name: 'Photo & Image Tools', href: '/photo-and-image-compression-tools' },
                 { name: 'YouTube Tools', href: '/youtube-tools' },
-                { name: 'Other Tools', href: '/other-tools' },
+                { name: 'Calculators', href: '/calculators' },
+                { name: 'Other Tools', href: '/#other-tools' },
             ]
         },
         { name: 'Blog', href: '/blog', icon: <BookOpen className="w-5 h-5" /> },

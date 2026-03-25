@@ -20,6 +20,7 @@ interface PreviewFile {
     sizeKB: string;
     preview: string;
     id: string;
+    originalFile: File;
 }
 
 export default function HeroUploadZone() {
@@ -52,6 +53,7 @@ export default function HeroUploadZone() {
                         sizeKB: (file.size / 1024).toFixed(1),
                         preview: e.target?.result as string,
                         id: Math.random().toString(36).slice(2) + Date.now(),
+                        originalFile: file,
                     }];
                 });
             };
@@ -89,6 +91,10 @@ export default function HeroUploadZone() {
 
         // Store ALL images in sessionStorage so the compress page can auto-compress them
         if (files.length) {
+            // Preferred method: Global object for intra-app fast routing (overcomes 5MB sessionStorage limit and avoiding base64 encoding overhead)
+            (window as any).__HERO_FILES__ = files.map(f => f.originalFile);
+            (window as any).__HERO_TARGET_SIZE__ = targetSize.value;
+
             try {
                 const payload = files.map(f => ({ data: f.preview, name: f.name }));
                 sessionStorage.setItem('hero_images', JSON.stringify(payload));
@@ -97,7 +103,7 @@ export default function HeroUploadZone() {
                 sessionStorage.removeItem('hero_image_data');
                 sessionStorage.removeItem('hero_image_name');
             } catch {
-                // sessionStorage full — silent fallback
+                // sessionStorage full — silent fallback. the window object above will still work!
             }
         }
 

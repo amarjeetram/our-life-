@@ -16,6 +16,7 @@
     "gray-matter": "^4.0.3",
     "lru-cache": "^11.2.6",
     "lucide-react": "^0.575.0",
+    "nerdamer": "^1.1.13",
     "next": "^16.1.6",
     "next-mdx-remote": "^6.0.0",
     "razorpay": "^2.9.6",

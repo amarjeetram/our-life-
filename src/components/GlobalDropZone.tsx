@@ -85,6 +85,9 @@ export default function GlobalDropZone() {
         }
 
         // ── Other pages → encode to base64, store in sessionStorage, navigate ──
+        // Preferred method: store in memory immediately for fast redirect
+        (window as any).__HERO_FILES__ = imageFiles;
+
         const results: { data: string; name: string }[] = [];
         let done = 0;
         imageFiles.forEach(file => {

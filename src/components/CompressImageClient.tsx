@@ -160,9 +160,28 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
 
     // ── Auto-compress from homepage sessionStorage ────────────────────────────
     useEffect(() => {
-        const heroTargetSize = sessionStorage.getItem('hero_target_size');
-        if (heroTargetSize && !isNaN(parseInt(heroTargetSize))) {
-            setUserTargetSize(parseInt(heroTargetSize));
+        // Preferred method: Fast, infinite size cross-component routing via memory
+        const memoryFiles = (window as any).__HERO_FILES__;
+        const memoryTarget = (window as any).__HERO_TARGET_SIZE__;
+
+        if (memoryTarget && !isNaN(parseInt(memoryTarget))) {
+            setUserTargetSize(parseInt(memoryTarget));
+            delete (window as any).__HERO_TARGET_SIZE__;
+        } else {
+            const heroTargetSize = sessionStorage.getItem('hero_target_size');
+            if (heroTargetSize && !isNaN(parseInt(heroTargetSize))) {
+                setUserTargetSize(parseInt(heroTargetSize));
+                sessionStorage.removeItem('hero_target_size');
+            }
+        }
+
+        if (memoryFiles && memoryFiles.length > 0) {
+            addAndCompress(memoryFiles, true);
+            delete (window as any).__HERO_FILES__;
+            sessionStorage.removeItem('hero_images'); // clear fallback
+            sessionStorage.removeItem('hero_image_data');
+            sessionStorage.removeItem('hero_image_name');
+            return;
         }
 
         // New multi-file format

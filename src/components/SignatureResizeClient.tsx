@@ -156,6 +156,17 @@ export default function SignatureResizeClient({ children }: { children?: React.R
 
     return (
         <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #f8faff 0%, #f1f5ff 60%, #faf5ff 100%)', paddingBottom: '80px' }}>
+            <style>{`
+                .ci-happy-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid #f1f5f9; flex-wrap: wrap; gap: 10px; }
+                .ci-happy-row:last-child { border-bottom: none; }
+                .ci-happy-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+                .ci-link-row { display: flex; align-items: center; gap: 8px; flex: 1; max-width: 380px; min-width: 200px; width: 100%; }
+                .ci-link-input { flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 12px; color: #64748b; background: #f8fafc; outline: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+                @media (max-width: 480px) {
+                    .ci-happy-row { padding: 12px 16px; }
+                    .ci-link-row { max-width: 100%; }
+                }
+            `}</style>
             <div style={{ maxWidth: '900px', margin: '0 auto', padding: '110px 20px 0' }}>
 
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '40px' }}>

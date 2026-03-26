@@ -110,7 +110,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const ogImage = post.image ? `${SITE}${post.image}` : `${SITE}/og-image.png`;
 
     return {
-        title: `${post.title} | SmartToolsWala Guides`,
+        title: `${post.title}`,
         description: post.description,
         alternates: { canonical },
         openGraph: {
@@ -211,6 +211,30 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         }
     };
 
+    // Auto-extract FAQ schema from MDX content (looks for ### questions under ## FAQ section)
+    const faqInFaqSection = (() => {
+        const faqSectionStart = post.content.search(/##.*FAQ/i);
+        if (faqSectionStart === -1) return [];
+        const faqSection = post.content.slice(faqSectionStart);
+        const nextH2 = faqSection.slice(4).search(/^## /m);
+        const faqContent = nextH2 > 0 ? faqSection.slice(0, nextH2 + 4) : faqSection;
+        const pairs = [...faqContent.matchAll(/###\s+\d*\.?\s*(.+?)\n([\s\S]*?)(?=###|$)/g)];
+        return pairs.map(m => ({
+            "@type": "Question",
+            "name": m[1].trim(),
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": m[2].replace(/[*`_#]/g, '').trim().slice(0, 500)
+            }
+        })).filter(q => q.name.length > 5 && q.acceptedAnswer.text.length > 10);
+    })();
+
+    const faqJsonLd = faqInFaqSection.length >= 2 ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqInFaqSection
+    } : null;
+
     const ctaConfig = post.tags?.map((t) => TAG_CTA[t]).find(Boolean) ?? null;
 
     // Define custom MDX components corresponding to the tags injected in MDX files
@@ -246,6 +270,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
                 />
+                {faqJsonLd && (
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+                    />
+                )}
 
                 {/* Header Section */}
                 <header className="bg-white border-b border-slate-200/60 pt-28 pb-16 relative">

@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/mdx';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
 
 // Sitemap configuration
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -24,6 +24,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         { url: `${baseUrl}/youtube-description-extractor`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
         { url: `${baseUrl}/youtube-title-extractor`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
         { url: `${baseUrl}/govt-exam-tools/tnpsc-photo-compressor`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${baseUrl}/govt-exam-tools`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+        { url: `${baseUrl}/unit-converters`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
         { url: `${baseUrl}/photo-and-image-compression-tools`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
         { url: `${baseUrl}/youtube-tools`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
         { url: `${baseUrl}/other-tools`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },

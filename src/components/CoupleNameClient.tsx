@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Sparkles, Copy, Heart, Hash, RefreshCcw, CheckCircle2, Zap } from 'lucide-react';
+import { Sparkles, Copy, Heart, Hash, RefreshCcw, CheckCircle2, Zap, Pencil } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -18,6 +18,21 @@ const FONTS = {
 
 const EMOJIS = ["❤️", "💕", "✨", "💍", "💑", "🧿", "💫", "💖", "💘", "🥰"];
 
+const MEANINGS = [
+    "A connection written in the stars ✨",
+    "Two souls, perfectly aligned 💫",
+    "An unbreakable bond of love ❤️",
+    "A melody of two beating hearts 🎵",
+    "Destined forever and always 🕊️",
+    "A rare and beautiful romance 🌹",
+    "The perfect blend of passion 💖",
+    "Endless warmth and deep affection 🥰",
+    "A journey of together forever 💑",
+    "True love's ultimate match 💘",
+    "A glowing spark that never fades 🔥",
+    "Two halves of the very same soul 💕"
+];
+
 const applyFont = (text: string, fontKey: keyof typeof FONTS) => {
     if (fontKey === 'normal') return text;
     const targetMap = FONTS[fontKey];
@@ -32,6 +47,7 @@ interface ResultItem {
     id: string;
     text: string;
     type: 'name' | 'hashtag';
+    meaning?: string;
 }
 
 export default function CoupleNameClient() {
@@ -40,6 +56,20 @@ export default function CoupleNameClient() {
     const [results, setResults] = useState<ResultItem[]>([]);
     const [isGenerating, setIsGenerating] = useState(false);
     const [copiedId, setCopiedId] = useState<string | null>(null);
+    const [savedIds, setSavedIds] = useState<string[]>([]);
+    const [editingId, setEditingId] = useState<string | null>(null);
+    const [editValue, setEditValue] = useState('');
+
+    const handleEditSave = (id: string) => {
+        setResults(results.map(r => r.id === id ? { ...r, text: editValue } : r));
+        setEditingId(null);
+        toast.success('Name updated!');
+    };
+
+    const toggleSave = (id: string) => {
+        setSavedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+        if (!savedIds.includes(id)) toast.success('Saved to favorites! ❤️');
+    };
 
     const generateNames = (e?: React.FormEvent) => {
         if (e) e.preventDefault();
@@ -100,17 +130,19 @@ export default function CoupleNameClient() {
             comboArray.slice(0, 12).forEach((combo, idx) => {
                 const font = fonts[idx % fonts.length];
                 const emoji = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
+                const meaning = MEANINGS[Math.floor(Math.random() * MEANINGS.length)];
 
                 // Add plain version
                 if (font !== 'normal') {
-                    finalResults.push({ id: `plain-${idx}`, text: `${combo} ${emoji}`, type: 'name' });
+                    finalResults.push({ id: `plain-${idx}`, text: `${combo} ${emoji}`, type: 'name', meaning });
                 }
 
                 // Add styled version
                 finalResults.push({
                     id: `styled-${idx}`,
                     text: `${applyFont(combo, font)} ${emoji}`,
-                    type: 'name'
+                    type: 'name',
+                    meaning
                 });
             });
 
@@ -250,29 +282,66 @@ export default function CoupleNameClient() {
                                 <p className="text-gray-500 mt-2">Click any name or hashtag to copy instantly!</p>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {results.map((result, idx) => (
                                     <motion.div
                                         key={result.id}
                                         initial={{ opacity: 0, scale: 0.9 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{ delay: idx * 0.03 }}
-                                        onClick={() => handleCopy(result.text, result.id)}
-                                        className={`group relative flex items-center justify-between p-5 rounded-2xl cursor-pointer transition-all duration-200 border-2 
+                                        className={`group relative flex items-center justify-between p-4 sm:p-5 rounded-2xl transition-all duration-200 border-2 
                                             ${result.type === 'hashtag'
-                                                ? 'bg-indigo-50/50 border-indigo-100 hover:border-indigo-300 hover:bg-indigo-50'
-                                                : 'bg-white border-pink-50 hover:border-pink-200 hover:shadow-lg hover:shadow-pink-500/5'
+                                                ? 'bg-indigo-50/50 border-indigo-100 hover:border-indigo-200 hover:bg-indigo-50/80 shadow-sm'
+                                                : 'bg-white border-pink-50 hover:border-pink-100 hover:shadow-lg hover:shadow-pink-500/5'
                                             }`}
                                     >
-                                        <div className="flex items-center gap-3 overflow-hidden">
-                                            {result.type === 'hashtag' && <Hash className="w-4 h-4 text-indigo-400 shrink-0" />}
-                                            <span className={`text-[17px] truncate ${result.type === 'hashtag' ? 'font-semibold text-indigo-700' : 'text-gray-800'}`}>
-                                                {result.text}
-                                            </span>
+                                        <div className="flex items-center gap-3 flex-1 min-w-0">
+                                            {result.type === 'hashtag' && <Hash className="w-5 h-5 text-indigo-400 shrink-0" />}
+                                            <div className="flex flex-col flex-1 min-w-0 pr-2">
+                                                {editingId === result.id ? (
+                                                    <input 
+                                                        autoFocus
+                                                        value={editValue}
+                                                        onChange={(e) => setEditValue(e.target.value)}
+                                                        onBlur={() => handleEditSave(result.id)}
+                                                        onKeyDown={(e) => { if (e.key === 'Enter') handleEditSave(result.id); }}
+                                                        className="text-[17px] font-bold text-gray-900 bg-white border border-indigo-300 rounded px-2 py-1 w-full outline-none focus:ring-2 focus:ring-indigo-100 shadow-inner"
+                                                    />
+                                                ) : (
+                                                    <span className={`text-[17px] sm:text-lg break-words ${result.type === 'hashtag' ? 'font-semibold text-indigo-700' : 'font-bold text-gray-800'}`}>
+                                                        {result.text}
+                                                    </span>
+                                                )}
+                                                {result.meaning && (
+                                                    <span className="text-sm text-pink-500 font-medium mt-1 break-words drop-shadow-sm leading-snug">
+                                                        Meaning: {result.meaning}
+                                                    </span>
+                                                )}
+                                            </div>
                                         </div>
 
-                                        <div className={`shrink-0 p-2 rounded-xl transition-colors ${copiedId === result.id ? 'bg-green-100 text-green-600' : 'bg-gray-50 text-gray-400 group-hover:bg-white group-hover:text-pink-500'}`}>
-                                            {copiedId === result.id ? <CheckCircle2 className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                                        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 ml-2">
+                                            <button 
+                                                onClick={(e) => { e.stopPropagation(); setEditingId(result.id); setEditValue(result.text); }}
+                                                className="p-1.5 sm:p-2 rounded-xl text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 border border-gray-200 bg-white transition-all shadow-[0_2px_8px_-4px_rgba(0,0,0,0.1)] hover:shadow-sm"
+                                                title="Edit Name"
+                                            >
+                                                <Pencil className="w-4 h-4" />
+                                            </button>
+                                            <button 
+                                                onClick={(e) => { e.stopPropagation(); handleCopy(result.text, result.id); }}
+                                                className="p-1.5 sm:p-2 rounded-xl text-gray-400 hover:text-pink-600 hover:bg-pink-50 border border-gray-200 bg-white transition-all shadow-[0_2px_8px_-4px_rgba(0,0,0,0.1)] hover:shadow-sm"
+                                                title="Copy"
+                                            >
+                                                {copiedId === result.id ? <CheckCircle2 className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                                            </button>
+                                            <button 
+                                                onClick={(e) => { e.stopPropagation(); toggleSave(result.id); }}
+                                                className={`p-1.5 sm:p-2 rounded-xl transition-all shadow-[0_2px_8px_-4px_rgba(0,0,0,0.1)] hover:shadow-sm border ${savedIds.includes(result.id) ? 'border-rose-200 bg-rose-50 text-rose-500' : 'border-gray-200 bg-white text-gray-400 hover:text-rose-500 hover:bg-rose-50'}`}
+                                                title="Save"
+                                            >
+                                                <Heart className={`w-4 h-4 ${savedIds.includes(result.id) ? 'fill-rose-500' : ''}`} />
+                                            </button>
                                         </div>
                                     </motion.div>
                                 ))}

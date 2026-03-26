@@ -73,8 +73,10 @@ const Footer = () => (
                     <ul className="space-y-3.5 mb-8">
                         {[
                             { name: 'Photo & Image Tools', href: '/photo-and-image-compression-tools' },
+                            { name: 'Govt Exam Tools', href: '/govt-exam-tools' },
                             { name: 'YouTube Tools', href: '/youtube-tools' },
                             { name: 'Calculators', href: '/calculators' },
+                            { name: 'Unit Converters', href: '/unit-converters' },
                             { name: 'Other Tools', href: '/other-tools' },
                         ].map(link => (
                             <li key={link.name}>

@@ -5,8 +5,8 @@ import ArticleMBtoKBImage from '@/components/articles/ArticleMBtoKBImage';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-    title: 'MB to KB Image Converter Online Free – Fast Compressor',
-    description: 'Free MB to KB image converter online. Reduce image MB to KB quickly and securely. Convert any large image file to KB without losing quality.',
+    title: 'MB to KB Image Converter – Compress Photo to 20KB, 50KB, 100KB',
+    description: 'Convert image from MB to KB online free. Compress photos to 20KB, 50KB, 100KB for SSC, UPSC, bank and job forms. Instant, secure, no watermark.',
     keywords: 'mb to kb image converter, mb to kb image, convert image mb to kb, mb to kb image online, image mb to kb converter, mb to kb photo converter, compress image mb to kb',
     alternates: {
         canonical: 'https://smarttoolswala.com/mb-to-kb-image-converter',

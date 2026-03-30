@@ -40,6 +40,7 @@ const Navbar = () => {
             subItems: [
                 { name: 'Photo & Image Tools', href: '/photo-and-image-compression-tools' },
                 { name: 'YouTube Tools', href: '/youtube-tools' },
+                { name: 'Instagram Tools', href: '/instagram-tools' },
                 { name: 'Govt Exam Tools', href: '/govt-exam-tools' },
                 { name: 'Calculators', href: '/calculators' },
                 { name: 'Unit Converters', href: '/unit-converters' },

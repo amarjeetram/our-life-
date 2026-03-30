@@ -141,14 +141,14 @@ const MDXInlineCTA = ({ config }: { config?: { title: string; badge: string; but
             borderRadius: "16px", padding: "16px 20px", margin: "36px 0",
             textDecoration: "none", boxShadow: "0 4px 24px rgba(99,102,241,0.25)"
         }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
+            <span style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
                 <span style={{ fontSize: "11px", fontWeight: 800, color: "rgba(255,255,255,0.75)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
                     {config.badge}
                 </span>
                 <span style={{ fontSize: "15px", fontWeight: 800, color: "#ffffff" }}>
                     {config.title}
                 </span>
-            </div>
+            </span>
             <span style={{
                 flexShrink: 0, background: "rgba(255,255,255,0.2)", color: "#fff",
                 padding: "8px 16px", borderRadius: "100px", fontSize: "13px", fontWeight: 700,
@@ -252,14 +252,14 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         CTAYoutubeDescription: () => <MDXInlineCTA config={TAG_CTA['cta-youtube-description']} />,
         CTACoupleName: () => <MDXInlineCTA config={TAG_CTA['cta-couple-name']} />,
         InteractiveCoupleName: () => (
-            <div className="my-12 not-prose border border-pink-100 rounded-3xl bg-white shadow-xl overflow-hidden relative z-50">
-                <div className="bg-pink-50/50 p-4 text-center border-b border-pink-100">
+            <span className="block my-12 not-prose border border-pink-100 rounded-3xl bg-white shadow-xl overflow-hidden relative z-50">
+                <span className="block bg-pink-50/50 p-4 text-center border-b border-pink-100">
                     <span className="text-sm font-bold text-pink-600 uppercase tracking-widest">Interactive Tool</span>
-                </div>
-                <div className="p-2 sm:p-6">
+                </span>
+                <span className="block p-2 sm:p-6">
                     <CoupleNameClient />
-                </div>
-            </div>
+                </span>
+            </span>
         )
     };
 

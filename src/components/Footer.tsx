@@ -75,6 +75,7 @@ const Footer = () => (
                             { name: 'Photo & Image Tools', href: '/photo-and-image-compression-tools' },
                             { name: 'Govt Exam Tools', href: '/govt-exam-tools' },
                             { name: 'YouTube Tools', href: '/youtube-tools' },
+                            { name: 'Instagram Tools', href: '/instagram-tools' },
                             { name: 'Calculators', href: '/calculators' },
                             { name: 'Unit Converters', href: '/unit-converters' },
                             { name: 'Other Tools', href: '/other-tools' },

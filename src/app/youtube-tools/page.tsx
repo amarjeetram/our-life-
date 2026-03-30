@@ -13,6 +13,11 @@ export const metadata: Metadata = {
 export default function YouTubeToolsPage() {
     const tools = [
         {
+            route: '/youtube-tools/1024x576-youtube-banner-maker', title: 'YouTube Banner Maker (1024×576)',
+            desc: 'Resize any image to the perfect 1024×576 YouTube channel art size. Free, no watermark, instant PNG download.',
+            tags: ['Banner', 'Channel Art', 'Free']
+        },
+        {
             route: '/youtube-tag-extractor', title: 'YouTube Tag Extractor',
             desc: 'Extract SEO-optimized tags from any YouTube video to boost your content visibility.',
             tags: ['SEO', 'YouTube', 'Marketing']
@@ -28,6 +33,7 @@ export default function YouTubeToolsPage() {
             tags: ['Title', 'YouTube', 'Copy']
         }
     ];
+
 
     return (
         <main className="min-h-screen bg-slate-50 font-sans text-slate-800">

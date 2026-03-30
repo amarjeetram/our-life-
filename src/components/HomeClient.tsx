@@ -304,6 +304,11 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", marginBottom: "72px" }}>
                         {[
                             {
+                                route: '/youtube-tools/1024x576-youtube-banner-maker', title: 'YouTube Banner Maker (1024×576)',
+                                desc: 'Resize any image to the perfect 1024×576 YouTube channel art size. Free, no watermark, instant PNG download.',
+                                tags: ['Banner', 'Channel Art', 'Free']
+                            },
+                            {
                                 route: '/youtube-tag-extractor', title: 'YouTube Tag Extractor',
                                 desc: 'Extract SEO-optimized tags from any YouTube video to boost your content visibility.',
                                 tags: ['SEO', 'YouTube', 'Marketing']
@@ -377,6 +382,82 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
                                         color: "#b91c1c", fontWeight: 800, fontSize: "14px"
+                                    }}>
+                                        <span>Use Tool Free</span>
+                                        <ArrowRight size={16} />
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+
+                    {/* INSTAGRAM TOOLS SECTION */}
+                    <div style={{ textAlign: "center", marginBottom: "40px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#9333ea", marginBottom: "12px" }}>
+                            Instagram Tools
+                        </span>
+                        <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
+                            Grow Your Instagram
+                        </h2>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", marginBottom: "72px" }}>
+                        {[
+                            {
+                                route: '/instagram-tools/instagram-bio-generator', title: 'Instagram Bio Generator',
+                                desc: 'Generate catchy Instagram bios instantly. Pick a category, tone & keywords — get 3 ready-to-copy bios. Free, no signup.',
+                                tags: ['Instagram', 'Bio', 'Free']
+                            }
+                        ].map((tool, index) => (
+                            <div key={tool.route} className={`native-fade-in delay-${(index % 5 + 1) * 100}`}>
+                                <Link href={tool.route} style={{
+                                    display: "flex", flexDirection: "column", height: "100%",
+                                    background: "#ffffff", borderRadius: "24px",
+                                    border: "1px solid #f1f5f9",
+                                    boxShadow: "0 4px 24px rgba(147,51,234,0.06), 0 1px 3px rgba(0,0,0,0.02)",
+                                    overflow: "hidden", textDecoration: "none",
+                                    transition: "transform 0.2s, box-shadow 0.2s",
+                                }}
+                                    onMouseEnter={e => {
+                                        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
+                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(147,51,234,0.14), 0 2px 8px rgba(0,0,0,0.04)";
+                                    }}
+                                    onMouseLeave={e => {
+                                        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(147,51,234,0.06), 0 1px 3px rgba(0,0,0,0.02)";
+                                    }}
+                                >
+                                    <div style={{ height: "4px", background: "linear-gradient(90deg, #9333ea, #ec4899)" }} />
+                                    <div style={{ padding: "32px", display: "flex", flexDirection: "column", gap: "16px", flexGrow: 1 }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "4px" }}>
+                                            <div style={{
+                                                width: "52px", height: "52px", borderRadius: "16px",
+                                                background: "linear-gradient(135deg, #9333ea, #ec4899)",
+                                                display: "flex", alignItems: "center", justifyContent: "center",
+                                                color: "#fff", flexShrink: 0,
+                                                boxShadow: "0 2px 10px rgba(147,51,234,0.3)"
+                                            }}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                                            </div>
+                                            <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.01em" }}>
+                                                {tool.title}
+                                            </h3>
+                                        </div>
+                                        <p style={{ fontSize: "15px", color: "#64748b", lineHeight: 1.6 }}>{tool.desc}</p>
+                                        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "auto", paddingTop: "8px" }}>
+                                            {tool.tags.map(tag => (
+                                                <span key={tag} style={{
+                                                    padding: "4px 10px", borderRadius: "100px",
+                                                    background: "#faf5ff", border: "1px solid #e9d5ff",
+                                                    fontSize: "11px", fontWeight: 700, color: "#7c3aed"
+                                                }}>{tag}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div style={{
+                                        background: "#fafbff", borderTop: "1px solid #f1f5f9",
+                                        padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
+                                        color: "#7c3aed", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />

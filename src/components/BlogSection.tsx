@@ -2,9 +2,15 @@ import Link from 'next/link';
 import { ArrowRight, BookOpen, Sparkles } from 'lucide-react';
 import BlogCards from './BlogCards';
 import { getAllPosts } from '@/lib/mdx';
+import { getLatestWPPosts } from '@/lib/wordpress';
 
-export default function BlogSection() {
-    const posts = getAllPosts().slice(0, 3); // Get latest 3 posts
+export default async function BlogSection() {
+    let posts = await getLatestWPPosts(3);
+
+    // Fallback to local posts if WP fetching fails
+    if (!posts || posts.length === 0) {
+        posts = getAllPosts().slice(0, 3);
+    }
 
     if (!posts || posts.length === 0) return null;
 

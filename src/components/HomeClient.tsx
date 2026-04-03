@@ -194,15 +194,11 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 tags: ['General', 'High Quality']
                             },
                             {
-                                route: '/mb-to-kb-converter', title: 'MB to KB Converter',
+                                route: '/mb-to-kb-image-converter', title: 'MB to KB Converter',
                                 desc: 'Shrink massive megabyte photos down to optimized kilobytes instantly.',
                                 tags: ['Universal', 'Smart Convert']
                             },
-                            {
-                                route: '/mb-to-kb-image-converter', title: 'MB to KB Image Converter',
-                                desc: 'Convert image from MB to KB online. Preview your compressed photo before downloading — free & instant.',
-                                tags: ['Image', 'MB to KB', 'Preview']
-                            },
+
                             {
                                 route: '/compress-image-to-30kb', title: 'Compress to 30KB',
                                 desc: 'Strictly under 30KB for specific government compliance formats.',
@@ -222,6 +218,11 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 route: '/govt-exam-tools/signature-resize', title: 'Signature Resize',
                                 desc: 'Resize your signature to exact pixels or cm, and compress to target KB — perfect for UPSC, SSC & banking forms.',
                                 tags: ['Signature', 'Resize', 'Govt Forms']
+                            },
+                            {
+                                route: '/photo-and-image-compression-tools', title: 'View All Image Tools',
+                                desc: 'Access all our free image compression, resizing, and converting tools in one organized place.',
+                                tags: ['View All', 'Free']
                             }
                         ].map((tool, index) => (
                             <div
@@ -322,6 +323,11 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 route: '/youtube-title-extractor', title: 'YouTube Title Extractor',
                                 desc: 'Easily view and copy the exact title from any YouTube video for your own research.',
                                 tags: ['Title', 'YouTube', 'Copy']
+                            },
+                            {
+                                route: '/youtube-tools', title: 'View All YouTube Tools',
+                                desc: 'Explore all our free YouTube SEO tools to extract tags, titles, and boost your channel growth.',
+                                tags: ['View All', 'Free']
                             }
                         ].map((tool, index) => (
                             <div
@@ -407,6 +413,11 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 route: '/instagram-tools/instagram-bio-generator', title: 'Instagram Bio Generator',
                                 desc: 'Generate catchy Instagram bios instantly. Pick a category, tone & keywords — get 3 ready-to-copy bios. Free, no signup.',
                                 tags: ['Instagram', 'Bio', 'Free']
+                            },
+                            {
+                                route: '/instagram-tools', title: 'View All Instagram Tools',
+                                desc: 'Check out all our free tools to optimize your Instagram profile and generate top-tier bios.',
+                                tags: ['View All', 'Free']
                             }
                         ].map((tool, index) => (
                             <div key={tool.route} className={`native-fade-in delay-${(index % 5 + 1) * 100}`}>
@@ -480,6 +491,11 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", marginBottom: "72px" }}>
                         {[
                             {
+                                route: '/calculators/blooket-calculator', title: 'Blooket Calculator',
+                                desc: 'Free token and probability calculator for Blooket 2026. Calculate your exact chances to pull rare and chroma blooks.',
+                                tags: ['Gaming', 'Blooket', 'Tokens']
+                            },
+                            {
                                 route: '/calculators/derivative-calculator', title: 'Derivative Calculator',
                                 desc: 'Free online symbolic derivative calculator. Find the derivative of any function instantly.',
                                 tags: ['Math', 'Calculus']
@@ -488,6 +504,11 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 route: '/calculators/integral-calculator', title: 'Integral Calculator',
                                 desc: 'Compute indefinite integrals and antiderivatives symbolically with zero limits.',
                                 tags: ['Math', 'Calculus']
+                            },
+                            {
+                                route: '/calculators', title: 'View All Calculators',
+                                desc: 'Access our full suite of free online calculators for math, analytics, and gaming probabilities.',
+                                tags: ['View All', 'Free']
                             }
                         ].map((tool, index) => (
                             <div
@@ -556,6 +577,100 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                         ))}
                     </div>
 
+                    {/* UNIT CONVERTERS SECTION */}
+                    <div id="unit-converters" style={{ textAlign: "center", marginBottom: "40px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#f59e0b", marginBottom: "12px" }}>
+                            Unit Converters
+                        </span>
+                        <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
+                            Universal Converters
+                        </h2>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", marginBottom: "72px" }}>
+                        {[
+                            {
+                                route: '/unit-converters/mb-to-kb', title: 'MB to KB Converter',
+                                desc: 'Convert megabytes to kilobytes instantly. 1 MB = 1,024 KB. Perfect for precise file size conversions.',
+                                tags: ['mb to kb', 'File Size']
+                            },
+                            {
+                                route: '/unit-converters/gb-to-mb', title: 'GB to MB Converter',
+                                desc: 'Convert gigabytes to megabytes instantly. 1 GB = 1,024 MB. Ideal for digital storage capacity calculations.',
+                                tags: ['gb to mb', 'Storage']
+                            },
+                            {
+                                route: '/unit-converters', title: 'View All Converters',
+                                desc: 'Access over a dozen free unit converters for digital storage sizes including terabytes, gigabytes, megabytes, and kilobytes.',
+                                tags: ['View All', 'Free']
+                            }
+                        ].map((tool, index) => (
+                            <div
+                                key={tool.route}
+                                className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
+                            >
+                                <Link href={tool.route} style={{
+                                    display: "flex", flexDirection: "column", height: "100%",
+                                    background: "#ffffff", borderRadius: "24px",
+                                    border: "1px solid #f1f5f9",
+                                    boxShadow: "0 4px 24px rgba(245,158,11,0.06), 0 1px 3px rgba(0,0,0,0.02)",
+                                    overflow: "hidden", textDecoration: "none",
+                                    transition: "transform 0.2s, box-shadow 0.2s",
+                                }}
+                                    onMouseEnter={e => {
+                                        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
+                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(245,158,11,0.12), 0 2px 8px rgba(0,0,0,0.04)";
+                                    }}
+                                    onMouseLeave={e => {
+                                        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
+                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(245,158,11,0.06), 0 1px 3px rgba(0,0,0,0.02)";
+                                    }}
+                                >
+                                    <div style={{ height: "4px", background: "linear-gradient(90deg, #f59e0b, #fbbf24)" }} />
+
+                                    <div style={{ padding: "32px", display: "flex", flexDirection: "column", gap: "16px", flexGrow: 1 }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "4px" }}>
+                                            <div style={{
+                                                width: "52px", height: "52px", borderRadius: "16px",
+                                                background: "linear-gradient(135deg, #fef3c7, #fde68a)",
+                                                display: "flex", alignItems: "center", justifyContent: "center",
+                                                color: "#d97706", flexShrink: 0,
+                                                boxShadow: "0 2px 10px rgba(245,158,11,0.15)"
+                                            }}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                                            </div>
+                                            <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.01em" }}>
+                                                {tool.title}
+                                            </h3>
+                                        </div>
+
+                                        <p style={{ fontSize: "15px", color: "#64748b", lineHeight: 1.6 }}>
+                                            {tool.desc}
+                                        </p>
+
+                                        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "auto", paddingTop: "8px" }}>
+                                            {tool.tags.map(tag => (
+                                                <span key={tag} style={{
+                                                    padding: "4px 10px", borderRadius: "100px",
+                                                    background: "#fffbeb", border: "1px solid #fef3c7",
+                                                    fontSize: "11px", fontWeight: 700, color: "#b45309"
+                                                }}>{tag}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div style={{
+                                        background: "#fafbff", borderTop: "1px solid #f1f5f9",
+                                        padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
+                                        color: "#d97706", fontWeight: 800, fontSize: "14px"
+                                    }}>
+                                        <span>Use Tool Free</span>
+                                        <ArrowRight size={16} />
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+
                     {/* OTHER TOOLS SECTION */}
                     <div id="other-tools" style={{ textAlign: "center", marginBottom: "40px" }}>
                         <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "12px" }}>
@@ -569,9 +684,19 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", marginBottom: "72px" }}>
                         {[
                             {
+                                route: '/other-tools/random-object-generator', title: 'Random Object Generator',
+                                desc: 'Instantly generate up to 100 arbitrary items for games, drawing, or object shows. Features a live animated roulette.',
+                                tags: ['Live App', 'Fun Utility', 'Lists']
+                            },
+                            {
                                 route: '/stylish-couple-name-maker', title: 'Couple Name Maker',
                                 desc: 'Combine two names into a stylish, emoji-filled romantic combo for Instagram & hashtags.',
                                 tags: ['New Utility', 'Social']
+                            },
+                            {
+                                route: '/other-tools', title: 'View All Other Tools',
+                                desc: 'Explore our complete collection of fun, social, and handy miscellaneous utilities.',
+                                tags: ['View All', 'Free']
                             }
                         ].map((tool, index) => (
                             <div

@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: 'api.insanenotes.in',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'blog.smarttoolswala.com',
+        pathname: '/**',
+      },
     ],
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 86400, // Cache images for 24 hours
@@ -44,6 +49,11 @@ const nextConfig: NextConfig = {
       {
         source: '/tnpsc-photo-compressor',
         destination: '/govt-exam-tools/tnpsc-photo-compressor',
+        permanent: true,
+      },
+      {
+        source: '/mb-to-kb-converter',
+        destination: '/mb-to-kb-image-converter',
         permanent: true,
       },
 

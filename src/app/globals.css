@@ -119,6 +119,11 @@ body {
   border-color: var(--brand-light);
 }
 
+.unit-tool-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 16px 48px rgba(99, 102, 241, 0.18) !important;
+}
+
 /* Buttons */
 .btn-primary {
   display: inline-flex;

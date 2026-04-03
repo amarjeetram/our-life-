@@ -15,7 +15,12 @@ export default function OtherToolsPage() {
         {
             route: '/stylish-couple-name-maker', title: 'Couple Name Maker',
             desc: 'Combine two names into a stylish, emoji-filled romantic combo for Instagram & hashtags.',
-            tags: ['New Utility', 'Social']
+            tags: ['Social']
+        },
+        {
+            route: '/other-tools/random-object-generator', title: 'Random Object Generator',
+            desc: 'Generate completely random objects with pictures instantly. Perfect for drawing, object shows, and kids games.',
+            tags: ['New Utility', 'Fun & Games']
         }
     ];
 

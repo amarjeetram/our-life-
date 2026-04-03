@@ -29,6 +29,7 @@ export type Post = {
     content: string;
     image?: string;
     tags?: string[];
+    externalLink?: string;
 };
 
 export function getPostBySlug(slug: string): Post | null {

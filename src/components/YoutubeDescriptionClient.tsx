@@ -12,6 +12,7 @@ export default function YoutubeDescriptionClient() {
     const [result, setResult] = useState<{ title: string, description: string, stats: { views: string, likes: string, comments: string } } | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [copiedContent, setCopiedContent] = useState<'title' | 'description' | null>(null);
+    const [extractedVideoId, setExtractedVideoId] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,6 +31,9 @@ export default function YoutubeDescriptionClient() {
         setError(null);
         setResult(null);
         setCopiedContent(null);
+        
+        const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
+        setExtractedVideoId(match ? match[1] : null);
 
         try {
             const res = await fetch('/api/extract-youtube-description', {
@@ -175,6 +179,16 @@ export default function YoutubeDescriptionClient() {
             {/* Results Section */}
             {result && !loading && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                    
+                    {/* Video Thumbnail */}
+                    {extractedVideoId && (
+                        <div style={{ width: "100%", height: "250px", background: "#0f172a", position: "relative", overflow: "hidden", borderRadius: "24px", boxShadow: "0 10px 40px -10px rgba(0,0,0,0.08)" }}>
+                             <img src={`https://img.youtube.com/vi/${extractedVideoId}/maxresdefault.jpg`} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.5, filter: "blur(8px)", transform: "scale(1.1)" }} alt="Video Background" />
+                             <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px", background: "linear-gradient(to top, rgba(15,23,42,0.8), rgba(15,23,42,0.2))" }}>
+                                 <img src={`https://img.youtube.com/vi/${extractedVideoId}/maxresdefault.jpg`} style={{ height: "100%", borderRadius: "12px", boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)", border: "4px solid rgba(255,255,255,0.1)", objectFit: "cover" }} alt="Video Thumbnail" />
+                             </div>
+                        </div>
+                    )}
 
                     {/* Stats Bar */}
                     <div style={{

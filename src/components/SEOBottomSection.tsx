@@ -10,15 +10,16 @@ interface SEOBottomSectionProps {
     keyword: string;
     faqs: FAQ[];
     children: React.ReactNode;
+    heading?: string;
 }
 
-export default function SEOBottomSection({ keyword, faqs, children }: SEOBottomSectionProps) {
+export default function SEOBottomSection({ keyword, faqs, children, heading }: SEOBottomSectionProps) {
     return (
         <div className="space-y-6">
             {/* Article */}
             <div className="card p-6 md:p-8">
                 <h2 className="text-xl font-bold text-gray-900 mb-4">
-                    About <span className="text-blue-600 capitalize">{keyword}</span>
+                    {heading ?? <>About <span className="text-blue-600 capitalize">{keyword}</span></>}
                 </h2>
                 <div className="prose prose-sm prose-gray max-w-none text-gray-600 leading-relaxed space-y-3 text-[15px]">
                     {children}

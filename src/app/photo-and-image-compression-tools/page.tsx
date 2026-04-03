@@ -28,11 +28,6 @@ export default function ImageCompressionToolsPage() {
             tags: ['General', 'High Quality']
         },
         {
-            route: '/mb-to-kb-converter', title: 'MB to KB Converter',
-            desc: 'Shrink massive megabyte photos down to optimized kilobytes instantly.',
-            tags: ['Universal', 'Smart Convert']
-        },
-        {
             route: '/mb-to-kb-image-converter', title: 'MB to KB Image Converter',
             desc: 'Convert image from MB to KB online. Preview your compressed photo before downloading — free & instant.',
             tags: ['Image', 'MB to KB', 'Preview']

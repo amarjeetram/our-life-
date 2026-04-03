@@ -205,7 +205,7 @@ export default function ArticleMBtoKBImage() {
                     <li className="pl-0"><Link href="/compress-image-to-30kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress Image to 30KB</Link></li>
                     <li className="pl-0"><Link href="/compress-image-to-50kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress Image to 50KB</Link></li>
                     <li className="pl-0"><Link href="/compress-image-to-100kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress Image to 100KB</Link></li>
-                    <li className="pl-0"><Link href="/mb-to-kb-converter" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> MB to KB Converter</Link></li>
+                    <li className="pl-0"><Link href="/mb-to-kb-image-converter" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> MB to KB Converter</Link></li>
                     <li className="pl-0"><Link href="/govt-exam-tools/signature-resize" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Signature Resize Tool</Link></li>
                 </ul>
             </div>

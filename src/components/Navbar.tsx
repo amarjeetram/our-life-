@@ -44,7 +44,7 @@ const Navbar = () => {
                 { name: 'Govt Exam Tools', href: '/govt-exam-tools' },
                 { name: 'Calculators', href: '/calculators' },
                 { name: 'Unit Converters', href: '/unit-converters' },
-                { name: 'Other Tools', href: '/#other-tools' },
+                { name: 'Other Tools', href: '/other-tools' },
             ]
         },
         { name: 'Blog', href: '/blog', icon: <BookOpen className="w-5 h-5" /> },

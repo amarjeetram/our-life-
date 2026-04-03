@@ -16,11 +16,11 @@ export async function POST(req: Request) {
         const response = await fetch(url, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html'
+                'Accept': 'text/html',
+                'Accept-Language': 'en-US,en;q=0.9',
+                'Cookie': 'CONSENT=YES+cb.20230214-08-p0.en+FX+483;'
             },
-            next: {
-                revalidate: 3600 // cache for 1 hour
-            }
+            cache: 'no-store'
         });
 
         if (!response.ok) {
@@ -31,16 +31,20 @@ export async function POST(req: Request) {
 
         // 1. Extract Title
         let title = '';
-        const titleMatch = /<meta name="title" content="([^"]+)">/.exec(html) ||
-            /<meta property="og:title" content="([^"]+)">/.exec(html);
+        const titleMatch = html.match(/<meta\s+name="title"\s+content="([^"]+)"/i) ||
+            html.match(/<meta\s+content="([^"]+)"\s+name="title"/i) ||
+            html.match(/<meta\s+property="og:title"\s+content="([^"]+)"/i) ||
+            html.match(/<meta\s+content="([^"]+)"\s+property="og:title"/i);
         if (titleMatch && titleMatch[1]) {
             title = titleMatch[1];
         }
 
         // 2. Extract Description (Short version for meta usually, we want the long one if possible)
         let description = '';
-        const descMatch = /<meta name="description" content="([^"]+)">/.exec(html) ||
-            /<meta property="og:description" content="([^"]+)">/.exec(html);
+        const descMatch = html.match(/<meta\s+name="description"\s+content="([\s\S]*?)"\s*\/?>/i) ||
+            html.match(/<meta\s+property="og:description"\s+content="([\s\S]*?)"\s*\/?>/i) ||
+            html.match(/<meta\s+content="([\s\S]*?)"\s+name="description"\s*\/?>/i) ||
+            html.match(/<meta\s+content="([\s\S]*?)"\s+property="og:description"\s*\/?>/i);
         if (descMatch && descMatch[1]) {
             description = descMatch[1];
         }

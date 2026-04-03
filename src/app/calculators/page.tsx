@@ -3,8 +3,11 @@ import { ArrowRight, Calculator } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-    title: "Free Math Calculators & Tools | SmartToolsWala",
-    description: "Explore our collection of free, instant math calculators. Compute derivatives and integrals step-by-step.",
+    title: "Free Online Calculators & Tools | SmartToolsWala",
+    description: "Explore our collection of free, instant calculators for math, gaming probabilities, and general utilities.",
+    alternates: {
+        canonical: "https://smarttoolswala.com/calculators",
+    },
 };
 
 export default function MathCalculatorsPage() {
@@ -12,18 +15,23 @@ export default function MathCalculatorsPage() {
         <main className="min-h-screen bg-slate-50 flex flex-col container mx-auto px-4 py-12 md:py-24 mt-16">
                 <div style={{ textAlign: "center", marginBottom: "40px" }}>
                     <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0ea5e9", marginBottom: "12px" }}>
-                        All Math Tools
+                        All Calculators
                     </span>
                     <h1 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
-                        Math Calculators
+                        Calculators
                     </h1>
                     <p style={{ marginTop: "16px", color: "#64748b", fontSize: "16px", maxWidth: "600px", margin: "16px auto 0" }}>
-                        Powerful, client-side symbolic math calculators. 100% free and instant.
+                        Powerful, client-side calculators for math, analytics, and gaming probabilities. 100% free and instant.
                     </p>
                 </div>
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", maxWidth: "1100px", margin: "0 auto" }}>
                     {[
+                        {
+                            route: '/calculators/blooket-calculator', title: 'Blooket Calculator',
+                            desc: 'Free token and probability calculator for Blooket 2026. Calculate your exact chances to pull rare and chroma blooks.',
+                            tags: ['Gaming', 'Blooket', 'Probability']
+                        },
                         {
                             route: '/calculators/derivative-calculator', title: 'Derivative Calculator',
                             desc: 'Free online symbolic derivative calculator. Find the derivative of any function instantly.',

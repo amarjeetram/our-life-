@@ -21,7 +21,7 @@ export default function BlogCards({ posts }: { posts: Post[] }) {
                 const isImportant = index === 0;
 
                 return (
-                    <Link key={post.slug} href={`/blog/${post.slug}`} className="group flex flex-col bg-white rounded-3xl border border-gray-200/80 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                    <Link key={post.slug} href={post.externalLink || `/blog/${post.slug}`} className="group flex flex-col bg-white rounded-3xl border border-gray-200/80 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
 
                         {/* Image Container with matching aesthetic */}
                         <div className="aspect-video relative overflow-hidden bg-slate-50 flex items-center justify-center p-6 border-b border-gray-100">

@@ -8,13 +8,14 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Valid YouTube URL is required' }, { status: 400 });
         }
 
-        // Add headers to mimic a browser
+        // Add headers to mimic a browser, prevent caching errors, and bypass consent page
         const response = await fetch(url, {
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                 'Accept-Language': 'en-US,en;q=0.9',
+                'Cookie': 'CONSENT=YES+cb.20230214-08-p0.en+FX+483;'
             },
-            next: { revalidate: 3600 } // Cache for 1 hour to prevent hitting YouTube too often
+            cache: 'no-store' // Never cache to avoid saving captcha/consent blocks
         });
 
         if (!response.ok) {
@@ -26,10 +27,24 @@ export async function POST(req: Request) {
         // 1. Extract Title (try different meta tags for reliability)
         let title = '';
 
+        // Try oEmbed as primary fallback for title if meta tags fail
+        try {
+            const oEmbedUrl = `https://www.youtube.com/oembed?url=${encodeURIComponent(url)}&format=json`;
+            const oEmbedRes = await fetch(oEmbedUrl, { cache: 'no-store' });
+            if (oEmbedRes.ok) {
+                const oEmbedData = await oEmbedRes.json();
+                if (oEmbedData.title) title = oEmbedData.title;
+            }
+        } catch (e) {
+            console.warn("oEmbed fallback failed", e);
+        }
+
         // Try og:title first
-        const ogTitleMatch = html.match(/<meta\s+property="og:title"\s+content="([^"]+)"/i);
-        if (ogTitleMatch && ogTitleMatch[1]) {
-            title = ogTitleMatch[1];
+        if (!title) {
+            const ogTitleMatch = html.match(/<meta\s+property="og:title"\s+content="([^"]+)"/i) || html.match(/<meta\s+content="([^"]+)"\s+property="og:title"/i);
+            if (ogTitleMatch && ogTitleMatch[1]) {
+                title = ogTitleMatch[1];
+            }
         }
 
         // Try standard title tag as fallback
@@ -43,16 +58,18 @@ export async function POST(req: Request) {
 
         // Try name="title" as secondary fallback
         if (!title) {
-            const nameTitleMatch = html.match(/<meta\s+name="title"\s+content="([^"]+)"/i);
+            const nameTitleMatch = html.match(/<meta\s+name="title"\s+content="([^"]+)"/i) || html.match(/<meta\s+content="([^"]+)"\s+name="title"/i);
             if (nameTitleMatch && nameTitleMatch[1]) {
                 title = nameTitleMatch[1];
             }
         }
 
         // Clean up title (decode HTML entities like &#39; to ')
-        title = title.replace(/&#39;/g, "'")
-            .replace(/&quot;/g, '"')
-            .replace(/&amp;/g, '&');
+        if (title) {
+            title = title.replace(/&#39;/g, "'")
+                .replace(/&quot;/g, '"')
+                .replace(/&amp;/g, '&');
+        }
 
         if (!title) {
             return NextResponse.json({ error: 'Could not extract title from this video. It might be private or deleted.' }, { status: 404 });
@@ -60,7 +77,7 @@ export async function POST(req: Request) {
 
         // Extract thumbnail for visual feedback in UI
         let thumbnail = '';
-        const ogImageMatch = html.match(/<meta\s+property="og:image"\s+content="([^"]+)"/i);
+        const ogImageMatch = html.match(/<meta\s+property="og:image"\s+content="([^"]+)"/i) || html.match(/<meta\s+content="([^"]+)"\s+property="og:image"/i);
         if (ogImageMatch && ogImageMatch[1]) {
             thumbnail = ogImageMatch[1];
         }

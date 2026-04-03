@@ -2,12 +2,13 @@ import { Metadata } from 'next';
 import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import ArticleTNPSC from '@/components/articles/ArticleTNPSC';
+import { GraduationCap, Award, Building2, ShieldCheck, Check, Lock } from 'lucide-react';
 
 
 
 export const metadata: Metadata = {
-    title: 'TNPSC Photo Compressor – Compress Photo & Signature to 20KB/50KB Free',
-    description: 'Free TNPSC photo compressor tool. Compress your TNPSC photo to 20-50KB and signature to 10-20KB as per official TNPSC requirements. Fast, secure, and no signup needed.',
+    title: 'TNPSC Photo Compressor Online – Resize & Compress Photo Fast',
+    description: 'Compress and resize TNPSC photos & signatures online instantly. Free, fast, exact size output for TNPSC applications – no signup, 100% safe!',
     keywords: 'tnpsc photo compressor, tnpsc photo size reducer, tnpsc photo resize, tnpsc signature compressor, compress tnpsc photo to 50kb, tnpsc image size reducer online',
     alternates: {
         canonical: 'https://smarttoolswala.com/govt-exam-tools/tnpsc-photo-compressor',
@@ -136,8 +137,34 @@ export default function Page() {
             />
             <CompressImageClient
                 targetSizeKB={50}
-                titleOverride="TNPSC Photo Compressor"
-                subtitleOverride="Compress your TNPSC photo to 20-50KB and signature to 10-20KB online free. Meets official Tamil Nadu Public Service Commission requirements. No signup, no watermark."
+                titleOverride="TNPSC Photo & Signature Compressor Online"
+                hideTopBadge={true}
+                subtitleOverride={
+                    <span className="flex flex-col items-center">
+                        <span className="text-[17px] text-[#64748b] max-w-[600px] text-center leading-relaxed">
+                            Compress and resize TNPSC photos & signatures online instantly. Free, fast, exact size output for TNPSC applications.
+                        </span>
+                        
+                        <a href="/govt-exam-tools/add-name-date" className="mt-5 flex items-center justify-center gap-2 bg-indigo-50 border border-indigo-200 text-indigo-700 px-5 py-2.5 rounded-xl font-bold text-[14px] hover:bg-indigo-100 hover:shadow-md transition-all shadow-sm" style={{ textDecoration: 'none' }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                            Need to print Name & Date on your photo? Click here →
+                        </a>
+                        <span className="mt-5 flex flex-wrap justify-center gap-3 text-[12px] font-bold tracking-wide">
+                            <span className="flex items-center gap-1.5 bg-[#f0fdf4] text-[#16a34a] px-3.5 py-0.5 rounded-full border border-[#bbf7d0]">
+                                <Check size={13} strokeWidth={3} /> Trusted by 6.25 Lakh+ Aspirants
+                            </span>
+                            <span className="flex items-center gap-1.5 bg-[#f0fdf4] text-[#16a34a] px-3.5 py-0.5 rounded-full border border-[#bbf7d0]">
+                                <Lock size={12} strokeWidth={2.5} /> Privacy Certified
+                            </span>
+                        </span>
+                    </span>
+                }
+                useCasesOverride={[
+                    { icon: <GraduationCap size={18} />, label: 'TNPSC Group I-IV', color: '#7c3aed' },
+                    { icon: <Award size={18} />, label: 'TNPSC VAO', color: '#0ea5e9' },
+                    { icon: <Building2 size={18} />, label: 'TNPSC Assistant', color: '#059669' },
+                    { icon: <ShieldCheck size={18} />, label: 'Technical Posts', color: '#d97706' }
+                ]}
             >
                 <SEOBottomSection
                     keyword="tnpsc photo compressor"

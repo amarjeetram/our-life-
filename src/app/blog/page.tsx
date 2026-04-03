@@ -2,10 +2,11 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, BookOpen, Sparkles } from 'lucide-react';
 import { getAllPosts } from '@/lib/mdx';
+import { getLatestWPPosts } from '@/lib/wordpress';
 import BlogCards from '@/components/BlogCards';
 
-// EXPLICIT FORCE STATIC - Critical for fast indexing and crawling
-export const dynamic = 'force-static';
+// EXPLICIT REVALIDATE - Critical for fast indexing while staying updated via ISR
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
     title: 'Blog | Image Optimization Guides & Tutorials | SmartToolsWala',
@@ -20,7 +21,13 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogArchivePage() {
-    const posts = getAllPosts();
+    const localPosts = getAllPosts();
+    const wpPosts = await getLatestWPPosts(20); // Fetch top 20 recent WordPress posts
+
+    // Merge and sort all posts by date descending
+    const posts = [...wpPosts, ...localPosts].sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    );
 
     return (
         <div className="bg-slate-50 min-h-screen pb-24 relative overflow-hidden">

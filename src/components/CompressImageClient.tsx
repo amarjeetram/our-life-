@@ -31,7 +31,7 @@ function dataUrlToFile(data: string, name: string): File {
     return new File([bytes], name, { type: mime });
 }
 
-export default function CompressImageClient({ targetSizeKB, titleOverride, subtitleOverride, children }: { targetSizeKB: number, titleOverride?: React.ReactNode, subtitleOverride?: React.ReactNode, children?: React.ReactNode }) {
+export default function CompressImageClient({ targetSizeKB, titleOverride, subtitleOverride, useCasesOverride, hideTopBadge, children }: { targetSizeKB: number, titleOverride?: React.ReactNode, subtitleOverride?: React.ReactNode, useCasesOverride?: { icon: React.ReactNode, label: string, color: string }[], hideTopBadge?: boolean, children?: React.ReactNode }) {
     const [items, setItems] = useState<FileResult[]>([]);
     const [isDragging, setIsDragging] = useState(false);
     const [userTargetSize, setUserTargetSize] = useState<number>(targetSizeKB);
@@ -261,12 +261,14 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
     }, [items, compressionStatus]);
 
     // ── Use cases ─────────────────────────────────────────────────────────────
-    const useCases = [
+    const defaultUseCases = [
         { icon: <GraduationCap size={18} />, label: 'UPSC / IAS', color: '#7c3aed' },
         { icon: <Award size={18} />, label: 'SSC / CGL', color: '#0ea5e9' },
         { icon: <Building2 size={18} />, label: 'Bank Forms', color: '#059669' },
         { icon: <ShieldCheck size={18} />, label: 'Defense Exams', color: '#d97706' },
     ];
+    
+    const activeUseCases = useCasesOverride || defaultUseCases;
 
     const isEmpty = items.length === 0;
 
@@ -302,16 +304,18 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                     transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                     style={{ textAlign: 'center', marginBottom: '40px' }}
                 >
-                    <span style={{
-                        display: 'inline-flex', alignItems: 'center', gap: '6px',
-                        background: 'linear-gradient(135deg, #ede9fe, #dbeafe)',
-                        border: '1px solid #c4b5fd', borderRadius: '100px',
-                        padding: '5px 16px', fontSize: '11px', fontWeight: 700,
-                        color: '#5b21b6', letterSpacing: '0.06em', textTransform: 'uppercase',
-                        marginBottom: '20px'
-                    }}>
-                        <Zap size={11} /> Free · Instant · No Watermark
-                    </span>
+                    {!hideTopBadge && (
+                        <span style={{
+                            display: 'inline-flex', alignItems: 'center', gap: '6px',
+                            background: 'linear-gradient(135deg, #ede9fe, #dbeafe)',
+                            border: '1px solid #c4b5fd', borderRadius: '100px',
+                            padding: '5px 16px', fontSize: '11px', fontWeight: 700,
+                            color: '#5b21b6', letterSpacing: '0.06em', textTransform: 'uppercase',
+                            marginBottom: '20px'
+                        }}>
+                            <Zap size={11} /> Free · Instant · No Watermark
+                        </span>
+                    )}
 
                     <h1 style={{
                         fontSize: 'clamp(30px, 5vw, 48px)', fontWeight: 900,
@@ -336,7 +340,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
 
                     {/* Use case tags */}
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '8px', marginTop: '20px' }}>
-                        {useCases.map((u) => (
+                        {activeUseCases.map((u) => (
                             <span key={u.label} style={{
                                 display: 'inline-flex', alignItems: 'center', gap: '6px',
                                 padding: '6px 14px', borderRadius: '100px',
@@ -599,12 +603,23 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                         background: '#fff', borderBottom: '1px solid #f1f5f9'
                                                     }}>
                                                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                                            {/* Thumbnail preview of original image */}
                                                             <div style={{
-                                                                width: '38px', height: '38px', borderRadius: '12px',
+                                                                width: '48px', height: '48px', borderRadius: '12px',
+                                                                overflow: 'hidden', flexShrink: 0,
+                                                                border: '2px solid #e0e7ff',
                                                                 background: 'linear-gradient(135deg, #ede9fe, #dbeafe)',
-                                                                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0
+                                                                display: 'flex', alignItems: 'center', justifyContent: 'center'
                                                             }}>
-                                                                <FileImage size={18} color="#6366f1" />
+                                                                <img
+                                                                    src={URL.createObjectURL(item.file)}
+                                                                    alt={item.file.name}
+                                                                    style={{
+                                                                        width: '100%', height: '100%',
+                                                                        objectFit: 'cover', display: 'block'
+                                                                    }}
+                                                                    loading="eager"
+                                                                />
                                                             </div>
                                                             <div>
                                                             <p className="ci-filename">{item.file.name}</p>
@@ -822,7 +837,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                         { href: '/compress-image-to-20kb', label: 'Compress 20KB' },
                                         { href: '/compress-image-to-50kb', label: 'Compress 50KB' },
                                         { href: '/govt-exam-tools/signature-resize', label: 'Signature Resize' },
-                                        { href: '/mb-to-kb-converter', label: 'MB to KB' },
+                                        { href: '/mb-to-kb-image-converter', label: 'MB to KB' },
                                     ].map(t => (
                                         <Link key={t.href} href={t.href} style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
                                             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}

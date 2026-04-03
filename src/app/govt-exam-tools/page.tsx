@@ -5,6 +5,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
     title: "Government Exam Photo & Document Tools | SmartToolsWala",
     description: "Free online tools for SSC, UPSC, TNPSC, and Banking exams. Precisely compress, resize, and optimize your photos and signatures to match strict portal requirements.",
+    alternates: {
+        canonical: "https://smarttoolswala.com/govt-exam-tools",
+    },
 };
 
 export default function GovtExamToolsPage() {
@@ -25,9 +28,19 @@ export default function GovtExamToolsPage() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", maxWidth: "1100px", margin: "0 auto" }}>
                 {[
                     {
+                        route: '/govt-exam-tools/ssc-signature-resize', title: 'SSC Signature Resize',
+                        desc: 'Strict SSC portal compliance. Resize signature exactly to 10KB-20KB and 4cm x 2cm width & height.',
+                        tags: ['SSC', 'CGL', 'GD']
+                    },
+                    {
+                        route: '/govt-exam-tools/gds-photo-resize', title: 'GDS Photo Resize',
+                        desc: 'Specifically designed for India Post GDS. Compress photos to 50KB and signatures to 20KB.',
+                        tags: ['GDS', 'India Post']
+                    },
+                    {
                         route: '/govt-exam-tools/signature-resize', title: 'Signature Resize & Compress',
                         desc: 'Resize your written signature to exact pixels or cm, and compress to target KB (e.g. 10KB-20KB).',
-                        tags: ['Signatures', 'UPSC', 'SSC']
+                        tags: ['Signatures', 'UPSC', 'All Exams']
                     },
                     {
                         route: '/govt-exam-tools/tnpsc-photo-compressor', title: 'TNPSC Photo Compressor',

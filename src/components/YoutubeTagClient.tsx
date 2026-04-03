@@ -13,6 +13,7 @@ export default function YoutubeTagClient() {
     const [error, setError] = useState<string | null>(null);
     const [copiedAll, setCopiedAll] = useState(false);
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+    const [extractedVideoId, setExtractedVideoId] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -31,6 +32,9 @@ export default function YoutubeTagClient() {
         setError(null);
         setTags([]);
         setCopiedAll(false);
+        
+        const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
+        setExtractedVideoId(match ? match[1] : null);
 
         try {
             const res = await fetch('/api/extract-youtube-tags', {
@@ -172,11 +176,23 @@ export default function YoutubeTagClient() {
 
             {/* Tags Result Grid */}
             {tags.length > 0 && !loading && (
-                <div style={{
-                    background: "#ffffff", borderRadius: "24px", padding: "clamp(24px, 5vw, 40px)",
-                    boxShadow: "0 10px 40px -10px rgba(0,0,0,0.08)"
-                }}>
-                    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-100">
+                <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                    
+                    {/* Video Thumbnail */}
+                    {extractedVideoId && (
+                        <div style={{ width: "100%", height: "250px", background: "#0f172a", position: "relative", overflow: "hidden", borderRadius: "24px", boxShadow: "0 10px 40px -10px rgba(0,0,0,0.08)" }}>
+                             <img src={`https://img.youtube.com/vi/${extractedVideoId}/maxresdefault.jpg`} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.5, filter: "blur(8px)", transform: "scale(1.1)" }} alt="Video Background" />
+                             <div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, display: "flex", alignItems: "center", justifyContent: "center", padding: "16px", background: "linear-gradient(to top, rgba(15,23,42,0.8), rgba(15,23,42,0.2))" }}>
+                                 <img src={`https://img.youtube.com/vi/${extractedVideoId}/maxresdefault.jpg`} style={{ height: "100%", borderRadius: "12px", boxShadow: "0 25px 50px -12px rgba(0,0,0,0.5)", border: "4px solid rgba(255,255,255,0.1)", objectFit: "cover" }} alt="Video Thumbnail" />
+                             </div>
+                        </div>
+                    )}
+
+                    <div style={{
+                        background: "#ffffff", borderRadius: "24px", padding: "clamp(24px, 5vw, 40px)",
+                        boxShadow: "0 10px 40px -10px rgba(0,0,0,0.08)"
+                    }}>
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-100">
                         <div>
                             <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#1e293b", marginBottom: "4px" }}>
                                 Extracted Tags <span style={{ color: "#ef4444", background: "#fee2e2", padding: "2px 8px", borderRadius: "100px", fontSize: "14px", verticalAlign: "middle", marginLeft: "8px" }}>{tags.length}</span>
@@ -239,6 +255,7 @@ export default function YoutubeTagClient() {
                                 {tags.join(", ")}
                             </span>
                         </p>
+                    </div>
                     </div>
                 </div>
             )}

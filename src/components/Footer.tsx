@@ -98,7 +98,7 @@ const Footer = () => (
                             { name: 'Compress to 20KB', href: '/compress-image-to-20kb' },
                             { name: 'Compress to 50KB', href: '/compress-image-to-50kb' },
                             { name: 'Derivative Calc', href: '/calculators/derivative-calculator' },
-                            { name: 'MB to KB Converter', href: '/mb-to-kb-converter' },
+                            { name: 'MB to KB Converter', href: '/mb-to-kb-image-converter' },
                             { name: 'YouTube Tags', href: '/youtube-tag-extractor' },
                             { name: 'Couple Names', href: '/stylish-couple-name-maker' },
                         ].map(link => (

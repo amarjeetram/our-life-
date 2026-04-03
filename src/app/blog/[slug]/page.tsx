@@ -17,7 +17,7 @@ const TAG_CTA: Record<string, { title: string; badge: string; buttonLink: string
     'cta-mb-to-kb': {
         title: 'Free MB to KB Converter – Try Now!',
         badge: '🚀 Free Tool',
-        buttonLink: '/mb-to-kb-converter',
+        buttonLink: '/mb-to-kb-image-converter',
         gradient: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
     },
     'cta-compress-50kb': {

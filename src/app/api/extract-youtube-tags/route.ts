@@ -14,23 +14,47 @@ export async function POST(req: Request) {
         }
 
         // We fetch the raw HTML.
-        // Adding a User-Agent, Accept-Language, and CONSENT cookie helps bypass localized/consent pages.
-        // Using cache: 'no-store' prevents caching blocked pages.
-        const response = await fetch(url, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html',
-                'Accept-Language': 'en-US,en;q=0.9',
-                'Cookie': 'CONSENT=YES+cb.20230214-08-p0.en+FX+483;'
-            },
-            cache: 'no-store'
-        });
-
-        if (!response.ok) {
-            return NextResponse.json({ error: 'Failed to fetch video page from YouTube' }, { status: 502 });
+        // Implement fallback mechanism
+        let html = '';
+        try {
+            // First attempt: Direct fetch with Googlebot User-Agent (often bypasses bot protection)
+            const response = await fetch(url, {
+                headers: {
+                    'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+                    'Accept': 'text/html',
+                    'Accept-Language': 'en-US,en;q=0.9',
+                    'Cookie': 'CONSENT=YES+cb.20230214-08-p0.en+FX+483;'
+                },
+                cache: 'no-store'
+            });
+            
+            if (response.ok) {
+                html = await response.text();
+            }
+        } catch (e) {
+            console.warn("Direct fetch failed, falling back to proxy...", e);
         }
 
-        const html = await response.text();
+        // Second attempt: Fallback to allorigins proxy if direct fetch failed or if HTML looks blocked (no tags)
+        if (!html || (!html.includes('og:video:tag') && !html.includes('ytInitialData'))) {
+            try {
+                console.log("Using proxy fallback...");
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+                const proxyResponse = await fetch(proxyUrl, { cache: 'no-store' });
+                if (proxyResponse.ok) {
+                    const data = await proxyResponse.json();
+                    if (data && data.contents) {
+                        html = data.contents;
+                    }
+                }
+            } catch (proxyError) {
+                console.error("Proxy fetch failed:", proxyError);
+            }
+        }
+
+        if (!html) {
+            return NextResponse.json({ error: 'Failed to fetch video page from YouTube' }, { status: 502 });
+        }
 
         // Regex to find all matching meta tags: <meta property="og:video:tag" content="keyword or phrase">
         const tagRegex = /<meta\s+property="og:video:tag"\s+content="([^"]+)"/ig;

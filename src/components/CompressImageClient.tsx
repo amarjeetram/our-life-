@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, useEffect } from 'react';
-import imageCompression from 'browser-image-compression';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import {
@@ -47,6 +47,14 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
     // We use browser-image-compression (same algo as Squoosh) to intelligently
     // reduce file size before uploading — quality is preserved far better than Canvas.
     const preshrinkFile = useCallback(async (file: File): Promise<File> => {
+        let imageCompression;
+        try {
+            const mod = await import('browser-image-compression');
+            imageCompression = mod.default || mod;
+        } catch (e) {
+            console.error("Failed to load compression library", e);
+            return file;
+        }
         const MAX_PAYLOAD_MB = 3.5;
         if (file.size <= MAX_PAYLOAD_MB * 1024 * 1024) return file;
 
@@ -286,7 +294,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                 .ci-happy-row:last-child { border-bottom: none; }
                 .ci-happy-btns { display: flex; flex-wrap: wrap; gap: 8px; }
                 .ci-link-row { display: flex; align-items: center; gap: 8px; flex: 1; max-width: 380px; min-width: 200px; width: 100%; }
-                .ci-link-input { flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 12px; color: #64748b; background: #f8fafc; outline: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+                .ci-link-input { flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 12px; color: #475569; background: #f8fafc; outline: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
                 @media (max-width: 480px) {
                     .ci-header-row { flex-direction: column; align-items: flex-start; gap: 8px; }
                     .ci-compress-btn { min-width: 100%; }
@@ -298,12 +306,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
             <div style={{ maxWidth: '900px', margin: '0 auto', padding: 'clamp(80px, 12vh, 110px) 16px 0' }}>
 
                 {/* ── Header ── */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    style={{ textAlign: 'center', marginBottom: '40px' }}
-                >
+                <div className="native-fade-in" style={{ textAlign: 'center', marginBottom: '40px' }}>
                     {!hideTopBadge && (
                         <span style={{
                             display: 'inline-flex', alignItems: 'center', gap: '6px',
@@ -334,7 +337,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                             </>
                         )}
                     </h1>
-                    <p style={{ fontSize: '17px', color: '#64748b', maxWidth: '540px', margin: '0 auto', lineHeight: 1.7 }}>
+                    <p style={{ fontSize: '17px', color: '#475569', maxWidth: '540px', margin: '0 auto', lineHeight: 1.7 }}>
                         {subtitleOverride || `Perfect for UPSC, SSC, Bank & defence exam portals. Guaranteed under ${targetSizeKB}KB with maximum quality preserved.`}
                     </p>
 
@@ -358,21 +361,16 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                             {belowUseCasesContent}
                         </div>
                     )}
-                </motion.div>
+                </div>
 
                 {/* ── Main Tool Card ── */}
-                <motion.div
-                    initial={{ opacity: 0, y: 28 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                    style={{
+                <div className="native-fade-in delay-100" style={{
                         background: '#ffffff',
                         borderRadius: '32px',
                         border: '1px solid #e2e8f8',
                         boxShadow: '0 8px 8px -4px rgba(0,0,0,0.04), 0 24px 64px -12px rgba(99,102,241,0.14)',
                         marginBottom: '20px',
-                    }}
-                >
+                    }}>
                     {/* Card top accent */}
                     <div style={{ height: '4px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7, #ec4899)', borderTopLeftRadius: '32px', borderTopRightRadius: '32px' }} />
 
@@ -412,7 +410,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                         <p style={{ fontSize: 'clamp(18px, 4vw, 20px)', fontWeight: 800, color: '#1e293b', marginBottom: '8px', letterSpacing: '-0.02em' }}>
                                             Drop your photos here
                                         </p>
-                                        <p style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#94a3b8', marginBottom: '28px' }}>
+                                        <p style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#64748b', marginBottom: '28px' }}>
                                             or click to browse · JPG, PNG, WEBP · Up to 10 files, Max 20MB/file
                                         </p>
 
@@ -426,7 +424,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                         }}>
                                             <ImageIcon size={17} /> Choose Images
                                         </button>
-                                        <p style={{ fontSize: '12px', color: '#cbd5e1', marginTop: '18px' }}>
+                                        <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '18px' }}>
                                             Max 20 MB each · No signup needed · 100% private
                                         </p>
                                     </div>
@@ -536,7 +534,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                 ))}
                                                                 <div style={{ height: '1px', background: '#f1f5f9', margin: '8px 0' }} />
                                                                 <div style={{ padding: '0 8px 8px' }}>
-                                                                    <p style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '6px', fontWeight: 600, paddingLeft: '4px' }}>CUSTOM SIZE</p>
+                                                                    <p style={{ fontSize: '11px', color: '#64748b', marginBottom: '6px', fontWeight: 600, paddingLeft: '4px' }}>CUSTOM SIZE</p>
                                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                                                                         <input
                                                                             type="number"
@@ -545,7 +543,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                             style={{ width: '100%', padding: '8px 12px', borderRadius: '10px', border: '1px solid #e2e8f0', fontSize: '14px', fontWeight: 700, outline: 'none' }}
                                                                             placeholder="e.g. 75"
                                                                         />
-                                                                        <span style={{ fontSize: '13px', fontWeight: 700, color: '#64748b' }}>KB</span>
+                                                                        <span style={{ fontSize: '13px', fontWeight: 700, color: '#475569' }}>KB</span>
                                                                     </div>
                                                                 </div>
                                                             </motion.div>
@@ -630,7 +628,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                             <div>
                                                             <p className="ci-filename">{item.file.name}</p>
 
-                                                                <p style={{ fontSize: '11px', color: '#94a3b8', marginTop: '2px' }}>
+                                                                <p style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
                                                                     Original: {(item.file.size / 1024).toFixed(1)} KB
                                                                 </p>
                                                             </div>
@@ -666,7 +664,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                 </div>
                                                                 <div>
                                                                     <p style={{ fontSize: '14px', fontWeight: 700, color: '#5b21b6' }}>Compressing to {userTargetSize} KB…</p>
-                                                                    <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '2px' }}>Optimizing quality &amp; dimensions</p>
+                                                                    <p style={{ fontSize: '12px', color: '#64748b', marginTop: '2px' }}>Optimizing quality &amp; dimensions</p>
                                                                 </div>
                                                             </div>
                                                         )}
@@ -793,7 +791,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                             )}
                         </AnimatePresence>
                     </div>
-                </motion.div>
+                </div>
 
                 {/* ── Trust Bar ── */}
                 <motion.div
@@ -935,7 +933,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                 }}>{s.n}</span>
                                 <div>
                                     <p style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>{s.label}</p>
-                                    <p style={{ fontSize: '12px', color: '#94a3b8', lineHeight: 1.6 }}>{s.desc}</p>
+                                    <p style={{ fontSize: '12px', color: '#64748b', lineHeight: 1.6 }}>{s.desc}</p>
                                 </div>
                             </div>
                         ))}

@@ -48,13 +48,7 @@ export default function DeferredGTM() {
         `}
             </Script>
 
-            {/* Google AdSense Deferred Script */}
-            <Script
-                id="adsense-script"
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7117465882400046"
-                crossOrigin="anonymous"
-                strategy="afterInteractive"
-            />
+
         </>
     );
 }

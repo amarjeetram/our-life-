@@ -168,7 +168,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                 <div style={{ maxWidth: "820px", margin: "0 auto" }}>
 
                     <div style={{ textAlign: "center", marginBottom: "40px" }}>
-                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4f46e5", marginBottom: "12px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#4338ca", marginBottom: "12px" }}>
                             Image Tools
                         </span>
                         <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
@@ -282,7 +282,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     <div style={{
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-                                        color: "#4338ca", fontWeight: 800, fontSize: "14px"
+                                        color: "#3730a3", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />
@@ -294,7 +294,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
 
                     {/* YOUTUBE TOOLS SECTION */}
                     <div style={{ textAlign: "center", marginBottom: "40px" }}>
-                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#dc2626", marginBottom: "12px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b91c1c", marginBottom: "12px" }}>
                             YouTube Tools
                         </span>
                         <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
@@ -387,7 +387,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     <div style={{
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-                                        color: "#b91c1c", fontWeight: 800, fontSize: "14px"
+                                        color: "#991b1b", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />
@@ -399,7 +399,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
 
                     {/* INSTAGRAM TOOLS SECTION */}
                     <div style={{ textAlign: "center", marginBottom: "40px" }}>
-                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#9333ea", marginBottom: "12px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7e22ce", marginBottom: "12px" }}>
                             Instagram Tools
                         </span>
                         <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
@@ -468,7 +468,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     <div style={{
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-                                        color: "#7c3aed", fontWeight: 800, fontSize: "14px"
+                                        color: "#6b21a8", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />
@@ -480,7 +480,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
 
                     {/* CALCULATORS SECTION */}
                     <div id="calculators" style={{ textAlign: "center", marginBottom: "40px" }}>
-                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0ea5e9", marginBottom: "12px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0369a1", marginBottom: "12px" }}>
                             Calculators
                         </span>
                         <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
@@ -567,7 +567,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     <div style={{
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-                                        color: "#0284c7", fontWeight: 800, fontSize: "14px"
+                                        color: "#0369a1", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />
@@ -579,7 +579,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
 
                     {/* UNIT CONVERTERS SECTION */}
                     <div id="unit-converters" style={{ textAlign: "center", marginBottom: "40px" }}>
-                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#f59e0b", marginBottom: "12px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#b45309", marginBottom: "12px" }}>
                             Unit Converters
                         </span>
                         <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
@@ -661,7 +661,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     <div style={{
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-                                        color: "#d97706", fontWeight: 800, fontSize: "14px"
+                                        color: "#b45309", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />
@@ -673,7 +673,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
 
                     {/* OTHER TOOLS SECTION */}
                     <div id="other-tools" style={{ textAlign: "center", marginBottom: "40px" }}>
-                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#7c3aed", marginBottom: "12px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6d28d9", marginBottom: "12px" }}>
                             Other Tools
                         </span>
                         <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
@@ -756,7 +756,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     <div style={{
                                         background: "#fafbff", borderTop: "1px solid #f1f5f9",
                                         padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-                                        color: "#a21caf", fontWeight: 800, fontSize: "14px"
+                                        color: "#86198f", fontWeight: 800, fontSize: "14px"
                                     }}>
                                         <span>Use Tool Free</span>
                                         <ArrowRight size={16} />

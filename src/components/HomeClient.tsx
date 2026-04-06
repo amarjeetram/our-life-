@@ -99,7 +99,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                     <div
                         style={{ display: "flex", flexWrap: "wrap", gap: "12px", justifyContent: "center", marginBottom: "44px" }}
                     >
-                        <Link href="/#tools" style={{
+                        <Link prefetch={false} href="/#tools" style={{
                             display: "inline-flex", alignItems: "center", gap: "9px",
                             background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
                             color: "#fff", fontWeight: 800, fontSize: "16px",
@@ -228,7 +228,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 key={tool.route}
                                 className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
                             >
-                                <Link href={tool.route} style={{
+                                <Link prefetch={false} href={tool.route} style={{
                                     display: "flex", flexDirection: "column", height: "100%",
                                     background: "#ffffff", borderRadius: "24px",
                                     border: "1px solid #f1f5f9",
@@ -325,7 +325,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 key={tool.route}
                                 className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
                             >
-                                <Link href={tool.route} style={{
+                                <Link prefetch={false} href={tool.route} style={{
                                     display: "flex", flexDirection: "column", height: "100%",
                                     background: "#ffffff", borderRadius: "24px",
                                     border: "1px solid #f1f5f9",
@@ -404,7 +404,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                             }
                         ].map((tool, index) => (
                             <div key={tool.route} className={`native-fade-in delay-${(index % 5 + 1) * 100}`}>
-                                <Link href={tool.route} style={{
+                                <Link prefetch={false} href={tool.route} style={{
                                     display: "flex", flexDirection: "column", height: "100%",
                                     background: "#ffffff", borderRadius: "24px",
                                     border: "1px solid #f1f5f9",
@@ -490,7 +490,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 key={tool.route}
                                 className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
                             >
-                                <Link href={tool.route} style={{
+                                <Link prefetch={false} href={tool.route} style={{
                                     display: "flex", flexDirection: "column", height: "100%",
                                     background: "#ffffff", borderRadius: "24px",
                                     border: "1px solid #f1f5f9",
@@ -576,7 +576,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 key={tool.route}
                                 className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
                             >
-                                <Link href={tool.route} style={{
+                                <Link prefetch={false} href={tool.route} style={{
                                     display: "flex", flexDirection: "column", height: "100%",
                                     background: "#ffffff", borderRadius: "24px",
                                     border: "1px solid #f1f5f9",
@@ -662,7 +662,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 key={tool.route}
                                 className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
                             >
-                                <Link href={tool.route} style={{
+                                <Link prefetch={false} href={tool.route} style={{
                                     display: "flex", flexDirection: "column", height: "100%",
                                     background: "#ffffff", borderRadius: "24px",
                                     border: "1px solid #f1f5f9",
@@ -811,7 +811,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                         className="native-fade-in delay-200"
                         style={{ textAlign: "center", marginTop: "56px" }}
                     >
-                        <Link href="/compress-image-to-20kb" style={{
+                        <Link prefetch={false} href="/compress-image-to-20kb" style={{
                             display: "inline-flex", alignItems: "center", gap: "10px",
                             background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
                             color: "#fff", fontWeight: 800, fontSize: "16px",

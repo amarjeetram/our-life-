@@ -72,8 +72,7 @@ const jsonLd = {
                 "No watermark",
                 "Instant PNG download"
             ],
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-            "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "ratingCount": "8320" }
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
         },
         {
             "@type": "HowTo",

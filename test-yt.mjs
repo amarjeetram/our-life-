@@ -1,16 +1,26 @@
 const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 
-async function test() {
-    const response = await fetch(url, {
-        headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html'
+async function test(name, fetchUrl, headers) {
+    try {
+        const response = await fetch(fetchUrl, { headers });
+        let html = await response.text();
+        if (fetchUrl.includes('allorigins')) {
+            html = JSON.parse(html).contents;
         }
+        console.log(`\n--- ${name} ---`);
+        console.log("Length:", html?.length);
+        console.log("Has ytInitialData:", html?.includes('var ytInitialData ='));
+        console.log("Has tag:", html?.includes('og:video:tag'));
+    } catch(e) {
+        console.log(`${name} Failed:`, e.message);
+    }
+}
+
+async function run() {
+    await test('GoogleBot', url, {
+        'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
     });
     
-    const html = await response.text();
-    console.log("Length of HTML:", html.length);
-    console.log("Includes ytInitialData:", html.includes('var ytInitialData ='));
-    console.log("Includes title:", html.includes('<meta name="title"'));
+    await test('AllOrigins', `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, {});
 }
-test();
+run();

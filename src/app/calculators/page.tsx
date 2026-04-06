@@ -11,92 +11,91 @@ export const metadata: Metadata = {
 };
 
 export default function MathCalculatorsPage() {
+    const tools = [
+        {
+            route: '/calculators/blooket-calculator', title: 'Blooket Calculator',
+            desc: 'Free token and probability calculator for Blooket 2026. Calculate your exact chances to pull rare and chroma blooks.',
+            tags: ['Gaming', 'Blooket', 'Probability'],
+            gradient: "linear-gradient(135deg, #0ea5e9, #3b82f6)",
+        },
+        {
+            route: '/calculators/derivative-calculator', title: 'Derivative Calculator',
+            desc: 'Free online symbolic derivative calculator. Find the derivative of any function instantly.',
+            tags: ['Math', 'Calculus'],
+            gradient: "linear-gradient(135deg, #0ea5e9, #3b82f6)",
+        },
+        {
+            route: '/calculators/integral-calculator', title: 'Integral Calculator',
+            desc: 'Compute indefinite integrals and antiderivatives symbolically with zero limits.',
+            tags: ['Math', 'Calculus'],
+            gradient: "linear-gradient(135deg, #0ea5e9, #3b82f6)",
+        }
+    ];
+
     return (
-        <main className="min-h-screen bg-slate-50 flex flex-col container mx-auto px-4 py-12 md:py-24 mt-16">
-                <div style={{ textAlign: "center", marginBottom: "40px" }}>
-                    <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0ea5e9", marginBottom: "12px" }}>
-                        All Calculators
+        <main style={{ minHeight: "100vh", background: "linear-gradient(180deg, #f0f9ff 0%, #fafafa 100%)", fontFamily: "sans-serif" }}>
+            <style>{`
+                .calc-tool-card {
+                    background: #fff; border-radius: 20px;
+                    border: 1.5px solid #e2e8f0; padding: 24px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+                    transition: all 0.18s; cursor: pointer;
+                    display: flex; flex-direction: column;
+                    text-decoration: none; color: inherit;
+                }
+                .calc-tool-card:hover {
+                    box-shadow: 0 12px 36px rgba(14,165,233,0.15);
+                    border-color: #7dd3fc;
+                    transform: translateY(-3px);
+                }
+            `}</style>
+            
+            <div style={{ maxWidth: 1000, margin: "0 auto", padding: "100px 20px 60px" }}>
+                <div style={{ marginBottom: 50, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <span style={{
+                        display: "inline-block", background: "linear-gradient(135deg, #0ea5e9, #3b82f6)",
+                        color: "#fff", borderRadius: 100, padding: "6px 18px",
+                        fontSize: 12, fontWeight: 800, letterSpacing: "0.08em", marginBottom: 16,
+                    }}>
+                        CALCULATORS
                     </span>
-                    <h1 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
-                        Calculators
+                    <h1 style={{ fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 900, color: "#0f172a", margin: "0 0 16px", lineHeight: 1.2 }}>
+                        Free Online Calculators
                     </h1>
-                    <p style={{ marginTop: "16px", color: "#64748b", fontSize: "16px", maxWidth: "600px", margin: "16px auto 0" }}>
+                    <p style={{ fontSize: "clamp(15px, 3vw, 18px)", color: "#64748b", maxWidth: 680, margin: "0 auto", lineHeight: 1.7 }}>
                         Powerful, client-side calculators for math, analytics, and gaming probabilities. 100% free and instant.
                     </p>
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", maxWidth: "1100px", margin: "0 auto" }}>
-                    {[
-                        {
-                            route: '/calculators/blooket-calculator', title: 'Blooket Calculator',
-                            desc: 'Free token and probability calculator for Blooket 2026. Calculate your exact chances to pull rare and chroma blooks.',
-                            tags: ['Gaming', 'Blooket', 'Probability']
-                        },
-                        {
-                            route: '/calculators/derivative-calculator', title: 'Derivative Calculator',
-                            desc: 'Free online symbolic derivative calculator. Find the derivative of any function instantly.',
-                            tags: ['Math', 'Calculus']
-                        },
-                        {
-                            route: '/calculators/integral-calculator', title: 'Integral Calculator',
-                            desc: 'Compute indefinite integrals and antiderivatives symbolically with zero limits.',
-                            tags: ['Math', 'Calculus']
-                        }
-                    ].map((tool, index) => (
-                        <div
-                            key={tool.route}
-                            className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
-                        >
-                            <Link href={tool.route} 
-                                className="flex flex-col h-full bg-white rounded-3xl border border-slate-100 overflow-hidden no-underline transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(14,165,233,0.12),0_2px_8px_rgba(0,0,0,0.04)]"
-                                style={{
-                                    boxShadow: "0 4px 24px rgba(14,165,233,0.06), 0 1px 3px rgba(0,0,0,0.02)",
-                                }}
-                            >
-                                <div style={{ height: "4px", background: "linear-gradient(90deg, #0ea5e9, #3b82f6)" }} />
-
-                                <div style={{ padding: "32px", display: "flex", flexDirection: "column", gap: "16px", flexGrow: 1 }}>
-                                    <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "4px" }}>
-                                        <div style={{
-                                            width: "52px", height: "52px", borderRadius: "16px",
-                                            background: "linear-gradient(135deg, #e0f2fe, #bae6fd)",
-                                            display: "flex", alignItems: "center", justifyContent: "center",
-                                            color: "#0ea5e9", flexShrink: 0,
-                                            boxShadow: "0 2px 10px rgba(14,165,233,0.15)"
-                                        }}>
-                                            <Calculator size={24} />
-                                        </div>
-                                        <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.01em" }}>
-                                            {tool.title}
-                                        </h3>
-                                    </div>
-
-                                    <p style={{ fontSize: "15px", color: "#64748b", lineHeight: 1.6 }}>
-                                        {tool.desc}
-                                    </p>
-
-                                    <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "auto", paddingTop: "8px" }}>
-                                        {tool.tags.map(tag => (
-                                            <span key={tag} style={{
-                                                padding: "4px 10px", borderRadius: "100px",
-                                                background: "#f0f9ff", border: "1px solid #e0f2fe",
-                                                fontSize: "11px", fontWeight: 700, color: "#0369a1"
-                                            }}>{tag}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div style={{
-                                    background: "#fafbff", borderTop: "1px solid #f1f5f9",
-                                    padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
-                                    color: "#0284c7", fontWeight: 800, fontSize: "14px"
-                                }}>
-                                    <span>Use Tool Free</span>
-                                    <ArrowRight size={16} />
-                                </div>
-                            </Link>
-                        </div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 20 }}>
+                    {tools.map(({ route, title, desc, tags, gradient }) => (
+                        <Link key={route} href={route} className="calc-tool-card">
+                            <div style={{
+                                width: 48, height: 48, borderRadius: 14, background: gradient,
+                                display: "flex", alignItems: "center", justifyContent: "center",
+                                marginBottom: 16, boxShadow: "0 6px 16px rgba(14,165,233,0.3)", flexShrink: 0,
+                            }}>
+                                <Calculator size={22} color="#fff" />
+                            </div>
+                            <h2 style={{ fontSize: 18, fontWeight: 800, color: "#0f172a", margin: "0 0 10px" }}>{title}</h2>
+                            <p style={{ fontSize: 14, color: "#64748b", lineHeight: 1.6, margin: "0 0 20px", flex: 1 }}>{desc}</p>
+                            
+                            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
+                                {tags.map(tag => (
+                                    <span key={tag} style={{
+                                        background: "#f0f9ff", color: "#0284c7", borderRadius: 100,
+                                        padding: "4px 12px", fontSize: 12, fontWeight: 700, border: "1px solid #e0f2fe",
+                                    }}>{tag}</span>
+                                ))}
+                            </div>
+                            
+                            <div style={{ display: "flex", alignItems: "center", gap: 6, color: "#0284c7", fontSize: 14, fontWeight: 800, marginTop: "auto" }}>
+                                Use Tool <ArrowRight size={16} />
+                            </div>
+                        </Link>
                     ))}
                 </div>
+            </div>
         </main>
     );
 }

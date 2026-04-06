@@ -31,7 +31,7 @@ function dataUrlToFile(data: string, name: string): File {
     return new File([bytes], name, { type: mime });
 }
 
-export default function CompressImageClient({ targetSizeKB, titleOverride, subtitleOverride, useCasesOverride, hideTopBadge, children }: { targetSizeKB: number, titleOverride?: React.ReactNode, subtitleOverride?: React.ReactNode, useCasesOverride?: { icon: React.ReactNode, label: string, color: string }[], hideTopBadge?: boolean, children?: React.ReactNode }) {
+export default function CompressImageClient({ targetSizeKB, titleOverride, subtitleOverride, useCasesOverride, hideTopBadge, belowUseCasesContent, children }: { targetSizeKB: number, titleOverride?: React.ReactNode, subtitleOverride?: React.ReactNode, useCasesOverride?: { icon: React.ReactNode, label: string, color: string }[], hideTopBadge?: boolean, belowUseCasesContent?: React.ReactNode, children?: React.ReactNode }) {
     const [items, setItems] = useState<FileResult[]>([]);
     const [isDragging, setIsDragging] = useState(false);
     const [userTargetSize, setUserTargetSize] = useState<number>(targetSizeKB);
@@ -352,6 +352,12 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                             </span>
                         ))}
                     </div>
+
+                    {belowUseCasesContent && (
+                        <div style={{ marginTop: '24px' }}>
+                            {belowUseCasesContent}
+                        </div>
+                    )}
                 </motion.div>
 
                 {/* ── Main Tool Card ── */}

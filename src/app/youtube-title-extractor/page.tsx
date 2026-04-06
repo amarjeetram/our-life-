@@ -64,11 +64,6 @@ export default function YoutubeTitleExtractorPage() {
                     "@type": "Offer",
                     "price": "0",
                     "priceCurrency": "USD"
-                },
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": "4.9",
-                    "ratingCount": "19300"
                 }
             },
             {

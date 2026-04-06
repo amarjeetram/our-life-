@@ -220,7 +220,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 tags: ['Signature', 'Resize', 'Govt Forms']
                             },
                             {
-                                route: '/photo-and-image-compression-tools', title: 'View All Image Tools',
+                                route: '/image-tools', title: 'View All Image Tools',
                                 desc: 'Access all our free image compression, resizing, and converting tools in one organized place.',
                                 tags: ['View All', 'Free']
                             }

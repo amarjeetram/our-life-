@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import {
     Upload, Download, RefreshCw, CheckCircle2, XCircle,
-    FileImage, Trash2, Zap, ImageIcon, User, Calendar
+    FileImage, Trash2, Zap, ImageIcon, User, Calendar, Type
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -25,10 +25,14 @@ export default function AddNameDateClient({ children }: { children?: React.React
     // Configuration Fields
     const [nameText, setNameText] = useState('AMARJEET');
     const [includeDate, setIncludeDate] = useState(true);
-    const [dateText, setDateText] = useState(() => {
+    const [dateText, setDateText] = useState('');
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
         const d = new Date();
-        return `${d.getDate().toString().padStart(2, '0')}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getFullYear()}`;
-    });
+        setDateText(`${d.getDate().toString().padStart(2, '0')}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getFullYear()}`);
+    }, []);
     
     // Compression Settings
     const [enableCompression, setEnableCompression] = useState(false);
@@ -238,22 +242,26 @@ export default function AddNameDateClient({ children }: { children?: React.React
     const isEmpty = items.length === 0;
 
     return (
-        <div style={{ minHeight: '100vh', background: '#fafbff', paddingBottom: '80px', paddingTop: '40px' }}>
+        <div style={{ minHeight: '100vh', background: '#fafbff', paddingBottom: '80px', paddingTop: '120px' }}>
             <div style={{ maxWidth: '900px', margin: '0 auto', padding: '0 20px' }}>
 
                 {/* Header UI */}
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '32px' }}>
-                    <div style={{ display: 'inline-flex', background: '#f1f5f9', padding: '4px', borderRadius: '12px', marginBottom: '24px' }}>
-                        <Link href="/govt-exam-tools/tnpsc-photo-compressor" style={{ padding: '8px 24px', borderRadius: '8px', background: 'transparent', border: 'none', fontWeight: 600, color: '#64748b', textDecoration: 'none' }}>TNPSC Tools</Link>
-                        <button style={{ padding: '8px 24px', borderRadius: '8px', background: '#fff', border: '1px solid #e2e8f0', fontWeight: 700, color: '#0f172a', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>Add Name & Date</button>
-                    </div>
-                    
                     <h1 style={{ fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 900, color: '#0f172a', lineHeight: 1.1, marginBottom: '16px' }}>
                         Add Name & Date to Photo
                     </h1>
-                    <p style={{ fontSize: '16px', color: '#64748b', maxWidth: '600px', margin: '0 auto', lineHeight: 1.6 }}>
+                    <p style={{ fontSize: '16px', color: '#64748b', maxWidth: '600px', margin: '0 auto', lineHeight: 1.6, marginBottom: '24px' }}>
                         Generate perfectly sized photos with your Name and Date stamped at the bottom. 100% compliant with TNPSC, SSC, UPPSC, and RRB guidelines.
                     </p>
+
+                    <div className="mb-6 flex flex-row items-center justify-center gap-1 sm:gap-2 bg-white p-1 sm:p-1.5 rounded-2xl border border-slate-200 shadow-sm mx-auto max-w-fit pointer-events-auto relative z-10">
+                        <Link href="/govt-exam-tools/tnpsc-photo-compressor" className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-indigo-600 font-bold text-[13px] sm:text-[14px] transition-colors whitespace-nowrap" style={{ textDecoration: 'none' }}>
+                            <ImageIcon size={16} /> TNPSC Compress
+                        </Link>
+                        <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-[13px] sm:text-[14px] shadow-sm cursor-default whitespace-nowrap">
+                            <Type size={16} /> Add Name & Date
+                        </div>
+                    </div>
                 </motion.div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.2fr) minmax(0, 1fr)', gap: '24px', alignItems: 'start' }}>

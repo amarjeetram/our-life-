@@ -97,13 +97,6 @@ export default function StylishCoupleNameMakerPage() {
                     "@type": "Offer",
                     "price": "0",
                     "priceCurrency": "USD"
-                },
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": "4.9",
-                    "ratingCount": "14800",
-                    "bestRating": "5",
-                    "worstRating": "1"
                 }
             },
             {

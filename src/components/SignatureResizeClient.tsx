@@ -9,6 +9,7 @@ import {
     Crop
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import CropperModal from './CropperModal';
 
 interface FileResult {
     id: string;
@@ -19,9 +20,10 @@ interface FileResult {
     error: string | null;
 }
 
-export default function SignatureResizeClient({ children }: { children?: React.ReactNode }) {
+export default function SignatureResizeClient({ children, title, subtitle }: { children?: React.ReactNode, title?: string, subtitle?: string }) {
     const [items, setItems] = useState<FileResult[]>([]);
     const [isDragging, setIsDragging] = useState(false);
+    const [croppingItemId, setCroppingItemId] = useState<string | null>(null);
     
     // User configuration
     const [unit, setUnit] = useState<'pixel' | 'cm'>('pixel');
@@ -100,6 +102,15 @@ export default function SignatureResizeClient({ children }: { children?: React.R
         setItems(prev => [...prev, ...newItems]);
     }, [items]);
 
+    useEffect(() => {
+        const handleGlobalDrop = (e: any) => {
+            const files = e.detail?.files as File[];
+            if (files && files.length) addFiles(files);
+        };
+        window.addEventListener("global-drop-compress", handleGlobalDrop);
+        return () => window.removeEventListener("global-drop-compress", handleGlobalDrop);
+    }, [addFiles]);
+
     const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(e.target.files ?? []);
         if (files.length) addFiles(files);
@@ -171,10 +182,10 @@ export default function SignatureResizeClient({ children }: { children?: React.R
 
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '40px' }}>
                     <h1 style={{ fontSize: 'clamp(30px, 5vw, 44px)', fontWeight: 900, color: '#0f172a', lineHeight: 1.1, marginBottom: '16px' }}>
-                        Signature Resize to KB &amp; Pixels/Cm
+                        {title || 'Signature Resize to KB & Pixels/Cm'}
                     </h1>
                     <p style={{ fontSize: '17px', color: '#64748b', maxWidth: '600px', margin: '0 auto', lineHeight: 1.7 }}>
-                        Resize your signature photo to exact width and height (cm or px) and compress size to Kb instantly for SSC, RRB, UPSC, and government portals.
+                        {subtitle || 'Resize your signature photo to exact width and height (cm or px) and compress size to Kb instantly for SSC, RRB, UPSC, and government portals.'}
                     </p>
                 </motion.div>
 
@@ -315,9 +326,34 @@ export default function SignatureResizeClient({ children }: { children?: React.R
                                                         <FileImage size={18} color="#64748b" />
                                                         <span style={{ fontSize: '14px', fontWeight: 700, color: '#334155' }}>{item.file.name}</span>
                                                     </div>
-                                                    <button onClick={() => removeItem(item.id)} style={{ border: 'none', background: 'transparent', color: '#ef4444', cursor: 'pointer' }}><Trash2 size={16} /></button>
+                                                    <div style={{ display: 'flex', gap: '12px' }}>
+                                                        <button onClick={() => setCroppingItemId(item.id)} style={{ border: 'none', background: 'transparent', color: '#6366f1', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontSize: '13px', fontWeight: 600 }}><Crop size={16} /> Crop</button>
+                                                        <button onClick={() => removeItem(item.id)} style={{ border: 'none', background: 'transparent', color: '#ef4444', cursor: 'pointer' }}><Trash2 size={16} /></button>
+                                                    </div>
                                                 </div>
                                                 
+                                                {!item.optimizedUrl && (
+                                                    <div style={{ marginBottom: '16px' }}>
+                                                        <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '8px', fontWeight: 600 }}>Expected Outcome (Preview):</p>
+                                                        <div style={{ padding: '8px', background: '#e2e8f0', borderRadius: '12px', display: 'inline-block', border: '1px solid #cbd5e1', maxWidth: '100%', overflow: 'hidden' }}>
+                                                            <img 
+                                                                src={URL.createObjectURL(item.file)} 
+                                                                alt="Live Preview" 
+                                                                style={{ 
+                                                                    display: 'block',
+                                                                    maxHeight: '120px',
+                                                                    maxWidth: '100%',
+                                                                    aspectRatio: unit === 'pixel' 
+                                                                        ? `${Number(widthPx) || 140} / ${Number(heightPx) || 60}`
+                                                                        : `${Number(widthCm) || 3.5} / ${Number(heightCm) || 1.5}`,
+                                                                    objectFit: 'fill',
+                                                                    borderRadius: '4px'
+                                                                }} 
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                )}
+
                                                 {item.optimizedUrl && (
                                                     <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap' }}>
                                                         <img src={item.optimizedUrl} alt="Resized" style={{ height: '60px', borderRadius: '8px', border: '1px solid #e2e8f0' }} />
@@ -421,6 +457,18 @@ export default function SignatureResizeClient({ children }: { children?: React.R
                         </motion.div>
                     )}
                 </AnimatePresence>
+
+                {croppingItemId && (
+                    <CropperModal 
+                        imageSrc={URL.createObjectURL(items.find(i => i.id === croppingItemId)!.file)}
+                        aspectRatio={unit === 'pixel' ? (Number(widthPx) || 140) / (Number(heightPx) || 60) : (Number(widthCm) || 3.5) / (Number(heightCm) || 1.5)}
+                        onClose={() => setCroppingItemId(null)}
+                        onCropComplete={(croppedFile) => {
+                            setItems(prev => prev.map(it => it.id === croppingItemId ? { ...it, file: croppedFile, optimizedUrl: null, resultSize: null } : it));
+                            setCroppingItemId(null);
+                        }}
+                    />
+                )}
 
                 {children}
 

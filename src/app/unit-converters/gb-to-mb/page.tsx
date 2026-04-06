@@ -13,14 +13,22 @@ export const metadata: Metadata = {
 };
 
 const faqs = [
-    { q: "How many MB is 1 GB?", a: "1 GB (Gigabyte) is equal to 1,024 MB (Megabytes) in the binary system used by computers and smartphones. So, 1 GB to MB is simply 1,024 MB." },
-    { q: "How do I convert GB to MB?", a: "To convert GB to MB, you multiply the GB value by 1,024. For instance, to calculate 4 GB to MB, you do 4 × 1,024 = 4,096 MB. You can also use our free GB to MB calculator above to get the precise value instantly." },
-    { q: "How many MB is 0.98 GB?", a: "Using our calculator, 0.98 GB is exactly 1,003.52 MB (0.98 × 1,024 = 1,003.52). People usually run into this value when dealing with almost-full 1GB flash drives." },
-    { q: "How many MB is 0.1 GB?", a: "0.1 GB equals 102.4 MB in the binary system (0.1 × 1,024 = 102.4 MB). This is an extremely common file size for mobile applications or basic software updates." },
-    { q: "Can I use this as a video GB to MB converter?", a: "Our tool acts as a GB to MB calculator that will tell you the exact megabyte size of your video files. However, it will not compress or shrink the actual video file. It strictly handles numerical conversion." },
-    { q: "How many MB is 150 GB?", a: "150 GB is exactly 153,600 MB. You simply multiply 150 by 1,024." },
-    { q: "How many MB is 0.01 GB?", a: "0.01 GB is equal to 10.24 MB (0.01 × 1,024). This is roughly the size of a very high-quality JPEG photograph." },
-    { q: "Is this GB to MB calculator free?", a: "Yes, our converter is 100% free with no registration or limits. You can convert any amount of gigabytes to megabytes effortlessly." },
+    {
+        "q": "How many Megabytes are in 1 Gigabyte?",
+        "a": "In the standard binary system used by computers, 1 GB is equal to 1,024 MB. In the decimal system, it is 1,000 MB."
+    },
+    {
+        "q": "What is the difference between GB and MB?",
+        "a": "Gigabyte (GB) is a much larger unit of digital storage than Megabyte (MB). Files measured in GBs are significantly heavier."
+    },
+    {
+        "q": "How do I convert GB to MB online?",
+        "a": "Simply type your GB value into our calculator box above. The exact MB calculation will immediately display without clicking any buttons."
+    },
+    {
+        "q": "Is this GB to MB conversion tool free?",
+        "a": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
+    }
 ];
 
 export default function Page() {
@@ -29,7 +37,9 @@ export default function Page() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
+                    __html: JSON.stringify([
+                        {
+
                         "@context": "https://schema.org",
                         "@graph": [
                             {
@@ -57,11 +67,6 @@ export default function Page() {
                                     "@type": "Offer",
                                     "price": "0",
                                     "priceCurrency": "USD"
-                                },
-                                "aggregateRating": {
-                                    "@type": "AggregateRating",
-                                    "ratingValue": "4.9",
-                                    "ratingCount": "8900"
                                 }
                             },
                             {
@@ -99,7 +104,46 @@ export default function Page() {
                                 }))
                             }
                         ]
-                    })
+                    },
+                        {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How many Megabytes are in 1 Gigabyte?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In the standard binary system used by computers, 1 GB is equal to 1,024 MB. In the decimal system, it is 1,000 MB."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is the difference between GB and MB?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Gigabyte (GB) is a much larger unit of digital storage than Megabyte (MB). Files measured in GBs are significantly heavier."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How do I convert GB to MB online?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Simply type your GB value into our calculator box above. The exact MB calculation will immediately display without clicking any buttons."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Is this GB to MB conversion tool free?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
+            }
+        }
+    ]
+}
+                    ])
                 }}
             />
             <GBtoMBConverterClient>

@@ -56,7 +56,21 @@ const nextConfig: NextConfig = {
         destination: '/mb-to-kb-image-converter',
         permanent: true,
       },
-
+      {
+        source: '/resize-image-to-100kb',
+        destination: '/image-tools/resize-image-to-100kb',
+        permanent: true,
+      },
+      {
+        source: '/photo-and-image-compression-tools',
+        destination: '/image-tools',
+        permanent: true,
+      },
+      {
+        source: '/kb-to-mb-image-converter',
+        destination: '/image-tools/kb-to-mb-image-converter',
+        permanent: true,
+      },
     ];
   },
   experimental: {

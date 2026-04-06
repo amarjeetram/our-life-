@@ -13,9 +13,22 @@ export const metadata: Metadata = {
 };
 
 const faqs = [
-    { q: "How do I convert MB to GB?", a: "To convert MB to GB, you can simply use our free calculator above. The mathematical rule is to divide by 1,024 from the MB value to get the GB equivalent." },
-    { q: "Is a MB larger than a GB?", a: "No, GB is larger than MB." },
-    { q: "Is this MB to GB calculator free to use?", a: "Yes! All digital storage unit converters on SmartToolsWala are 100% free and don't require any signup." },
+    {
+        "q": "How many Gigabytes are in 1 Megabyte?",
+        "a": "In the standard binary system used by computers, 1 MB is equal to 0.000977 GB. In the decimal system, it is 0.001 GB."
+    },
+    {
+        "q": "What is the difference between MB and GB?",
+        "a": "Megabyte (MB) is a smaller unit of digital storage than Gigabyte (GB). It takes many MBs to equal one GB."
+    },
+    {
+        "q": "How do I convert MB to GB online?",
+        "a": "Simply type your MB value into our calculator box above. The exact GB calculation will immediately display without clicking any buttons."
+    },
+    {
+        "q": "Is this MB to GB conversion tool free?",
+        "a": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
+    }
 ];
 
 export default function Page() {
@@ -24,7 +37,9 @@ export default function Page() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
+                    __html: JSON.stringify([
+                        {
+
                         "@context": "https://schema.org",
                         "@graph": [
                             {
@@ -52,7 +67,46 @@ export default function Page() {
                                 }))
                             }
                         ]
-                    })
+                    },
+                        {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How many Gigabytes are in 1 Megabyte?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In the standard binary system used by computers, 1 MB is equal to 0.000977 GB. In the decimal system, it is 0.001 GB."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is the difference between MB and GB?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Megabyte (MB) is a smaller unit of digital storage than Gigabyte (GB). It takes many MBs to equal one GB."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How do I convert MB to GB online?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Simply type your MB value into our calculator box above. The exact GB calculation will immediately display without clicking any buttons."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Is this MB to GB conversion tool free?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
+            }
+        }
+    ]
+}
+                    ])
                 }}
             />
             <DigitalConverterClient

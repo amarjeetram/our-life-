@@ -96,7 +96,10 @@ export default function GdsPhotoResizePage() {
                 }}
             />
 
-            <SignatureResizeClient>
+            <SignatureResizeClient
+                title="GDS Photo & Signature Resizer Tool"
+                subtitle="Resize your photo to 50KB and signature to 20KB specially designed for the India Post GDS portal."
+            >
                 <div style={{ marginTop: '40px' }}>
                     <ArticleGdsPhotoResize />
                 </div>

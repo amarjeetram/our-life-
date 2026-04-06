@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import ArticleTNPSC from '@/components/articles/ArticleTNPSC';
-import { GraduationCap, Award, Building2, ShieldCheck, Check, Lock } from 'lucide-react';
+import { GraduationCap, Award, Building2, ShieldCheck, Check, Lock, ImageIcon, Type } from 'lucide-react';
 
 
 
@@ -64,11 +64,6 @@ export default function Page() {
                                     "@type": "Offer",
                                     "price": "0",
                                     "priceCurrency": "USD"
-                                },
-                                "aggregateRating": {
-                                    "@type": "AggregateRating",
-                                    "ratingValue": "4.9",
-                                    "ratingCount": "19400"
                                 }
                             },
                             {
@@ -109,8 +104,8 @@ export default function Page() {
                                     {
                                         "@type": "ListItem",
                                         "position": 2,
-                                        "name": "Photo & Image Tools",
-                                        "item": "https://smarttoolswala.com/photo-and-image-compression-tools"
+                                        "name": "Image Tools",
+                                        "item": "https://smarttoolswala.com/image-tools"
                                     },
                                     {
                                         "@type": "ListItem",
@@ -144,11 +139,6 @@ export default function Page() {
                         <span className="text-[17px] text-[#64748b] max-w-[600px] text-center leading-relaxed">
                             Compress and resize TNPSC photos & signatures online instantly. Free, fast, exact size output for TNPSC applications.
                         </span>
-                        
-                        <a href="/govt-exam-tools/add-name-date" className="mt-5 flex items-center justify-center gap-2 bg-indigo-50 border border-indigo-200 text-indigo-700 px-5 py-2.5 rounded-xl font-bold text-[14px] hover:bg-indigo-100 hover:shadow-md transition-all shadow-sm" style={{ textDecoration: 'none' }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-                            Need to print Name & Date on your photo? Click here →
-                        </a>
                         <span className="mt-5 flex flex-wrap justify-center gap-3 text-[12px] font-bold tracking-wide">
                             <span className="flex items-center gap-1.5 bg-[#f0fdf4] text-[#16a34a] px-3.5 py-0.5 rounded-full border border-[#bbf7d0]">
                                 <Check size={13} strokeWidth={3} /> Trusted by 6.25 Lakh+ Aspirants
@@ -158,6 +148,16 @@ export default function Page() {
                             </span>
                         </span>
                     </span>
+                }
+                belowUseCasesContent={
+                    <div className="flex flex-row items-center justify-center gap-1 sm:gap-2 bg-white p-1 sm:p-1.5 rounded-2xl border border-slate-200 shadow-sm mx-auto max-w-fit pointer-events-auto relative z-10">
+                        <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-indigo-600 text-white font-bold text-[13px] sm:text-[14px] shadow-sm cursor-default whitespace-nowrap">
+                            <ImageIcon size={16} /> TNPSC Compress
+                        </div>
+                        <a href="/govt-exam-tools/add-name-date" className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl text-slate-600 hover:bg-slate-50 hover:text-indigo-600 font-bold text-[13px] sm:text-[14px] transition-colors whitespace-nowrap" style={{ textDecoration: 'none' }}>
+                            <Type size={16} /> Add Name & Date
+                        </a>
+                    </div>
                 }
                 useCasesOverride={[
                     { icon: <GraduationCap size={18} />, label: 'TNPSC Group I-IV', color: '#7c3aed' },

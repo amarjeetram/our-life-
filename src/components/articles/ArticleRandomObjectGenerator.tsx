@@ -160,7 +160,7 @@ export default function ArticleRandomObjectGenerator() {
                         <Link href="/stylish-couple-name-maker" className="inline-flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-xl text-slate-700 font-bold hover:bg-slate-200 hover:text-indigo-600 transition-colors">
                             Stylish Name Generator
                         </Link>
-                        <Link href="/photo-and-image-compression-tools" className="inline-flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-xl text-slate-700 font-bold hover:bg-slate-200 hover:text-indigo-600 transition-colors">
+                        <Link href="/image-tools" className="inline-flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-xl text-slate-700 font-bold hover:bg-slate-200 hover:text-indigo-600 transition-colors">
                             Optimize Images
                         </Link>
                     </div>

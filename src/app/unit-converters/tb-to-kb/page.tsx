@@ -13,9 +13,22 @@ export const metadata: Metadata = {
 };
 
 const faqs = [
-    { q: "How do I convert TB to KB?", a: "To convert TB to KB, you can simply use our free calculator above. The mathematical rule is to multiply by 1,073,741,824 from the TB value to get the KB equivalent." },
-    { q: "Is a TB larger than a KB?", a: "Yes, TB is much larger than KB." },
-    { q: "Is this TB to KB calculator free to use?", a: "Yes! All digital storage unit converters on SmartToolsWala are 100% free and don't require any signup." },
+    {
+        "q": "How many Kilobytes are in 1 Terabyte?",
+        "a": "In the standard binary system used by computers, 1 TB is equal to 1,073,741,824 KB. In the decimal system, it is 1,000,000,000 KB."
+    },
+    {
+        "q": "What is the difference between TB and KB?",
+        "a": "Terabyte (TB) is a much larger unit of digital storage than Kilobyte (KB). Files measured in TBs are significantly heavier."
+    },
+    {
+        "q": "How do I convert TB to KB online?",
+        "a": "Simply type your TB value into our calculator box above. The exact KB calculation will immediately display without clicking any buttons."
+    },
+    {
+        "q": "Is this TB to KB conversion tool free?",
+        "a": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
+    }
 ];
 
 export default function Page() {
@@ -24,7 +37,9 @@ export default function Page() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
+                    __html: JSON.stringify([
+                        {
+
                         "@context": "https://schema.org",
                         "@graph": [
                             {
@@ -52,7 +67,46 @@ export default function Page() {
                                 }))
                             }
                         ]
-                    })
+                    },
+                        {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How many Kilobytes are in 1 Terabyte?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In the standard binary system used by computers, 1 TB is equal to 1,073,741,824 KB. In the decimal system, it is 1,000,000,000 KB."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is the difference between TB and KB?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Terabyte (TB) is a much larger unit of digital storage than Kilobyte (KB). Files measured in TBs are significantly heavier."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How do I convert TB to KB online?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Simply type your TB value into our calculator box above. The exact KB calculation will immediately display without clicking any buttons."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Is this TB to KB conversion tool free?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
+            }
+        }
+    ]
+}
+                    ])
                 }}
             />
             <DigitalConverterClient

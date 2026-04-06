@@ -13,9 +13,22 @@ export const metadata: Metadata = {
 };
 
 const faqs = [
-    { q: "How do I convert KB to MB?", a: "To convert KB to MB, you can simply use our free calculator above. The mathematical rule is to divide by 1,024 from the KB value to get the MB equivalent." },
-    { q: "Is a KB larger than a MB?", a: "No, MB is larger than KB." },
-    { q: "Is this KB to MB calculator free to use?", a: "Yes! All digital storage unit converters on SmartToolsWala are 100% free and don't require any signup." },
+    {
+        "q": "How many Megabytes are in 1 Kilobyte?",
+        "a": "In the standard binary system used by computers, 1 KB is equal to 0.000977 MB. In the decimal system, it is 0.001 MB."
+    },
+    {
+        "q": "What is the difference between KB and MB?",
+        "a": "Kilobyte (KB) is a smaller unit of digital storage than Megabyte (MB). It takes many KBs to equal one MB."
+    },
+    {
+        "q": "How do I convert KB to MB online?",
+        "a": "Simply type your KB value into our calculator box above. The exact MB calculation will immediately display without clicking any buttons."
+    },
+    {
+        "q": "Is this KB to MB conversion tool free?",
+        "a": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
+    }
 ];
 
 export default function Page() {
@@ -24,7 +37,9 @@ export default function Page() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
+                    __html: JSON.stringify([
+                        {
+
                         "@context": "https://schema.org",
                         "@graph": [
                             {
@@ -52,7 +67,46 @@ export default function Page() {
                                 }))
                             }
                         ]
-                    })
+                    },
+                        {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How many Megabytes are in 1 Kilobyte?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In the standard binary system used by computers, 1 KB is equal to 0.000977 MB. In the decimal system, it is 0.001 MB."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is the difference between KB and MB?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Kilobyte (KB) is a smaller unit of digital storage than Megabyte (MB). It takes many KBs to equal one MB."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How do I convert KB to MB online?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Simply type your KB value into our calculator box above. The exact MB calculation will immediately display without clicking any buttons."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Is this KB to MB conversion tool free?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
+            }
+        }
+    ]
+}
+                    ])
                 }}
             />
             <DigitalConverterClient

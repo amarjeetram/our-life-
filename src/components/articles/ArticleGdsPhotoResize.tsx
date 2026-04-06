@@ -1,144 +1,137 @@
 import React from 'react';
+import Link from 'next/link';
+
+const h2 = { fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800 as const, marginTop: '40px', marginBottom: '16px', lineHeight: 1.3 };
+const h3 = { fontSize: '20px', color: '#1e293b', fontWeight: 700 as const, marginTop: '28px', marginBottom: '12px' };
+const p = { fontSize: '16px', color: '#334155', lineHeight: 1.8, marginBottom: '16px' };
+const li = { marginBottom: '10px', fontSize: '16px', color: '#334155', lineHeight: 1.7 };
 
 export default function ArticleGdsPhotoResize() {
     return (
-        <article className="prose prose-slate max-w-none prose-h2:text-3xl prose-h2:font-black prose-h2:text-slate-800 prose-h3:text-2xl prose-h3:font-bold prose-h3:text-slate-800 prose-p:text-slate-600 prose-p:leading-relaxed prose-li:text-slate-600 prose-a:text-indigo-600">
-            <h2>The Only GDS Photo Resize to 50KB & 20KB Tool You Need</h2>
-            
-            <p>
-                Are you looking to apply for the India Post Gramin Dak Sevak (GDS) recruitment in 2025? If so, you already know that the single hardest part of the entire application process is the document upload section. The official India Post website is extremely strict. If your photo is even 1 KB over the limit, the red error message flashes, and you have to start all over again. Thousands of hard-working students miss out on government job opportunities simply because they don't know how to do a proper <strong>gds photo resize</strong>! 
-            </p>
-            
-            <p>
-                But take a deep breath, because we built this completely free, secure, and lightning-fast tool to fix that exact problem. Our custom-built <strong>gds photo resizer</strong> works directly in your mobile browser. You do not need to visit a cyber cafe. You do not need to download heavy software to your computer. Just upload your photo, move the slide bar, and let our tool magically compress your file to exactly 50KB or 20KB while keeping your face bright and clear.
-            </p>
+        <article style={{ padding: '0 clamp(10px,3vw,20px)', margin: '40px auto', maxWidth: '900px', fontFamily: 'system-ui, sans-serif', color: '#1e293b', lineHeight: 1.8 }}>
 
-            <h3>What Are the Official GDS Upload Dimensions?</h3>
-            
-            <p>
-                Before we resize anything, we need to know the rules. India Post has two major documents you must upload, and they each have completely different rules! Mixing them up is the #1 reason applications are rejected.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
-                <div className="bg-blue-50 border-t-4 border-blue-500 shadow-sm p-6 rounded-b-2xl">
-                    <h4 className="text-xl font-bold text-blue-900 mb-3">📍 The Main Passport Photo</h4>
-                    <p className="text-blue-800 text-sm mb-4">
-                        This is the picture of your face that will go on your official Gramin Dak Sevak identity card.
-                    </p>
-                    <ul className="list-disc pl-5 text-blue-900 space-y-2 font-medium">
-                        <li>Maximum File Size: <strong>Must be exactly 50 KB or less.</strong></li>
-                        <li>Exact Dimensions: <strong>200 pixels width × 230 pixels height.</strong></li>
-                        <li>Format: <strong>Only .jpg or .jpeg</strong> files.</li>
-                        <li>Background: Keep it clean, preferably a white or light blue background.</li>
-                    </ul>
-                </div>
-                
-                <div className="bg-emerald-50 border-t-4 border-emerald-500 shadow-sm p-6 rounded-b-2xl">
-                    <h4 className="text-xl font-bold text-emerald-900 mb-3">📍 The Signature Upload</h4>
-                    <p className="text-emerald-800 text-sm mb-4">
-                        This is the photo of your handwritten signature on plain white paper.
-                    </p>
-                    <ul className="list-disc pl-5 text-emerald-900 space-y-2 font-medium">
-                        <li>Maximum File Size: <strong>Must be exactly 20 KB or less.</strong></li>
-                        <li>Exact Dimensions: <strong>140 pixels width × 60 pixels height.</strong></li>
-                        <li>Format: <strong>Only .jpg or .jpeg</strong> files.</li>
-                        <li>Ink: Use dark black ink so it shows up clearly on the scanner.</li>
-                    </ul>
-                </div>
+            {/* Intro */}
+            <div style={{ background: 'linear-gradient(135deg,#f8fafc,#f1f5f9)', padding: 'clamp(20px,5vw,36px)', borderRadius: '20px', marginBottom: '36px', border: '1px solid #e2e8f0' }}>
+                <h2 style={{ ...h2, marginTop: 0, fontSize: 'clamp(24px,5vw,32px)' }}>
+                    The Only GDS Photo Resize to 50KB &amp; 20KB Tool You Need
+                </h2>
+                <p style={{ ...p, marginBottom: 0 }}>
+                    Applying for India Post Gramin Dak Sevak (GDS) recruitment? The hardest part is the document upload — the portal is extremely strict. If your photo is even 1 KB over the limit, the application gets rejected. Our <strong>GDS photo resizer</strong> fixes this — resize to exactly 50KB or 20KB instantly, free, and without any app download.
+                </p>
             </div>
 
-            <p>
-                As you can see, you actually need to do two different things. You need our tool for your face photo, and you need to do a <strong>gds photo resize to 20kb</strong> for your signature! Luckily, our magical slider can do both without loading a new page.
+            {/* Section 1 */}
+            <h2 style={h2}>Official GDS Photo &amp; Signature Upload Requirements</h2>
+            <p style={p}>India Post has two separate documents with completely different rules. Mixing them up is the #1 reason applications get rejected.</p>
+
+            {/* Photo box */}
+            <div style={{ background: '#eff6ff', padding: 'clamp(16px,4vw,28px)', borderRadius: '16px', border: '1px solid #bfdbfe', marginBottom: '20px' }}>
+                <h3 style={{ ...h3, marginTop: 0, color: '#1e40af' }}>📍 GDS Passport Photo Specifications</h3>
+                <ul style={{ paddingLeft: '22px', margin: 0 }}>
+                    <li style={li}><strong>Maximum File Size:</strong> 50 KB or less</li>
+                    <li style={li}><strong>Dimensions:</strong> 200 px × 230 px</li>
+                    <li style={li}><strong>Format:</strong> JPG / JPEG only</li>
+                    <li style={{ ...li, marginBottom: 0 }}><strong>Background:</strong> White or light blue — plain, no shadows</li>
+                </ul>
+            </div>
+
+            {/* Signature box */}
+            <div style={{ background: '#f0fdf4', padding: 'clamp(16px,4vw,28px)', borderRadius: '16px', border: '1px solid #bbf7d0', marginBottom: '32px' }}>
+                <h3 style={{ ...h3, marginTop: 0, color: '#166534' }}>📍 GDS Signature Upload Specifications</h3>
+                <ul style={{ paddingLeft: '22px', margin: 0 }}>
+                    <li style={li}><strong>Maximum File Size:</strong> 20 KB or less</li>
+                    <li style={li}><strong>Dimensions:</strong> 140 px × 60 px</li>
+                    <li style={li}><strong>Format:</strong> JPG / JPEG only</li>
+                    <li style={{ ...li, marginBottom: 0 }}><strong>Ink:</strong> Dark black pen on blank white paper (no ruled lines)</li>
+                </ul>
+            </div>
+
+            {/* Section 2 */}
+            <h2 style={h2}>How to Use the GDS Photo Resizer — Step by Step</h2>
+
+            <h3 style={h3}>Step 1 — Take the Perfect Photo</h3>
+            <p style={p}>Stand facing a window in natural daylight against a plain white wall. Take an unfiltered selfie. For signature, sign clearly on blank white printer paper with a thick black pen — no notebook lines.</p>
+
+            <h3 style={h3}>Step 2 — Upload Your Image</h3>
+            <p style={p}>Scroll up and drop your photo or signature into the upload box. You can also tap to pick from your phone gallery. Supports JPG, PNG, and WebP.</p>
+
+            <h3 style={h3}>Step 3 — Set Dimensions and Target KB</h3>
+            <p style={p}>
+                For <strong>passport photo</strong>: Set Width = <strong>200 px</strong>, Height = <strong>230 px</strong>, Target = <strong>50 KB</strong>.<br />
+                For <strong>signature</strong>: Set Width = <strong>140 px</strong>, Height = <strong>60 px</strong>, Target = <strong>20 KB</strong>.
             </p>
 
-            <h3>How Step-by-Step to Use the GDS India Post Resizer</h3>
-            
-            <p>
-                Making things smaller usually breaks the quality of the image. Standard phone tools ruin the picture when you crop it. Here is the perfect, foolproof method to get a 100% accepted upload using our <strong>gds photo compress 50kb</strong> tool:
+            <h3 style={h3}>Step 4 — Resize &amp; Download</h3>
+            <p style={p}>Click <em>Resize Signature</em>. Your file will be compressed and downloaded instantly, ready to upload directly to the India Post GDS portal.</p>
+
+            {/* Section 3 */}
+            <h2 style={h2}>Why This Tool is Safe for Govt Form Documents</h2>
+            <p style={p}>
+                Many online tools upload your photo to foreign servers — putting your personal data at risk. Our <strong>GDS photo dimension tool</strong> works 100% in your browser (client-side). Your photo and signature <strong>never leave your device</strong>. Everything is processed locally — instant, private, and secure.
             </p>
 
-            <ol className="list-decimal pl-6 space-y-4 mb-8">
-                <li>
-                    <strong>Take the Perfect Selfie:</strong> Stand facing a window inside your house so the sunlight lights up your face. Stand against a plain blank wall. Take an un-filtered photo with your smartphone. For the signature, sign on totally plain white printer paper (no notebook lines!) with a thick black pen.
-                </li>
-                <li>
-                    <strong>Upload to the Dashboard:</strong> Scroll up to our blue upload container. You can click on it to open your phone gallery, or drag the picture straight from your laptop desktop into the box.
-                </li>
-                <li>
-                    <strong>Crop to the Head and Shoulders:</strong> As soon as the photo uploads, our smart cropping tool will appear. Drag the bright corners so the box wraps nicely around your head and your shoulders, just like a school ID card picture. Try to keep your face right in the center.
-                </li>
-                <li>
-                    <strong>Slide the Magic Bar:</strong> Look at the "Target Size" slider under your picture. If you are uploading your face photo, drag that slider to exactly <strong>50 KB</strong>. If you are uploading your signature photo right now, slide it all the way down to exactly <strong>20 KB</strong>.
-                </li>
-                <li>
-                    <strong>Hit Download & Apply:</strong> Click the massive green download button at the bottom. The smart servers sitting inside your browser will instantly squeeze the junk data out of the photo while leaving your face crystal clear. The file is saved directly to your phone's 'Downloads' folder as a perfect JPEG! 
-                </li>
-            </ol>
-
-            <h3>Why a 'Client-Side' Tool is Safe for Government Forms</h3>
-            
-            <p>
-                Whenever you search for an <strong>india post gds photo resizer</strong> online, you will find hundreds of websites. But almost all of those older websites are dangerous. Why? Because they force you to <em>upload</em> your personal identification photos to their mysterious servers in another country. Your private data is out of your control.
-            </p>
-
-            <p>
-                Our <strong>gds photo dimension tool</strong> is incredibly special because it operates 100% on the "Client-Side." This is a tech-nerd phrase that simply means everything happens inside your own Google Chrome or Safari browser memory. Your beautiful photo and your private signature are absolutely never, ever uploaded to our servers. Because of this, our tool works instantly without internet lag, and it guarantees that your private data vanishes the very second you close this browser tab. It is the safest way to prepare exam forms!
-            </p>
-
-            <h3>Common Errors GDS Applicants Run Into</h3>
-
-            <p>
-                Even with our amazing modern tool doing all the heavy lifting, you need to be careful of human mistakes. Here are the top reasons India Post will reject you even if the KB size is correct:
-            </p>
-
-            <ul className="list-disc pl-6 space-y-4 mb-8">
-                <li>
-                    <strong>Taking photos of old photos:</strong> Do not put a printed passport photo on your table and take a picture of it with your phone! The glare from the flash will completely blind the scanner and your face will look like a ghost. Just take a fresh photo against a wall.
-                </li>
-                <li>
-                    <strong>Wearing glasses or caps:</strong> The official India Post GDS notification clearly states that candidates wearing tinted sunglasses, thick spectacle frames covering the eyes, or hats/caps will have their application canceled without notice.
-                </li>
-                <li>
-                    <strong>Mixing up the uploads:</strong> It sounds silly, but because candidates rush on the last date of form filling, they accidentally upload the 20KB signature into the photo slot, and the 50KB photo into the signature slot. Double check the preview before hitting final submit!
-                </li>
+            {/* Section 4 */}
+            <h2 style={h2}>Common Mistakes GDS Applicants Make</h2>
+            <ul style={{ paddingLeft: '22px', marginBottom: '32px' }}>
+                <li style={li}><strong>Photographing a printed photo:</strong> Don't photograph a printed passport photo. The glare makes the face unclear. Take a fresh photo directly.</li>
+                <li style={li}><strong>Wearing glasses or caps:</strong> India Post explicitly disqualifies photos with tinted glasses, heavy frames, or headgear.</li>
+                <li style={li}><strong>Mixing up uploads:</strong> Many candidates accidentally upload the 20KB signature in the photo slot and vice versa. Always double-check the preview before submitting.</li>
+                <li style={li}><strong>Lined paper for signature:</strong> Using notebook paper leaves visible ruled lines in the scan. Always use blank white A4 printer paper.</li>
+                <li style={{ ...li, marginBottom: 0 }}><strong>Dark or shadowed background:</strong> Poor lighting ruins photo quality. Use bright natural light near a window.</li>
             </ul>
 
-            <p>
-                By using our <strong>gds signature crop</strong> technology, you bypass all the headaches of trying to understand Photoshop pixel dimensions. We do all the complicated math under the hood. All you have to worry about is studying hard, scoring good merit marks, and getting that dream Gramin Dak Sevak posting! Best of luck with your application. Drop your photo in the uploader above right now to get started for free.
-            </p>
+            {/* Internal links */}
+            <h2 style={h2}>Related Tools You May Need</h2>
+            <ul style={{ paddingLeft: '22px', marginBottom: '24px' }}>
+                <li style={li}><Link href="/govt-exam-tools/ssc-signature-resize" style={{ color: '#4f46e5', fontWeight: 700 }}>SSC CGL Photo &amp; Signature Resizer 2026</Link> — Specifically for SSC CGL portal requirements</li>
+                <li style={li}><Link href="/govt-exam-tools/signature-resize" style={{ color: '#4f46e5', fontWeight: 700 }}>General Signature Resize Tool</Link> — For any exam with custom dimension requirements</li>
+                <li style={li}><Link href="/image-tools/resize-image-to-20kb" style={{ color: '#4f46e5', fontWeight: 700 }}>Resize Image to 20KB</Link> — Standalone 20KB resize for any portal</li>
+                <li style={{ ...li, marginBottom: 0 }}><Link href="/mb-to-kb-image-converter" style={{ color: '#4f46e5', fontWeight: 700 }}>MB to KB Converter</Link> — For large MB photos to target KB</li>
+            </ul>
 
-            <div className="mt-16 bg-white border border-slate-200 p-8 rounded-3xl shadow-sm">
-                <h3 className="text-2xl font-bold text-slate-800 border-b pb-4 mb-6">Frequently Asked Questions (FAQs)</h3>
-                
-                <div className="space-y-6">
-                    <div>
-                        <h4 className="font-bold text-slate-800 text-lg flex items-center gap-2">
-                            <span className="text-indigo-500">Q.</span> How do I resize my photo to 50KB for India Post GDS?
-                        </h4>
-                        <p className="text-slate-600 mt-2 ml-7">It is incredibly simple. Just upload your picture at the top of this page, use our pre-built cropper to select just your face and shoulders, and move the "Target Size" slider exactly to 50 KB. When you click download, our algorithm ensures the image file is 50 KB or under, perfectly formatted for the GDS portal.</p>
-                    </div>
+            {/* FAQ Section */}
+            <div style={{ marginTop: '56px', background: '#f8fafc', padding: 'clamp(20px,5vw,40px)', borderRadius: '28px', border: '1px solid #e2e8f0' }}>
+                <h2 style={{ ...h2, marginTop: 0, textAlign: 'center', fontSize: 'clamp(24px,5vw,30px)' }}>
+                    Frequently Asked Questions (FAQs)
+                </h2>
 
-                    <div>
-                        <h4 className="font-bold text-slate-800 text-lg flex items-center gap-2">
-                            <span className="text-indigo-500">Q.</span> How to do a GDS photo resize to 20KB for my signature?
-                        </h4>
-                        <p className="text-slate-600 mt-2 ml-7">You use the exact same tool! Just upload the picture of your dark black ink signature. Crop out the empty lines of the paper, drag the Target Size slider down to 20 KB, and hit download. It automatically resizes the pixels so it looks crisp and clear on the portal.</p>
+                {[
+                    {
+                        q: 'How do I resize my GDS photo to 50KB?',
+                        a: 'Upload your photo in the tool above. Set Width = 200 px, Height = 230 px, and Target Size = 50 KB. Click Resize and download the output — it will be within 50KB and accepted by the India Post GDS portal.'
+                    },
+                    {
+                        q: 'How to do a GDS photo resize to 20KB for signature?',
+                        a: 'Use the same tool! Upload your signature image. Set Width = 140 px, Height = 60 px, and Target = 20 KB. Download the output. It will fit perfectly in the GDS signature upload slot.'
+                    },
+                    {
+                        q: 'What is the GDS photo size in pixels?',
+                        a: 'The official India Post GDS passport photo must be 200 pixels wide × 230 pixels tall. The signature must be 140 pixels wide × 60 pixels tall. Our tool lets you enter exact pixel dimensions.'
+                    },
+                    {
+                        q: 'Does this tool set the correct pixel dimensions automatically?',
+                        a: 'Yes. You enter the target pixel dimensions (200×230 for photo, 140×60 for signature), and our tool resizes the image to those exact dimensions while also compressing to the target KB.'
+                    },
+                    {
+                        q: 'Is this GDS photo resizer tool safe to use?',
+                        a: '100% safe. Your photo and signature never leave your device — everything is processed locally in your browser using the File API. No uploads to any server, no data stored, no watermark added.'
+                    },
+                    {
+                        q: 'What file format does GDS require for photo upload?',
+                        a: 'India Post GDS requires JPG/JPEG format only. Our tool automatically converts PNG or WebP to JPEG during the resize process, so you can upload any format.'
+                    },
+                    {
+                        q: 'Why is my GDS application photo getting rejected even after resizing?',
+                        a: 'Common reasons: wearing glasses or cap in the photo, dark or shadowed background, signature in capital letters, using notebook paper with ruled lines for signature, or accidentally uploading the photo in the signature slot. Check all these before resubmitting.'
+                    },
+                ].map((faq, i) => (
+                    <div key={i} style={{ marginBottom: '20px', background: '#fff', padding: 'clamp(16px,4vw,24px)', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
+                        <h3 style={{ ...h3, marginTop: 0, marginBottom: '10px', fontSize: '17px', color: '#0f172a' }}>
+                            {i + 1}. {faq.q}
+                        </h3>
+                        <p style={{ ...p, marginBottom: 0, color: '#475569' }}>{faq.a}</p>
                     </div>
-
-                    <div>
-                        <h4 className="font-bold text-slate-800 text-lg flex items-center gap-2">
-                            <span className="text-indigo-500">Q.</span> Does this tool set the 200 x 230 pixel dimensions automatically?
-                        </h4>
-                        <p className="text-slate-600 mt-2 ml-7">Yes! When you crop your photo, the final output image is mathematically compressed. As long as you keep your face centered in a rectangle frame, it inherently aligns with the standard passport pixel aspect ratios required by all major Indian government exam portals.</p>
-                    </div>
-
-                    <div>
-                        <h4 className="font-bold text-slate-800 text-lg flex items-center gap-2">
-                            <span className="text-indigo-500">Q.</span> Is this GDS Photo Resizer tool really 100% free?
-                        </h4>
-                        <p className="text-slate-600 mt-2 ml-7">Absolutely. There are no hidden fees, no required account signups, and we never add any watermark or text over your photo. We built this simply to help Indian students pass the complicated document registration phases of their career journey.</p>
-                    </div>
-                </div>
+                ))}
             </div>
 
         </article>

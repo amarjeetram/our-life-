@@ -72,7 +72,7 @@ const Footer = () => (
                     </h4>
                     <ul className="space-y-3.5 mb-8">
                         {[
-                            { name: 'Photo & Image Tools', href: '/photo-and-image-compression-tools' },
+                            { name: 'Image Tools', href: '/image-tools' },
                             { name: 'Govt Exam Tools', href: '/govt-exam-tools' },
                             { name: 'YouTube Tools', href: '/youtube-tools' },
                             { name: 'Instagram Tools', href: '/instagram-tools' },

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { Calendar, User, ArrowLeft, Clock } from 'lucide-react';
+import { Calendar, User, ArrowLeft, Clock, Heart, Sparkles, Hash, Type } from 'lucide-react';
 import { getPostBySlug, getAllPosts } from '@/lib/mdx';
 import FloatingCTA from '@/components/FloatingCTA';
 import CoupleNameClient from '@/components/CoupleNameClient';
@@ -262,6 +262,78 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             </span>
         )
     };
+
+    if (post.slug === 'stylish-couple-name-maker-with-meaning-find-unique-names-with-romantic-significance') {
+        return (
+            <div className="min-h-screen bg-[#FAFAFA] pt-28 pb-20">
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                />
+                {faqJsonLd && (
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+                    />
+                )}
+
+                {/* ── Page Header / Hero ─────────────────────────────────────────── */}
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 mb-12 text-center relative z-10">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-pink-100 border border-pink-200 text-pink-700 text-xs font-bold uppercase tracking-wider mb-6 shadow-sm">
+                        <Heart className="w-3.5 h-3.5 fill-pink-500" />
+                        Free Utility Tool
+                    </div>
+
+                    <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-black text-slate-900 tracking-tight leading-[1.15] mb-6">
+                        {post.title}
+                    </h1>
+
+                    <p className="text-lg text-gray-500 max-w-2xl mx-auto font-medium">
+                        Blend two names into beautiful, unique nicknames with stylish fonts, wedding hashtags, and emojis — free, instant, and ready for Instagram.
+                    </p>
+
+                    {/* Trust badges */}
+                    <div className="flex flex-wrap justify-center gap-4 mt-8">
+                        <div className="flex items-center gap-1.5 text-sm text-gray-500 font-medium">
+                            <Sparkles className="w-4 h-4 text-pink-400" />
+                            Stylish Fonts
+                        </div>
+                        <div className="flex items-center gap-1.5 text-sm text-gray-500 font-medium">
+                            <Hash className="w-4 h-4 text-purple-400" />
+                            Wedding Hashtags
+                        </div>
+                        <div className="flex items-center gap-1.5 text-sm text-gray-500 font-medium">
+                            <Type className="w-4 h-4 text-indigo-400" />
+                            Unicode Fonts
+                        </div>
+                        <div className="flex items-center gap-1.5 text-sm text-gray-500 font-medium">
+                            <Heart className="w-4 h-4 text-rose-400" />
+                            100% Free
+                        </div>
+                    </div>
+                </div>
+
+                {/* ── Interactive Tool Component ─────────────────────────────────── */}
+                <div className="px-4 sm:px-6 relative z-20">
+                    <CoupleNameClient />
+                </div>
+
+                {/* ── SEO Article Section ────────────────────────────────────────── */}
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 mt-16">
+                     <div className="blog-content prose prose-slate prose-lg md:prose-xl max-w-none 
+                    prose-headings:font-black prose-headings:tracking-tight prose-headings:text-slate-900
+                    prose-p:text-slate-700 prose-p:leading-relaxed prose-p:font-medium
+                    prose-a:text-indigo-600 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
+                    prose-strong:text-slate-900 prose-strong:font-bold
+                    prose-li:text-slate-700 marker:text-indigo-500
+                    prose-img:rounded-3xl prose-img:border prose-img:border-slate-200 prose-img:shadow-lg
+                ">
+                        <MDXRemote source={post.content} components={mdxComponents} />
+                     </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>

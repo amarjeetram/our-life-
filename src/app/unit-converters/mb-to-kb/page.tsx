@@ -13,14 +13,22 @@ export const metadata: Metadata = {
 };
 
 const faqs = [
-    { q: "How many KB is 1 MB?", a: "1 MB (Megabyte) is equal to 1,024 KB (Kilobytes) in the binary system used by computers (Windows, Android, iOS). In the decimal SI system, 1 MB = 1,000 KB. Our calculator uses the binary system by default." },
-    { q: "How do I convert MB to KB?", a: "To convert MB to KB, multiply the MB value by 1,024. For example, 2 MB × 1,024 = 2,048 KB. You can also use our free MB to KB calculator above — just enter the value and get the result instantly." },
-    { q: "What is the difference between MB and KB?", a: "MB (Megabyte) is a larger unit than KB (Kilobyte). 1 MB equals 1,024 KB. KB is used for smaller files like thumbnails, text documents, and compressed images. MB is used for larger files like original photos, audio, and documents." },
-    { q: "How many KB is 5 MB?", a: "5 MB equals 5,120 KB in the binary system (5 × 1,024 = 5,120 KB). In the decimal system, 5 MB = 5,000 KB." },
-    { q: "How many KB is 2 MB?", a: "2 MB equals 2,048 KB in the binary system (2 × 1,024 = 2,048 KB)." },
-    { q: "Can I convert KB to MB using this tool?", a: "Yes! Our converter works both ways. Select KB as the 'From' unit and MB as the 'To' unit to convert kilobytes back to megabytes. 1,024 KB = 1 MB." },
-    { q: "Why do government portals ask for photos in KB?", a: "Government portals like SSC, UPSC, NEET and banking sites require photos in KB (usually 20KB to 200KB) to ensure fast server processing and efficient storage. Their systems handle millions of applications and cannot handle MB-sized files." },
-    { q: "Is this MB to KB calculator free?", a: "Yes, 100% free. No registration, no watermark, no download required. Simply open the page and convert as many values as you need." },
+    {
+        "q": "How many Kilobytes are in 1 Megabyte?",
+        "a": "In the standard binary system used by computers, 1 MB is equal to 1,024 KB. In the decimal system, it is 1,000 KB."
+    },
+    {
+        "q": "What is the difference between MB and KB?",
+        "a": "Megabyte (MB) is a much larger unit of digital storage than Kilobyte (KB). Files measured in MBs are significantly heavier."
+    },
+    {
+        "q": "How do I convert MB to KB online?",
+        "a": "Simply type your MB value into our calculator box above. The exact KB calculation will immediately display without clicking any buttons."
+    },
+    {
+        "q": "Is this MB to KB conversion tool free?",
+        "a": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
+    }
 ];
 
 export default function Page() {
@@ -29,7 +37,9 @@ export default function Page() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
+                    __html: JSON.stringify([
+                        {
+
                         "@context": "https://schema.org",
                         "@graph": [
                             {
@@ -57,11 +67,6 @@ export default function Page() {
                                     "@type": "Offer",
                                     "price": "0",
                                     "priceCurrency": "USD"
-                                },
-                                "aggregateRating": {
-                                    "@type": "AggregateRating",
-                                    "ratingValue": "4.9",
-                                    "ratingCount": "12400"
                                 }
                             },
                             {
@@ -99,7 +104,46 @@ export default function Page() {
                                 }))
                             }
                         ]
-                    })
+                    },
+                        {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How many Kilobytes are in 1 Megabyte?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In the standard binary system used by computers, 1 MB is equal to 1,024 KB. In the decimal system, it is 1,000 KB."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is the difference between MB and KB?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Megabyte (MB) is a much larger unit of digital storage than Kilobyte (KB). Files measured in MBs are significantly heavier."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How do I convert MB to KB online?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Simply type your MB value into our calculator box above. The exact KB calculation will immediately display without clicking any buttons."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Is this MB to KB conversion tool free?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
+            }
+        }
+    ]
+}
+                    ])
                 }}
             />
             <MBtoKBConverterClient>

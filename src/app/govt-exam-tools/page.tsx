@@ -15,7 +15,7 @@ export default function GovtExamToolsPage() {
         <main className="min-h-screen bg-slate-50 flex flex-col container mx-auto px-4 py-12 md:py-24 mt-16">
             <div style={{ textAlign: "center", marginBottom: "40px" }}>
                 <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#10b981", marginBottom: "12px" }}>
-                    Exam Preparation
+                    Photo &amp; Document Tools
                 </span>
                 <h1 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
                     Govt Exam Tools
@@ -28,7 +28,12 @@ export default function GovtExamToolsPage() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", maxWidth: "1100px", margin: "0 auto" }}>
                 {[
                     {
-                        route: '/govt-exam-tools/ssc-signature-resize', title: 'SSC Signature Resize',
+                        route: '/govt-exam-tools/upsc-photo-resize', title: 'UPSC Photo Resize',
+                        desc: 'Resize UPSC IAS/IFS photo to 20-300KB and signature to 10-40KB as per UPSC 2026 official portal guidelines.',
+                        tags: ['UPSC', 'IAS', 'IFS', 'Civil Services']
+                    },
+                    {
+                        route: '/govt-exam-tools/ssc-signature-resize', title: 'SSC CGL Signature Resize',
                         desc: 'Strict SSC portal compliance. Resize signature exactly to 10KB-20KB and 4cm x 2cm width & height.',
                         tags: ['SSC', 'CGL', 'GD']
                     },
@@ -46,6 +51,11 @@ export default function GovtExamToolsPage() {
                         route: '/govt-exam-tools/tnpsc-photo-compressor', title: 'TNPSC Photo Compressor',
                         desc: '1-click compressor designed specifically for Tamil Nadu PSC photo (20-50KB) and signature (10-20KB) rules.',
                         tags: ['TNPSC', 'State Exams']
+                    },
+                    {
+                        route: '/govt-exam-tools/add-name-date', title: 'Add Name & Date to Photo',
+                        desc: 'Easily add your name and date of photo (DOP) at the bottom of your passport photo for exam portals.',
+                        tags: ['UPSC', 'SSC', 'IBPS']
                     }
                 ].map((tool, index) => (
                     <div

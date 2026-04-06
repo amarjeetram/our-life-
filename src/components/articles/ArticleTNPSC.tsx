@@ -47,7 +47,7 @@ export default function ArticleTNPSC() {
                         <li className="flex gap-2"><span>•</span> <span><strong>File Size:</strong> Must be strictly <strong>20–50KB</strong>.</span></li>
                         <li className="flex gap-2"><span>•</span> <span><strong>Dimensions:</strong> Standard passport size (3.5 cm x 4.5 cm).</span></li>
                         <li className="flex gap-2"><span>•</span> <span><strong>Format:</strong> Only JPG or JPEG is accepted.</span></li>
-                        <li className="flex gap-2"><span>•</span> <span><strong>Mandatory Extra:</strong> Your name and date of photo must be printed clearly at the bottom margin.</span></li>
+                        <li className="flex gap-2"><span>•</span> <span><strong>Mandatory Extra:</strong> Your name and date of photo must be printed clearly at the bottom margin. (Use our <Link href="/govt-exam-tools/add-name-date" className="text-indigo-600 hover:text-indigo-800 underline font-semibold">free Name & Date stamping tool</Link> if needed).</span></li>
                     </ul>
                 </div>
                 <div className="border border-indigo-100 bg-indigo-50/30 rounded-xl p-5">
@@ -66,7 +66,7 @@ export default function ArticleTNPSC() {
                 Thousands of applicants face heartbreak when their <strong>TNPSC exam photo upload</strong> is rejected. Generic image editing apps often slap unwanted watermarks across your face or forcefully reduce the resolution down to the point of being entirely blurred. 
             </p>
             <p>
-                By using our specialized compressor designed specifically for the <strong>TNPSC official portal upload</strong>, your document retains extremely high visual clarity. If your signature is pixellated, exam center staff may declare it illegible and cancel your hall ticket. Avoid zooming out too much and try to frame the signature boundary cleanly. Never upload random PNGs without guaranteeing they have been correctly verified and shrunk under the <strong>50KB</strong> limit!
+                By using our specialized compressor designed specifically for the <strong>TNPSC official portal upload</strong>, your document retains extremely high visual clarity. For your signature needs, you can also use our dedicated <Link href="/govt-exam-tools/signature-resize" className="text-indigo-600 hover:text-indigo-800 underline">Signature Resize tool</Link>. If your signature is pixellated, exam center staff may declare it illegible and cancel your hall ticket. Avoid zooming out too much and try to frame the signature boundary cleanly. Never upload random PNGs without guaranteeing they have been correctly verified and shrunk under the <Link href="/compress-image-to-50kb" className="text-indigo-600 hover:text-indigo-800 underline">50KB limit</Link>! We also have a <Link href="/unit-converters/mb-to-kb" className="text-indigo-600 hover:text-indigo-800 underline">MB to KB Converter</Link> if you need general file size reductions.
             </p>
 
             <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-6 mt-10">

@@ -13,9 +13,22 @@ export const metadata: Metadata = {
 };
 
 const faqs = [
-    { q: "How do I convert TB to GB?", a: "To convert TB to GB, you can simply use our free calculator above. The mathematical rule is to multiply by 1,024 from the TB value to get the GB equivalent." },
-    { q: "Is a TB larger than a GB?", a: "Yes, TB is much larger than GB." },
-    { q: "Is this TB to GB calculator free to use?", a: "Yes! All digital storage unit converters on SmartToolsWala are 100% free and don't require any signup." },
+    {
+        "q": "How many Gigabytes are in 1 Terabyte?",
+        "a": "In the standard binary system used by computers, 1 TB is equal to 1,024 GB. In the decimal system, it is 1,000 GB."
+    },
+    {
+        "q": "What is the difference between TB and GB?",
+        "a": "Terabyte (TB) is a much larger unit of digital storage than Gigabyte (GB). Files measured in TBs are significantly heavier."
+    },
+    {
+        "q": "How do I convert TB to GB online?",
+        "a": "Simply type your TB value into our calculator box above. The exact GB calculation will immediately display without clicking any buttons."
+    },
+    {
+        "q": "Is this TB to GB conversion tool free?",
+        "a": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
+    }
 ];
 
 export default function Page() {
@@ -24,7 +37,9 @@ export default function Page() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
+                    __html: JSON.stringify([
+                        {
+
                         "@context": "https://schema.org",
                         "@graph": [
                             {
@@ -52,7 +67,46 @@ export default function Page() {
                                 }))
                             }
                         ]
-                    })
+                    },
+                        {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "How many Gigabytes are in 1 Terabyte?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In the standard binary system used by computers, 1 TB is equal to 1,024 GB. In the decimal system, it is 1,000 GB."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "What is the difference between TB and GB?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Terabyte (TB) is a much larger unit of digital storage than Gigabyte (GB). Files measured in TBs are significantly heavier."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "How do I convert TB to GB online?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Simply type your TB value into our calculator box above. The exact GB calculation will immediately display without clicking any buttons."
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "Is this TB to GB conversion tool free?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
+            }
+        }
+    ]
+}
+                    ])
                 }}
             />
             <DigitalConverterClient

@@ -38,7 +38,7 @@ const Navbar = () => {
             isDropdown: true,
             icon: <Wrench className="w-5 h-5" />,
             subItems: [
-                { name: 'Photo & Image Tools', href: '/photo-and-image-compression-tools' },
+                { name: 'Image Tools', href: '/image-tools' },
                 { name: 'YouTube Tools', href: '/youtube-tools' },
                 { name: 'Instagram Tools', href: '/instagram-tools' },
                 { name: 'Govt Exam Tools', href: '/govt-exam-tools' },

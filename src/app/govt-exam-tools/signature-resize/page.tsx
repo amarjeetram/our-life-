@@ -48,11 +48,6 @@ export default function Page() {
                                     "@type": "Offer",
                                     "price": "0",
                                     "priceCurrency": "USD"
-                                },
-                                "aggregateRating": {
-                                    "@type": "AggregateRating",
-                                    "ratingValue": "4.9",
-                                    "ratingCount": "8450"
                                 }
                             },
                             {
@@ -68,8 +63,8 @@ export default function Page() {
                                     {
                                         "@type": "ListItem",
                                         "position": 2,
-                                        "name": "Photo & Image Tools",
-                                        "item": "https://smarttoolswala.com/photo-and-image-compression-tools"
+                                        "name": "Image Tools",
+                                        "item": "https://smarttoolswala.com/image-tools"
                                     },
                                     {
                                         "@type": "ListItem",

@@ -1,4 +1,3 @@
-"use client";
 
 import Link from "next/link";
 import {
@@ -237,14 +236,6 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     overflow: "hidden", textDecoration: "none",
                                     transition: "transform 0.2s, box-shadow 0.2s",
                                 }}
-                                    onMouseEnter={e => {
-                                        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(99,102,241,0.12), 0 2px 8px rgba(0,0,0,0.04)";
-                                    }}
-                                    onMouseLeave={e => {
-                                        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(99,102,241,0.06), 0 1px 3px rgba(0,0,0,0.02)";
-                                    }}
                                 >
                                     {/* Rainbow top bar */}
                                     <div style={{ height: "4px", background: "linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7, #ec4899)" }} />
@@ -342,14 +333,6 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     overflow: "hidden", textDecoration: "none",
                                     transition: "transform 0.2s, box-shadow 0.2s",
                                 }}
-                                    onMouseEnter={e => {
-                                        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(239,68,68,0.12), 0 2px 8px rgba(0,0,0,0.04)";
-                                    }}
-                                    onMouseLeave={e => {
-                                        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(239,68,68,0.06), 0 1px 3px rgba(0,0,0,0.02)";
-                                    }}
                                 >
                                     <div style={{ height: "4px", background: "linear-gradient(90deg, #ef4444, #dc2626)" }} />
 
@@ -429,14 +412,6 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     overflow: "hidden", textDecoration: "none",
                                     transition: "transform 0.2s, box-shadow 0.2s",
                                 }}
-                                    onMouseEnter={e => {
-                                        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(147,51,234,0.14), 0 2px 8px rgba(0,0,0,0.04)";
-                                    }}
-                                    onMouseLeave={e => {
-                                        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(147,51,234,0.06), 0 1px 3px rgba(0,0,0,0.02)";
-                                    }}
                                 >
                                     <div style={{ height: "4px", background: "linear-gradient(90deg, #9333ea, #ec4899)" }} />
                                     <div style={{ padding: "32px", display: "flex", flexDirection: "column", gap: "16px", flexGrow: 1 }}>
@@ -523,14 +498,6 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     overflow: "hidden", textDecoration: "none",
                                     transition: "transform 0.2s, box-shadow 0.2s",
                                 }}
-                                    onMouseEnter={e => {
-                                        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(14,165,233,0.12), 0 2px 8px rgba(0,0,0,0.04)";
-                                    }}
-                                    onMouseLeave={e => {
-                                        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(14,165,233,0.06), 0 1px 3px rgba(0,0,0,0.02)";
-                                    }}
                                 >
                                     <div style={{ height: "4px", background: "linear-gradient(90deg, #0ea5e9, #3b82f6)" }} />
 
@@ -617,14 +584,6 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     overflow: "hidden", textDecoration: "none",
                                     transition: "transform 0.2s, box-shadow 0.2s",
                                 }}
-                                    onMouseEnter={e => {
-                                        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(245,158,11,0.12), 0 2px 8px rgba(0,0,0,0.04)";
-                                    }}
-                                    onMouseLeave={e => {
-                                        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(245,158,11,0.06), 0 1px 3px rgba(0,0,0,0.02)";
-                                    }}
                                 >
                                     <div style={{ height: "4px", background: "linear-gradient(90deg, #f59e0b, #fbbf24)" }} />
 
@@ -711,14 +670,6 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     overflow: "hidden", textDecoration: "none",
                                     transition: "transform 0.2s, box-shadow 0.2s",
                                 }}
-                                    onMouseEnter={e => {
-                                        (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 48px rgba(139,92,246,0.12), 0 2px 8px rgba(0,0,0,0.04)";
-                                    }}
-                                    onMouseLeave={e => {
-                                        (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                                        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(139,92,246,0.06), 0 1px 3px rgba(0,0,0,0.02)";
-                                    }}
                                 >
                                     {/* Rainbow top bar */}
                                     <div style={{ height: "4px", background: "linear-gradient(90deg, #8b5cf6, #d946ef)" }} />
@@ -836,14 +787,6 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                     borderRadius: "24px", padding: "32px 28px",
                                     border: "1px solid rgba(255,255,255,0.07)",
                                     transition: "background 0.2s, transform 0.2s",
-                                }}
-                                onMouseEnter={e => {
-                                    (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-                                    (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.07)";
-                                }}
-                                onMouseLeave={e => {
-                                    (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-                                    (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.04)";
                                 }}
                             >
                                 <div style={{

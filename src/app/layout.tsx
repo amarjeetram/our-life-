@@ -8,8 +8,8 @@ import ClientDropZone from "../components/ClientDropZone";
 import Script from "next/script";
 import DeferredGTM from "../components/DeferredGTM";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap", preload: false });
-const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap", preload: false });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap", preload: true });
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap", preload: true });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smarttoolswala.com"),
@@ -64,7 +64,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <head>
-        <script src="https://analytics.ahrefs.com/analytics.js" data-key="d8ok06KdnbbIqz7qNwaXMw" async></script>
+        <Script id="ahrefs-analytics" src="https://analytics.ahrefs.com/analytics.js" data-key="d8ok06KdnbbIqz7qNwaXMw" strategy="lazyOnload" />
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <Suspense fallback={null}>

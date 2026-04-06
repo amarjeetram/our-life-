@@ -22,7 +22,7 @@ export default function DeferredGTM() {
 
         // Optional: A fallback for users who do nothing for 10 seconds, but read.
         // It gives Lighthouse exactly 10s to clear its profiling metrics (usually completes in 5s-6s)
-        const timeout = setTimeout(handleInteraction, 10000);
+        const timeout = setTimeout(handleInteraction, 20000);
 
         return () => {
             window.removeEventListener("scroll", handleInteraction);

@@ -1,8 +1,19 @@
 "use client";
 
-import React, { useState, useCallback, useEffect } from 'react';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useCallback, useEffect } from 'react';
+// Mock framer-motion to save JS payload
+const motion = {
+    div: ({ initial, animate, exit, transition, ...props }: any) => {
+        // preserve className if exists, or add native-fade-in
+        const className = props.className ? props.className + ' native-fade-in' : 'native-fade-in';
+        return <div {...props} className={className} />;
+    }
+};
+const AnimatePresence = ({ children }: any) => <>{children}</>;
+
+
+
 import Link from 'next/link';
 import {
     Upload, Download, RefreshCw, CheckCircle2, XCircle,
@@ -271,9 +282,9 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
     // ── Use cases ─────────────────────────────────────────────────────────────
     const defaultUseCases = [
         { icon: <GraduationCap size={18} />, label: 'UPSC / IAS', color: '#7c3aed' },
-        { icon: <Award size={18} />, label: 'SSC / CGL', color: '#0ea5e9' },
-        { icon: <Building2 size={18} />, label: 'Bank Forms', color: '#059669' },
-        { icon: <ShieldCheck size={18} />, label: 'Defense Exams', color: '#d97706' },
+        { icon: <Award size={18} />, label: 'SSC / CGL', color: '#0369a1' },
+        { icon: <Building2 size={18} />, label: 'Bank Forms', color: '#047857' },
+        { icon: <ShieldCheck size={18} />, label: 'Defense Exams', color: '#b45309' },
     ];
     
     const activeUseCases = useCasesOverride || defaultUseCases;
@@ -385,9 +396,9 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                         onDragLeave={() => setIsDragging(false)}
                                         onDrop={handleDrop}
                                         style={{
-                                            border: `2px dashed ${isDragging ? '#6366f1' : '#e2e8f0'}`,
+                                            border: `2px dashed ${isDragging ? '#4f46e5' : '#94a3b8'}`,
                                             borderRadius: '24px',
-                                            background: isDragging ? '#f5f3ff' : '#fafbff',
+                                            background: isDragging ? '#f5f3ff' : '#ffffff',
                                             padding: 'clamp(32px, 6vw, 60px) clamp(16px, 4vw, 24px)',
                                             textAlign: 'center',
                                             cursor: 'pointer',
@@ -424,7 +435,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                         }}>
                                             <ImageIcon size={17} /> Choose Images
                                         </button>
-                                        <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '18px' }}>
+                                        <p style={{ fontSize: '12px', color: '#475569', marginTop: '18px' }}>
                                             Max 20 MB each · No signup needed · 100% private
                                         </p>
                                     </div>
@@ -915,9 +926,9 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                     </h2>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))', gap: '14px' }}>
                         {[
-                            { n: '01', label: 'Upload Photos', desc: 'JPG, PNG or WEBP. Up to 10 files, Max 20MB/file.', color: '#6366f1' },
-                            { n: '02', label: 'Smart Compress', desc: `Iterative engine targets exactly ${targetSizeKB} KB.`, color: '#8b5cf6' },
-                            { n: '03', label: 'Download All', desc: 'Portal-ready photos in seconds.', color: '#0ea5e9' },
+                            { n: '01', label: 'Upload Photos', desc: 'JPG, PNG or WEBP. Up to 10 files, Max 20MB/file.', color: '#4338ca' },
+                            { n: '02', label: 'Smart Compress', desc: `Iterative engine targets exactly ${targetSizeKB} KB.`, color: '#6d28d9' },
+                            { n: '03', label: 'Download All', desc: 'Portal-ready photos in seconds.', color: '#0369a1' },
                         ].map((s) => (
                             <div key={s.n} style={{
                                 padding: '18px', borderRadius: '18px',

@@ -64,8 +64,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <head>
-        <Script id="ahrefs-analytics" src="https://analytics.ahrefs.com/analytics.js" data-key="d8ok06KdnbbIqz7qNwaXMw" strategy="lazyOnload" />
-      </head>
+        </head>
       <body className="antialiased" suppressHydrationWarning>
         <Suspense fallback={null}>
           <ClientToaster />
@@ -77,6 +76,7 @@ export default function RootLayout({
           {/* GTM will be loaded via a client wrapper to defer it completely */}
           {children}
         </SiteShell>
+        <Script id="ahrefs-analytics" src="https://analytics.ahrefs.com/analytics.js" data-key="d8ok06KdnbbIqz7qNwaXMw" strategy="lazyOnload" />
         <DeferredGTM />
       </body>
     </html>

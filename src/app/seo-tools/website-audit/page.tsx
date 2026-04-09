@@ -74,7 +74,7 @@ export default function WebsiteAuditPage() {
                         Our <strong>free website audit tool</strong> is a professional-grade <em>site health checker</em> that runs <strong>60+ automated checks</strong> in seconds. No installation, no account, and no limits. Whether you are a blogger, developer, SEO specialist, or small business owner, this <strong>free SEO analyzer</strong> gives you a clear picture of your site&apos;s strengths and weaknesses.
                     </p>
 
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '28px 0 10px', color: '#0f172a' }}>🔍 What Does a Technical SEO Audit Check?</h3>
+                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '28px 0 10px', color: '#0f172a' }}>What Does a Technical SEO Audit Check?</h3>
                     <p>
                         The <strong>technical SEO audit</strong> section of our tool validates the foundational elements that determine whether Google can <em>discover, crawl, and index</em> your pages. A technically healthy website is the prerequisite for good organic rankings.
                     </p>
@@ -87,7 +87,7 @@ export default function WebsiteAuditPage() {
                         <li><strong>URL structure analysis</strong> — Checks for overly long URLs, which can be truncated in SERPs and are harder for users to share.</li>
                     </ul>
 
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '28px 0 10px', color: '#0f172a' }}>📝 On-Page SEO Analysis Explained</h3>
+                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '28px 0 10px', color: '#0f172a' }}>On-Page SEO Analysis Explained</h3>
                     <p>
                         On-page SEO refers to all the elements on the webpage itself that you can directly control. Our <strong>on-page SEO checker</strong> audits the most impactful of these signals:
                     </p>
@@ -100,7 +100,7 @@ export default function WebsiteAuditPage() {
                         <li><strong>Keyword optimization check</strong> — When you provide a target keyword, the tool checks its presence in the title, H1, meta description, URL, and body content, and calculates keyword density.</li>
                     </ul>
 
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '28px 0 10px', color: '#0f172a' }}>⚡ Performance & Core Web Vitals Signals</h3>
+                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '28px 0 10px', color: '#0f172a' }}>Performance &amp; Core Web Vitals Signals</h3>
                     <p>
                         Google officially uses <strong>Core Web Vitals</strong> as ranking signals. While our tool doesn&apos;t run a live browser to measure LCP, CLS, and INP directly, it analyzes the key <em>HTML-level factors</em> that most strongly impact these metrics:
                     </p>
@@ -112,7 +112,7 @@ export default function WebsiteAuditPage() {
                         <li><strong>Preconnect hints</strong> — Missing <code>rel=&quot;preconnect&quot;</code> tags mean the browser can&apos;t establish connections to external domains (Google Fonts, CDN) early enough.</li>
                     </ul>
 
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '28px 0 10px', color: '#0f172a' }}>🔒 Security Headers Audit</h3>
+                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '28px 0 10px', color: '#0f172a' }}>Security Headers Audit</h3>
                     <p>
                         Security headers are HTTP response headers that protect your website and users from common attacks. They also signal trustworthiness to both users and Google, supporting your <strong>E-E-A-T (Experience, Expertise, Authoritativeness, Trustworthiness)</strong> score. Our <em>security audit</em> checks for:
                     </p>
@@ -125,7 +125,7 @@ export default function WebsiteAuditPage() {
                         <li><strong>Privacy policy &amp; contact page detection</strong> — E-E-A-T signals that Google explicitly recommends for building site trustworthiness.</li>
                     </ul>
 
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '28px 0 10px', color: '#0f172a' }}>📊 How to Read Your SEO Score</h3>
+                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '28px 0 10px', color: '#0f172a' }}>How to Read Your SEO Score</h3>
                     <p>
                         After running the audit, you&apos;ll see an <strong>Overall SEO Score out of 100</strong> along with 6 category sub-scores (SEO, Content, Performance, Mobile, Security, Accessibility). Here&apos;s how to interpret them:
                     </p>
@@ -139,7 +139,7 @@ export default function WebsiteAuditPage() {
                         Always <strong>fix Critical issues first</strong>, then High, then Medium. Low and Info items can be addressed as time permits. Use the <em>Priority filter</em> in the tool to focus only on the most impactful issues.
                     </p>
 
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '28px 0 10px', color: '#0f172a' }}>🛠️ How to Use This Free Website Audit Tool</h3>
+                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '28px 0 10px', color: '#0f172a' }}>How to Use This Free Website Audit Tool</h3>
                     <ol style={{ paddingLeft: '22px', color: '#374151', lineHeight: 1.8, margin: '12px 0' }}>
                         <li>Enter your full page URL in the input field (e.g. <code>https://yoursite.com/blog/post-slug</code>)</li>
                         <li>Optionally enter your <strong>target keyword</strong> for keyword optimization analysis</li>
@@ -152,19 +152,19 @@ export default function WebsiteAuditPage() {
                     </ol>
 
                     {/* Internal Links Section */}
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '32px 0 12px', color: '#0f172a' }}>🔗 Explore More Free SEO & Marketing Tools</h3>
+                    <h3 style={{ fontSize: '18px', fontWeight: 800, margin: '32px 0 12px', color: '#0f172a' }}>Explore More Free SEO &amp; Marketing Tools</h3>
                     <p style={{ marginBottom: 14 }}>
                         SmartToolsWala offers a growing collection of <strong>free online tools</strong> for bloggers, students, developers, and digital marketers:
                     </p>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(220px,1fr))', gap: 10 }}>
                         {[
-                            { href: '/youtube-tag-extractor', label: '🏷️ YouTube Tag Extractor', desc: 'Extract hidden tags from any YT video' },
-                            { href: '/youtube-description-extractor', label: '📋 YT Description Extractor', desc: 'Copy full YouTube video descriptions' },
-                            { href: '/youtube-title-generator', label: '✍️ YouTube Title Generator', desc: 'Generate SEO-optimized video titles' },
-                            { href: '/instagram-tools/instagram-bio-generator', label: '📸 Instagram Bio Generator', desc: 'Create stylish Instagram bios instantly' },
-                            { href: '/compress-image-to-20kb', label: '🗜️ Image Compressor to 20KB', desc: 'Reduce image size without losing quality' },
-                            { href: '/calculators/derivative-calculator', label: '📐 Derivative Calculator', desc: 'Solve calculus derivatives step by step' },
-                            { href: '/seo-tools', label: '🔍 All SEO Tools', desc: 'Explore our full suite of SEO tools' },
+                            { href: '/youtube-tag-extractor', label: 'YouTube Tag Extractor', desc: 'Extract hidden tags from any YT video' },
+                            { href: '/youtube-description-extractor', label: 'YT Description Extractor', desc: 'Copy full YouTube video descriptions' },
+                            { href: '/youtube-title-generator', label: 'YouTube Title Generator', desc: 'Generate SEO-optimized video titles' },
+                            { href: '/instagram-tools/instagram-bio-generator', label: 'Instagram Bio Generator', desc: 'Create stylish Instagram bios instantly' },
+                            { href: '/compress-image-to-20kb', label: 'Image Compressor to 20KB', desc: 'Reduce image size without losing quality' },
+                            { href: '/calculators/derivative-calculator', label: 'Derivative Calculator', desc: 'Solve calculus derivatives step by step' },
+                            { href: '/seo-tools', label: 'All SEO Tools', desc: 'Explore our full suite of SEO tools' },
                         ].map(link => (
                             <Link key={link.href} href={link.href}
                                 style={{

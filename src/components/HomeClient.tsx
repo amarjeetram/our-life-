@@ -481,6 +481,16 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 tags: ['Math', 'Calculus']
                             },
                             {
+                                route: '/calculators/fun/love-percentage-calculator-by-name', title: 'Love Percentage Calculator',
+                                desc: 'Check your love match instantly! Enter your name and your crush\'s name to find your true love percentage.',
+                                tags: ['Fun', 'Social']
+                            },
+                            {
+                                route: '/calculators/fun/flames-calculator', title: 'FLAMES Calculator Online',
+                                desc: 'Play the classic FLAMES game! Test your names to reveal your destiny: Friends, Lovers, Affection, Marriage, Enemies, or Siblings.',
+                                tags: ['Fun', 'Game']
+                            },
+                            {
                                 route: '/calculators', title: 'View All Calculators',
                                 desc: 'Access our full suite of free online calculators for math, analytics, and gaming probabilities.',
                                 tags: ['View All', 'Free']
@@ -917,3 +927,4 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
         </div>
     );
 }
+

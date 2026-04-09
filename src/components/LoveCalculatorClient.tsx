@@ -74,13 +74,13 @@ export default function LoveCalculatorClient() {
     };
 
     const handleCopy = () => {
-        const text = `Love Percentage between ${name1.trim()} & ${name2.trim()} is ${result}%! ${message} \n\nCheck yours at: https://smarttoolswala.com/calculators/love-percentage-calculator-by-name`;
+        const text = `Love Percentage between ${name1.trim()} & ${name2.trim()} is ${result}%! ${message} \n\nCheck yours at: https://smarttoolswala.com/fun/love-percentage-calculator-by-name`;
         navigator.clipboard.writeText(text);
         alert('Result copied!');
     };
 
     const handleShare = () => {
-        const text = `Love Percentage between ${name1.trim()} & ${name2.trim()} is ${result}%! ${message} \n\nCheck yours at: https://smarttoolswala.com/calculators/love-percentage-calculator-by-name`;
+        const text = `Love Percentage between ${name1.trim()} & ${name2.trim()} is ${result}%! ${message} \n\nCheck yours at: https://smarttoolswala.com/fun/love-percentage-calculator-by-name`;
         const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
         window.open(url, '_blank');
     };

@@ -13,10 +13,16 @@ export const metadata: Metadata = {
 export default function MathCalculatorsPage() {
     const tools = [
         {
-            route: '/calculators/love-percentage-calculator-by-name', title: 'Love Percentage Calculator',
+            route: '/calculators/fun/love-percentage-calculator-by-name', title: 'Love Percentage Calculator',
             desc: 'Calculate the love compatibility percentage between two names instantly with our fun matching algorithm.',
             tags: ['Entertainment', 'Love', 'Fun'],
             gradient: "linear-gradient(135deg, #f43f5e, #ec4899)",
+        },
+        {
+            route: '/calculators/fun/flames-calculator', title: 'FLAMES Calculator Online',
+            desc: 'Play the classic FLAMES game online. Enter your names and find your destiny!',
+            tags: ['Entertainment', 'Love', 'Fun'],
+            gradient: "linear-gradient(135deg, #f97316, #f43f5e)",
         },
         {
             route: '/calculators/blooket-calculator', title: 'Blooket Calculator',

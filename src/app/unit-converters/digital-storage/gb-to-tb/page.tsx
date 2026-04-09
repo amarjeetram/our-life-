@@ -37,9 +37,7 @@ export default function Page() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify([
-                        {
-
+                    __html: JSON.stringify({
                         "@context": "https://schema.org",
                         "@graph": [
                             {
@@ -67,46 +65,7 @@ export default function Page() {
                                 }))
                             }
                         ]
-                    },
-                        {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "How many Terabytes are in 1 Gigabyte?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "In the standard binary system used by computers, 1 GB is equal to 0.000977 TB. In the decimal system, it is 0.001 TB."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "What is the difference between GB and TB?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Gigabyte (GB) is a smaller unit of digital storage than Terabyte (TB). It takes many GBs to equal one TB."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "How do I convert GB to TB online?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Simply type your GB value into our calculator box above. The exact TB calculation will immediately display without clicking any buttons."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "Is this GB to TB conversion tool free?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
-            }
-        }
-    ]
-}
-                    ])
+                    })
                 }}
             />
             <DigitalConverterClient

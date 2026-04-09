@@ -37,9 +37,7 @@ export default function Page() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify([
-                        {
-
+                    __html: JSON.stringify({
                         "@context": "https://schema.org",
                         "@graph": [
                             {
@@ -67,46 +65,7 @@ export default function Page() {
                                 }))
                             }
                         ]
-                    },
-                        {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "How many Gigabytes are in 1 Terabyte?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "In the standard binary system used by computers, 1 TB is equal to 1,024 GB. In the decimal system, it is 1,000 GB."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "What is the difference between TB and GB?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Terabyte (TB) is a much larger unit of digital storage than Gigabyte (GB). Files measured in TBs are significantly heavier."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "How do I convert TB to GB online?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Simply type your TB value into our calculator box above. The exact GB calculation will immediately display without clicking any buttons."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "Is this TB to GB conversion tool free?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
-            }
-        }
-    ]
-}
-                    ])
+                    })
                 }}
             />
             <DigitalConverterClient

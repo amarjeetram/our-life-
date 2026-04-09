@@ -37,9 +37,7 @@ export default function Page() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify([
-                        {
-
+                    __html: JSON.stringify({
                         "@context": "https://schema.org",
                         "@graph": [
                             {
@@ -67,46 +65,7 @@ export default function Page() {
                                 }))
                             }
                         ]
-                    },
-                        {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "How many Gigabytes are in 1 Kilobyte?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "In the standard binary system used by computers, 1 KB is equal to 9.5367e-7 GB. In the decimal system, it is 0.000001 GB."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "What is the difference between KB and GB?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Kilobyte (KB) is a smaller unit of digital storage than Gigabyte (GB). It takes many KBs to equal one GB."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "How do I convert KB to GB online?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Simply type your KB value into our calculator box above. The exact GB calculation will immediately display without clicking any buttons."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "Is this KB to GB conversion tool free?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
-            }
-        }
-    ]
-}
-                    ])
+                    })
                 }}
             />
             <DigitalConverterClient

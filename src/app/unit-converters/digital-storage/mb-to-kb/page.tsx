@@ -37,9 +37,7 @@ export default function Page() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
-                    __html: JSON.stringify([
-                        {
-
+                    __html: JSON.stringify({
                         "@context": "https://schema.org",
                         "@graph": [
                             {
@@ -104,46 +102,7 @@ export default function Page() {
                                 }))
                             }
                         ]
-                    },
-                        {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-        {
-            "@type": "Question",
-            "name": "How many Kilobytes are in 1 Megabyte?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "In the standard binary system used by computers, 1 MB is equal to 1,024 KB. In the decimal system, it is 1,000 KB."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "What is the difference between MB and KB?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Megabyte (MB) is a much larger unit of digital storage than Kilobyte (KB). Files measured in MBs are significantly heavier."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "How do I convert MB to KB online?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Simply type your MB value into our calculator box above. The exact KB calculation will immediately display without clicking any buttons."
-            }
-        },
-        {
-            "@type": "Question",
-            "name": "Is this MB to KB conversion tool free?",
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes! Our digital unit converter is incredibly fast, 100% free, and requires no downloads or sign-ups."
-            }
-        }
-    ]
-}
-                    ])
+                    })
                 }}
             />
             <MBtoKBConverterClient>

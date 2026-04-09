@@ -509,7 +509,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                     {isDropdownOpen && (
                                                         <>
                                                             <div
-                                                                style={{ position: 'fixed', inset: 0, zIndex: 40 }}
+                                                                style={{ position: 'fixed', inset: 0, zIndex: 1040 }}
                                                                 onClick={() => setIsDropdownOpen(false)}
                                                             />
                                                             <motion.div
@@ -518,10 +518,26 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
                                                                 transition={{ duration: 0.15 }}
                                                                 style={{
-                                                                    position: 'absolute', top: 'calc(100% + 10px)', left: 0,
-                                                                    width: '180px', background: '#ffffff', borderRadius: '20px',
-                                                                    padding: '8px', zIndex: 50,
-                                                                    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0,0,0,0.05)'
+                                                                    position: 'fixed',
+                                                                    top: 0,
+                                                                    left: 0,
+                                                                    width: '200px',
+                                                                    background: '#ffffff',
+                                                                    borderRadius: '20px',
+                                                                    padding: '8px',
+                                                                    zIndex: 1050,
+                                                                    boxShadow: '0 20px 40px -8px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0,0,0,0.06)',
+                                                                    transform: 'none',
+                                                                }}
+                                                                ref={(el) => {
+                                                                    if (el) {
+                                                                        const btn = el.parentElement?.previousElementSibling as HTMLElement;
+                                                                        if (btn) {
+                                                                            const r = btn.getBoundingClientRect();
+                                                                            el.style.top = `${r.bottom + 8}px`;
+                                                                            el.style.left = `${r.left}px`;
+                                                                        }
+                                                                    }
                                                                 }}
                                                             >
                                                                 {presetSizes.map(size => (

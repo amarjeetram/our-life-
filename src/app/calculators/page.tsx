@@ -13,6 +13,12 @@ export const metadata: Metadata = {
 export default function MathCalculatorsPage() {
     const tools = [
         {
+            route: '/calculators/love-percentage-calculator-by-name', title: 'Love Percentage Calculator',
+            desc: 'Calculate the love compatibility percentage between two names instantly with our fun matching algorithm.',
+            tags: ['Entertainment', 'Love', 'Fun'],
+            gradient: "linear-gradient(135deg, #f43f5e, #ec4899)",
+        },
+        {
             route: '/calculators/blooket-calculator', title: 'Blooket Calculator',
             desc: 'Free token and probability calculator for Blooket 2026. Calculate your exact chances to pull rare and chroma blooks.',
             tags: ['Gaming', 'Blooket', 'Probability'],

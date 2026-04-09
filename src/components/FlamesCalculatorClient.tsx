@@ -9,7 +9,7 @@ export default function FlamesCalculatorClient() {
     const [dob1, setDob1] = useState("");
     const [dob2, setDob2] = useState("");
     const [isCalculating, setIsCalculating] = useState(false);
-    const [result, setResult] = useState<{ letter: string, title: string, desc: string, icon: any, color: string } | null>(null);
+    const [result, setResult] = useState<{ letter: string, title: string, desc: string, icon: any, color: string, bg: string } | null>(null);
     const resultRef = useRef<HTMLDivElement>(null);
 
     const flamesData = {

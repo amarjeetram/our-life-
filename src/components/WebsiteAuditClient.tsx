@@ -932,7 +932,7 @@ function IssueRow({ issue, proMode }: { issue: Issue; proMode: boolean }) {
                                     { label: 'Difficulty', value: issue.difficulty, colors: { Easy: '#16a34a', Medium: '#ca8a04', Hard: '#dc2626' } },
                                     { label: 'Impact', value: issue.impact, colors: { Low: '#6366f1', Moderate: '#ca8a04', High: '#dc2626' } },
                                 ].map(badge => (
-                                    <div key={badge.label} style={{ fontSize: 12, fontWeight: 700, padding: '4px 12px', borderRadius: 100, background: '#f1f5f9', color: (badge.colors as Record<string,string>)[badge.value] || '#374151' }}>
+                                    <div key={badge.label} style={{ fontSize: 12, fontWeight: 700, padding: '4px 12px', borderRadius: 100, background: '#f1f5f9', color: (badge.colors as any)[badge.value] || '#374151' }}>
                                         {badge.label}: {badge.value}
                                     </div>
                                 ))}

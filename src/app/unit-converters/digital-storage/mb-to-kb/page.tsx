@@ -80,11 +80,16 @@ export default function Page() {
                                     },
                                     {
                                         "@type": "ListItem",
-                                        "position": 2,
-                                        "name": "Unit Converters",
-                                        "item": "https://smarttoolswala.com/unit-converters"
+                                        "position": 3,
+                                        "name": "Digital Storage",
+                                        "item": "https://smarttoolswala.com/unit-converters/digital-storage"
                                     },
-                                    [object Object]
+                                    {
+                                        "@type": "ListItem",
+                                        "position": 4,
+                                        "name": "MB to KB",
+                                        "item": "https://smarttoolswala.com/unit-converters/digital-storage/mb-to-kb"
+                                    }
                                 ]
                             },
                             {

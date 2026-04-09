@@ -529,7 +529,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                     boxShadow: '0 20px 40px -8px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0,0,0,0.06)',
                                                                     transform: 'none',
                                                                 }}
-                                                                ref={(el) => {
+                                                                ref={(el: HTMLDivElement | null) => {
                                                                     if (el) {
                                                                         const btn = el.parentElement?.previousElementSibling as HTMLElement;
                                                                         if (btn) {

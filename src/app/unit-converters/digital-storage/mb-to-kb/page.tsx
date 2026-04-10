@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'Convert MB to KB instantly with our free online MB to KB calculator. 1 MB = 1024 KB. Convert megabytes to kilobytes, GB, TB and more digital storage units.',
     keywords: 'mb to kb, mb to kb converter, mb convert to kb, 1mb to kb, mb to kb calculator, mb to kb convert, megabyte to kilobyte, digital storage converter, file size converter',
     alternates: {
-        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/',
+        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/mb-to-kb',
     },
 };
 

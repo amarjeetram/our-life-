@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'Convert KB to GB instantly with our free online KB to GB calculator. Get precise digital storage size results flawlessly.',
     keywords: 'kb to gb, kb to gb converter, convert kb to gb, kilobytes to gigabytes calculator',
     alternates: {
-        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/',
+        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/kb-to-gb',
     },
 };
 

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'Convert KB to MB instantly with our free online KB to MB calculator. Get precise digital storage size results flawlessly.',
     keywords: 'kb to mb, kb to mb converter, convert kb to mb, kilobytes to megabytes calculator',
     alternates: {
-        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/',
+        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/kb-to-mb',
     },
 };
 

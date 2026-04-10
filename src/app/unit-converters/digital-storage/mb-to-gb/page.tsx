@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'Convert MB to GB instantly with our free online MB to GB calculator. Get precise digital storage size results flawlessly.',
     keywords: 'mb to gb, mb to gb converter, convert mb to gb, megabytes to gigabytes calculator',
     alternates: {
-        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/',
+        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/mb-to-gb',
     },
 };
 

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'Convert KB to TB instantly with our free online KB to TB calculator. Get precise digital storage size results flawlessly.',
     keywords: 'kb to tb, kb to tb converter, convert kb to tb, kilobytes to terabytes calculator',
     alternates: {
-        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/',
+        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/kb-to-tb',
     },
 };
 

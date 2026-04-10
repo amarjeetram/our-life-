@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'Convert GB to MB instantly with our free online GB to MB calculator. 1 GB = 1024 MB. Convert your video and photo sizes accurately without math.',
     keywords: 'gb to mb, gb to mb converter, convert gb to mb, 1 gb to mb, gb to mb calculator, 0.98 gb to mb, 0.1 gb to mb, 100 gb to mb, video gb to mb converter, gb to mb converter photo',
     alternates: {
-        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/',
+        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/gb-to-mb',
     },
 };
 

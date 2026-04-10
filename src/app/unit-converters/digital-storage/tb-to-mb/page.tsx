@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'Convert TB to MB instantly with our free online TB to MB calculator. Get precise digital storage size results flawlessly.',
     keywords: 'tb to mb, tb to mb converter, convert tb to mb, terabytes to megabytes calculator',
     alternates: {
-        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/',
+        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/tb-to-mb',
     },
 };
 

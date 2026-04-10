@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     description: 'Convert TB to GB instantly with our free online TB to GB calculator. Get precise digital storage size results flawlessly.',
     keywords: 'tb to gb, tb to gb converter, convert tb to gb, terabytes to gigabytes calculator',
     alternates: {
-        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/',
+        canonical: 'https://smarttoolswala.com/unit-converters/digital-storage/tb-to-gb',
     },
 };
 

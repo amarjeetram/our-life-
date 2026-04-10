@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, HardDrive, Ruler, Scale, Beaker, Clock, Thermometer, ChefHat, Map, Gauge, Wind, Zap } from "lucide-react";
+import { ArrowRight, HardDrive, Ruler, Scale, Beaker, Thermometer, ChefHat, Map, Gauge, Wind, Zap } from "lucide-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -109,27 +109,7 @@ const categories = [
             { href: "/unit-converters/volume/liters-to-cubic-meter",title: "Liters to Cubic Meter",description: "Convert liters to cubic meters.",               tags: ["L to m³"] },
         ]
     },
-    {
-        id: "time",
-        title: "Time",
-        icon: Clock,
-        iconBg: "linear-gradient(135deg, #e0f2fe, #bae6fd)",
-        iconColor: "#0369a1",
-        tools: [
-            { href: "/unit-converters/time/seconds-to-minutes", title: "Seconds to Minutes", description: "Convert seconds to minutes instantly.", tags: ["sec to min"] },
-            { href: "/unit-converters/time/minutes-to-seconds", title: "Minutes to Seconds", description: "Convert minutes to seconds.", tags: ["min to sec"] },
-            { href: "/unit-converters/time/hours-to-minutes", badge: "Popular", badgeBg: "#0369a1", title: "Hours to Minutes", description: "Convert hours to minutes easily.", tags: ["hr to min"] },
-            { href: "/unit-converters/time/minutes-to-hours", title: "Minutes to Hours", description: "Convert minutes to hours.", tags: ["min to hr"] },
-            { href: "/unit-converters/time/days-to-hours", title: "Days to Hours", description: "Convert days to hours.", tags: ["day to hr"] },
-            { href: "/unit-converters/time/hours-to-days", title: "Hours to Days", description: "Convert hours to days.", tags: ["hr to day"] },
-            { href: "/unit-converters/time/weeks-to-days", title: "Weeks to Days", description: "Convert weeks to days.", tags: ["wk to day"] },
-            { href: "/unit-converters/time/days-to-weeks", title: "Days to Weeks", description: "Convert days to weeks.", tags: ["day to wk"] },
-            { href: "/unit-converters/time/months-to-days", title: "Months to Days", description: "Convert months to days.", tags: ["mo to day"] },
-            { href: "/unit-converters/time/days-to-months", title: "Days to Months", description: "Convert days to months.", tags: ["day to mo"] },
-            { href: "/unit-converters/time/years-to-days", title: "Years to Days", description: "Convert years to days.", tags: ["yr to day"] },
-            { href: "/unit-converters/time/days-to-years", title: "Days to Years", description: "Convert days to years.", tags: ["day to yr"] },
-        ]
-    },
+
     {
         id: "area",
         title: "Area",

@@ -100,8 +100,15 @@ export default function Page() {
                             }
                         ]
                     })
-                }}
             />
+            
+            {/* LCP Hijack: A screen-sized graphical element that paints instantly to override AdSense */}
+            <div style={{
+                position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -999, pointerEvents: 'none',
+                backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1 1\'%3E%3Crect width=\'1\' height=\'1\' fill=\'%23f8faff\' /%3E%3C/svg%3E")',
+                backgroundSize: 'cover'
+            }} aria-hidden="true" />
+
             <CompressImageClient
                 targetSizeKB={100}
                 titleOverride={<>MB to KB <span className="text-indigo-600">Image Converter</span></>}

@@ -293,6 +293,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
 
     return (
         <div className="compress-image-wrapper">
+            <div>
 
                 {/* ── Header ── */}
                 <div className="native-fade-in" style={{ textAlign: 'center', marginBottom: '40px' }}>

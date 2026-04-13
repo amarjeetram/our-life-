@@ -19,7 +19,7 @@ export default function ArticleYoutubeDescription() {
                 </p>
                 <div className="mt-8 p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm text-slate-500 text-left">
                     <div className="flex items-start gap-3">
-                        <Shield className="w-5 h-5 text-slate-400 shrink-0 mt-0.5" />
+                        <Shield className="w-5 h-5 text-slate-500 shrink-0 mt-0.5" />
                         <p>
                             This free tool securely retrieves information from YouTube so you can read it easily. Your use of this tool is subject to YouTube&apos;s terms of service and privacy policy. Please review YouTube&apos;s terms of service and privacy policy to understand how your data is handled when using this tool. We do not store any YouTube data or your personal information!
                         </p>
@@ -191,7 +191,7 @@ export default function ArticleYoutubeDescription() {
             </section>
 
             <div className="mt-12 pt-8 border-t border-slate-100 text-center">
-                <p className="text-sm font-medium text-slate-400">
+                <p className="text-sm font-medium text-slate-500">
                     SmartToolsWala ensures quick data extraction. This page updates to keep the software fast. Let us know if you have ideas on making it better!
                 </p>
             </div>

@@ -2,9 +2,9 @@
 
 
 import React, { useState, useCallback, useEffect } from 'react';
-// Mock framer-motion to save JS payload
+// Mock framer-motion to save JS payload, strip all framer-motion props to avoid React warnings
 const motion = {
-    div: ({ initial, animate, exit, transition, ...props }: any) => {
+    div: ({ initial, animate, exit, transition, whileHover, whileTap, whileDrag, whileFocus, whileInView, layoutId, layout, mode, variants, viewport, onViewportEnter, onViewportLeave, ...props }: any) => {
         return <div {...props} />;
     }
 };

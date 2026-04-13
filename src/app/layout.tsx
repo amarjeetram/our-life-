@@ -8,8 +8,8 @@ import ClientDropZone from "../components/ClientDropZone";
 import Script from "next/script";
 import DeferredGTM from "../components/DeferredGTM";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap", preload: true });
-const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap", preload: true });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "optional", preload: true });
+const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "optional", preload: true });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smarttoolswala.com"),

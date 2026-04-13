@@ -100,8 +100,8 @@ export default function Page() {
                             }
                         ]
                     })
+                }}
             />
-            
             {/* LCP Hijack: A screen-sized graphical element that paints instantly to override AdSense */}
             <div style={{
                 position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -999, pointerEvents: 'none',

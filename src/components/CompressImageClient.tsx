@@ -292,29 +292,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
     const isEmpty = items.length === 0;
 
     return (
-        <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #f8faff 0%, #f1f5ff 60%, #faf5ff 100%)', paddingBottom: '80px' }}>
-            <style>{`
-                @keyframes spin { to { transform: rotate(360deg); } }
-                .ci-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 10px; flex-wrap: wrap; }
-                .ci-compress-box { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: center; gap: 16px; padding: 16px 20px; background: #ffffff; border-radius: 24px; margin-bottom: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-                .ci-compress-btn { flex: 1; min-width: 200px; padding: 16px 24px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border-radius: 16px; font-size: 16px; font-weight: 800; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 14px rgba(99,102,241,0.3); transition: transform 0.2s; }
-                .ci-result-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-                .ci-result-badge { flex: 1; min-width: 160px; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; }
-                .ci-filename { font-size: 13px; font-weight: 700; color: #1e293b; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-                .ci-happy-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid #f1f5f9; flex-wrap: wrap; gap: 10px; }
-                .ci-happy-row:last-child { border-bottom: none; }
-                .ci-happy-btns { display: flex; flex-wrap: wrap; gap: 8px; }
-                .ci-link-row { display: flex; align-items: center; gap: 8px; flex: 1; max-width: 380px; min-width: 200px; width: 100%; }
-                .ci-link-input { flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 12px; color: #475569; background: #f8fafc; outline: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
-                @media (max-width: 480px) {
-                    .ci-header-row { flex-direction: column; align-items: flex-start; gap: 8px; }
-                    .ci-compress-btn { min-width: 100%; }
-                    .ci-filename { max-width: 120px; }
-                    .ci-happy-row { padding: 12px 16px; }
-                    .ci-link-row { max-width: 100%; }
-                }
-            `}</style>
-            <div style={{ maxWidth: '900px', margin: '0 auto', padding: 'clamp(80px, 12vh, 110px) 16px 0' }}>
+        <div className="compress-image-wrapper">
 
                 {/* ── Header ── */}
                 <div className="native-fade-in" style={{ textAlign: 'center', marginBottom: '40px' }}>
@@ -683,7 +661,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                         position: 'absolute', inset: 0, borderRadius: '50%',
                                                                         border: '3px solid transparent',
                                                                         borderTopColor: '#6366f1',
-                                                                        animation: 'spin 0.75s linear infinite'
+                                                                        animation: 'spin-cw 0.75s linear infinite'
                                                                     }} />
                                                                     <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                                                         <Zap size={14} color="#6366f1" />

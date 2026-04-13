@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { Calendar, ArrowRight, ChevronRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: { absolute: 'Day Calculators – Days From Today, Date Difference & More | SmartToolsWala' },
@@ -64,24 +64,14 @@ const tools = [
 export default function DayCalculatorsPage() {
     return (
         <main className="min-h-screen bg-slate-50">
-            {/* Breadcrumb */}
-            <div className="bg-white border-b border-gray-100 px-4 py-3">
-                <div className="max-w-5xl mx-auto flex items-center gap-2 text-sm text-gray-500">
-                    <Link href="/" className="hover:text-blue-600">Home</Link>
-                    <ChevronRight size={12} />
-                    <Link href="/date-time-tools" className="hover:text-blue-600">Date & Time Tools</Link>
-                    <ChevronRight size={12} />
-                    <span className="text-gray-800 font-semibold">Day Calculators</span>
-                </div>
-            </div>
 
-            {/* Hero */}
-            <section className="bg-gradient-to-br from-blue-600 to-blue-700 text-white py-14 px-4 text-center">
-                <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-4 py-1.5 text-sm font-semibold mb-5">
-                    <Calendar size={14} /> Day Calculators
-                </div>
-                <h1 className="text-3xl sm:text-4xl font-black mb-3">Day Calculators</h1>
-                <p className="text-blue-100 max-w-xl mx-auto">
+            {/* Clean header — no breadcrumb, no gradient */}
+            <section className="pt-24 pb-6 px-4 text-center">
+                <span className="inline-block text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">
+                    Date & Time Tools
+                </span>
+                <h1 className="text-3xl sm:text-4xl font-black text-slate-900 leading-tight mb-2">Day Calculators</h1>
+                <p className="text-slate-500 max-w-xl mx-auto">
                     Instantly calculate days from today, date differences, days ago and more — free, accurate results.
                 </p>
             </section>

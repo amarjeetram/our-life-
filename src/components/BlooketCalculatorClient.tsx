@@ -4,14 +4,24 @@ import React, { useState, useEffect } from 'react';
 import { Coins, Package, Percent, Target, ArrowRight, Activity, ShieldAlert, Sparkles } from 'lucide-react';
 
 export default function BlooketCalculatorClient() {
-    const [totalTokens, setTotalTokens] = useState<number | ''>(500);
-    const [packCost, setPackCost] = useState<number | ''>(25);
-    const [dropRate, setDropRate] = useState<number | ''>(0.05);
+    const initTokens = 500;
+    const initCost = 25;
+    const initRate = 0.05;
+    
+    const initAffordable = Math.floor(initTokens / initCost);
+    const initRemainder = initTokens % initCost;
+    const initChanceNotGetting = Math.pow(1 - (initRate / 100), initAffordable);
+    let initProb = (1 - initChanceNotGetting) * 100;
+    initProb = initProb < 0.01 && initProb > 0 ? 0.01 : Number(initProb.toFixed(2));
+
+    const [totalTokens, setTotalTokens] = useState<number | ''>(initTokens);
+    const [packCost, setPackCost] = useState<number | ''>(initCost);
+    const [dropRate, setDropRate] = useState<number | ''>(initRate);
 
     // Calculated values
-    const [packsAfforded, setPacksAfforded] = useState(0);
-    const [probability, setProbability] = useState(0);
-    const [tokensLeft, setTokensLeft] = useState(0);
+    const [packsAfforded, setPacksAfforded] = useState(initAffordable);
+    const [probability, setProbability] = useState(initProb);
+    const [tokensLeft, setTokensLeft] = useState(initRemainder);
 
     // Common drop rates for quick selection
     const QUICK_RATES = [
@@ -84,7 +94,7 @@ export default function BlooketCalculatorClient() {
         if (prob >= 80) return "text-emerald-600 bg-emerald-50 border-emerald-200";
         if (prob >= 50) return "text-blue-600 bg-blue-50 border-blue-200";
         if (prob >= 20) return "text-amber-600 bg-amber-50 border-amber-200";
-        return "text-rose-600 bg-rose-50 border-rose-200";
+        return "text-rose-700 bg-rose-50 border-rose-200";
     };
 
     const getProbabilityMessage = (prob: number) => {
@@ -121,7 +131,7 @@ export default function BlooketCalculatorClient() {
                             <span className="font-bold text-slate-700 flex items-center gap-2">
                                 <Coins className="w-4 h-4 text-amber-500" /> Total Tokens
                             </span>
-                            <span className="text-xs font-bold text-slate-400 uppercase">Input</span>
+                            <span className="text-xs font-bold text-slate-500 uppercase">Input</span>
                         </label>
                         <input
                             type="number"
@@ -249,7 +259,7 @@ export default function BlooketCalculatorClient() {
 
             {/* Footer warning */}
             <div className="bg-indigo-50/50 p-4 border-t border-indigo-100/50 text-center">
-                <p className="text-xs font-bold text-indigo-400 uppercase tracking-wide">
+                <p className="text-xs font-bold text-indigo-700 uppercase tracking-wide">
                     Math calculates probability, but RNG controls your luck!
                 </p>
             </div>

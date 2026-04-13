@@ -26,7 +26,7 @@ export default function YouTubeToolsPage() {
         },
         {
             route: '/youtube-description-extractor', title: 'YouTube Description Extractor',
-            desc: 'Instantly extract titles, views, likes, comments, and full descriptions from any YouTube URL.',
+            desc: 'Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.',
             tags: ['Data', 'YouTube', 'Research'],
             gradient: "linear-gradient(135deg, #ef4444, #f43f5e)",
         },

@@ -107,9 +107,9 @@ export default function ArticleBlooketCalculator() {
                         <tr className="bg-white"><td className="px-4 py-3 font-semibold text-slate-700">Uncommon</td><td className="px-4 py-3 text-slate-600">~15%</td><td className="px-4 py-3 text-slate-600">Frog, Cat</td></tr>
                         <tr className="bg-slate-50"><td className="px-4 py-3 font-semibold text-blue-600">Rare</td><td className="px-4 py-3 text-slate-600">~5%</td><td className="px-4 py-3 text-slate-600">Owl, Panda</td></tr>
                         <tr className="bg-white"><td className="px-4 py-3 font-semibold text-purple-600">Epic</td><td className="px-4 py-3 text-slate-600">~1%</td><td className="px-4 py-3 text-slate-600">Alien, Rainbow Panda</td></tr>
-                        <tr className="bg-slate-50"><td className="px-4 py-3 font-semibold text-amber-600">Legendary</td><td className="px-4 py-3 text-slate-600">~0.1%</td><td className="px-4 py-3 text-slate-600">Megalodon, Sussy</td></tr>
+                        <tr className="bg-slate-50"><td className="px-4 py-3 font-semibold text-amber-700">Legendary</td><td className="px-4 py-3 text-slate-600">~0.1%</td><td className="px-4 py-3 text-slate-600">Megalodon, Sussy</td></tr>
                         <tr className="bg-white"><td className="px-4 py-3 font-semibold text-rose-600">Chroma</td><td className="px-4 py-3 text-slate-600">~0.05%</td><td className="px-4 py-3 text-slate-600">Chroma Blooks</td></tr>
-                        <tr className="bg-slate-50"><td className="px-4 py-3 font-semibold text-pink-600">Mystical</td><td className="px-4 py-3 text-slate-600">~0.02%</td><td className="px-4 py-3 text-slate-600">Mystical Blooks</td></tr>
+                        <tr className="bg-slate-50"><td className="px-4 py-3 font-semibold text-pink-700">Mystical</td><td className="px-4 py-3 text-slate-600">~0.02%</td><td className="px-4 py-3 text-slate-600">Mystical Blooks</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -119,19 +119,19 @@ export default function ArticleBlooketCalculator() {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
-                    <h5 className="font-bold text-slate-800 mb-2">Unblocked & Fast</h5>
+                    <h4 className="font-bold text-slate-800 mb-2">Unblocked & Fast</h4>
                     <p className="text-slate-600 text-sm">Perfect for use at school or home. Our <strong>blooket calculator unblocked school</strong> tool loads instantly on any wifi network.</p>
                 </div>
                 <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
-                    <h5 className="font-bold text-slate-800 mb-2">No Login Required</h5>
+                    <h4 className="font-bold text-slate-800 mb-2">No Login Required</h4>
                     <p className="text-slate-600 text-sm">You never need to link your Blooket account or give away your password to use our <strong>blooket hack calculator</strong> alternative.</p>
                 </div>
                 <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
-                    <h5 className="font-bold text-slate-800 mb-2">Mobile Friendly</h5>
+                    <h4 className="font-bold text-slate-800 mb-2">Mobile Friendly</h4>
                     <p className="text-slate-600 text-sm">Calculates complex binomial probabilities instantly on your phone or tablet browser. Works as a true <strong>blooket calculator online</strong>.</p>
                 </div>
                 <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
-                    <h5 className="font-bold text-slate-800 mb-2">Updated for 2025</h5>
+                    <h4 className="font-bold text-slate-800 mb-2">Updated for 2025</h4>
                     <p className="text-slate-600 text-sm">Works perfectly with all the latest boxes, events, and pack prices in the game. The most accurate <strong>blooket calculator 2025</strong> available.</p>
                 </div>
             </div>

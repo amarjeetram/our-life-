@@ -3,8 +3,7 @@
 import dynamic from 'next/dynamic';
 
 const BlooketCalculatorClient = dynamic(
-    () => import('@/components/BlooketCalculatorClient'),
-    { ssr: false }
+    () => import('@/components/BlooketCalculatorClient')
 );
 
 export default function BlooketCalculatorWrapper() {

@@ -5,14 +5,14 @@ import Script from 'next/script';
 
 export const metadata: Metadata = {
     title: 'YouTube Title Extractor & Copier Online - Free Tool',
-    description: 'Instantly extract and copy YouTube video titles with our free YouTube Title Extractor. Best tool for youtube title copy, youtube video title copy, and SEO research.',
+    description: 'Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.',
     keywords: 'youtube title extractor, youtube title copy, youtube video title copy, extract youtube title, copy youtube video title, youtube seo tool',
     alternates: {
         canonical: 'https://smarttoolswala.com/youtube-title-extractor',
     },
     openGraph: {
         title: 'YouTube Title Extractor - Copy Any Video Title',
-        description: 'Free online tool to extract and copy the exact title of any YouTube video instantly.',
+        description: 'Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.',
         url: 'https://smarttoolswala.com/youtube-title-extractor',
         type: 'website',
         siteName: 'SmartToolsWala',
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'YouTube Title Extractor & Copier',
-        description: 'Free online tool to extract and copy the exact title of any YouTube video instantly.',
+        description: 'Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.',
     }
 };
 
@@ -54,7 +54,7 @@ export default function YoutubeTitleExtractorPage() {
                 "url": "https://smarttoolswala.com/youtube-title-extractor",
                 "operatingSystem": "All",
                 "applicationCategory": "UtilitiesApplication",
-                "description": "A free online tool to instantly extract and copy the title from any YouTube video.",
+                "description": "Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.",
                 "featureList": [
                     "YouTube title copy",
                     "Extract YouTube title",

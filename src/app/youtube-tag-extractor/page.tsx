@@ -6,14 +6,14 @@ import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
     title: 'YouTube Tag Extractor - Get Hidden SEO Tags from Any Video',
-    description: 'Instantly extract hidden YouTube video tags and keywords for free. Improve your video SEO and rank higher using our online YouTube tag generator and extractor tool.',
+    description: 'Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.',
     keywords: 'youtube tag extractor, youtube tags, seo tags, video tags, find youtube tags, youtube keyword tool, youtube seo',
     alternates: {
         canonical: 'https://smarttoolswala.com/youtube-tag-extractor'
     },
     openGraph: {
         title: 'YouTube Tag Extractor - Free SEO Keyword Tool',
-        description: 'Instantly extract hidden SEO tags from any YouTube video. No API keys or signup required. Free tool for creators.',
+        description: 'Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.',
         url: 'https://smarttoolswala.com/youtube-tag-extractor',
         siteName: 'SmartToolsWala',
         type: 'website'
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: 'YouTube Tag Extractor - Free SEO Keyword Tool',
-        description: 'Instantly extract hidden SEO tags from any YouTube video. No API keys or signup required.'
+        description: 'Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.'
     }
 };
 
@@ -55,7 +55,7 @@ export default function YoutubeTagExtractorPage() {
                 "url": "https://smarttoolswala.com/youtube-tag-extractor",
                 "operatingSystem": "All",
                 "applicationCategory": "UtilitiesApplication",
-                "description": "Instantly extract hidden YouTube video tags and keywords for free to boost your video SEO.",
+                "description": "Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.",
                 "featureList": [
                     "Extract YouTube tags",
                     "Find hidden SEO tags",

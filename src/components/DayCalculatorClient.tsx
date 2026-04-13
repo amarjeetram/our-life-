@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Calendar, ArrowRight, Clock, Calculator, ChevronRight } from 'lucide-react';
+import { ArrowRight, Clock, ChevronRight } from 'lucide-react';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -211,67 +211,63 @@ export default function DayCalculatorClient({
 
   return (
     <main className="min-h-screen bg-slate-50">
-      {/* Hero */}
-      <section
-        className="relative overflow-hidden py-14 px-4 text-white"
-        style={{ background: `linear-gradient(135deg, ${accentColor}dd 0%, ${accentColor} 100%)` }}
-      >
-        <div className="absolute inset-0 opacity-10"
-          style={{ backgroundImage: 'radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
-        <div className="relative max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-4 py-1.5 text-sm font-semibold mb-5">
-            <Calendar size={14} /> Date & Time Tools
-          </div>
-          <h1 className="text-3xl sm:text-4xl font-black leading-tight mb-3">{title}</h1>
-          <p className="text-white/80 text-base max-w-xl mx-auto">{subtitle}</p>
-        </div>
+
+      {/* Page Header — clean, no full-bleed color */}
+      <section className="pt-24 pb-6 px-4 text-center">
+        <span className="inline-block text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">
+          Date & Time Tools
+        </span>
+        <h1 className="text-3xl sm:text-4xl font-black text-slate-900 leading-tight mb-2">{title}</h1>
+        <p className="text-slate-500 text-base max-w-xl mx-auto">{subtitle}</p>
       </section>
 
-      {/* Calculator Card */}
-      <section className="max-w-3xl mx-auto px-4 -mt-6">
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-8">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center text-white" style={{ background: accentColor }}>
-              <Calculator size={20} />
+      {/* Calculator Card — FLAMES-style white card */}
+      <section className="max-w-lg mx-auto px-4 pb-6">
+        <div className="bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 p-6 md:p-10 relative overflow-hidden">
+
+          {/* Decorative blobs */}
+          <div className="absolute top-[-50px] right-[-50px] w-32 h-32 bg-blue-100 rounded-full blur-3xl opacity-50 pointer-events-none" />
+          <div className="absolute bottom-[-50px] left-[-50px] w-32 h-32 rounded-full blur-3xl opacity-40 pointer-events-none"
+            style={{ background: accentColor + '33' }} />
+
+          <div className="relative z-10">
+            {renderInput()}
+
+            {/* Result */}
+            {result && (
+              <div className="mt-6 rounded-2xl p-5 text-center border-2"
+                style={{ background: accentColor + '0d', borderColor: accentColor + '33' }}>
+                <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: accentColor }}>Result</p>
+                <p className="text-2xl sm:text-3xl font-black text-slate-900">{result}</p>
+                {resultSub && <p className="text-sm text-slate-500 mt-1">{resultSub}</p>}
+              </div>
+            )}
+
+            {/* Today info */}
+            <div className="mt-4 flex items-center gap-2 text-xs text-slate-400">
+              <Clock size={12} />
+              <span>Based on today: {currentDate}</span>
             </div>
-            <h2 className="text-lg font-bold text-gray-800">Calculator</h2>
-          </div>
-
-          {renderInput()}
-
-          {/* Result */}
-          {result && (
-            <div className="mt-6 rounded-xl p-5 text-center border-2" style={{ background: `${accentColor}0d`, borderColor: `${accentColor}33` }}>
-              <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: accentColor }}>Result</p>
-              <p className="text-2xl sm:text-3xl font-black text-gray-900">{result}</p>
-              {resultSub && <p className="text-sm text-gray-500 mt-1">{resultSub}</p>}
-            </div>
-          )}
-
-          {/* Today info */}
-          <div className="mt-4 flex items-center gap-2 text-xs text-gray-400">
-            <Clock size={12} />
-            <span>Based on today: {currentDate}</span>
           </div>
         </div>
       </section>
 
       {/* Related Tools */}
       {relatedLinks.length > 0 && (
-        <section className="max-w-3xl mx-auto px-4 mt-8">
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-            <h3 className="text-base font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <ArrowRight size={16} style={{ color: accentColor }} /> Related Tools
+        <section className="max-w-lg mx-auto px-4 mt-4">
+          <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+            <h3 className="text-sm font-bold text-slate-700 mb-4 flex items-center gap-2">
+              <ArrowRight size={14} style={{ color: accentColor }} /> Related Tools
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {relatedLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center justify-between p-3 rounded-xl border border-gray-100 hover:border-gray-300 hover:bg-slate-50 transition-all group"
+                  className="flex items-center justify-between p-3 rounded-xl border border-slate-100 hover:border-slate-200 hover:bg-slate-50 transition-all group"
                 >
-                  <span className="text-sm font-semibold text-gray-700 group-hover:text-gray-900">{link.label}</span>
-                  <ChevronRight size={14} className="text-gray-400 group-hover:text-gray-600" />
+                  <span className="text-sm font-semibold text-slate-600 group-hover:text-slate-900">{link.label}</span>
+                  <ChevronRight size={13} className="text-slate-400 group-hover:text-slate-600" />
                 </Link>
               ))}
             </div>
@@ -281,10 +277,11 @@ export default function DayCalculatorClient({
 
       {/* SEO Content */}
       {children && (
-        <section className="max-w-3xl mx-auto px-4 mt-8 pb-16">
+        <section className="max-w-lg mx-auto px-4 mt-4 pb-16">
           {children}
         </section>
       )}
     </main>
   );
+
 }

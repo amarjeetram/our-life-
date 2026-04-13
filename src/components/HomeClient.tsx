@@ -307,7 +307,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                             },
                             {
                                 route: '/youtube-description-extractor', title: 'YouTube Description Extractor',
-                                desc: 'Instantly extract titles, views, likes, comments, and full descriptions from any YouTube URL.',
+                                desc: 'Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.',
                                 tags: ['Data', 'YouTube', 'Research']
                             },
                             {
@@ -640,7 +640,105 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                         ))}
                     </div>
 
+
+                    {/* DATE & TIME TOOLS SECTION */}
+                    <div id="date-time-tools" style={{ textAlign: "center", marginBottom: "40px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2563eb", marginBottom: "12px" }}>
+                            Date & Time Tools
+                        </span>
+                        <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
+                            Day & Date Calculators
+                        </h2>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", marginBottom: "72px" }}>
+                        {[
+                            {
+                                route: '/date-time-tools/day-calculators/days-from-today', title: 'Days From Today',
+                                desc: 'Find out what date is X days from today. Enter any number and get the exact future date instantly.',
+                                tags: ['Popular', 'Planning']
+                            },
+                            {
+                                route: '/date-time-tools/day-calculators/30-days-from-today', title: '30 Days From Today',
+                                desc: "What's the exact date 30 days from today? Instantly see the result — no calculation needed.",
+                                tags: ['Quick Answer', 'Deadline']
+                            },
+                            {
+                                route: '/date-time-tools/day-calculators/date-difference', title: 'Date Difference Calculator',
+                                desc: 'Calculate the exact number of days, weeks, and months between any two dates instantly.',
+                                tags: ['Days Between', 'Date Math']
+                            },
+                            {
+                                route: '/date-time-tools/day-calculators/90-days-from-today', title: '90 Days From Today',
+                                desc: 'Find the exact date 90 days (≈3 months) from today. Great for quarterly planning & notice periods.',
+                                tags: ['Quarterly', '90-Day']
+                            },
+                            {
+                                route: '/date-time-tools', title: 'View All Date & Time Tools',
+                                desc: 'Explore all our free day calculators — days ago, add days to date, 7/45/60 days from today and more.',
+                                tags: ['View All', 'Free']
+                            }
+                        ].map((tool, index) => (
+                            <div
+                                key={tool.route}
+                                className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
+                            >
+                                <Link prefetch={false} href={tool.route} style={{
+                                    display: "flex", flexDirection: "column", height: "100%",
+                                    background: "#ffffff", borderRadius: "24px",
+                                    border: "1px solid #f1f5f9",
+                                    boxShadow: "0 4px 24px rgba(37,99,235,0.06), 0 1px 3px rgba(0,0,0,0.02)",
+                                    overflow: "hidden", textDecoration: "none",
+                                    transition: "transform 0.2s, box-shadow 0.2s",
+                                }}
+                                >
+                                    <div style={{ height: "4px", background: "linear-gradient(90deg, #2563eb, #3b82f6)" }} />
+
+                                    <div style={{ padding: "32px", display: "flex", flexDirection: "column", gap: "16px", flexGrow: 1 }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "4px" }}>
+                                            <div style={{
+                                                width: "52px", height: "52px", borderRadius: "16px",
+                                                background: "linear-gradient(135deg, #dbeafe, #bfdbfe)",
+                                                display: "flex", alignItems: "center", justifyContent: "center",
+                                                color: "#2563eb", flexShrink: 0,
+                                                boxShadow: "0 2px 10px rgba(37,99,235,0.15)"
+                                            }}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                            </div>
+                                            <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.01em" }}>
+                                                {tool.title}
+                                            </h3>
+                                        </div>
+
+                                        <p style={{ fontSize: "15px", color: "#64748b", lineHeight: 1.6 }}>
+                                            {tool.desc}
+                                        </p>
+
+                                        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "auto", paddingTop: "8px" }}>
+                                            {tool.tags.map(tag => (
+                                                <span key={tag} style={{
+                                                    padding: "4px 10px", borderRadius: "100px",
+                                                    background: "#eff6ff", border: "1px solid #dbeafe",
+                                                    fontSize: "11px", fontWeight: 700, color: "#1d4ed8"
+                                                }}>{tag}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div style={{
+                                        background: "#fafbff", borderTop: "1px solid #f1f5f9",
+                                        padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
+                                        color: "#1d4ed8", fontWeight: 800, fontSize: "14px"
+                                    }}>
+                                        <span>Use Tool Free</span>
+                                        <ArrowRight size={16} />
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+
                     {/* SEO TOOLS SECTION */}
+
                     <div id="seo-tools" style={{ textAlign: "center", marginBottom: "40px" }}>
                         <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#059669", marginBottom: "12px" }}>
                             SEO Tools

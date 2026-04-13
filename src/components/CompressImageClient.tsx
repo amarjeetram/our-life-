@@ -5,9 +5,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 // Mock framer-motion to save JS payload
 const motion = {
     div: ({ initial, animate, exit, transition, ...props }: any) => {
-        // preserve className if exists, or add native-fade-in
-        const className = props.className ? props.className + ' native-fade-in' : 'native-fade-in';
-        return <div {...props} className={className} />;
+        return <div {...props} />;
     }
 };
 const AnimatePresence = ({ children }: any) => <>{children}</>;

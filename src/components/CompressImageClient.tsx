@@ -16,7 +16,8 @@ import Link from 'next/link';
 import {
     Upload, Download, RefreshCw, CheckCircle2, XCircle,
     FileImage, Trash2, Zap, ShieldCheck, Clock, ImageIcon,
-    GraduationCap, Building2, Award, AlertCircle, ArrowRight
+    GraduationCap, Building2, Award, AlertCircle, ArrowRight,
+    Archive
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -47,6 +48,23 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
     const [compressionStatus, setCompressionStatus] = useState<'IDLE' | 'COMPRESSING' | 'DONE'>('IDLE');
     const [progress, setProgress] = useState(0);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isBottomVisible, setIsBottomVisible] = useState(false);
+    useEffect(() => {
+        if (compressionStatus !== 'DONE') return;
+        const target = document.getElementById('download-anchor');
+        if (!target) return;
+        const observer = new IntersectionObserver(([entry]) => {
+            // If the anchor is visible OR if we scrolled past it (it's above the viewport)
+            // we "dock" the button. It only floats when we are ABOVE the anchor.
+            if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
+                setIsBottomVisible(true);
+            } else {
+                setIsBottomVisible(false);
+            }
+        }, { threshold: 0, rootMargin: '0px' });
+        observer.observe(target);
+        return () => observer.disconnect();
+    }, [compressionStatus, items.length]);
 
     const presetSizes = [20, 30, 40, 50, 100, 200];
 
@@ -175,6 +193,50 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
         setProgress(0);
     };
 
+    const handleDownloadZip = async () => {
+        const successfulItems = items.filter(item => item.optimizedUrl);
+        if (successfulItems.length === 0) {
+            toast.error('No compressed images available to ZIP.');
+            return;
+        }
+
+        toast.loading('Creating ZIP file...', { id: 'zip-toast' });
+        try {
+            const JSZip = (await import('jszip')).default;
+            const zip = new JSZip();
+
+            for (let i = 0; i < successfulItems.length; i++) {
+                const item = successfulItems[i];
+                if (!item.optimizedUrl) continue;
+
+                const response = await fetch(item.optimizedUrl);
+                const blob = await response.blob();
+
+                const ext = item.file.name.substring(item.file.name.lastIndexOf('.'));
+                const baseName = item.file.name.substring(0, item.file.name.lastIndexOf('.'));
+                const zipFileName = `${baseName}-${userTargetSize}kb${ext}`;
+
+                zip.file(zipFileName, blob);
+            }
+
+            const zipBlob = await zip.generateAsync({ type: 'blob' });
+            const zipUrl = URL.createObjectURL(zipBlob);
+
+            const a = document.createElement('a');
+            a.href = zipUrl;
+            a.download = `smarttoolswala-${userTargetSize}kb-images.zip`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            URL.revokeObjectURL(zipUrl);
+            toast.success('ZIP downloaded successfully!', { id: 'zip-toast' });
+        } catch (err) {
+            console.error(err);
+            toast.error('Failed to create ZIP.', { id: 'zip-toast' });
+        }
+    };
+
     // ── Auto-compress from homepage sessionStorage ────────────────────────────
     useEffect(() => {
         // Preferred method: Fast, infinite size cross-component routing via memory
@@ -284,7 +346,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
         { icon: <Building2 size={18} />, label: 'Bank Forms', color: '#047857' },
         { icon: <ShieldCheck size={18} />, label: 'Defense Exams', color: '#b45309' },
     ];
-    
+
     const activeUseCases = useCasesOverride || defaultUseCases;
 
     const isEmpty = items.length === 0;
@@ -357,12 +419,12 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
 
                 {/* ── Main Tool Card ── */}
                 <div style={{
-                        background: '#ffffff',
-                        borderRadius: '32px',
-                        border: '1px solid #e2e8f8',
-                        boxShadow: '0 8px 8px -4px rgba(0,0,0,0.04), 0 24px 64px -12px rgba(99,102,241,0.14)',
-                        marginBottom: '20px',
-                    }}>
+                    background: '#ffffff',
+                    borderRadius: '32px',
+                    border: '1px solid #e2e8f8',
+                    boxShadow: '0 8px 8px -4px rgba(0,0,0,0.04), 0 24px 64px -12px rgba(99,102,241,0.14)',
+                    marginBottom: '20px',
+                }}>
                     {/* Card top accent */}
                     <div style={{ height: '4px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7, #ec4899)', borderTopLeftRadius: '32px', borderTopRightRadius: '32px' }} />
 
@@ -499,9 +561,9 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
                                                                 transition={{ duration: 0.15 }}
                                                                 style={{
-                                                                    position: 'fixed',
-                                                                    top: 0,
-                                                                    left: 0,
+                                                                    position: 'absolute',
+                                                                    top: 'calc(100% + 12px)',
+                                                                    left: '0',
                                                                     width: '200px',
                                                                     background: '#ffffff',
                                                                     borderRadius: '20px',
@@ -509,16 +571,6 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                     zIndex: 1050,
                                                                     boxShadow: '0 20px 40px -8px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0,0,0,0.06)',
                                                                     transform: 'none',
-                                                                }}
-                                                                ref={(el: HTMLDivElement | null) => {
-                                                                    if (el) {
-                                                                        const btn = el.parentElement?.previousElementSibling as HTMLElement;
-                                                                        if (btn) {
-                                                                            const r = btn.getBoundingClientRect();
-                                                                            el.style.top = `${r.bottom + 8}px`;
-                                                                            el.style.left = `${r.left}px`;
-                                                                        }
-                                                                    }
                                                                 }}
                                                             >
                                                                 {presetSizes.map(size => (
@@ -634,7 +686,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                 />
                                                             </div>
                                                             <div>
-                                                            <p className="ci-filename">{item.file.name}</p>
+                                                                <p className="ci-filename">{item.file.name}</p>
 
                                                                 <p style={{ fontSize: '11px', color: '#64748b', marginTop: '2px' }}>
                                                                     Original: {(item.file.size / 1024).toFixed(1)} KB
@@ -767,33 +819,43 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
 
                                     {/* Download All button — only when all done and multiple files */}
                                     {items.length > 1 && items.every(it => it.optimizedUrl && !it.loading) && (
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 8 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}
-                                        >
-                                            <button
-                                                onClick={() => {
-                                                    items.forEach(item => {
-                                                        if (!item.optimizedUrl) return;
-                                                        const link = document.createElement('a');
-                                                        link.href = item.optimizedUrl;
-                                                        link.download = `smarttoolswala-20kb-${item.file.name.split('.')[0]}.jpg`;
-                                                        link.click();
-                                                    });
-                                                }}
+                                        <>
+                                            {/* Invisible anchor to detect when we reach the bottom */}
+                                            <div id="download-anchor" style={{ height: '80px', marginTop: '-40px', pointerEvents: 'none' }} />
+
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 8 }}
+                                                animate={{ opacity: 1, y: 0 }}
                                                 style={{
-                                                    display: 'inline-flex', alignItems: 'center', gap: '10px',
-                                                    background: 'linear-gradient(135deg, #0f172a, #1e1b4b)',
-                                                    color: '#fff', border: 'none', borderRadius: '16px',
-                                                    padding: '15px 32px', fontSize: '15px', fontWeight: 800,
-                                                    cursor: 'pointer', boxShadow: '0 4px 20px rgba(15,23,42,0.3)',
-                                                    letterSpacing: '-0.01em'
+                                                    ...(isBottomVisible ? {
+                                                        marginTop: '16px', display: 'flex', justifyContent: 'center'
+                                                    } : {
+                                                        position: 'fixed', bottom: '24px', left: '0', right: '0', zIndex: 1040,
+                                                        display: 'flex', justifyContent: 'center', padding: '0 24px',
+                                                        pointerEvents: 'none'
+                                                    })
                                                 }}
                                             >
-                                                <Download size={17} /> Download All {items.length} Files
-                                            </button>
-                                        </motion.div>
+                                                <button
+                                                    onClick={handleDownloadZip}
+                                                    style={{
+                                                        pointerEvents: 'auto',
+                                                        display: 'inline-flex', alignItems: 'center', gap: '10px',
+                                                        background: 'linear-gradient(135deg, #0f172a, #1e1b4b)',
+                                                        color: '#fff', border: 'none', borderRadius: '16px',
+                                                        padding: '15px 32px', fontSize: '15px', fontWeight: 800,
+                                                        cursor: 'pointer', boxShadow: '0 8px 30px rgba(15,23,42,0.4)',
+                                                        letterSpacing: '-0.01em',
+                                                        width: isBottomVisible ? 'auto' : '100%',
+                                                        maxWidth: '400px',
+                                                        justifyContent: 'center',
+                                                        transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                                                    }}
+                                                >
+                                                    <Archive size={17} /> Download All {items.length} Files (ZIP)
+                                                </button>
+                                            </motion.div>
+                                        </>
                                     )}
                                 </motion.div>
                             )}

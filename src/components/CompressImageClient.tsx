@@ -296,7 +296,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
             <div>
 
                 {/* ── Header ── */}
-                <div className="native-fade-in" style={{ textAlign: 'center', marginBottom: '40px' }}>
+                <div style={{ textAlign: 'center', marginBottom: '40px' }}>
                     {!hideTopBadge && (
                         <span style={{
                             display: 'inline-flex', alignItems: 'center', gap: '6px',
@@ -354,7 +354,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                 </div>
 
                 {/* ── Main Tool Card ── */}
-                <div className="native-fade-in delay-100" style={{
+                <div style={{
                         background: '#ffffff',
                         borderRadius: '32px',
                         border: '1px solid #e2e8f8',

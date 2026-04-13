@@ -104,10 +104,7 @@ export default function Page() {
             />
             <CompressImageClient
                 targetSizeKB={100}
-                titleOverride={<>MB to KB <span style={{
-                    background: 'linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7)',
-                    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-                }}>Image Converter</span></>}
+                titleOverride={<>MB to KB <span className="text-indigo-600">Image Converter</span></>}
                 subtitleOverride="Upload your image and instantly convert MB to KB. Preview your compressed photo before downloading — no signup, no watermark, 100% free."
             >
                 <SEOBottomSection

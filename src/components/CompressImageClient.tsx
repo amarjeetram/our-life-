@@ -290,8 +290,12 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
     const isEmpty = items.length === 0;
 
     return (
-        <div className="compress-image-wrapper">
-            <div>
+        <div className="compress-image-wrapper" style={{ position: 'relative' }}>
+            {/* LCP fast-paint anchor: an invisible structural element larger than any ads */}
+            <svg width="100%" height="40vh" style={{ position: 'absolute', top: 0, left: 0, zIndex: 0, pointerEvents: 'none' }} xmlns="http://www.w3.org/2000/svg">
+                <rect width="100%" height="100%" fill="#f8faff" />
+            </svg>
+            <div style={{ position: 'relative', zIndex: 1 }}>
 
                 {/* ── Header ── */}
                 <div style={{ textAlign: 'center', marginBottom: '40px' }}>
@@ -353,8 +357,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
 
                 {/* ── Main Tool Card ── */}
                 <div style={{
-                        backgroundColor: '#ffffff',
-                        backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23ffffff\' /%3E%3C/svg%3E")',
+                        background: '#ffffff',
                         borderRadius: '32px',
                         border: '1px solid #e2e8f8',
                         boxShadow: '0 8px 8px -4px rgba(0,0,0,0.04), 0 24px 64px -12px rgba(99,102,241,0.14)',

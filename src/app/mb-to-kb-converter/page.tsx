@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import ArticleMBtoKB from '@/components/articles/ArticleMBtoKB';
@@ -142,6 +143,20 @@ export default function Page() {
                 >
                     <ArticleMBtoKB />
                 </SEOBottomSection>
+
+                {/* Internal Links to Resize Tools */}
+                <div className="max-w-4xl mx-auto px-4 mt-10 mb-6">
+                    <h3 className="text-lg font-bold text-slate-800 mb-4">More Image Resize Tools</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <Link href="/image-tools/resize-image-to-100kb" className="flex items-start gap-3 p-4 rounded-xl border border-slate-200 bg-white hover:border-blue-400 hover:bg-blue-50 transition-all group shadow-sm">
+                            <div>
+                                <p className="font-bold text-slate-800 group-hover:text-blue-700 text-sm">Resize Image to 100KB</p>
+                                <p className="text-xs text-slate-500 mt-1">Resize file under 100KB for professional registration forms.</p>
+                                <span className="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-blue-600">Web · Use Tool →</span>
+                            </div>
+                        </Link>
+                    </div>
+                </div>
             </CompressImageClient>
         </>
     );

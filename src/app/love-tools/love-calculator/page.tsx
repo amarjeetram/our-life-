@@ -6,19 +6,19 @@ export const metadata: Metadata = {
     title: 'Love Percentage Calculator by Name – Free Love Match Checker',
     description: 'Use our free Love Percentage Calculator by Name to check your love match instantly. Enter two names and find your love percentage online in seconds.',
     alternates: {
-        canonical: 'https://smarttoolswala.com/calculators/fun/love-percentage-calculator-by-name',
+        canonical: 'https://smarttoolswala.com/love-tools/love-calculator',
     },
     openGraph: {
         title: 'Love Percentage Calculator by Name – Free Love Match Checker',
         description: 'Use our free Love Percentage Calculator by Name to check your love match instantly. Enter two names and find your love percentage online in seconds.',
-        url: 'https://smarttoolswala.com/calculators/fun/love-percentage-calculator-by-name',
+        url: 'https://smarttoolswala.com/love-tools/love-calculator',
         type: 'website',
     },
 };
 
 export default function LovePercentageCalculatorPage() {
     return (
-        <div className="min-h-screen bg-rose-50/30 font-sans">
+        <div className="min-h-screen bg-rose-50/30 font-sans pt-24">
             {/* JSON-LD Schemas */}
             <script
                 type="application/ld+json"
@@ -27,7 +27,7 @@ export default function LovePercentageCalculatorPage() {
                         "@context": "https://schema.org",
                         "@type": "WebApplication",
                         "name": "Love Percentage Calculator by Name",
-                        "url": "https://smarttoolswala.com/calculators/fun/love-percentage-calculator-by-name",
+                        "url": "https://smarttoolswala.com/love-tools/love-calculator",
                         "description": "Use our free Love Percentage Calculator by Name to check your love match instantly. Enter two names and find your love percentage online in seconds.",
                         "applicationCategory": "EntertainmentApplication",
                         "operatingSystem": "All",
@@ -49,9 +49,8 @@ export default function LovePercentageCalculatorPage() {
                         "@type": "BreadcrumbList",
                         "itemListElement": [
                             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://smarttoolswala.com" },
-                            { "@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://smarttoolswala.com/calculators" },
-                            { "@type": "ListItem", "position": 3, "name": "Fun", "item": "https://smarttoolswala.com/calculators/fun" },
-                            { "@type": "ListItem", "position": 4, "name": "Love Percentage Calculator by Name", "item": "https://smarttoolswala.com/calculators/fun/love-percentage-calculator-by-name" }
+                            { "@type": "ListItem", "position": 2, "name": "Love Tools", "item": "https://smarttoolswala.com/love-tools" },
+                            { "@type": "ListItem", "position": 3, "name": "Love Percentage Calculator by Name", "item": "https://smarttoolswala.com/love-tools/love-calculator" }
                         ]
                     })
                 }}
@@ -159,7 +158,7 @@ export default function LovePercentageCalculatorPage() {
                         </div>
                         <div>
                             <h3 className="text-xl font-bold text-slate-800 mb-2">Can I check love percentage for friends too?</h3>
-                            <p className="leading-relaxed">Absolutely! You can check the compatibility between any two names. If you want a more detailed destiny result (like Marriage, Enemies, or Siblings), be sure to try out our new <a href="/calculators/fun/flames-calculator" className="text-rose-600 font-bold underline hover:text-rose-800">FLAMES Calculator</a> too!</p>
+                            <p className="leading-relaxed">Absolutely! You can check the compatibility between any two names. If you want a more detailed destiny result (like Marriage, Enemies, or Siblings), be sure to try out our new <a href="/love-tools/flames-calculator" className="text-rose-600 font-bold underline hover:text-rose-800">FLAMES Calculator</a> too!</p>
                         </div>
                     </div>
                 </article>

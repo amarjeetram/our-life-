@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
 import LengthConverterClient from '@/components/LengthConverterClient';
+import DynamicArticleLengthConverter from '@/components/articles/DynamicArticleLengthConverter';
 
 export const metadata: Metadata = {
-    title: { absolute: 'Feet to Yards Converter � Free Online Length Calculator' },
-    description: 'Convert Feet to Yards instantly with our free online length converter. Accurate metric and imperial unit conversions for everyday use.',
+    title: 'Feet to Yards Converter - Free Length Calculator',
+    description: 'Convert Feet to Yards instantly with our free online calculator. Get accurate ft to yd conversions, formulas, and reference tables.',
     keywords: 'feet to yard, feet to yards, convert feet to yards, length converter, unit converter',
     alternates: {
         canonical: 'https://smarttoolswala.com/unit-converters/length/feet-to-yard',
@@ -20,7 +21,7 @@ export default function Page() {
                 "url": "https://smarttoolswala.com/unit-converters/length/feet-to-yard",
                 "applicationCategory": "Utility",
                 "operatingSystem": "All",
-                "description": "Convert Feet to Yards instantly with our free online length converter. Accurate metric and imperial unit conversions for everyday use.",
+                "description": "Convert Feet to Yards instantly with our free online calculator. Accurate conversions for everyday use.",
                 "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
             },
             {
@@ -48,28 +49,16 @@ export default function Page() {
                     </p>
                 </div>
                 <LengthConverterClient defaultFrom="feet" defaultTo="yard" />
-                <article className="mt-16 bg-white p-8 md:p-12 rounded-[2rem] border border-slate-200 text-slate-700">
-                    <h2 className="text-3xl font-black text-slate-900 mb-6 tracking-tight">How to Convert Feet to Yards</h2>
-                    <p className="mb-6 leading-relaxed text-lg">
-                        Converting <strong>Feet to Yards</strong> is one of the most common length conversions needed in daily life, whether for construction, travel, or school assignments. Our free online converter handles this calculation instantly � no formulas needed.
-                    </p>
-                    <p className="mb-8 leading-relaxed text-lg">
-                        Simply type your value in the input above and the result appears automatically. You can also use the swap button to reverse the conversion from Yards back to Feet.
-                    </p>
-                    <h3 className="text-xl font-bold text-slate-800 mb-4">Popular Feet to Yards Values</h3>
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse text-sm">
-                            <thead><tr className="bg-slate-50"><th className="p-3 font-bold border border-slate-200">Feet</th><th className="p-3 font-bold border border-slate-200">Yards</th></tr></thead>
-                            <tbody>
-                                <tr><td className="p-3 border border-slate-200">1</td><td className="p-3 border border-slate-200 text-green-700 font-semibold">�</td></tr>
-                                <tr className="bg-slate-50"><td className="p-3 border border-slate-200">5</td><td className="p-3 border border-slate-200 text-green-700 font-semibold">�</td></tr>
-                                <tr><td className="p-3 border border-slate-200">10</td><td className="p-3 border border-slate-200 text-green-700 font-semibold">�</td></tr>
-                                <tr className="bg-slate-50"><td className="p-3 border border-slate-200">100</td><td className="p-3 border border-slate-200 text-green-700 font-semibold">�</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <p className="mt-6 text-slate-500 text-sm italic">Use the interactive tool above to get precise values for any feet amount.</p>
-                </article>
+                <DynamicArticleLengthConverter
+                    fromUnitName="Feet"
+                    toUnitName="Yards"
+                    fromUnitSymbol="ft"
+                    toUnitSymbol="yd"
+                    conversionFactor={3}
+                    conversionType="divide"
+                    systemFrom="Imperial"
+                    systemTo="Imperial"
+                />
             </main>
         </div>
     );

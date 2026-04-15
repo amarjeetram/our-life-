@@ -2,7 +2,7 @@
 import Link from "next/link";
 import {
     Zap, ArrowRight, ShieldCheck, Lock, CheckCircle2,
-    Star, Clock, ChevronRight, ImageIcon
+    Star, Clock, ChevronRight, ImageIcon, Heart
 } from "lucide-react";
 import HeroUploadZone from "./HeroUploadZone";
 
@@ -307,7 +307,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                             },
                             {
                                 route: '/youtube-description-extractor', title: 'YouTube Description Extractor',
-                                desc: 'Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.',
+                                desc: 'Copy YouTube description, title, tags & views instantly with our free YouTube Description Extractor. Perfect for SEO research and competitor analysis.',
                                 tags: ['Data', 'YouTube', 'Research']
                             },
                             {
@@ -453,6 +453,89 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                         ))}
                     </div>
 
+                    {/* LOVE & RELATIONSHIP TOOLS SECTION */}
+                    <div style={{ textAlign: "center", marginBottom: "40px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#db2777", marginBottom: "12px" }}>
+                            Love & Relationship Tools
+                        </span>
+                        <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
+                            Check Your Connection ❤️
+                        </h2>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", marginBottom: "72px" }}>
+                        {[
+                            {
+                                route: '/stylish-couple-name-maker', title: 'Couple Name Maker',
+                                desc: 'Blend two names into a stylish, emoji-filled romantic combo for Instagram & hashtags.',
+                                tags: ['Popular', 'Social']
+                            },
+                            {
+                                route: '/love-tools/ship-name-generator', title: 'Ship Name Generator',
+                                desc: 'Create unique, cute, and catchy ship names for couples and fandoms instantly.',
+                                tags: ['New', 'Fandom']
+                            },
+                            {
+                                route: '/love-tools/love-calculator', title: 'Love Percentage Calculator',
+                                desc: 'Check your love match instantly! Enter your name and your crush\'s name to find your score.',
+                                tags: ['Fun', 'Social']
+                            },
+                            {
+                                route: '/love-tools/flames-calculator', title: 'FLAMES Calculator Online',
+                                desc: 'Test your names to reveal your destiny: Friends, Lovers, Affection, Marriage, Enemies, or Siblings.',
+                                tags: ['Classic', 'Game']
+                            }
+                        ].map((tool, index) => (
+                            <div key={tool.route} className={`native-fade-in delay-${(index % 5 + 1) * 100}`}>
+                                <Link prefetch={false} href={tool.route} style={{
+                                    display: "flex", flexDirection: "column", height: "100%",
+                                    background: "#ffffff", borderRadius: "24px",
+                                    border: "1px solid #f1f5f9",
+                                    boxShadow: "0 4px 24px rgba(219,39,119,0.06), 0 1px 3px rgba(0,0,0,0.02)",
+                                    overflow: "hidden", textDecoration: "none",
+                                    transition: "transform 0.2s, box-shadow 0.2s",
+                                }}
+                                >
+                                    <div style={{ height: "4px", background: "linear-gradient(90deg, #ec4899, #db2777)" }} />
+                                    <div style={{ padding: "32px", display: "flex", flexDirection: "column", gap: "16px", flexGrow: 1 }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "4px" }}>
+                                            <div style={{
+                                                width: "52px", height: "52px", borderRadius: "16px",
+                                                background: "linear-gradient(135deg, #fce7f3, #fbcfe8)",
+                                                display: "flex", alignItems: "center", justifyContent: "center",
+                                                color: "#db2777", flexShrink: 0,
+                                                boxShadow: "0 2px 10px rgba(219,39,119,0.15)"
+                                            }}>
+                                                <Heart size={22} className="fill-pink-500" />
+                                            </div>
+                                            <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.01em" }}>
+                                                {tool.title}
+                                            </h3>
+                                        </div>
+                                        <p style={{ fontSize: "15px", color: "#64748b", lineHeight: 1.6 }}>{tool.desc}</p>
+                                        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "auto", paddingTop: "8px" }}>
+                                            {tool.tags.map(tag => (
+                                                <span key={tag} style={{
+                                                    padding: "4px 10px", borderRadius: "100px",
+                                                    background: "#fff1f2", border: "1px solid #ffe4e6",
+                                                    fontSize: "11px", fontWeight: 700, color: "#be123c"
+                                                }}>{tag}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div style={{
+                                        background: "#fafbff", borderTop: "1px solid #f1f5f9",
+                                        padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
+                                        color: "#9d174d", fontWeight: 800, fontSize: "14px"
+                                    }}>
+                                        <span>Use Tool Free</span>
+                                        <ArrowRight size={16} />
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+
                     {/* CALCULATORS SECTION */}
                     <div id="calculators" style={{ textAlign: "center", marginBottom: "40px" }}>
                         <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#0369a1", marginBottom: "12px" }}>
@@ -479,16 +562,6 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 route: '/calculators/integral-calculator', title: 'Integral Calculator',
                                 desc: 'Compute indefinite integrals and antiderivatives symbolically with zero limits.',
                                 tags: ['Math', 'Calculus']
-                            },
-                            {
-                                route: '/calculators/fun/love-percentage-calculator-by-name', title: 'Love Percentage Calculator',
-                                desc: 'Check your love match instantly! Enter your name and your crush\'s name to find your true love percentage.',
-                                tags: ['Fun', 'Social']
-                            },
-                            {
-                                route: '/calculators/fun/flames-calculator', title: 'FLAMES Calculator Online',
-                                desc: 'Play the classic FLAMES game! Test your names to reveal your destiny: Friends, Lovers, Affection, Marriage, Enemies, or Siblings.',
-                                tags: ['Fun', 'Game']
                             },
                             {
                                 route: '/calculators', title: 'View All Calculators',

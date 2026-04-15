@@ -2,7 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { Heart, Sparkles, Hash, Type } from 'lucide-react';
-import CoupleNameClient from "../../components/CoupleNameClient";
+import CoupleNameClient from "@/components/CoupleNameClient";
 import ArticleCoupleName from '@/components/articles/ArticleCoupleName';
 
 
@@ -147,8 +147,8 @@ export default function StylishCoupleNameMakerPage() {
                     {
                         "@type": "ListItem",
                         "position": 2,
-                        "name": "Other Tools",
-                        "item": "https://smarttoolswala.com/other-tools"
+                        "name": "Love Tools",
+                        "item": "https://smarttoolswala.com/love-tools"
                     },
                     {
                         "@type": "ListItem",
@@ -173,7 +173,7 @@ export default function StylishCoupleNameMakerPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#FAFAFA] pt-28 pb-20">
+        <div className="min-h-screen bg-[#FAFAFA] pt-24 pb-20">
 
             {/* JSON-LD Structured Data — All Schemas in One Graph */}
             <Script

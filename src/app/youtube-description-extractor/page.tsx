@@ -5,23 +5,23 @@ import ArticleYoutubeDescription from '@/components/articles/ArticleYoutubeDescr
 import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
-    title: 'YouTube Description Extractor - Auto Copy Text, Views & Tags',
-    description: 'Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.',
+    title: 'YouTube Description Extractor – Copy Title & Tags Free',
+    description: 'Copy YouTube description, title, tags & views instantly with our free YouTube Description Extractor. Perfect for SEO research and competitor analysis.',
     keywords: 'youtube description extractor, youtube meta tags, video description, copy youtube description, youtube data extractor, youtube seo',
     alternates: {
         canonical: 'https://smarttoolswala.com/youtube-description-extractor'
     },
     openGraph: {
-        title: 'YouTube Description Extractor - Auto Copy Data & Text',
-        description: 'Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.',
+        title: 'YouTube Description Extractor – Copy Title & Tags Free',
+        description: 'Copy YouTube description, title, tags & views instantly with our free YouTube Description Extractor. Perfect for SEO research and competitor analysis.',
         url: 'https://smarttoolswala.com/youtube-description-extractor',
         siteName: 'SmartToolsWala',
         type: 'website'
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'YouTube Description Extractor - Auto Copy Text',
-        description: 'Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.'
+        title: 'YouTube Description Extractor – Copy Title & Tags Free',
+        description: 'Copy YouTube description, title, tags & views instantly with our free YouTube Description Extractor. Perfect for SEO research and competitor analysis.'
     }
 };
 
@@ -55,7 +55,7 @@ export default function YoutubeDescriptionExtractorPage() {
                 "url": "https://smarttoolswala.com/youtube-description-extractor",
                 "operatingSystem": "All",
                 "applicationCategory": "UtilitiesApplication",
-                "description": "Instantly extract and copy YouTube video descriptions, titles, views & tags for free. Boost your SEO research with our 1-click text extractor tool.",
+                "description": "Copy YouTube description, title, tags & views instantly with our free YouTube Description Extractor. Perfect for SEO research and competitor analysis.",
                 "featureList": [
                     "Extract YouTube description",
                     "YouTube meta data extractor",

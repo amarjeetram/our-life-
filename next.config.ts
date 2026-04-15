@@ -32,6 +32,21 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: '/love-tools/couple-name-maker',
+        destination: '/stylish-couple-name-maker',
+        permanent: true,
+      },
+      {
+        source: '/calculators/fun/love-percentage-calculator-by-name',
+        destination: '/love-tools/love-calculator',
+        permanent: true,
+      },
+      {
+        source: '/calculators/fun/flames-calculator',
+        destination: '/love-tools/flames-calculator',
+        permanent: true,
+      },
+      {
         source: '/tools/couple-name-generator',
         destination: '/stylish-couple-name-maker',
         permanent: true,

@@ -4,18 +4,17 @@ import FlamesCalculatorClient from '@/components/FlamesCalculatorClient';
 import ArticleFlamesCalculator from '@/components/articles/ArticleFlamesCalculator';
 
 const SITE_URL = 'https://smarttoolswala.com';
-const PAGE_URL = `${SITE_URL}/calculators/fun/flames-calculator`;
+const PAGE_URL = `${SITE_URL}/love-tools/flames-calculator`;
 
 export const metadata: Metadata = {
     title: 'FLAMES Calculator Online – True Love & Marriage Match by Name',
-    description: 'Use our free online FLAMES Calculator to find your true love, marriage, or friendship destiny. Enter your names (or date of birth) and get your FLAMES match instantly!',
-    keywords: 'flames calculator, flames calculator percentage, flames calculator by name, flames calculator love, love flames calculator, flames calculator online, online flames calculator, flames calculator tamil, flames calculator true, flames calculator by date of birth',
+    description: 'Use our free online FLAMES Calculator to find your true love, marriage, or friendship destiny. Enter your names and get your FLAMES match instantly!',
     alternates: {
         canonical: PAGE_URL,
     },
     openGraph: {
         title: 'FLAMES Calculator Online – True Love & Marriage Match by Name',
-        description: 'Use our free online FLAMES Calculator to find your true love, marriage, or friendship destiny. Enter your names (or date of birth) and get your FLAMES match instantly!',
+        description: 'Use our free online FLAMES Calculator to find your true love, marriage, or friendship destiny. Enter your names and get your FLAMES match instantly!',
         url: PAGE_URL,
         siteName: 'SmartToolsWala',
         type: 'website',
@@ -29,7 +28,7 @@ const jsonLd = {
             "@type": "WebApplication",
             "name": "FLAMES Calculator Online",
             "url": PAGE_URL,
-            "description": "Use our free online FLAMES Calculator to find your true love, marriage, or friendship destiny. Enter your names (or date of birth) and get your FLAMES match instantly!",
+            "description": "Use our free online FLAMES Calculator to find your true love, marriage, or friendship destiny. Enter your names and get your FLAMES match instantly!",
             "applicationCategory": "EntertainmentApplication",
             "operatingSystem": "All",
             "offers": {
@@ -43,9 +42,8 @@ const jsonLd = {
             "@type": "BreadcrumbList",
             "itemListElement": [
                 { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL },
-                { "@type": "ListItem", "position": 2, "name": "Calculators", "item": `${SITE_URL}/calculators` },
-                { "@type": "ListItem", "position": 3, "name": "Fun", "item": `${SITE_URL}/calculators/fun` },
-                { "@type": "ListItem", "position": 4, "name": "FLAMES Calculator", "item": PAGE_URL }
+                { "@type": "ListItem", "position": 2, "name": "Love Tools", "item": `${SITE_URL}/love-tools` },
+                { "@type": "ListItem", "position": 3, "name": "FLAMES Calculator", "item": PAGE_URL }
             ]
         },
         {
@@ -90,7 +88,7 @@ const jsonLd = {
 
 export default function FlamesCalculatorPage() {
     return (
-        <div className="min-h-screen bg-rose-50/30 font-sans">
+        <div className="min-h-screen bg-rose-50/30 font-sans pt-24">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

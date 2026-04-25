@@ -43,6 +43,26 @@ export default function GovtExamToolsPage() {
                         tags: ['GDS', 'India Post']
                     },
                     {
+                        route: '/govt-exam-tools/rrb-signature-resizer', title: 'RRB Signature Resizer',
+                        desc: 'Resize signature to exact 140x60 pixels for RRB & IBPS exams. 10-20KB compression.',
+                        tags: ['RRB', 'IBPS', 'Sign']
+                    },
+                    {
+                        route: '/govt-exam-tools/neet-photo-resizer', title: 'NEET Photo Resizer',
+                        desc: 'Resize passport & postcard size photos for NEET 2026. Official dimensions & KB limits.',
+                        tags: ['NEET 2026', 'NTA', 'Exam']
+                    },
+                    {
+                        route: '/govt-exam-tools/uti-photo-resize', title: 'UTI Photo Resize',
+                        desc: 'Crop and resize photo for UTI PAN applications (213x213px). Exact KB & format.',
+                        tags: ['UTI', 'PAN', 'Crop']
+                    },
+                    {
+                        route: '/govt-exam-tools/pan-card-photo-resize', title: 'PAN Card Photo Resize',
+                        desc: 'Resize photo and signature for PAN card (UTI/NSDL). 213x213px & 10-20KB presets.',
+                        tags: ['PAN Card', 'UTI', 'NSDL']
+                    },
+                    {
                         route: '/govt-exam-tools/signature-resize', title: 'Signature Resize & Compress',
                         desc: 'Resize your written signature to exact pixels or cm, and compress to target KB (e.g. 10KB-20KB).',
                         tags: ['Signatures', 'UPSC', 'All Exams']

@@ -61,6 +61,10 @@ const groups = [
         gradient: "linear-gradient(135deg, #10b981, #059669)",
         bgLight: "#ecfdf5",
         tools: [
+            { route: '/govt-exam-tools/rrb-signature-resizer', title: 'RRB Signature Resizer', desc: 'Resize signature to exact 140x60 pixels for RRB & IBPS exams.', tags: ['RRB', 'IBPS', 'Sign'] },
+            { route: '/govt-exam-tools/uti-photo-resize', title: 'UTI Photo Resize', desc: 'Crop and resize photo for UTI PAN applications (213x213px).', tags: ['UTI', 'PAN', 'Crop'] },
+            { route: '/govt-exam-tools/neet-photo-resizer', title: 'NEET Photo Resizer', desc: 'Resize passport and postcard photos for NEET 2026 as per NTA instructions.', tags: ['NEET 2026', 'NTA', 'Exam'] },
+            { route: '/govt-exam-tools/pan-card-photo-resize', title: 'PAN Card Photo Resize', desc: 'Resize photo and signature for PAN card (UTI/NSDL). 213x213px & 10-20KB presets.', tags: ['PAN Card', 'UTI', 'NSDL'] },
             { route: '/govt-exam-tools/tnpsc-photo-compressor', title: 'TNPSC Photo Compressor', desc: 'Compress TNPSC photo to 20-50KB and signature to 10-20KB as per official TNPSC requirements.', tags: ['TNPSC', 'Tamil Nadu'] },
             { route: '/govt-exam-tools/signature-resize', title: 'Signature Resize', desc: 'Resize your signature to 10-20KB, specify dimensions in cm or pixels for SSC & RRB exams.', tags: ['Signature', 'SSC', 'RRB'] },
         ],

@@ -110,9 +110,9 @@ export default function YoutubeTagClient() {
                     }}>
                         <Youtube size={32} />
                     </div>
-                    <h2 style={{ fontSize: "clamp(24px, 5vw, 32px)", fontWeight: 800, color: "#1e293b", marginBottom: "8px", letterSpacing: "-0.02em" }}>
-                        Extract Video SEO Tags
-                    </h2>
+                    <p style={{ fontSize: "18px", fontWeight: 700, color: "#1e293b", marginBottom: "8px", letterSpacing: "-0.01em" }}>
+                        YouTube Tag Extractor Tool
+                    </p>
                     <p style={{ color: "#64748b", fontSize: "16px", maxWidth: "500px", margin: "0 auto" }}>
                         Paste any YouTube Video or Shorts URL below to instantly reveal its hidden tags and keywords.
                     </p>

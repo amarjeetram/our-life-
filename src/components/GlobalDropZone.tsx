@@ -76,7 +76,11 @@ export default function GlobalDropZone() {
         // ── Already on a compress page → stay here, fire local event ─────────
         const isCompressPage = /\/compress-image-to-\d+kb/.test(pathname) ||
             pathname === "/govt-exam-tools/tnpsc-photo-compressor" ||
-            pathname === "/govt-exam-tools/signature-resize";
+            pathname === "/govt-exam-tools/signature-resize" ||
+            pathname === "/image-tools/pan-card-photo-resize" ||
+            pathname === "/neet-photo-resizer" ||
+            pathname === "/rrb-signature-resizer" ||
+            pathname === "/uti-photo-resize";
 
         if (isCompressPage) {
             // CompressImageClient listens for this event (see useEffect below)
@@ -132,7 +136,11 @@ export default function GlobalDropZone() {
 
     const isOnCompressPage = /compress-image-to-\d+kb/.test(pathname) ||
         pathname === "/govt-exam-tools/tnpsc-photo-compressor" ||
-        pathname === "/govt-exam-tools/signature-resize";
+        pathname === "/govt-exam-tools/signature-resize" ||
+        pathname === "/image-tools/pan-card-photo-resize" ||
+        pathname === "/neet-photo-resizer" ||
+        pathname === "/rrb-signature-resizer" ||
+        pathname === "/uti-photo-resize";
 
     if (!active && !dropped) return null;
 

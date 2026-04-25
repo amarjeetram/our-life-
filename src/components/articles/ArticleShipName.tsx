@@ -82,9 +82,9 @@ export default function ArticleShipName() {
                 <h3 className="text-2xl font-bold text-slate-800 mb-4">Explore More Fun Tools</h3>
                 <p>
                     Looking for more ways to check your relationship status? Use our 
-                    <Link href="/love-tools/love-calculator" className="text-pink-600 font-bold hover:underline mx-1">Love Percentage Calculator</Link> 
+                    <Link href="/calculators/fun/love-percentage-calculator-by-name" className="text-pink-600 font-bold hover:underline mx-1">Love Percentage Calculator</Link> 
                     to see your numerical score, or try our 
-                    <Link href="/love-tools/flames-calculator" className="text-pink-600 font-bold hover:underline mx-1">FLAMES Game</Link> 
+                    <Link href="/calculators/fun/flames-calculator" className="text-pink-600 font-bold hover:underline mx-1">FLAMES Game</Link> 
                     to reveal your ultimate relationship destiny!
                 </p>
             </section>

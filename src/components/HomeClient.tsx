@@ -183,9 +183,24 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 tags: ['UPSC / IAS', 'SSC', 'Forms']
                             },
                             {
-                                route: '/compress-image-to-50kb', title: 'Compress to 50KB',
-                                desc: 'Ideal for Bank exams, admit cards, and diverse state portals.',
-                                tags: ['Bank Forms', 'Admit Cards']
+                                route: '/govt-exam-tools/pan-card-photo-resize', title: 'PAN Card Resizer',
+                                desc: 'Resize photo and signature for PAN card (UTI/NSDL) easily. 213x213px & 10-20KB presets.',
+                                tags: ['PAN Card', 'UTI', 'NSDL']
+                            },
+                            {
+                                route: '/govt-exam-tools/neet-photo-resizer', title: 'NEET Photo Resizer',
+                                desc: 'Resize passport & postcard size photos for NEET 2026. Official dimensions & KB limits.',
+                                tags: ['NEET 2026', 'NTA', 'Exam']
+                            },
+                            {
+                                route: '/govt-exam-tools/rrb-signature-resizer', title: 'RRB Signature Resizer',
+                                desc: 'Resize signature to exact 140x60 pixels for RRB & IBPS exams. 10-20KB compression.',
+                                tags: ['RRB', 'IBPS', 'Sign']
+                            },
+                            {
+                                route: '/govt-exam-tools/uti-photo-resize', title: 'UTI Photo Resize',
+                                desc: 'Crop and resize photo for UTI PAN applications (213x213px). Exact KB & format.',
+                                tags: ['UTI', 'PAN', 'Crop']
                             },
                             {
                                 route: '/compress-image-to-100kb', title: 'Compress to 100KB',
@@ -476,12 +491,12 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 tags: ['New', 'Fandom']
                             },
                             {
-                                route: '/love-tools/love-calculator', title: 'Love Percentage Calculator',
+                                route: '/calculators/fun/love-percentage-calculator-by-name', title: 'Love Percentage Calculator',
                                 desc: 'Check your love match instantly! Enter your name and your crush\'s name to find your score.',
                                 tags: ['Fun', 'Social']
                             },
                             {
-                                route: '/love-tools/flames-calculator', title: 'FLAMES Calculator Online',
+                                route: '/calculators/fun/flames-calculator', title: 'FLAMES Calculator Online',
                                 desc: 'Test your names to reveal your destiny: Friends, Lovers, Affection, Marriage, Enemies, or Siblings.',
                                 tags: ['Classic', 'Game']
                             }

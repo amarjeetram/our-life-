@@ -4,7 +4,7 @@ import FlamesCalculatorClient from '@/components/FlamesCalculatorClient';
 import ArticleFlamesCalculator from '@/components/articles/ArticleFlamesCalculator';
 
 const SITE_URL = 'https://smarttoolswala.com';
-const PAGE_URL = `${SITE_URL}/love-tools/flames-calculator`;
+const PAGE_URL = `${SITE_URL}/calculators/fun/flames-calculator`;
 
 export const metadata: Metadata = {
     title: 'FLAMES Calculator Online – True Love & Marriage Match by Name',
@@ -42,7 +42,7 @@ const jsonLd = {
             "@type": "BreadcrumbList",
             "itemListElement": [
                 { "@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL },
-                { "@type": "ListItem", "position": 2, "name": "Love Tools", "item": `${SITE_URL}/love-tools` },
+                { "@type": "ListItem", "position": 2, "name": "Fun Calculators", "item": `${SITE_URL}/calculators` },
                 { "@type": "ListItem", "position": 3, "name": "FLAMES Calculator", "item": PAGE_URL }
             ]
         },

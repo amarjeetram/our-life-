@@ -25,13 +25,13 @@ export default function LoveToolsPage() {
             gradient: "linear-gradient(135deg, #ec4899, #db2777)",
         },
         {
-            route: '/love-tools/love-calculator', title: 'Love Percentage Calculator',
+            route: '/calculators/fun/love-percentage-calculator-by-name', title: 'Love Percentage Calculator',
             desc: 'Check your love match instantly! Enter your name and your crush\'s name to find your love score.',
             tags: ['Fun', 'Social'],
             gradient: "linear-gradient(135deg, #ec4899, #db2777)",
         },
         {
-            route: '/love-tools/flames-calculator', title: 'FLAMES Calculator Online',
+            route: '/calculators/fun/flames-calculator', title: 'FLAMES Calculator Online',
             desc: 'Play the classic FLAMES game! Reveal your destiny: Friends, Lovers, Affection, Marriage, Enemies, or Siblings.',
             tags: ['Classic', 'Game'],
             gradient: "linear-gradient(135deg, #ec4899, #db2777)",

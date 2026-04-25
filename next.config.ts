@@ -37,13 +37,18 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/calculators/fun/love-percentage-calculator-by-name',
-        destination: '/love-tools/love-calculator',
+        source: '/love-tools/love-percentage-calculator-by-name',
+        destination: '/calculators/fun/love-percentage-calculator-by-name',
         permanent: true,
       },
       {
-        source: '/calculators/fun/flames-calculator',
-        destination: '/love-tools/flames-calculator',
+        source: '/love-tools/love-calculator',
+        destination: '/calculators/fun/love-percentage-calculator-by-name',
+        permanent: true,
+      },
+      {
+        source: '/love-tools/flames-calculator',
+        destination: '/calculators/fun/flames-calculator',
         permanent: true,
       },
       {
@@ -84,6 +89,26 @@ const nextConfig: NextConfig = {
       {
         source: '/kb-to-mb-image-converter',
         destination: '/image-tools/kb-to-mb-image-converter',
+        permanent: true,
+      },
+      {
+        source: '/rrb-signature-resizer',
+        destination: '/govt-exam-tools/rrb-signature-resizer',
+        permanent: true,
+      },
+      {
+        source: '/neet-photo-resizer',
+        destination: '/govt-exam-tools/neet-photo-resizer',
+        permanent: true,
+      },
+      {
+        source: '/uti-photo-resize',
+        destination: '/govt-exam-tools/uti-photo-resize',
+        permanent: true,
+      },
+      {
+        source: '/image-tools/pan-card-photo-resize',
+        destination: '/govt-exam-tools/pan-card-photo-resize',
         permanent: true,
       },
     ];

@@ -1,5 +1,5 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Script from 'next/script';
 
 type AdBannerProps = {
@@ -15,14 +15,22 @@ export default function AdBanner({
     dataFullWidthResponsive = 'true',
     className = '',
 }: AdBannerProps) {
+    const [isMounted, setIsMounted] = useState(false);
+
     useEffect(() => {
-        try {
-            // @ts-ignore
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (err) {
-            console.error('AdSense error', err);
-        }
+        setIsMounted(true);
     }, []);
+
+    useEffect(() => {
+        if (isMounted) {
+            try {
+                // @ts-ignore
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (err) {
+                console.error('AdSense error', err);
+            }
+        }
+    }, [isMounted, dataAdSlot]);
 
     // Check if the provided slot is numeric (valid for AdSense)
     // Non-numeric slots (like "slot_blog_top") are treated as placeholders and fallback to default
@@ -50,14 +58,20 @@ export default function AdBanner({
                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7117465882400046"
                 crossOrigin="anonymous"
             />
-            <ins
-                className="adsbygoogle"
-                style={{ display: 'block', width: '100%' }}
-                data-ad-client="ca-pub-7117465882400046"
-                data-ad-slot={activeAdSlot}
-                data-ad-format={dataAdFormat}
-                data-full-width-responsive={dataFullWidthResponsive}
-            />
+            {isMounted ? (
+                <ins
+                    key={activeAdSlot}
+                    className="adsbygoogle"
+                    style={{ display: 'block', width: '100%' }}
+                    data-ad-client="ca-pub-7117465882400046"
+                    data-ad-slot={activeAdSlot}
+                    data-ad-format={dataAdFormat}
+                    data-full-width-responsive={dataFullWidthResponsive}
+                />
+            ) : (
+                // Render a stable placeholder with exact same dimensions during server-side render & hydration
+                <div style={{ display: 'block', width: '100%', minHeight: '250px' }} />
+            )}
         </div>
     );
 }

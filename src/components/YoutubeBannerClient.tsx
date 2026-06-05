@@ -1,5 +1,4 @@
 "use client";
-import AdBanner from '@/components/AdBanner';
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import {
@@ -274,7 +273,6 @@ export default function YoutubeBannerClient() {
                 </div>
             </div>
 
-            <AdBanner dataAdSlot="slot_yt_banner_top" className="mb-4" />
 
             {/* ── UPLOAD ── */}
             {!src && (

@@ -8,7 +8,6 @@ import { getPostBySlug, getAllPosts } from '@/lib/mdx';
 import FloatingCTA from '@/components/FloatingCTA';
 import CoupleNameClient from '@/components/CoupleNameClient';
 import InstagramBioClient from '@/components/InstagramBioClient';
-import AdBanner from '@/components/AdBanner';
 
 // EXPLICIT FORCE STATIC - Critical for fast indexing and crawling
 export const dynamic = 'force-static';
@@ -493,9 +492,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     prose-li:text-slate-700 marker:text-indigo-500
                     prose-img:rounded-3xl prose-img:border prose-img:border-slate-200 prose-img:shadow-lg
                 ">
-                        <AdBanner dataAdSlot="slot_blog_top" className="mb-8" />
                                 <MDXRemote source={post.content} components={mdxComponents} />
-                                <AdBanner dataAdSlot="slot_blog_bottom" className="mt-8 mb-4" />
                      </div>
                 </div>
             </div>
@@ -619,9 +616,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     prose-li:text-slate-700 marker:text-indigo-500
                     prose-img:rounded-3xl prose-img:border prose-img:border-slate-200 prose-img:shadow-lg
                 ">
-                        <AdBanner dataAdSlot="slot_blog_top" className="mb-8" />
                                 <MDXRemote source={post.content} components={mdxComponents} />
-                                <AdBanner dataAdSlot="slot_blog_bottom" className="mt-8 mb-4" />
                         
                         {/* Contextual Internal Linking (SEO: "Also Read") */}
                         {relatedPosts.length > 0 && (

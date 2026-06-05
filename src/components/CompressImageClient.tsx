@@ -1,5 +1,4 @@
 "use client";
-import AdBanner from '@/components/AdBanner';
 
 
 import React, { useState, useCallback, useEffect } from 'react';
@@ -904,7 +903,6 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                     </div>
                 </div>
 
-                <AdBanner dataAdSlot="slot_compress_top" className="mt-8 mb-4" />
 
                 {/* Trust Bar */}
                 <motion.div

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Search, Copy, Check, Share2, Sparkles } from 'lucide-react';
 
 const BIOS_DATA: Record<string, string[]> = {
@@ -1585,10 +1585,15 @@ const CATEGORY_META: Record<string, { name: string; icon: string; desc: string }
 };
 
 export default function InstagramBioClient() {
+    const [isMounted, setIsMounted] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [copiedIndex, setCopiedIndex] = useState<string | null>(null);
     const [visibleCount, setVisibleCount] = useState<number>(24);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     const categories = Object.keys(BIOS_DATA);
 
@@ -1648,6 +1653,17 @@ export default function InstagramBioClient() {
         setSelectedCategory(cat);
         setVisibleCount(24);
     };
+
+    if (!isMounted) {
+        return (
+            <div className="w-full max-w-6xl mx-auto my-8 font-sans antialiased text-slate-100 min-h-[500px] flex justify-center items-center bg-slate-900/40 border border-slate-800/80 rounded-[2.5rem] backdrop-blur-xl">
+                <div className="text-center">
+                    <div className="w-10 h-10 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-slate-400 text-sm font-semibold">Loading Interactive Bio Finder...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="w-full max-w-6xl mx-auto my-8 font-sans antialiased text-slate-100">

@@ -65,6 +65,11 @@ export default function RootLayout({
     <html lang="en" className={`scroll-smooth ${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <head>
         <meta name="google-adsense-account" content="ca-pub-7117465882400046" />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7117465882400046"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <Suspense fallback={null}>
@@ -78,7 +83,7 @@ export default function RootLayout({
           {children}
         </SiteShell>
         <Script id="ahrefs-analytics" src="https://analytics.ahrefs.com/analytics.js" data-key="d8ok06KdnbbIqz7qNwaXMw" strategy="lazyOnload" />
-        <Script id="adsense-script" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7117465882400046" crossOrigin="anonymous" strategy="lazyOnload" />
+
         <DeferredGTM />
       </body>
     </html>

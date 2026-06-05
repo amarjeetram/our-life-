@@ -24,13 +24,18 @@ export default function AdBanner({
         }
     }, []);
 
+    // Check if the provided slot is numeric (valid for AdSense)
+    // Non-numeric slots (like "slot_blog_top") are treated as placeholders and fallback to default
+    const isNumeric = /^\d+$/.test(dataAdSlot);
+    const activeAdSlot = isNumeric ? dataAdSlot : "7477322886";
+
     // Show a visible placeholder during local development
     if (process.env.NODE_ENV === 'development') {
         return (
             <div className={`w-full flex justify-center items-center overflow-hidden my-6 min-h-[250px] bg-slate-100 border-2 border-dashed border-slate-300 rounded-lg ${className}`}>
                 <div className="text-center">
                     <p className="text-slate-500 font-bold text-lg">AdSense Advertisement</p>
-                    
+                    <p className="text-xs text-slate-400">Slot: {activeAdSlot} ({isNumeric ? 'Custom' : 'Fallback Default'})</p>
                 </div>
             </div>
         );
@@ -49,7 +54,7 @@ export default function AdBanner({
                 className="adsbygoogle"
                 style={{ display: 'block', width: '100%' }}
                 data-ad-client="ca-pub-7117465882400046"
-                data-ad-slot={dataAdSlot}
+                data-ad-slot={activeAdSlot}
                 data-ad-format={dataAdFormat}
                 data-full-width-responsive={dataFullWidthResponsive}
             />

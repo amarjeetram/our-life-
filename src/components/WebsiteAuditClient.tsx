@@ -1412,7 +1412,7 @@ td { border: 1px solid #e2e8f0; font-size: 10.5pt; }
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, padding: '16px 20px' }}>
                             {[
                                 { href: '/youtube-tag-extractor', label: 'YT Tag Extractor' },
-                                { href: '/compress-image-to-20kb', label: 'Image Compressor' },
+                                { href: '/image-compressor-to-20kb', label: 'Image Compressor' },
                                 { href: '/calculators/derivative-calculator', label: 'Derivative Calc' },
                                 { href: '/instagram-tools/instagram-bio-generator', label: 'Instagram Bio' },
                             ].map(t => (

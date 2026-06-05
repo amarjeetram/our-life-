@@ -372,7 +372,7 @@ export default function CoupleNameClient() {
                                     { href: '/youtube-tag-extractor', label: 'YouTube Tags' },
                                     { href: '/youtube-title-generator', label: 'YouTube Title' },
                                     { href: '/youtube-description-extractor', label: 'YT Description' },
-                                    { href: '/compress-image-to-20kb', label: 'Compress Image' },
+                                    { href: '/image-compressor-to-20kb', label: 'Compress Image' },
                                 ].map(t => (
                                     <Link key={t.href} href={t.href} style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
                                         onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}

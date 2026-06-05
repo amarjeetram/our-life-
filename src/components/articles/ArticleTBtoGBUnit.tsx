@@ -116,7 +116,7 @@ export default function ArticleTBtoGBUnit() {
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-0 list-none pl-0">
                     <li className="pl-0"><Link href="/unit-converters" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> All Unit Converters</Link></li>
                     <li className="pl-0"><Link href="/mb-to-kb-image-converter" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Image Resizers</Link></li>
-                    <li className="pl-0"><Link href="/compress-image-to-20kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress Image to 20KB</Link></li>
+                    <li className="pl-0"><Link href="/image-compressor-to-20kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress Image to 20KB</Link></li>
                     <li className="pl-0"><Link href="/compress-image-to-50kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress Image to 50KB</Link></li>
                 </ul>
             </div>

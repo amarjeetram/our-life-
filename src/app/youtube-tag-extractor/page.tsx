@@ -138,7 +138,7 @@ export default function YoutubeTagExtractorPage() {
                 </Link>
 
                 <h1 className="text-3xl md:text-6xl font-black text-center text-slate-900 mb-12 tracking-tight leading-tight">
-                    Extract Video <span className="text-blue-600">SEO Tags</span>
+                    YouTube <span className="text-blue-600">Tag Extractor</span> Tool
                 </h1>
 
                 <YoutubeTagClient />

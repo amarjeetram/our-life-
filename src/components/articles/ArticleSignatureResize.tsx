@@ -34,7 +34,7 @@ export default function ArticleSignatureResize() {
             </p>
 
             <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                SSC Signature Resize: A Complete Step-by-Step Guide
+                SSC Signature Resize (4cm x 2cm)
             </h2>
             <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
                 The Staff Selection Commission (SSC) conducts mega examinations like SSC CGL, SSC CHSL, MTS, and GD Constable. The SSC application portal (ssc.nic.in) is notoriously strict about image formats. For any SSC exam, the official notification explicitly outlines the following signature upload guidelines:
@@ -50,7 +50,14 @@ export default function ArticleSignatureResize() {
             </p>
 
             <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                RRB Signature Resize: Railway Recruitment Board Guidelines
+                PAN Card Photo and Signature Resize
+            </h2>
+            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
+                Applying for a new PAN card or updating an existing one through NSDL or UTI portal? You will need a strict <strong>pan card photo and signature resize</strong>. For PAN applications, the photo and signature typically need to be resized to specific dimensions (like 213x213 pixels for photo, and 400x200 pixels or specific cm for signature) while keeping the file size under 10-20KB. Our tool acts as a perfect <strong>pan card signature resize</strong> utility, ensuring your application doesn't face unnecessary delays.
+            </p>
+
+            <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
+                RRB & GDS Signature Resize to 20KB
             </h2>
             <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
                 The Railway Recruitment Board (RRB) manages one of the largest recruitment drives in the world for posts like NTPC, Group D, and ALP. The sheer volume of applications means the RRB automated software rigorously filters out improperly formatted signatures. An <strong>rrb signature resize</strong> comes with its own unique set of challenges. The official guidelines often state:
@@ -66,7 +73,7 @@ export default function ArticleSignatureResize() {
             </p>
 
             <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                Understanding "Signature Resize Width and Height in CM"
+                How to set Signature Resize width and height in cm?
             </h2>
             <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
                 While digital images are inherently constructed out of pixels, official government notifications are written for people carrying physical rulers in the real world. Thus, they demand dimensions in centimeters (cm). This transition from physical centimeters to digital pixels confuses many candidates. How do you perform a <strong>signature resize width and height in cm</strong> on a computer screen?

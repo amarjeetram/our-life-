@@ -19,8 +19,8 @@ const groups = [
         gradient: "linear-gradient(135deg, #6366f1, #a855f7)",
         bgLight: "#eef2ff",
         tools: [
-            { route: '/compress-image-to-20kb', title: 'Compress to 20KB', desc: 'Perfect for UPSC, SSC & govt portals. Guaranteed under 20KB.', tags: ['UPSC / IAS', 'SSC', 'Forms'] },
-            { route: '/compress-image-to-30kb', title: 'Compress to 30KB', desc: 'Strictly under 30KB for specific government compliance formats.', tags: ['Compliance', 'State Exams'] },
+            { route: '/image-compressor-to-20kb', title: 'Image Compressor to 20KB', desc: 'Perfect for UPSC, SSC & govt portals. Guaranteed under 20KB.', tags: ['UPSC / IAS', 'SSC', 'Forms'] },
+            { route: '/photo-compressor-to-30kb', title: 'Photo Compressor to 30KB', desc: 'Strictly under 30KB for specific government compliance formats.', tags: ['Compliance', 'State Exams'] },
             { route: '/compress-image-to-50kb', title: 'Compress to 50KB', desc: 'Ideal for Bank exams, admit cards, and diverse state portals.', tags: ['Bank Forms', 'Admit Cards'] },
             { route: '/compress-image-to-100kb', title: 'Compress to 100KB', desc: 'Standard compression for high-quality professional document uploads.', tags: ['General', 'High Quality'] },
             { route: '/compress-image-to-200kb', title: 'Compress to 200KB', desc: 'Heavy files to 200KB for portals requiring larger HD formats.', tags: ['HD Docs', 'Websites'] },

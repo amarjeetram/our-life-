@@ -1,7 +1,8 @@
 import React from 'react';
 import { Metadata } from 'next';
 import LoveCalculatorClient from '@/components/LoveCalculatorClient';
-
+import ArticleLoveCalculator from '@/components/articles/ArticleLoveCalculator';
+import RelatedFunCalculators from '@/components/RelatedFunCalculators';
 export const metadata: Metadata = {
     title: 'Love Percentage Calculator by Name – Free Love Match Checker',
     description: 'Use our free Love Percentage Calculator by Name to check your love match instantly. Enter two names and find your love percentage online in seconds.',
@@ -115,53 +116,9 @@ export default function LovePercentageCalculatorPage() {
                 <LoveCalculatorClient />
 
                 {/* SEO Rich Content Below */}
-                <article className="mt-16 bg-white p-8 md:p-12 rounded-[2rem] shadow-sm border border-slate-200 text-slate-700">
-                    <h2 className="text-3xl font-bold text-slate-800 mb-6">What is Love Percentage Calculator?</h2>
-                    <p className="mb-6 leading-relaxed">
-                        The <strong>Love Percentage Calculator by Name</strong> is a fun and interactive online tool that helps you calculate the compatibility score between two people based purely on their names. Whether you are curious about your relationship with your crush, partner, or just want to have fun checking random celebrity matches, this free tool gives you an instant, engaging result.
-                    </p>
-                    
-                    <h2 className="text-2xl font-bold text-slate-800 mt-10 mb-6">How to Calculate Love Percentage by Name?</h2>
-                    <p className="mb-4 leading-relaxed">
-                        Curious about how to calculate love percentage quickly? The process is extremely simple and requires no math on your end:
-                    </p>
-                    <ul className="list-decimal pl-6 space-y-3 mb-6 font-medium text-slate-600">
-                        <li>Enter your first name in the "Boy / First Name" field.</li>
-                        <li>Enter your crush or partner's name in the "Girl / Second Name" field.</li>
-                        <li>Click the vibrant <strong>Calculate Love Percentage</strong> button.</li>
-                        <li>Watch the magic happen and see your love compatibility score along with a fun custom message!</li>
-                    </ul>
-                    <p className="mb-6 leading-relaxed">
-                        Our tool uses a deterministic character-matching algorithm, meaning if you enter the same two names again, you will always get the same fun result!
-                    </p>
+                <ArticleLoveCalculator />
 
-                    <div className="bg-rose-50 border-l-4 border-rose-400 p-6 rounded-r-xl my-8">
-                        <h3 className="text-xl font-bold text-rose-900 mb-2">💘 Results are for entertainment only</h3>
-                        <p className="text-rose-700 font-medium">
-                            Please remember that the Love Percentage Calculator is designed strictly for fun and entertainment purposes. It is not scientifically accurate and should not be used to judge or make decisions about your real-life relationships. Have fun and share your smiles!
-                        </p>
-                    </div>
-
-                    <h2 className="text-2xl font-bold text-slate-800 mt-10 mb-6">Frequently Asked Questions</h2>
-                    <div className="space-y-6">
-                        <div>
-                            <h3 className="text-xl font-bold text-slate-800 mb-2">How do you calculate love percentage?</h3>
-                            <p className="leading-relaxed">To calculate love percentage, just enter the two names in our free tool above. The calculator instantly evaluates the letters in both names and provides a fun score ranging from 1% to 100%.</p>
-                        </div>
-                        <div>
-                            <h3 className="text-xl font-bold text-slate-800 mb-2">Is love percentage calculator accurate?</h3>
-                            <p className="leading-relaxed">No, it is not scientifically valid. A true "couple compatibility checker" involves deep human connection, trust, and shared values. This tool is a prank/fun love calculator meant to bring a smile to your face.</p>
-                        </div>
-                        <div>
-                            <h3 className="text-xl font-bold text-slate-800 mb-2">How to find love percentage by name?</h3>
-                            <p className="leading-relaxed">Just visit this page on SmartToolsWala, enter both names, and hit calculate. The online name love calculator will do the rest and give you an emoji-based result immediately.</p>
-                        </div>
-                        <div>
-                            <h3 className="text-xl font-bold text-slate-800 mb-2">Can I check love percentage for friends too?</h3>
-                            <p className="leading-relaxed">Absolutely! You can check the compatibility between any two names. If you want a more detailed destiny result (like Marriage, Enemies, or Siblings), be sure to try out our new <a href="/calculators/fun/flames-calculator" className="text-rose-600 font-bold underline hover:text-rose-800">FLAMES Calculator</a> too!</p>
-                        </div>
-                    </div>
-                </article>
+                <RelatedFunCalculators currentRoute="/calculators/fun/love-percentage-calculator-by-name" />
 
             </main>
         </div>

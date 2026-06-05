@@ -162,7 +162,7 @@ export default function WebsiteAuditPage() {
                             { href: '/youtube-description-extractor', label: 'YT Description Extractor', desc: 'Copy full YouTube video descriptions' },
                             { href: '/youtube-title-generator', label: 'YouTube Title Generator', desc: 'Generate SEO-optimized video titles' },
                             { href: '/instagram-tools/instagram-bio-generator', label: 'Instagram Bio Generator', desc: 'Create stylish Instagram bios instantly' },
-                            { href: '/compress-image-to-20kb', label: 'Image Compressor to 20KB', desc: 'Reduce image size without losing quality' },
+                            { href: '/image-compressor-to-20kb', label: 'Image Compressor to 20KB', desc: 'Reduce image size without losing quality' },
                             { href: '/calculators/derivative-calculator', label: 'Derivative Calculator', desc: 'Solve calculus derivatives step by step' },
                             { href: '/seo-tools', label: 'All SEO Tools', desc: 'Explore our full suite of SEO tools' },
                         ].map(link => (

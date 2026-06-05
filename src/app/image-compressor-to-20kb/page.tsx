@@ -5,11 +5,11 @@ import Article20KB from '@/components/articles/Article20KB';
 
 
 export const metadata: Metadata = {
-    title: 'Compress Image to 20KB Online Free – Instant Photo Reducer',
+    title: 'Image Compressor to 20KB Online Free – Instant Photo Reducer',
     description: 'Easily reduce image size to 20kb online. Free photo size reducer to resize image to 20kb. Convert your JPGs quickly perfectly.',
-    keywords: 'compress image to 20kb, photo size reducer 20 kb, reduce image size to 20kb, resize image to 20kb, resize image to 20kb jpg, 20kb photo converter, upsc photo size converter',
+    keywords: 'image compressor to 20kb, compress image to 20kb, photo size reducer 20 kb, reduce image size to 20kb, resize image to 20kb, resize image to 20kb jpg, 20kb photo converter, upsc photo size converter',
     alternates: {
-        canonical: 'https://smarttoolswala.com/compress-image-to-20kb',
+        canonical: 'https://smarttoolswala.com/image-compressor-to-20kb',
     },
 };
 
@@ -47,7 +47,7 @@ export default function Page() {
                             {
                                 "@type": "WebApplication",
                                 "name": "20KB Image Compressor",
-                                "url": "https://smarttoolswala.com/compress-image-to-20kb",
+                                "url": "https://smarttoolswala.com/image-compressor-to-20kb",
                                 "applicationCategory": "Utility",
                                 "operatingSystem": "All",
                                 "browserRequirements": "Requires JavaScript",
@@ -73,19 +73,19 @@ export default function Page() {
                                         "@type": "HowToStep",
                                         "name": "Upload your image",
                                         "text": "Click or drag your photo into the upload area. The tool will parse your image securely in your browser.",
-                                        "url": "https://smarttoolswala.com/compress-image-to-20kb#upload"
+                                        "url": "https://smarttoolswala.com/image-compressor-to-20kb#upload"
                                     },
                                     {
                                         "@type": "HowToStep",
                                         "name": "Confirm Target Size",
                                         "text": "The target KB size is automatically set to 20KB. You can keep it as is or slightly adjust it based on your form rules.",
-                                        "url": "https://smarttoolswala.com/compress-image-to-20kb#target"
+                                        "url": "https://smarttoolswala.com/image-compressor-to-20kb#target"
                                     },
                                     {
                                         "@type": "HowToStep",
                                         "name": "Download resulting image",
                                         "text": "The tool will instantly compress your image under 20KB while preserving visual layout. Once ready, click the download button to save it locally.",
-                                        "url": "https://smarttoolswala.com/compress-image-to-20kb#download"
+                                        "url": "https://smarttoolswala.com/image-compressor-to-20kb#download"
                                     }
                                 ]
                             },
@@ -109,7 +109,7 @@ export default function Page() {
                                         "@type": "ListItem",
                                         "position": 3,
                                         "name": "20KB Image Compressor",
-                                        "item": "https://smarttoolswala.com/compress-image-to-20kb"
+                                        "item": "https://smarttoolswala.com/image-compressor-to-20kb"
                                     }
                                 ]
                             },
@@ -133,7 +133,7 @@ export default function Page() {
                 subtitleOverride="Compress image to 20KB online free using our advanced photo size reducer. Resize image to 20KB JPG instantly for government forms without losing quality."
             >
                 <SEOBottomSection
-                    keyword="compress image to 20kb"
+                    keyword="image compressor to 20kb"
                     faqs={faqs}
                 >
                     <Article20KB />

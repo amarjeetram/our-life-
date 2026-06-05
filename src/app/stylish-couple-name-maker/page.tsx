@@ -4,6 +4,7 @@ import Script from 'next/script';
 import { Heart, Sparkles, Hash, Type } from 'lucide-react';
 import CoupleNameClient from "@/components/CoupleNameClient";
 import ArticleCoupleName from '@/components/articles/ArticleCoupleName';
+import AdBanner from '@/components/AdBanner';
 
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
@@ -199,6 +200,7 @@ export default function StylishCoupleNameMakerPage() {
                 <p className="text-lg text-gray-500 max-w-2xl mx-auto font-medium">
                     Blend two names into beautiful, unique nicknames with stylish fonts, wedding hashtags, and emojis — free, instant, and ready for Instagram.
                 </p>
+                <AdBanner dataAdSlot="slot_couple_1" className="mt-8 mb-2" />
 
                 {/* Trust badges */}
                 <div className="flex flex-wrap justify-center gap-4 mt-8">
@@ -224,6 +226,7 @@ export default function StylishCoupleNameMakerPage() {
             {/* ── Interactive Tool Component ─────────────────────────────────── */}
             <div className="px-4 sm:px-6 relative z-20">
                 <CoupleNameClient />
+                <AdBanner dataAdSlot="slot_couple_2" className="mt-8 mb-6" />
             </div>
 
             {/* ── SEO Article Section ────────────────────────────────────────── */}

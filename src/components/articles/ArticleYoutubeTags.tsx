@@ -61,7 +61,7 @@ export default function ArticleYoutubeTags() {
                 </div>
 
                 <p className="text-slate-600 mb-8 text-lg leading-relaxed">
-                    Some people worry that looking at other people's tags is cheating. It is not! It is called doing research. Here are the three biggest reasons you should always use an extractor tool before you post a video. By the way, if you need to compress photos for your YouTube thumbnail, use our <Link href="/compress-image-to-20kb" className="text-indigo-600 hover:underline font-semibold">20KB image compressor</Link>.
+                    Some people worry that looking at other people's tags is cheating. It is not! It is called doing research. Here are the three biggest reasons you should always use an extractor tool before you post a video. By the way, if you need to compress photos for your YouTube thumbnail, use our <Link href="/image-compressor-to-20kb" className="text-indigo-600 hover:underline font-semibold">20KB image compressor</Link>.
                 </p>
 
                 <div className="grid md:grid-cols-3 gap-6">

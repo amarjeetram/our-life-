@@ -178,7 +178,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", marginBottom: "72px" }}>
                         {[
                             {
-                                route: '/compress-image-to-20kb', title: 'Compress to 20KB',
+                                route: '/image-compressor-to-20kb', title: 'Image Compressor to 20KB',
                                 desc: 'Perfect for UPSC, SSC & govt portals. Guaranteed under 20KB.',
                                 tags: ['UPSC / IAS', 'SSC', 'Forms']
                             },
@@ -214,7 +214,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                             },
 
                             {
-                                route: '/compress-image-to-30kb', title: 'Compress to 30KB',
+                                route: '/photo-compressor-to-30kb', title: 'Photo Compressor to 30KB',
                                 desc: 'Strictly under 30KB for specific government compliance formats.',
                                 tags: ['Compliance', 'State Exams']
                             },
@@ -907,6 +907,84 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                         ))}
                     </div>
 
+                    {/* AI TOOLS SECTION */}
+                    <div id="ai-tools" style={{ textAlign: "center", marginBottom: "40px" }}>
+                        <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#3b82f6", marginBottom: "12px" }}>
+                            AI Tools
+                        </span>
+                        <h2 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
+                            Prompt Generators
+                        </h2>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))", gap: "24px", marginBottom: "72px" }}>
+                        {[
+                            {
+                                route: '/ai-prompts/gemini-prompt-generator', title: 'Gemini Prompt Generator',
+                                desc: 'Craft the perfect AI prompt for Google Gemini to get highly accurate and tailored responses.',
+                                tags: ['AI Tool', 'Gemini', 'Prompts']
+                            },
+                            {
+                                route: '/ai-prompts', title: 'View All AI Tools',
+                                desc: 'Explore all AI prompt generators and utility tools to maximize your AI productivity.',
+                                tags: ['View All', 'Free']
+                            }
+                        ].map((tool, index) => (
+                            <div
+                                key={tool.route}
+                                className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
+                            >
+                                <Link prefetch={false} href={tool.route} style={{
+                                    display: "flex", flexDirection: "column", height: "100%",
+                                    background: "#ffffff", borderRadius: "24px",
+                                    border: "1px solid #f1f5f9",
+                                    boxShadow: "0 4px 24px rgba(99,102,241,0.06), 0 1px 3px rgba(0,0,0,0.02)",
+                                    overflow: "hidden", textDecoration: "none",
+                                    transition: "transform 0.2s, box-shadow 0.2s",
+                                }}
+                                >
+                                    <div style={{ height: "4px", background: "linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7, #ec4899)" }} />
+                                    <div style={{ padding: "32px", display: "flex", flexDirection: "column", gap: "16px", flexGrow: 1 }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "4px" }}>
+                                            <div style={{
+                                                width: "52px", height: "52px", borderRadius: "16px",
+                                                background: "linear-gradient(135deg, #ede9fe, #dbeafe)",
+                                                display: "flex", alignItems: "center", justifyContent: "center",
+                                                color: "#6366f1", flexShrink: 0,
+                                                boxShadow: "0 2px 10px rgba(99,102,241,0.15)"
+                                            }}>
+                                                <Zap size={22} />
+                                            </div>
+                                            <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.01em" }}>
+                                                {tool.title}
+                                            </h3>
+                                        </div>
+                                        <p style={{ fontSize: "15px", color: "#64748b", lineHeight: 1.6 }}>
+                                            {tool.desc}
+                                        </p>
+                                        <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginTop: "auto", paddingTop: "8px" }}>
+                                            {tool.tags.map(tag => (
+                                                <span key={tag} style={{
+                                                    padding: "4px 10px", borderRadius: "100px",
+                                                    background: "#f8faff", border: "1px solid #e0e7ff",
+                                                    fontSize: "11px", fontWeight: 700, color: "#4338ca"
+                                                }}>{tag}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div style={{
+                                        background: "#fafbff", borderTop: "1px solid #f1f5f9",
+                                        padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
+                                        color: "#3730a3", fontWeight: 800, fontSize: "14px"
+                                    }}>
+                                        <span>Use Tool Free</span>
+                                        <ArrowRight size={16} />
+                                    </div>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+
                     {/* OTHER TOOLS SECTION */}
                     <div id="other-tools" style={{ textAlign: "center", marginBottom: "40px" }}>
                         <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6d28d9", marginBottom: "12px" }}>
@@ -1088,7 +1166,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                         className="native-fade-in delay-200"
                         style={{ textAlign: "center", marginTop: "56px" }}
                     >
-                        <Link prefetch={false} href="/compress-image-to-20kb" style={{
+                        <Link prefetch={false} href="/image-compressor-to-20kb" style={{
                             display: "inline-flex", alignItems: "center", gap: "10px",
                             background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
                             color: "#fff", fontWeight: 800, fontSize: "16px",

@@ -1,450 +1,1819 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Copy, RefreshCw, CheckCircle2, Sparkles, User, Briefcase, Music, Gamepad2, ShoppingBag, Heart, Edit3 } from "lucide-react";
+import React, { useState, useMemo } from 'react';
+import { Search, Copy, Check, Share2, Sparkles } from 'lucide-react';
 
-/* ── types & data ───────────────────────────────────────────────── */
-type FitMode = "fill" | "fit" | "stretch"; // unused but keep import clean
-const _ = null as unknown as FitMode;
-
-const CATEGORIES = [
-    { id: "personal",  label: "Personal",  Icon: User,      grad: "linear-gradient(135deg,#f77737,#fcaf45)" },
-    { id: "business",  label: "Business",  Icon: Briefcase, grad: "linear-gradient(135deg,#405de6,#5851db)" },
-    { id: "creator",   label: "Creator",   Icon: Sparkles,  grad: "linear-gradient(135deg,#833ab4,#c13584)" },
-    { id: "fashion",   label: "Fashion",   Icon: ShoppingBag, grad: "linear-gradient(135deg,#e1306c,#fd1d1d)" },
-    { id: "music",     label: "Music",     Icon: Music,     grad: "linear-gradient(135deg,#c13584,#f56040)" },
-    { id: "gaming",    label: "Gaming",    Icon: Gamepad2,  grad: "linear-gradient(135deg,#405de6,#833ab4)" },
-    { id: "lifestyle", label: "Lifestyle", Icon: Heart,     grad: "linear-gradient(135deg,#fd1d1d,#fcaf45)" },
-];
-
-const TONES = ["Professional", "Funny", "Aesthetic", "Bold", "Minimalist", "Inspirational"];
-
-const TEMPLATES: Record<string, string[]> = {
-    personal:  ["☕ Coffee addict | ✈️ Travel lover | Living my best life\n📩 DM anytime", "🌞 Soul full of sunshine\n🎯 Making memories & breaking limits\n🔗 Tap link below", "🌱 Just a human figuring it out\n📸 Living in the moment\n💬 She/Her | Open to chats"],
-    business:  ["📈 Helping brands grow online\n🎯 Marketing | Strategy | Results\n📩 DM for business inquiries", "🏆 We make your vision reality\n💎 Premium quality, honest prices\n🛒 Order via link below", "🚀 Your success is our mission\n⭐ Trusted by 10K+ clients\n📅 Book a free consultation"],
-    creator:   ["🎬 Turning ideas into viral content\n📺 YouTube | Blog | Podcast\n🔔 New video every Tuesday", "🎥 Creating content that actually matters\n👑 Content is king, consistency is queen\n🤝 Collab? Slide into DMs", "☕ Behind every great post is a lot of coffee\n💡 Lifestyle | Tips | Reels\n✨ Follow for daily inspo"],
-    fashion:   ["👗 Style is a way to say who you are\n🔥 Outfit inspo | OOTDs | Trends\n🛍️ Shop my looks below", "💫 Fashion fades, style is eternal\n🤍 Minimal | Chic | Timeless\n📸 New looks every week", "💃 Wearing confidence every single day\n🖤 Street style | Looks | Fits\n🤝 Collab with us"],
-    music:     ["🎵 Music is the language of the soul\n🎤 Singer | Songwriter | Producer\n🔗 New single — link below", "🎶 Notes, vibes & good energy only\n🎸 Performing live across India\n📩 Booking DMs open", "🎧 I don't make music, I make feelings\n🎹 Independent artist | Guitar | Vocals\n▶️ Stream my latest track"],
-    gaming:    ["🎮 Born to game, forced to eat\n🖥️ PC gamer | Content creator | Clan leader\n💬 Join my Discord", "🏆 GG or no deal\n🔫 Streamer | BGMI | FPS Lover\n📺 Stream link below", "💀 Noobs fear me, pros respect me\n🎯 Competitive gaming | Tips & Tricks\n🔴 Watch live every night"],
-    lifestyle: ["🧘 Living slow, thinking deep\n💚 Wellness | Mindfulness | Self-love\n💬 DM for a chat", "💪 Health is wealth — invest wisely\n🥗 Fitness | Food | Mental peace\n🔗 My routine — link below", "🌅 Chasing sunsets & good vibes\n✈️ Travel | Cafe hopping | Life lessons\n🌟 Come along for the ride"],
+const BIOS_DATA: Record<string, string[]> = {
+    attitude: [
+        "🖤 King of my own rules 🔥\n👉 Make today so epic that yesterday gets jealous\n🔥 Hustle hard, dream big",
+        "👑 Success in my veins\n💎 I know I am right, no explanation needed\n⚡ Living life king size 😈",
+        "💯 King of my own rules 😎\n👉 I know I am right, no explanation needed\n🔥 No love, no pain",
+        "👑 I am limited edition, not a copy\n⚡ King of my own rules\n💯 No love, no pain 🦁",
+        "★ Living on my own terms ★\n✨ Your opinion doesn't define who I am\n🎯 No love, no pain 🖤",
+        "👑 VIP | King of my own rules\n⚡ Haters are my stepping stones\n🖤 Fearless mind 💎",
+        "⚡ Attitude is my nature | Be a game changer, the world is full of players | Living life king size 😈",
+        "💯 Leader of the pack | Be a game changer, the world is full of players | Hustle hard, dream big 🔥",
+        "⚔️ Living on my own terms | I know I am right, no explanation needed | Fearless mind 🚫",
+        "🦁 Rule breaker, game changer\n💎 Don't compare me to others, there's no competition\n⚡ Work hard in silence ⚡",
+        "👑 VIP | Born to stand out\n⚡ My life, my rules, my attitude\n🖤 No love, no pain 👑",
+        "👑 VIP | Attitude is my nature\n⚡ I know I am right, no explanation needed\n🖤 Fearless mind 🔥",
+        "👑 VIP | Leader of the pack\n⚡ Haters are my stepping stones\n🖤 Work hard in silence 🚫",
+        "👑 Not here to please everyone\n💎 Make today so epic that yesterday gets jealous\n⚡ Living life king size 🖤",
+        "🖤 Living on my own terms 😈\n👉 Make today so epic that yesterday gets jealous\n🔥 No love, no pain",
+        "👑 Focus on goals, not on people\n⚡ Not here to please everyone\n💯 No love, no pain 🚫",
+        "👑 VIP | King of my own rules\n⚡ Too busy building my empire\n🖤 Single but satisfied 💀",
+        "💯 Born to stand out ⚡\n👉 Too busy building my empire\n🔥 Work hard in silence",
+        "🖤 Unstoppable force 🚫\n👉 Focus on goals, not on people\n🔥 Born to rule",
+        "👑 Make today so epic that yesterday gets jealous\n⚡ Attitude is my nature\n💯 Hustle hard, dream big ⚡",
+        "💎 Classy but dangerous 💯\n👉 Your opinion doesn't define who I am\n🔥 Work hard in silence",
+        "😈 Silent but dominant | I know I am right, no explanation needed | Single but satisfied 🦁",
+        "😈 Respect is earned, not given\n💎 Focus on goals, not on people\n⚡ Fearless mind 🖤",
+        "🔥 Unstoppable force\n💎 Don't compare me to others, there's no competition\n⚡ Born to rule 💯",
+        "👑 Focus on goals, not on people\n⚡ King of my own rules\n💯 Living life king size ⚡",
+        "🦁 Not here to please everyone | Focus on goals, not on people | Work hard in silence 🌪️",
+        "👑 Hustle in silence, let success make the noise\n⚡ Respect is earned, not given\n💯 Single but satisfied ⚡",
+        "👑 Haters are my stepping stones\n⚡ Living on my own terms\n💯 Living life king size ⚔️",
+        "⚡ Rule breaker, game changer 🚀\n👉 I am limited edition, not a copy\n🔥 No love, no pain",
+        "💀 Respect is earned, not given\n💎 I am limited edition, not a copy\n⚡ Single but satisfied 🌪️",
+        "👑 VIP | King of my own rules\n⚡ I know I am right, no explanation needed\n🖤 Work hard in silence 💀",
+        "👑 Attitude is my nature | Don't compare me to others, there's no competition | Living life king size 😎",
+        "⚔️ Born to stand out 🚫\n👉 I am limited edition, not a copy\n🔥 Keep rolling your eyes",
+        "🖤 Living on my own terms\n💎 Haters are my stepping stones\n⚡ Hustle hard, dream big 🚫",
+        "👑 Too busy building my empire\n⚡ Unstoppable force\n💯 No love, no pain 🚀",
+        "★ Rule breaker, game changer ★\n✨ Focus on goals, not on people\n🎯 Work hard in silence ⚡",
+        "🦁 Born to stand out | Too busy building my empire | No love, no pain 🚫",
+        "💀 Classy but dangerous\n💎 I am limited edition, not a copy\n⚡ No love, no pain 😎",
+        "👑 Born to stand out 😎\n👉 Make today so epic that yesterday gets jealous\n🔥 Single but satisfied",
+        "👑 VIP | Leader of the pack\n⚡ I know I am right, no explanation needed\n🖤 No love, no pain 🔥",
+        "👑 I am limited edition, not a copy\n⚡ Attitude is my nature\n💯 Keep rolling your eyes 🖤",
+        "★ Silent but dominant ★\n✨ Too busy building my empire\n🎯 Born to rule 💎",
+        "👑 VIP | Born to stand out\n⚡ Focus on goals, not on people\n🖤 Fearless mind 👑",
+        "👑 Make today so epic that yesterday gets jealous\n⚡ Silent but dominant\n💯 Single but satisfied 💯",
+        "👑 My life, my rules, my attitude\n⚡ Born to stand out\n💯 Fearless mind 🖤",
+        "💀 Born to stand out 🌪️\n👉 Too busy building my empire\n🔥 No love, no pain",
+        "👑 VIP | Respect is earned, not given\n⚡ Your opinion doesn't define who I am\n🖤 Keep rolling your eyes 🦁",
+        "🚫 Born to stand out | Hustle in silence, let success make the noise | Living life king size 👑",
+        "🖤 King of my own rules 🦁\n👉 I know I am right, no explanation needed\n🔥 No love, no pain",
+        "💯 Silent but dominant | Too busy building my empire | Fearless mind 🚫",
+        "★ King of my own rules ★\n✨ Your opinion doesn't define who I am\n🎯 Hustle hard, dream big 😈",
+        "⚡ Success in my veins 💯\n👉 Make today so epic that yesterday gets jealous\n🔥 Born to rule",
+        "👑 My life, my rules, my attitude\n⚡ Attitude is my nature\n💯 Single but satisfied 👑",
+        "💀 King of my own rules\n💎 Don't compare me to others, there's no competition\n⚡ Born to rule 😎",
+        "🚀 Respect is earned, not given 🦁\n👉 My life, my rules, my attitude\n🔥 Living life king size",
+        "★ Born to stand out ★\n✨ Focus on goals, not on people\n🎯 No love, no pain 🔥",
+        "🔥 Attitude is my nature\n💎 Don't compare me to others, there's no competition\n⚡ Single but satisfied 💎",
+        "👑 VIP | Rule breaker, game changer\n⚡ Don't compare me to others, there's no competition\n🖤 Work hard in silence 🔥",
+        "👑 VIP | Success in my veins\n⚡ Be a game changer, the world is full of players\n🖤 No love, no pain 👑",
+        "★ Rule breaker, game changer ★\n✨ Focus on goals, not on people\n🎯 Hustle hard, dream big 💯",
+        "💀 Born to stand out\n💎 My life, my rules, my attitude\n⚡ Born to rule 🌪️",
+        "💎 Born to stand out\n💎 I am limited edition, not a copy\n⚡ No love, no pain 🔥",
+        "👑 VIP | Leader of the pack\n⚡ I know I am right, no explanation needed\n🖤 No love, no pain ⚡",
+        "⚡ Silent but dominant\n💎 I am limited edition, not a copy\n⚡ Hustle hard, dream big 😈",
+        "👑 My life, my rules, my attitude\n⚡ Living on my own terms\n💯 Hustle hard, dream big 🌪️",
+        "👑 I know I am right, no explanation needed\n⚡ Not here to please everyone\n💯 Living life king size 🔥",
+        "👑 Zero drama, 100% real\n⚡ Not here to please everyone\n💯 No love, no pain 🦁",
+        "💀 Rule breaker, game changer\n💎 Focus on goals, not on people\n⚡ Hustle hard, dream big 👑",
+        "👑 VIP | King of my own rules\n⚡ I know I am right, no explanation needed\n🖤 Fearless mind 🚫",
+        "😎 Leader of the pack 😎\n👉 Haters are my stepping stones\n🔥 Hustle hard, dream big",
+        "⚔️ Living on my own terms\n💎 Make today so epic that yesterday gets jealous\n⚡ Fearless mind 🚫",
+        "😎 Born to stand out\n💎 Make today so epic that yesterday gets jealous\n⚡ Keep rolling your eyes 🔥",
+        "★ Leader of the pack ★\n✨ Don't compare me to others, there's no competition\n🎯 Keep rolling your eyes 😎",
+        "👑 VIP | Not here to please everyone\n⚡ Be a game changer, the world is full of players\n🖤 Single but satisfied 😈",
+        "👑 VIP | Attitude is my nature\n⚡ Focus on goals, not on people\n🖤 Living life king size 👑",
+        "🌪️ Unstoppable force 🦁\n👉 Don't compare me to others, there's no competition\n🔥 Keep rolling your eyes",
+        "🚀 Respect is earned, not given 😈\n👉 Your opinion doesn't define who I am\n🔥 Single but satisfied",
+        "👑 VIP | Unstoppable force\n⚡ Focus on goals, not on people\n🖤 No love, no pain ⚔️",
+        "😈 Success in my veins | I know I am right, no explanation needed | Fearless mind 🌪️",
+        "👑 VIP | Attitude is my nature\n⚡ Too busy building my empire\n🖤 Born to rule 🚀",
+        "👑 Too busy building my empire\n⚡ Attitude is my nature\n💯 Single but satisfied ⚡",
+        "👑 VIP | Leader of the pack\n⚡ Zero drama, 100% real\n🖤 Living life king size 👑",
+        "💀 Living on my own terms | Your opinion doesn't define who I am | Work hard in silence 🖤",
+        "🔥 Respect is earned, not given | Don't compare me to others, there's no competition | Hustle hard, dream big ⚡",
+        "★ Unstoppable force ★\n✨ Be a game changer, the world is full of players\n🎯 Work hard in silence 🔥",
+        "👑 VIP | Born to stand out\n⚡ Your opinion doesn't define who I am\n🖤 No love, no pain 💎",
+        "👑 VIP | Unstoppable force\n⚡ My life, my rules, my attitude\n🖤 No love, no pain 😎",
+        "👑 Be a game changer, the world is full of players\n⚡ Rule breaker, game changer\n💯 Work hard in silence 💯",
+        "👑 Zero drama, 100% real\n⚡ Success in my veins\n💯 Hustle hard, dream big 🚀",
+        "💯 Unstoppable force\n💎 Make today so epic that yesterday gets jealous\n⚡ Hustle hard, dream big 💀",
+        "👑 Focus on goals, not on people\n⚡ Unstoppable force\n💯 Fearless mind 😈",
+        "★ Classy but dangerous ★\n✨ Don't compare me to others, there's no competition\n🎯 Hustle hard, dream big ⚔️",
+        "🦁 King of my own rules 🚀\n👉 Zero drama, 100% real\n🔥 Hustle hard, dream big",
+        "★ Classy but dangerous ★\n✨ Don't compare me to others, there's no competition\n🎯 Work hard in silence 💯",
+        "👑 Too busy building my empire\n⚡ Rule breaker, game changer\n💯 Born to rule 🚫",
+        "😈 Born to stand out | Zero drama, 100% real | Work hard in silence 🖤",
+        "🚀 Attitude is my nature 🌪️\n👉 Focus on goals, not on people\n🔥 Hustle hard, dream big",
+        "🌪️ Respect is earned, not given 👑\n👉 My life, my rules, my attitude\n🔥 Single but satisfied",
+        "👑 Hustle in silence, let success make the noise\n⚡ Born to stand out\n💯 Fearless mind 🚫",
+        "★ Success in my veins ★\n✨ Make today so epic that yesterday gets jealous\n🎯 Fearless mind 💎",
+        "💯 Respect is earned, not given | Focus on goals, not on people | Single but satisfied 👑",
+        "🌪️ Attitude is my nature | Haters are my stepping stones | Born to rule 💯",
+        "★ Born to stand out ★\n✨ Hustle in silence, let success make the noise\n🎯 Keep rolling your eyes 🦁",
+        "★ Living on my own terms ★\n✨ Don't compare me to others, there's no competition\n🎯 Work hard in silence 🖤",
+        "💎 Success in my veins\n💎 I am limited edition, not a copy\n⚡ Fearless mind 🚀",
+        "👑 VIP | Success in my veins\n⚡ Hustle in silence, let success make the noise\n🖤 Born to rule 🚫",
+        "👑 Zero drama, 100% real\n⚡ Rule breaker, game changer\n💯 Born to rule 🌪️",
+        "👑 Silent but dominant ⚡\n👉 I know I am right, no explanation needed\n🔥 Hustle hard, dream big",
+        "⚡ Leader of the pack 💀\n👉 I am limited edition, not a copy\n🔥 Living life king size",
+        "👑 Make today so epic that yesterday gets jealous\n⚡ Unstoppable force\n💯 Keep rolling your eyes 😈",
+        "👑 Unstoppable force\n💎 Your opinion doesn't define who I am\n⚡ Work hard in silence 🔥",
+        "★ King of my own rules ★\n✨ Too busy building my empire\n🎯 Fearless mind 🚫",
+        "★ Success in my veins ★\n✨ My life, my rules, my attitude\n🎯 Fearless mind 🌪️",
+        "😎 Not here to please everyone\n💎 Your opinion doesn't define who I am\n⚡ Fearless mind 💀",
+        "★ Living on my own terms ★\n✨ Don't compare me to others, there's no competition\n🎯 No love, no pain ⚔️",
+        "★ Unstoppable force ★\n✨ Hustle in silence, let success make the noise\n🎯 Single but satisfied 👑",
+        "★ Rule breaker, game changer ★\n✨ Your opinion doesn't define who I am\n🎯 Keep rolling your eyes 💀",
+        "😈 Living on my own terms\n💎 My life, my rules, my attitude\n⚡ Fearless mind 💎",
+        "💎 King of my own rules 🖤\n👉 I know I am right, no explanation needed\n🔥 Fearless mind",
+        "★ Respect is earned, not given ★\n✨ My life, my rules, my attitude\n🎯 Hustle hard, dream big 🚀",
+        "★ Silent but dominant ★\n✨ Be a game changer, the world is full of players\n🎯 Work hard in silence 💀",
+        "★ Unstoppable force ★\n✨ Zero drama, 100% real\n🎯 Living life king size ⚡",
+        "😎 Living on my own terms ⚔️\n👉 My life, my rules, my attitude\n🔥 Work hard in silence",
+        "🖤 Rule breaker, game changer 🔥\n👉 My life, my rules, my attitude\n🔥 Single but satisfied",
+        "👑 King of my own rules 🚀\n👉 Don't compare me to others, there's no competition\n🔥 Keep rolling your eyes",
+        "★ Rule breaker, game changer ★\n✨ I know I am right, no explanation needed\n🎯 No love, no pain 😈",
+        "⚔️ Leader of the pack ⚡\n👉 Haters are my stepping stones\n🔥 Living life king size",
+        "⚡ Classy but dangerous\n💎 My life, my rules, my attitude\n⚡ Hustle hard, dream big 🔥",
+        "🖤 Unstoppable force | Make today so epic that yesterday gets jealous | No love, no pain 💯",
+        "👑 Too busy building my empire\n⚡ Rule breaker, game changer\n💯 Living life king size 💎",
+        "🌪️ Rule breaker, game changer\n💎 Don't compare me to others, there's no competition\n⚡ Living life king size ⚡",
+        "👑 I am limited edition, not a copy\n⚡ Leader of the pack\n💯 Fearless mind 🌪️",
+        "💀 Living on my own terms | Focus on goals, not on people | Work hard in silence 🔥",
+        "👑 VIP | Silent but dominant\n⚡ I know I am right, no explanation needed\n🖤 Fearless mind 🚀",
+        "★ Silent but dominant ★\n✨ Make today so epic that yesterday gets jealous\n🎯 Keep rolling your eyes 🖤",
+        "😈 Living on my own terms\n💎 Focus on goals, not on people\n⚡ Hustle hard, dream big ⚔️",
+        "👑 Hustle in silence, let success make the noise\n⚡ Silent but dominant\n💯 Fearless mind 🌪️",
+        "👑 VIP | Leader of the pack\n⚡ Too busy building my empire\n🖤 Living life king size 💎",
+        "👑 VIP | Silent but dominant\n⚡ Don't compare me to others, there's no competition\n🖤 Fearless mind 🚫",
+        "😎 Leader of the pack 🚫\n👉 Haters are my stepping stones\n🔥 Born to rule",
+        "💀 Not here to please everyone\n💎 Be a game changer, the world is full of players\n⚡ Hustle hard, dream big 🌪️",
+        "⚔️ Living on my own terms | My life, my rules, my attitude | No love, no pain ⚡",
+        "👑 Hustle in silence, let success make the noise\n⚡ Unstoppable force\n💯 No love, no pain 👑",
+        "🚫 Success in my veins | Hustle in silence, let success make the noise | Born to rule 🖤",
+        "👑 VIP | Attitude is my nature\n⚡ Your opinion doesn't define who I am\n🖤 No love, no pain 🔥",
+        "★ Leader of the pack ★\n✨ Hustle in silence, let success make the noise\n🎯 Work hard in silence 🖤",
+        "👑 VIP | Leader of the pack\n⚡ Be a game changer, the world is full of players\n🖤 Born to rule ⚔️",
+        "👑 VIP | Attitude is my nature\n⚡ I know I am right, no explanation needed\n🖤 No love, no pain ⚡",
+        "🔥 Living on my own terms ⚔️\n👉 Make today so epic that yesterday gets jealous\n🔥 Keep rolling your eyes",
+        "👑 Silent but dominant | Zero drama, 100% real | Hustle hard, dream big ⚔️",
+        "🚀 Not here to please everyone 👑\n👉 Too busy building my empire\n🔥 Work hard in silence",
+        "👑 VIP | Success in my veins\n⚡ I am limited edition, not a copy\n🖤 Keep rolling your eyes ⚡",
+        "👑 Zero drama, 100% real\n⚡ Living on my own terms\n💯 Keep rolling your eyes 😎",
+        "🚀 Silent but dominant\n💎 I know I am right, no explanation needed\n⚡ Single but satisfied 🌪️",
+        "⚡ Silent but dominant 🚫\n👉 Hustle in silence, let success make the noise\n🔥 Work hard in silence",
+        "★ Silent but dominant ★\n✨ I know I am right, no explanation needed\n🎯 Living life king size 😎",
+        "🚫 Classy but dangerous 🔥\n👉 Focus on goals, not on people\n🔥 Single but satisfied",
+        "😈 Classy but dangerous 🌪️\n👉 Zero drama, 100% real\n🔥 Living life king size",
+        "🔥 Unstoppable force\n💎 Don't compare me to others, there's no competition\n⚡ No love, no pain 🦁",
+        "👑 VIP | Silent but dominant\n⚡ Zero drama, 100% real\n🖤 Fearless mind 💯",
+        "💎 King of my own rules 💎\n👉 Don't compare me to others, there's no competition\n🔥 Living life king size",
+        "🖤 Not here to please everyone 👑\n👉 Focus on goals, not on people\n🔥 Living life king size",
+        "👑 Living on my own terms | I know I am right, no explanation needed | Keep rolling your eyes 😈",
+        "👑 VIP | Success in my veins\n⚡ Don't compare me to others, there's no competition\n🖤 Born to rule 💯",
+        "👑 Make today so epic that yesterday gets jealous\n⚡ Not here to please everyone\n💯 Hustle hard, dream big 😎",
+        "👑 VIP | Born to stand out\n⚡ Focus on goals, not on people\n🖤 No love, no pain 🚀",
+        "★ Rule breaker, game changer ★\n✨ Don't compare me to others, there's no competition\n🎯 No love, no pain 🌪️",
+        "👑 VIP | Attitude is my nature\n⚡ Focus on goals, not on people\n🖤 Keep rolling your eyes 🔥",
+        "👑 VIP | Born to stand out\n⚡ My life, my rules, my attitude\n🖤 Keep rolling your eyes 🚀",
+        "💎 Classy but dangerous | Zero drama, 100% real | Born to rule ⚔️",
+        "👑 VIP | Not here to please everyone\n⚡ Make today so epic that yesterday gets jealous\n🖤 Fearless mind 🚫",
+        "🦁 Silent but dominant\n💎 Hustle in silence, let success make the noise\n⚡ Living life king size 🦁",
+    ],
+    stylish: [
+        "👑 VIP | 『Tʀᴇɴᴅ Sᴇᴛᴛᴇʀ』\n⚡ Chasing dreams in high style\n🖤 Golden vibes ✨",
+        "✨ ⚡ 匚尺乇卂ㄒ丨Order ⚡\n💎 Creating my own trend\n⚡ Golden vibes 🌟",
+        "✨  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡  | Be your own kind of beautiful | Golden vibes 👟",
+        "👑 Make them stop and stare\n⚡ ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n💯 Golden vibes 👟",
+        "👑 Living my life in HD\n⚡ ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n💯 Classic look 🖤",
+        "★ 『Sɪᴍᴘʟᴇ Yᴇᴛ Cʟᴀssʏ』 ★\n✨ Make them stop and stare\n🎯 Unique soul 🕶️",
+        "👑 VIP |  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡 \n⚡ Style is a reflection of your attitude\n🖤 Vibe creator 🎩",
+        "★ 【﻿Ｄｒｅａｍ　Ｂｉｇ】 ★\n✨ Be your own kind of beautiful\n🎯 Premium life 👑",
+        "🕶️ ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️ | Classic and gold lifestyle | Classic look 👟",
+        "🎩 ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛\n💎 Style is a reflection of your attitude\n⚡ Classic look 🎀",
+        "★  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡  ★\n✨ Fashion fades, style is eternal\n🎯 Classic look 🕶️",
+        "★ ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️ ★\n✨ Chasing dreams in high style\n🎯 Golden vibes ✨",
+        "🎭 ★彡 [Sᴛʏʟɪsʜ Bᴏʏ] 彡★\n💎 Simplicity is the ultimate sophistication\n⚡ Unique soul 🖤",
+        "💫 【﻿Ｄｒｅａｍ　Ｂｉｇ】 | A classy man is always in style | Classic look 🎀",
+        "✨ ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★ 🎭\n👉 Simplicity is the ultimate sophistication\n🔥 Premium life",
+        "🎀 ★彡 [Sᴛʏʟɪsʜ Bᴏʏ] 彡★ | Fashion fades, style is eternal | Classic look 🔮",
+        "👑 Make them stop and stare\n⚡ 『Sɪᴍᴘʟᴇ Yᴇᴛ Cʟᴀssʏ』\n💯 Trend setter 💎",
+        "🕶️ 【﻿Ｄｒｅａｍ　Ｂｉｇ】\n💎 A classy man is always in style\n⚡ Unique soul 💫",
+        "🎨  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨  🎀\n👉 Make them stop and stare\n🔥 Classic look",
+        "🖤 ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n💎 Elegant mind, stylish soul\n⚡ Vibe creator 🔮",
+        "★ ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░ ★\n✨ Style is a reflection of your attitude\n🎯 Unique soul 🔮",
+        "👑 VIP | ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️\n⚡ Be your own kind of beautiful\n🖤 Trend setter 🎩",
+        "★ ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★ ★\n✨ Living my life in HD\n🎯 Premium life 🎨",
+        "👑 VIP | 【﻿Ｄｒｅａｍ　Ｂｉｇ】\n⚡ Fashion fades, style is eternal\n🖤 Classic look 🕶️",
+        "👑 VIP | ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️\n⚡ Elegant mind, stylish soul\n🖤 Classic look 🎩",
+        "★ 『Tʀᴇɴᴅ Sᴇᴛᴛᴇʀ』 ★\n✨ Simplicity is the ultimate sophistication\n🎯 Golden vibes 🕶️",
+        "👑 Classic and gold lifestyle\n⚡  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨 \n💯 Unique soul 💎",
+        "👑 Elegant mind, stylish soul\n⚡  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨 \n💯 Premium life 🖤",
+        "💫 ★彡 [Sᴛʏʟɪsʜ Bᴏʏ] 彡★\n💎 Dressing well is a form of good manners\n⚡ Golden vibes 🖤",
+        "🎩 『Sɪᴍᴘʟᴇ Yᴇᴛ Cʟᴀssʏ』\n💎 Make them stop and stare\n⚡ Trend setter 🕶️",
+        "👑 Dressing well is a form of good manners\n⚡ 『Tʀᴇɴᴅ Sᴇᴛᴛᴇʀ』\n💯 Classic look 🖤",
+        "💫 【﻿Ｄｒｅａｍ　Ｂｉｇ】\n💎 Be your own kind of beautiful\n⚡ Unique soul 🌟",
+        "👑 Style is a reflection of your attitude\n⚡  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡 \n💯 Unique soul 🎨",
+        "👑 Chasing dreams in high style\n⚡  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨 \n💯 Premium life 🕶️",
+        "👟 ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️ | Classic and gold lifestyle | Golden vibes 🖤",
+        "👑 Be your own kind of beautiful\n⚡  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡 \n💯 Vibe creator 💎",
+        "🌟 『Sɪᴍᴘʟᴇ Yᴇᴛ Cʟᴀssʏ』 | Creating my own trend | Premium life 👑",
+        "🖤 『Tʀᴇɴᴅ Sᴇᴛᴛᴇʀ』 | Be your own kind of beautiful | Trend setter 💫",
+        "👑 VIP | ★彡 [Sᴛʏʟɪsʜ Bᴏʏ] 彡★\n⚡ Be your own kind of beautiful\n🖤 Unique soul 🎩",
+        "👑 ⚡ 匚尺乇卂ㄒ丨Order ⚡\n💎 Fashion fades, style is eternal\n⚡ Classic look 💫",
+        "🎭 ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░ | Dressing well is a form of good manners | Vibe creator 👟",
+        "⚜️  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨  🕶️\n👉 Living my life in HD\n🔥 Premium life",
+        "👑 Simplicity is the ultimate sophistication\n⚡ ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n💯 Classic look 🖤",
+        "★ ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨ ★\n✨ Creating my own trend\n🎯 Trend setter 🎀",
+        "★ ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️ ★\n✨ Dressing well is a form of good manners\n🎯 Trend setter 🎀",
+        "👑 Creating my own trend\n⚡ ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨\n💯 Classic look 🎩",
+        "★ ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨ ★\n✨ Simplicity is the ultimate sophistication\n🎯 Classic look 🎀",
+        "🌟  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨 \n💎 Living my life in HD\n⚡ Unique soul 💎",
+        "★ ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨ ★\n✨ Classic and gold lifestyle\n🎯 Premium life 🎀",
+        "🎀 ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★ | Creating my own trend | Premium life ✨",
+        "⚜️ 【﻿Ｄｒｅａｍ　Ｂｉｇ】\n💎 Be your own kind of beautiful\n⚡ Vibe creator 🎨",
+        "👟 ⚡ 匚尺乇卂ㄒ丨Order ⚡\n💎 Creating my own trend\n⚡ Vibe creator 🎩",
+        "🎀 『Tʀᴇɴᴅ Sᴇᴛᴛᴇʀ』 🎭\n👉 Creating my own trend\n🔥 Premium life",
+        "👑 VIP |  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡 \n⚡ Creating my own trend\n🖤 Trend setter 🎭",
+        "👑 Living my life in HD\n⚡ ★彡 [Sᴛʏʟɪsʜ Bᴏʏ] 彡★\n💯 Unique soul 👟",
+        "★ ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨ ★\n✨ Chasing dreams in high style\n🎯 Premium life 💫",
+        "💫 ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n💎 Fashion fades, style is eternal\n⚡ Unique soul 💎",
+        "👑 VIP | ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n⚡ Be your own kind of beautiful\n🖤 Classic look 🔮",
+        "🎨 ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛ | Style is a reflection of your attitude | Classic look 🕶️",
+        "👑 Creating my own trend\n⚡ ⚡ 匚尺乇卂ㄒ丨Order ⚡\n💯 Premium life 💫",
+        "★ ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️ ★\n✨ Chasing dreams in high style\n🎯 Trend setter 👑",
+        "👑 VIP | ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️\n⚡ Style is a reflection of your attitude\n🖤 Classic look ✨",
+        "★  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡  ★\n✨ Be your own kind of beautiful\n🎯 Golden vibes 🎭",
+        "🕶️ ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛ 🎭\n👉 Style is a reflection of your attitude\n🔥 Premium life",
+        "🖤 ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★\n💎 Fashion fades, style is eternal\n⚡ Unique soul ✨",
+        "👑 Creating my own trend\n⚡ 『Sɪᴍᴘʟᴇ Yᴇᴛ Cʟᴀssʏ』\n💯 Classic look 💎",
+        "🎀  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨  | Style is a reflection of your attitude | Vibe creator 🎭",
+        "✨ 【﻿Ｄｒｅａｍ　Ｂｉｇ】 🎀\n👉 Style is a reflection of your attitude\n🔥 Trend setter",
+        "👑 Make them stop and stare\n⚡  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨 \n💯 Unique soul 🔮",
+        "👑 Elegant mind, stylish soul\n⚡ ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️\n💯 Golden vibes 🎨",
+        "★  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨  ★\n✨ Creating my own trend\n🎯 Trend setter 🎨",
+        "👑 VIP | ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨\n⚡ Classic and gold lifestyle\n🖤 Premium life ⚜️",
+        "💎 【﻿Ｄｒｅａｍ　Ｂｉｇ】 | Simplicity is the ultimate sophistication | Unique soul 🖤",
+        "🎭 ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️ | Creating my own trend | Unique soul 🎩",
+        "👑 ⚡ 匚尺乇卂ㄒ丨Order ⚡ | Style is a reflection of your attitude | Classic look 🎀",
+        "🎭  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡  | Creating my own trend | Golden vibes 💎",
+        "✨ ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛\n💎 Simplicity is the ultimate sophistication\n⚡ Vibe creator 👟",
+        "💎 ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️ 🌟\n👉 Simplicity is the ultimate sophistication\n🔥 Golden vibes",
+        "🕶️ ⚡ 匚尺乇卂ㄒ丨Order ⚡\n💎 Chasing dreams in high style\n⚡ Vibe creator 🕶️",
+        "👑 VIP | ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n⚡ Dressing well is a form of good manners\n🖤 Golden vibes ✨",
+        "👟 『Sɪᴍᴘʟᴇ Yᴇᴛ Cʟᴀssʏ』 💫\n👉 Creating my own trend\n🔥 Trend setter",
+        "✨ ⚡ 匚尺乇卂ㄒ丨Order ⚡ | Living my life in HD | Unique soul 🎩",
+        "★ ★彡 [Sᴛʏʟɪsʜ Bᴏʏ] 彡★ ★\n✨ Dressing well is a form of good manners\n🎯 Premium life 💫",
+        "★ 『Tʀᴇɴᴅ Sᴇᴛᴛᴇʀ』 ★\n✨ Style is a reflection of your attitude\n🎯 Classic look 🔮",
+        "★ ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️ ★\n✨ Living my life in HD\n🎯 Trend setter 👟",
+        "👑 Classic and gold lifestyle\n⚡ ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★\n💯 Premium life 🔮",
+        "🔮 【﻿Ｄｒｅａｍ　Ｂｉｇ】 | Creating my own trend | Trend setter 🎀",
+        "🖤  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨  | Elegant mind, stylish soul | Premium life 🕶️",
+        "👑 VIP | 【﻿Ｄｒｅａｍ　Ｂｉｇ】\n⚡ Style is a reflection of your attitude\n🖤 Trend setter 🖤",
+        "⚜️ 『Sɪᴍᴘʟᴇ Yᴇᴛ Cʟᴀssʏ』\n💎 Dressing well is a form of good manners\n⚡ Unique soul 💫",
+        "★ ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️ ★\n✨ A classy man is always in style\n🎯 Unique soul 🎭",
+        "⚜️ ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨\n💎 Make them stop and stare\n⚡ Golden vibes 🔮",
+        "👑 Style is a reflection of your attitude\n⚡ 『Tʀᴇɴᴅ Sᴇᴛᴛᴇʀ』\n💯 Premium life 👑",
+        "★ 『Tʀᴇɴᴅ Sᴇᴛᴛᴇʀ』 ★\n✨ Simplicity is the ultimate sophistication\n🎯 Classic look 👟",
+        "★ ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛ ★\n✨ Make them stop and stare\n🎯 Classic look 💎",
+        "👑 Elegant mind, stylish soul\n⚡ ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛\n💯 Unique soul 🎨",
+        "🎀 ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░ | Creating my own trend | Classic look 🎩",
+        "🌟 『Sɪᴍᴘʟᴇ Yᴇᴛ Cʟᴀssʏ』 | Style is a reflection of your attitude | Classic look 🕶️",
+        "🎨 ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛ | Dressing well is a form of good manners | Golden vibes 🎨",
+        "⚜️ ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️ | Chasing dreams in high style | Premium life 🔮",
+        "👑  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡  | Elegant mind, stylish soul | Premium life 🎩",
+        "🎀 ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨\n💎 Chasing dreams in high style\n⚡ Trend setter ⚜️",
+        "🔮 ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░ 💎\n👉 Creating my own trend\n🔥 Classic look",
+        "🕶️ ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛ | Fashion fades, style is eternal | Unique soul 🌟",
+        "👟 ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★\n💎 Simplicity is the ultimate sophistication\n⚡ Classic look 🎀",
+        "👑 Living my life in HD\n⚡ ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★\n💯 Premium life 👟",
+        "👑 VIP | ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★\n⚡ Creating my own trend\n🖤 Premium life 🔮",
+        "👑 VIP | ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨\n⚡ A classy man is always in style\n🖤 Unique soul ✨",
+        "👑 Dressing well is a form of good manners\n⚡ ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n💯 Golden vibes 🎩",
+        "👑 ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░ | A classy man is always in style | Premium life 🌟",
+        "★ ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️ ★\n✨ Simplicity is the ultimate sophistication\n🎯 Classic look 🌟",
+        "👑 Chasing dreams in high style\n⚡ ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n💯 Unique soul 🖤",
+        "🎩 ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★ | Living my life in HD | Trend setter 👟",
+        "💫 ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★ | Classic and gold lifestyle | Premium life 💫",
+        "🎀  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡 \n💎 Elegant mind, stylish soul\n⚡ Classic look 🖤",
+        "🖤 ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨ | Simplicity is the ultimate sophistication | Golden vibes 👑",
+        "👑 Be your own kind of beautiful\n⚡ 『Sɪᴍᴘʟᴇ Yᴇᴛ Cʟᴀssʏ』\n💯 Premium life 🎩",
+        "⚜️ ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️ | Creating my own trend | Unique soul 🖤",
+        "💎 ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★ 👑\n👉 Classic and gold lifestyle\n🔥 Trend setter",
+        "👑 VIP | ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n⚡ Be your own kind of beautiful\n🖤 Unique soul 🎀",
+        "🌟 【﻿Ｄｒｅａｍ　Ｂｉｇ】 ✨\n👉 A classy man is always in style\n🔥 Classic look",
+        "💫 ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️\n💎 A classy man is always in style\n⚡ Vibe creator 👑",
+        "★  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡  ★\n✨ Chasing dreams in high style\n🎯 Trend setter 🔮",
+        "★ ★彡 [Sᴛʏʟɪsʜ Bᴏʏ] 彡★ ★\n✨ Elegant mind, stylish soul\n🎯 Trend setter 🕶️",
+        "🌟 ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛\n💎 Living my life in HD\n⚡ Classic look 🕶️",
+        "👑  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡  | Elegant mind, stylish soul | Unique soul 🎨",
+        "★ ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛ ★\n✨ Dressing well is a form of good manners\n🎯 Golden vibes 👑",
+        "🕶️ ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛ | Style is a reflection of your attitude | Classic look 🎨",
+        "💎 ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★ | Elegant mind, stylish soul | Golden vibes 👑",
+        "👑 ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨ 🕶️\n👉 A classy man is always in style\n🔥 Unique soul",
+        "👑 Style is a reflection of your attitude\n⚡ ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n💯 Golden vibes 🎩",
+        "👑 VIP | ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️\n⚡ Simplicity is the ultimate sophistication\n🖤 Unique soul 🌟",
+        "🎨  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡  | Dressing well is a form of good manners | Vibe creator 🕶️",
+        "💫 ⚡ 匚尺乇卂ㄒ丨Order ⚡ 🎀\n👉 Dressing well is a form of good manners\n🔥 Golden vibes",
+        "👑 Style is a reflection of your attitude\n⚡  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡 \n💯 Vibe creator 👟",
+        "👑 Living my life in HD\n⚡ ★ 𝘚𝘪𝘮𝘱𝘭𝘦 & 𝘜𝘯𝘪𝘲𝘶𝘦 ★\n💯 Classic look 🖤",
+        "👑 Living my life in HD\n⚡  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡 \n💯 Unique soul ⚜️",
+        "★ 【﻿Ｄｒｅａｍ　Ｂｉｇ】 ★\n✨ Style is a reflection of your attitude\n🎯 Classic look 🎩",
+        "👑 VIP | ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨\n⚡ Living my life in HD\n🖤 Trend setter 🎭",
+        "🔮 ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨ | Make them stop and stare | Classic look 🌟",
+        "✨ ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨ | Style is a reflection of your attitude | Premium life 🎩",
+        "⚜️ ☠️ 𝕯𝖆𝖗𝖐 𝕾𝖔𝖚𝖑 ☠️\n💎 Elegant mind, stylish soul\n⚡ Classic look ⚜️",
+        "🔮 『Tʀᴇɴᴅ Sᴇᴛᴛᴇʀ』\n💎 Classic and gold lifestyle\n⚡ Classic look 👟",
+        "🎭 ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛\n💎 Living my life in HD\n⚡ Classic look 💎",
+        "👑 Style is a reflection of your attitude\n⚡ 【﻿Ｄｒｅａｍ　Ｂｉｇ】\n💯 Unique soul 💫",
+        "🌟  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡  🔮\n👉 Dressing well is a form of good manners\n🔥 Trend setter",
+        "🎨 【﻿Ｄｒｅａｍ　Ｂｉｇ】\n💎 Fashion fades, style is eternal\n⚡ Golden vibes 🖤",
+        "★ ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛ ★\n✨ Be your own kind of beautiful\n🎯 Classic look 💫",
+        "👑 Living my life in HD\n⚡  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡 \n💯 Trend setter 👟",
+        "🎭 『Sɪᴍᴘʟᴇ Yᴇᴛ Cʟᴀssʏ』\n💎 Chasing dreams in high style\n⚡ Trend setter 🎩",
+        "👑 Be your own kind of beautiful\n⚡ ✨ 𝕃𝕚𝕧𝕚𝕟𝕘 𝕞𝕪 𝕓𝕖𝕤𝕥 𝕝𝕚𝕗𝕖 ✨\n💯 Premium life 🎭",
+        "⚜️ ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n💎 Chasing dreams in high style\n⚡ Trend setter 🕶️",
+        "👑 Be your own kind of beautiful\n⚡ ♛ 𝓚𝓲𝓷𝓰 𝓞𝓯 𝓗𝓮𝓪𝓻𝓽𝓼 ♛\n💯 Premium life 🎭",
+        "🎭 ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░ | Living my life in HD | Premium life 👑",
+        "🎀  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨  🔮\n👉 Creating my own trend\n🔥 Unique soul",
+        "🎭 『Tʀᴇɴᴅ Sᴇᴛᴛᴇʀ』 | Creating my own trend | Golden vibes 🎨",
+        "🎭  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨  | Fashion fades, style is eternal | Unique soul 🎭",
+        "★ ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░ ★\n✨ Simplicity is the ultimate sophistication\n🎯 Unique soul 🎩",
+        "👑 VIP | ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n⚡ Dressing well is a form of good manners\n🖤 Trend setter 💎",
+        "👑 Fashion fades, style is eternal\n⚡ 『Sɪᴍᴘʟᴇ Yᴇᴛ Cʟᴀssʏ』\n💯 Golden vibes 🕶️",
+        "🔮  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡  ✨\n👉 Chasing dreams in high style\n🔥 Golden vibes",
+        "👑 Dressing well is a form of good manners\n⚡ ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n💯 Vibe creator ⚜️",
+        "👟 ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░ | A classy man is always in style | Classic look ⚜️",
+        "★  🅕🅐🅢🅗🅘🅞🅝 🅛🅞🅥🅔🅡  ★\n✨ A classy man is always in style\n🎯 Vibe creator 👑",
+        "⚜️ 『Tʀᴇɴᴅ Sᴇᴛᴛᴇʀ』\n💎 Make them stop and stare\n⚡ Vibe creator 🎀",
+        "👑 Simplicity is the ultimate sophistication\n⚡ 【﻿Ｄｒｅａｍ　Ｂｉｇ】\n💯 Unique soul 💎",
+        "⚜️ 【﻿Ｄｒｅａｍ　Ｂｉｇ】\n💎 Be your own kind of beautiful\n⚡ Classic look 🖤",
+        "🔮 ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░ 👑\n👉 Simplicity is the ultimate sophistication\n🔥 Golden vibes",
+        "👑 VIP | ★彡 [Sᴛʏʟɪsʜ Bᴏʏ] 彡★\n⚡ Creating my own trend\n🖤 Classic look 🕶️",
+        "👑 VIP | 『Tʀᴇɴᴅ Sᴇᴛᴛᴇʀ』\n⚡ Fashion fades, style is eternal\n🖤 Trend setter 🔮",
+        "🌟 ░▒▓█ Kɪɴɢ ᴏғ Hᴇᴀʀᴛs █▓▒░\n💎 Be your own kind of beautiful\n⚡ Classic look 👟",
+        "★  🅢🅣🅨🅛🅘🅢🅗 🅑🅞🅨  ★\n✨ Style is a reflection of your attitude\n🎯 Vibe creator 💫",
+    ],
+    vip: [
+        "🍾 Premium Profile ✔️\n💎 Cake Murder on 5th Dec\n⚡ Living high class 👑",
+        "👑 VIP (2006) | Royal (Est. 14th Feb) Blood Certified\n⚡ High standards, high status\n🖤 VIP (2006) Account ✔️ 🥂",
+        "★ VIP (2003) Entry On 18 May ★\n✨ Cake Murder on 5th Dec\n🎯 Single since birth 🤝",
+        "🤝 Exclusive Access Only | Believer in actions, not words | Black Lover 🔥",
+        "🌟 VIP (2007) Entry On 18 May\n💎 Creating a legacy of success\n⚡ Gold Member ✔️",
+        "👑 King of VIP (2004) Lifestyle | High standards, high status | Single since birth 🤝",
+        "★ Exclusive Access Only ★\n✨ Living life like a king\n🎯 VIP (2009) Account ✔️ 🥂",
+        "★ Verified VIP (2010) Member ★\n✨ Hustling to build an empire\n🎯 Single since birth 👑",
+        "👑 Hustling to build an empire\n⚡ Premium Profile ✔️\n💯 Gold Member 🍾",
+        "★ Official VIP (2007) Account ★\n✨ VIP (2007) attitude, humble heart\n🎯 Exclusive Vibe 🍾",
+        "🍾 Official VIP (2004) Account | Smart work beats hard work | Exclusive Vibe 🌟",
+        "👑 VIP (2001) | Royal (Est. 5th March) VIP (2001) Profile\n⚡ Surrounded by royalty and respect\n🖤 Gold Member 🔥",
+        "👑 Hustling to build an empire\n⚡ Royal (Est. 18th Aug) Blood Certified\n💯 Exclusive Vibe 🍾",
+        "★ VIP (2005) Entry On 18 May ★\n✨ Living life like a king\n🎯 Gold Member 🏢",
+        "👑 VIP (2007) | Verified VIP (2007) Member\n⚡ Cake Murder on 5th Dec\n🖤 Single since birth ✔️",
+        "👑 Love my friends, hate fake people\n⚡ Exclusive Access Only\n💯 VIP (2005) Account ✔️ 🖤",
+        "🍾 Official VIP (2007) Account | Smart work beats hard work | Single since birth 🖤",
+        "🥂 Exclusive Access Only 🔥\n👉 VIP (2008) attitude, humble heart\n🔥 Single since birth",
+        "★ King of VIP (2007) Lifestyle ★\n✨ Living life like a king\n🎯 Gold Member 🍾",
+        "👑 VIP (2002) | VIP (2002) Entry On 18 May\n⚡ Creating a legacy of success\n🖤 Single since birth ⌚",
+        "🍾 King of VIP (2007) Lifestyle\n💎 Love my friends, hate fake people\n⚡ Living high class 🏢",
+        "💎 Exclusive Access Only | Smart work beats hard work | Living high class 🔥",
+        "👑 Cake Murder on 5th Dec\n⚡ King of VIP (2007) Lifestyle\n💯 VIP (2007) Account ✔️ ⌚",
+        "🍾 VIP (2008) Entry On 18 May\n💎 Cake Murder on 5th Dec\n⚡ Royal (Est. 15th Nov) Entry 1 Jan 🚗",
+        "👑 High standards, high status\n⚡ Royal (Est. 15th June) VIP (2006) Profile\n💯 Exclusive Vibe 👑",
+        "👑 Surrounded by royalty and respect\n⚡ Official VIP (2006) Account\n💯 Royal (Est. 18th Aug) Entry 1 Jan 🥂",
+        "🍾 Royal (Est. 15th June) VIP (2007) Profile\n💎 Surrounded by royalty and respect\n⚡ Royal (Est. 15th June) Entry 1 Jan 💸",
+        "🍾 King of VIP (2003) Lifestyle | High standards, high status | VIP (2003) Account ✔️ 🏢",
+        "👑 VIP (2008) | Premium Profile ✔️\n⚡ Creating a legacy of success\n🖤 VIP (2008) Account ✔️ 💸",
+        "✔️ King of VIP (2002) Lifestyle | Believer in actions, not words | Royal (Est. 5th March) Entry 1 Jan ⌚",
+        "👑 Living life like a king\n⚡ Exclusive Access Only\n💯 Exclusive Vibe 💸",
+        "🔥 King of VIP (2003) Lifestyle 👑\n👉 Love my friends, hate fake people\n🔥 Exclusive Vibe",
+        "🤝 Verified VIP (2008) Member 🍾\n👉 Living life like a king\n🔥 Royal (Est. 18th April) Entry 1 Jan",
+        "👑 Royal (Est. 5th March) Blood Certified\n💎 Believer in actions, not words\n⚡ Exclusive Vibe 🍾",
+        "👑 VIP (2009) attitude, humble heart\n⚡ King of VIP (2009) Lifestyle\n💯 Gold Member 👑",
+        "🥂 Premium Profile ✔️ 🤝\n👉 Surrounded by royalty and respect\n🔥 VIP (2002) Account ✔️",
+        "💸 Royal (Est. 15th Nov) Blood Certified\n💎 Hustling to build an empire\n⚡ Exclusive Vibe 💸",
+        "💎 VIP (2009) Entry On 18 May | VIP (2009) attitude, humble heart | Black Lover 🤝",
+        "👑 Hustling to build an empire\n⚡ VIP (2006) Entry On 18 May\n💯 Single since birth 💎",
+        "👑 Love my friends, hate fake people\n⚡ Royal (Est. 5th Sept) VIP (2005) Profile\n💯 Royal (Est. 5th Sept) Entry 1 Jan 🚗",
+        "💎 King of VIP (2003) Lifestyle | Surrounded by royalty and respect | Black Lover 🏢",
+        "⌚ VIP (2010) Entry On 18 May\n💎 Hustling to build an empire\n⚡ Gold Member ⌚",
+        "🍾 Official VIP (2010) Account | Cake Murder on 5th Dec | VIP (2010) Account ✔️ 🖤",
+        "🌟 Verified VIP (2001) Member\n💎 Surrounded by royalty and respect\n⚡ Living high class 🏢",
+        "💸 King of VIP (2007) Lifestyle 🏢\n👉 Love my friends, hate fake people\n🔥 Living high class",
+        "★ Royal (Est. 22nd July) VIP (2008) Profile ★\n✨ Cake Murder on 5th Dec\n🎯 Royal (Est. 22nd July) Entry 1 Jan 🌟",
+        "👑 VIP (2006) | Royal (Est. 25th Dec) Blood Certified\n⚡ Surrounded by royalty and respect\n🖤 Royal (Est. 25th Dec) Entry 1 Jan 💸",
+        "👑 VIP (2009) | Royal (Est. 5th Sept) Blood Certified\n⚡ VIP (2009) attitude, humble heart\n🖤 Royal (Est. 5th Sept) Entry 1 Jan 🔥",
+        "👑 VIP (2004) | Verified VIP (2004) Member\n⚡ Believer in actions, not words\n🖤 VIP (2004) Account ✔️ 👑",
+        "💎 Official VIP (2004) Account\n💎 Love my friends, hate fake people\n⚡ Living high class 👑",
+        "👑 VIP (2003) | Royal (Est. 18th April) Blood Certified\n⚡ Surrounded by royalty and respect\n🖤 Gold Member 🖤",
+        "★ Exclusive Access Only ★\n✨ Believer in actions, not words\n🎯 Single since birth 💸",
+        "🥂 Exclusive Access Only\n💎 High standards, high status\n⚡ Royal (Est. 15th June) Entry 1 Jan 🚗",
+        "👑 Surrounded by royalty and respect\n⚡ Exclusive Access Only\n💯 Exclusive Vibe 👑",
+        "🌟 Official VIP (2006) Account 🚗\n👉 Living life like a king\n🔥 Living high class",
+        "🤝 Royal (Est. 12th Oct) Blood Certified | Cake Murder on 5th Dec | Living high class 🥂",
+        "✔️ King of VIP (2009) Lifestyle\n💎 Living life like a king\n⚡ Living high class 🍾",
+        "★ Royal (Est. 15th June) VIP (2006) Profile ★\n✨ Hustling to build an empire\n🎯 VIP (2006) Account ✔️ 🌟",
+        "🚗 VIP (2009) Entry On 18 May\n💎 High standards, high status\n⚡ Black Lover 🍾",
+        "👑 VIP (2009) | Official VIP (2009) Account\n⚡ Hustling to build an empire\n🖤 Gold Member 👑",
+        "👑 VIP (2007) | VIP (2007) Entry On 18 May\n⚡ Smart work beats hard work\n🖤 Black Lover 💸",
+        "⌚ King of VIP (2009) Lifestyle\n💎 Surrounded by royalty and respect\n⚡ Single since birth 🔥",
+        "💸 King of VIP (2006) Lifestyle | Believer in actions, not words | Exclusive Vibe 🔥",
+        "👑 Surrounded by royalty and respect\n⚡ Premium Profile ✔️\n💯 Single since birth 🏢",
+        "⌚ King of VIP (2001) Lifestyle 💸\n👉 Surrounded by royalty and respect\n🔥 Black Lover",
+        "👑 Creating a legacy of success\n⚡ VIP (2007) Entry On 18 May\n💯 Gold Member ⌚",
+        "👑 Cake Murder on 5th Dec\n⚡ Verified VIP (2004) Member\n💯 Black Lover 💎",
+        "★ Royal (Est. 25th Dec) Blood Certified ★\n✨ VIP (2004) attitude, humble heart\n🎯 Royal (Est. 25th Dec) Entry 1 Jan 👑",
+        "🥂 Exclusive Access Only 🚗\n👉 Cake Murder on 5th Dec\n🔥 Gold Member",
+        "👑 VIP (2008) | Exclusive Access Only\n⚡ Creating a legacy of success\n🖤 Living high class 🚗",
+        "★ Royal (Est. 18th April) Blood Certified ★\n✨ Love my friends, hate fake people\n🎯 Black Lover 🚗",
+        "👑 VIP (2004) | King of VIP (2004) Lifestyle\n⚡ High standards, high status\n🖤 Single since birth 🌟",
+        "👑 VIP (2005) | Exclusive Access Only\n⚡ Smart work beats hard work\n🖤 Living high class 🔥",
+        "👑 VIP (2005) | Premium Profile ✔️\n⚡ VIP (2005) attitude, humble heart\n🖤 Exclusive Vibe 🌟",
+        "👑 Smart work beats hard work\n⚡ Royal (Est. 25th May) VIP (2008) Profile\n💯 Living high class 👑",
+        "👑 VIP (2002) | King of VIP (2002) Lifestyle\n⚡ Creating a legacy of success\n🖤 Gold Member ✔️",
+        "👑 High standards, high status\n⚡ Verified VIP (2004) Member\n💯 VIP (2004) Account ✔️ ⌚",
+        "👑 VIP (2008) | Official VIP (2008) Account\n⚡ Living life like a king\n🖤 Living high class 🏢",
+        "👑 VIP (2008) Entry On 18 May 🏢\n👉 Cake Murder on 5th Dec\n🔥 Black Lover",
+        "👑 VIP (2001) | Verified VIP (2001) Member\n⚡ Love my friends, hate fake people\n🖤 Single since birth 💸",
+        "👑 Creating a legacy of success\n⚡ Verified VIP (2003) Member\n💯 Gold Member 🤝",
+        "★ VIP (2003) Entry On 18 May ★\n✨ Cake Murder on 5th Dec\n🎯 Exclusive Vibe 🥂",
+        "👑 VIP (2010) | King of VIP (2010) Lifestyle\n⚡ Cake Murder on 5th Dec\n🖤 VIP (2010) Account ✔️ 🔥",
+        "👑 King of VIP (2008) Lifestyle\n💎 Believer in actions, not words\n⚡ Gold Member 🍾",
+        "💎 Exclusive Access Only | Love my friends, hate fake people | Royal (Est. 15th June) Entry 1 Jan 🖤",
+        "👑 Hustling to build an empire\n⚡ King of VIP (2005) Lifestyle\n💯 VIP (2005) Account ✔️ 🔥",
+        "👑 Hustling to build an empire\n⚡ Verified VIP (2007) Member\n💯 Black Lover ⌚",
+        "🚗 Royal (Est. 5th March) VIP (2003) Profile | VIP (2003) attitude, humble heart | Gold Member 🍾",
+        "★ Verified VIP (2008) Member ★\n✨ Cake Murder on 5th Dec\n🎯 Single since birth 💸",
+        "👑 Love my friends, hate fake people\n⚡ Royal (Est. 12th Oct) Blood Certified\n💯 Black Lover 🤝",
+        "👑 High standards, high status\n⚡ Royal (Est. 14th Feb) Blood Certified\n💯 VIP (2008) Account ✔️ 🌟",
+        "👑 VIP (2002) | Premium Profile ✔️\n⚡ Creating a legacy of success\n🖤 Gold Member 🌟",
+        "🏢 Royal (Est. 5th March) Blood Certified 🌟\n👉 Surrounded by royalty and respect\n🔥 Royal (Est. 5th March) Entry 1 Jan",
+        "💎 Royal (Est. 18th Aug) Blood Certified\n💎 VIP (2009) attitude, humble heart\n⚡ Gold Member 💸",
+        "🤝 Verified VIP (2009) Member\n💎 High standards, high status\n⚡ Gold Member 🏢",
+        "💸 Royal (Est. 1st Jan) Blood Certified | Living life like a king | Black Lover 🚗",
+        "🚗 VIP (2002) Entry On 18 May\n💎 Hustling to build an empire\n⚡ Single since birth ✔️",
+        "★ Exclusive Access Only ★\n✨ Living life like a king\n🎯 Black Lover 🏢",
+        "💎 Premium Profile ✔️ | Believer in actions, not words | Black Lover 🚗",
+        "👑 VIP (2004) | King of VIP (2004) Lifestyle\n⚡ Cake Murder on 5th Dec\n🖤 Living high class 🏢",
+        "👑 VIP (2009) attitude, humble heart\n⚡ Official VIP (2009) Account\n💯 Single since birth ⌚",
+        "★ Exclusive Access Only ★\n✨ Cake Murder on 5th Dec\n🎯 Single since birth 👑",
+        "★ Premium Profile ✔️ ★\n✨ Smart work beats hard work\n🎯 Living high class 🤝",
+        "👑 VIP (2007) Entry On 18 May 🏢\n👉 Smart work beats hard work\n🔥 VIP (2007) Account ✔️",
+        "🚗 Verified VIP (2008) Member | Cake Murder on 5th Dec | Exclusive Vibe 💎",
+        "🏢 Premium Profile ✔️ 🔥\n👉 Creating a legacy of success\n🔥 Living high class",
+        "🍾 King of VIP (2007) Lifestyle | High standards, high status | Gold Member 💎",
+        "⌚ Official VIP (2010) Account | High standards, high status | Royal (Est. 14th Feb) Entry 1 Jan 🤝",
+        "👑 Official VIP (2008) Account | High standards, high status | Gold Member 💸",
+        "✔️ Verified VIP (2004) Member\n💎 Cake Murder on 5th Dec\n⚡ Royal (Est. 25th May) Entry 1 Jan 🚗",
+        "👑 Surrounded by royalty and respect\n⚡ Royal (Est. 15th June) Blood Certified\n💯 Black Lover 🖤",
+        "👑 VIP (2009) | Verified VIP (2009) Member\n⚡ VIP (2009) attitude, humble heart\n🖤 Single since birth 🌟",
+        "★ VIP (2006) Entry On 18 May ★\n✨ VIP (2006) attitude, humble heart\n🎯 Black Lover ⌚",
+        "👑 Creating a legacy of success\n⚡ Premium Profile ✔️\n💯 Single since birth 🏢",
+        "💎 Premium Profile ✔️\n💎 Hustling to build an empire\n⚡ Exclusive Vibe 🌟",
+        "★ King of VIP (2009) Lifestyle ★\n✨ Hustling to build an empire\n🎯 Exclusive Vibe 🖤",
+        "👑 VIP (2006) | VIP (2006) Entry On 18 May\n⚡ VIP (2006) attitude, humble heart\n🖤 Royal (Est. 18th April) Entry 1 Jan 🥂",
+        "🏢 Exclusive Access Only\n💎 Smart work beats hard work\n⚡ VIP (2004) Account ✔️ 👑",
+        "👑 Premium Profile ✔️ | Surrounded by royalty and respect | Black Lover 🌟",
+        "👑 VIP (2001) | Verified VIP (2001) Member\n⚡ Believer in actions, not words\n🖤 Royal (Est. 25th May) Entry 1 Jan 🤝",
+        "👑 Believer in actions, not words\n⚡ Royal (Est. 12th Oct) VIP (2004) Profile\n💯 Royal (Est. 12th Oct) Entry 1 Jan ✔️",
+        "★ Royal (Est. 5th Sept) Blood Certified ★\n✨ Love my friends, hate fake people\n🎯 Living high class 🥂",
+        "★ Royal (Est. 14th Feb) Blood Certified ★\n✨ Creating a legacy of success\n🎯 Living high class 🌟",
+        "👑 VIP (2001) | Royal (Est. 22nd July) Blood Certified\n⚡ High standards, high status\n🖤 Single since birth 🤝",
+        "👑 VIP (2010) | Verified VIP (2010) Member\n⚡ Hustling to build an empire\n🖤 VIP (2010) Account ✔️ ⌚",
+        "⌚ Premium Profile ✔️ 🔥\n👉 Love my friends, hate fake people\n🔥 Royal (Est. 15th June) Entry 1 Jan",
+        "👑 Believer in actions, not words\n⚡ Verified VIP (2006) Member\n💯 Black Lover 🥂",
+        "🌟 Exclusive Access Only 🤝\n👉 Believer in actions, not words\n🔥 Living high class",
+        "👑 Hustling to build an empire\n⚡ Exclusive Access Only\n💯 Black Lover 💎",
+        "👑 Royal (Est. 22nd July) VIP (2003) Profile | Cake Murder on 5th Dec | Exclusive Vibe 🖤",
+        "🖤 Verified VIP (2004) Member 🏢\n👉 Living life like a king\n🔥 Gold Member",
+        "👑 Cake Murder on 5th Dec\n⚡ Royal (Est. 15th Nov) Blood Certified\n💯 Black Lover 🚗",
+        "💸 Exclusive Access Only\n💎 Cake Murder on 5th Dec\n⚡ VIP (2007) Account ✔️ 🏢",
+        "👑 King of VIP (2007) Lifestyle | Creating a legacy of success | Single since birth 👑",
+        "🤝 Royal (Est. 18th April) VIP (2004) Profile 💎\n👉 Living life like a king\n🔥 Black Lover",
+        "★ King of VIP (2006) Lifestyle ★\n✨ Smart work beats hard work\n🎯 Single since birth ⌚",
+        "👑 High standards, high status\n⚡ Verified VIP (2001) Member\n💯 Single since birth 🥂",
+        "★ Premium Profile ✔️ ★\n✨ VIP (2001) attitude, humble heart\n🎯 Black Lover 👑",
+        "★ Royal (Est. 15th Nov) VIP (2006) Profile ★\n✨ Believer in actions, not words\n🎯 Exclusive Vibe 🔥",
+        "⌚ Royal (Est. 18th April) VIP (2010) Profile 🖤\n👉 Creating a legacy of success\n🔥 VIP (2010) Account ✔️",
+        "👑 VIP (2010) | Official VIP (2010) Account\n⚡ Living life like a king\n🖤 Gold Member 💸",
+        "🏢 VIP (2003) Entry On 18 May 👑\n👉 Smart work beats hard work\n🔥 VIP (2003) Account ✔️",
+        "🤝 Premium Profile ✔️ 🖤\n👉 Living life like a king\n🔥 Single since birth",
+        "★ Premium Profile ✔️ ★\n✨ Creating a legacy of success\n🎯 Single since birth ⌚",
+        "👑 VIP (2002) | Royal (Est. 1st Jan) VIP (2002) Profile\n⚡ Creating a legacy of success\n🖤 Gold Member 🤝",
+        "🥂 Royal (Est. 12th Oct) VIP (2007) Profile\n💎 Smart work beats hard work\n⚡ Black Lover ✔️",
+        "★ Official VIP (2004) Account ★\n✨ Love my friends, hate fake people\n🎯 Exclusive Vibe 🤝",
+        "👑 VIP (2007) attitude, humble heart\n⚡ Premium Profile ✔️\n💯 Royal (Est. 12th Oct) Entry 1 Jan 🍾",
+        "👑 King of VIP (2005) Lifestyle | High standards, high status | Gold Member 🤝",
+        "👑 VIP (2002) | VIP (2002) Entry On 18 May\n⚡ VIP (2002) attitude, humble heart\n🖤 Single since birth 💎",
+        "👑 VIP (2003) | Exclusive Access Only\n⚡ Smart work beats hard work\n🖤 Exclusive Vibe 👑",
+        "👑 Premium Profile ✔️\n💎 Believer in actions, not words\n⚡ Black Lover 💎",
+        "👑 Royal (Est. 12th Oct) VIP (2010) Profile | Smart work beats hard work | Black Lover 👑",
+        "★ Premium Profile ✔️ ★\n✨ Cake Murder on 5th Dec\n🎯 Single since birth 🤝",
+        "🔥 Verified VIP (2007) Member 🚗\n👉 Surrounded by royalty and respect\n🔥 Black Lover",
+        "★ King of VIP (2002) Lifestyle ★\n✨ Love my friends, hate fake people\n🎯 Single since birth 💎",
+        "★ King of VIP (2006) Lifestyle ★\n✨ VIP (2006) attitude, humble heart\n🎯 Single since birth 💎",
+        "🌟 Exclusive Access Only ✔️\n👉 Surrounded by royalty and respect\n🔥 Black Lover",
+        "💎 Official VIP (2006) Account\n💎 VIP (2006) attitude, humble heart\n⚡ Single since birth 🌟",
+        "👑 VIP (2010) | Premium Profile ✔️\n⚡ Surrounded by royalty and respect\n🖤 Royal (Est. 15th June) Entry 1 Jan 💸",
+        "★ Exclusive Access Only ★\n✨ Smart work beats hard work\n🎯 Royal (Est. 15th June) Entry 1 Jan 🔥",
+        "🔥 Exclusive Access Only 🔥\n👉 Surrounded by royalty and respect\n🔥 Exclusive Vibe",
+        "🌟 Premium Profile ✔️\n💎 Smart work beats hard work\n⚡ VIP (2010) Account ✔️ 🖤",
+        "🚗 Official VIP (2005) Account 💎\n👉 Believer in actions, not words\n🔥 Gold Member",
+        "★ Royal (Est. 5th March) VIP (2005) Profile ★\n✨ VIP (2005) attitude, humble heart\n🎯 Gold Member 🖤",
+        "★ VIP (2008) Entry On 18 May ★\n✨ VIP (2008) attitude, humble heart\n🎯 Exclusive Vibe ✔️",
+        "👑 Creating a legacy of success\n⚡ Premium Profile ✔️\n💯 Black Lover ⌚",
+        "👑 Creating a legacy of success\n⚡ Royal (Est. 14th Feb) Blood Certified\n💯 Black Lover 👑",
+        "🤝 Royal (Est. 1st Jan) Blood Certified\n💎 Hustling to build an empire\n⚡ Gold Member ✔️",
+        "★ Premium Profile ✔️ ★\n✨ Smart work beats hard work\n🎯 Exclusive Vibe 🏢",
+        "👑 Verified VIP (2010) Member\n💎 Creating a legacy of success\n⚡ Gold Member 🌟",
+        "★ Verified VIP (2010) Member ★\n✨ Believer in actions, not words\n🎯 Single since birth 🔥",
+    ],
+    cool: [
+        "★ Riding the waves of life ★\n✨ Collect moments, not things\n🎯 Stay chill 🏝️",
+        "👑 Keep it simple, keep it cool\n⚡ Adventure is out there\n💯 Stay chill 😎",
+        "✌️ Too cool to care 🍃\n👉 Collect moments, not things\n🔥 Free soul",
+        "★ Living on the bright side ★\n✨ Good vibes and great times\n🎯 Stay chill 🎧",
+        "👑 VIP | Making history, not drama\n⚡ Collect moments, not things\n🖤 Stay chill 🏝️",
+        "👑 Chasing sunsets and dreams\n⚡ Stay cool, stay humble\n💯 Peace seeker 🔥",
+        "😎 Riding the waves of life 🚲\n👉 Just another day in paradise\n🔥 Dreamer",
+        "★ Living on the bright side ★\n✨ Keep walking your own path\n🎯 Free soul 🎧",
+        "👑 Life is better when you laugh\n⚡ Adventure is out there\n💯 Good vibes only 🏄",
+        "🚲 Adventure is out there\n💎 Chasing sunsets and dreams\n⚡ Explorer 🚀",
+        "👑 Focus on the good, leave the rest\n⚡ Adventure is out there\n💯 Stay chill 🏄",
+        "🏄 Too cool to care | Keep it simple, keep it cool | Dreamer 🏄",
+        "🎯 Riding the waves of life ⚡\n👉 Collect moments, not things\n🔥 Peace seeker",
+        "👑 Good vibes and great times\n⚡ Too cool to care\n💯 Dreamer 🎸",
+        "🍃 Adventure is out there\n💎 Simplicity is key to happiness\n⚡ Free soul 🍕",
+        "😎 Living on the bright side 🍃\n👉 Good vibes and great times\n🔥 Dreamer",
+        "⚡ Too cool to care | Simplicity is key to happiness | Dreamer 🚲",
+        "👑 VIP | Living on the bright side\n⚡ Keep it simple, keep it cool\n🖤 Good vibes only 🚲",
+        "★ Living on the bright side ★\n✨ Life is better when you laugh\n🎯 Dreamer 😎",
+        "★ Riding the waves of life ★\n✨ Simplicity is key to happiness\n🎯 Free soul 🚀",
+        "★ Riding the waves of life ★\n✨ Keep walking your own path\n🎯 Good vibes only ✌️",
+        "🌊 Riding the waves of life\n💎 Collect moments, not things\n⚡ Free soul ✌️",
+        "🔥 Living on the bright side ⚡\n👉 Chasing sunsets and dreams\n🔥 Free soul",
+        "👑 Keep walking your own path\n⚡ Adventure is out there\n💯 Dreamer 🏄",
+        "★ Making history, not drama ★\n✨ Focus on the good, leave the rest\n🎯 Explorer 🎸",
+        "🎸 Stay cool, stay humble ✌️\n👉 Simplicity is key to happiness\n🔥 Stay chill",
+        "👑 VIP | Too cool to care\n⚡ Just another day in paradise\n🖤 Dreamer 🌊",
+        "★ Making history, not drama ★\n✨ Simplicity is key to happiness\n🎯 Explorer ✌️",
+        "👑 VIP | Stay cool, stay humble\n⚡ Simplicity is key to happiness\n🖤 Stay chill 🎧",
+        "👑 Keep walking your own path\n⚡ Living on the bright side\n💯 Stay chill 🎯",
+        "👑 Focus on the good, leave the rest\n⚡ Just cooling around\n💯 Stay chill 🎸",
+        "★ Just cooling around ★\n✨ Free spirit with a wild heart\n🎯 Stay chill ⚡",
+        "🌊 Stay cool, stay humble 🍃\n👉 Good vibes and great times\n🔥 Stay chill",
+        "★ Living on the bright side ★\n✨ Simplicity is key to happiness\n🎯 Explorer 🏄",
+        "✌️ Riding the waves of life | Just another day in paradise | Good vibes only 🍕",
+        "🍕 Too cool to care 🍃\n👉 Simplicity is key to happiness\n🔥 Dreamer",
+        "👑 VIP | Too cool to care\n⚡ Free spirit with a wild heart\n🖤 Dreamer 🍃",
+        "⚡ Stay cool, stay humble | Life is better when you laugh | Free soul 🎧",
+        "🌊 Riding the waves of life ⚡\n👉 Life is better when you laugh\n🔥 Good vibes only",
+        "🏝️ Just cooling around 🍃\n👉 Focus on the good, leave the rest\n🔥 Free soul",
+        "★ Too cool to care ★\n✨ Focus on the good, leave the rest\n🎯 Free soul 🍕",
+        "👑 Focus on the good, leave the rest\n⚡ Stay cool, stay humble\n💯 Dreamer 😎",
+        "👑 VIP | Living on the bright side\n⚡ Good vibes and great times\n🖤 Free soul 🌊",
+        "👑 Good vibes and great times\n⚡ Stay cool, stay humble\n💯 Explorer 🍕",
+        "🏝️ Stay cool, stay humble 🍃\n👉 Keep walking your own path\n🔥 Free soul",
+        "👑 VIP | Just cooling around\n⚡ Good vibes and great times\n🖤 Peace seeker 🚀",
+        "⚡ Living on the bright side 🌊\n👉 Keep walking your own path\n🔥 Dreamer",
+        "🍕 Making history, not drama | Collect moments, not things | Explorer ⚡",
+        "🔥 Making history, not drama 😎\n👉 Chasing sunsets and dreams\n🔥 Stay chill",
+        "👑 Focus on the good, leave the rest\n⚡ Chill vibes only\n💯 Good vibes only 🎸",
+        "✌️ Too cool to care | Life is better when you laugh | Peace seeker 🚲",
+        "👑 Keep it simple, keep it cool\n⚡ Too cool to care\n💯 Peace seeker 🚲",
+        "👑 VIP | Chill vibes only\n⚡ Focus on the good, leave the rest\n🖤 Explorer 🚲",
+        "🏝️ Just cooling around | Focus on the good, leave the rest | Explorer 🏝️",
+        "🏝️ Chill vibes only | Just another day in paradise | Free soul 😎",
+        "★ Just cooling around ★\n✨ Keep walking your own path\n🎯 Explorer ✌️",
+        "👑 Keep it simple, keep it cool\n⚡ Living on the bright side\n💯 Free soul 🔥",
+        "✌️ Stay cool, stay humble | Just another day in paradise | Free soul 🎸",
+        "👑 VIP | Stay cool, stay humble\n⚡ Keep it simple, keep it cool\n🖤 Peace seeker 🏝️",
+        "👑 Life is better when you laugh\n⚡ Adventure is out there\n💯 Explorer 🌊",
+        "✌️ Chill vibes only 😎\n👉 Simplicity is key to happiness\n🔥 Explorer",
+        "🎸 Just cooling around\n💎 Life is better when you laugh\n⚡ Free soul 🍃",
+        "🚲 Just cooling around 🎸\n👉 Keep it simple, keep it cool\n🔥 Stay chill",
+        "👑 VIP | Adventure is out there\n⚡ Collect moments, not things\n🖤 Free soul 🎯",
+        "🎯 Just cooling around | Free spirit with a wild heart | Explorer ✌️",
+        "👑 VIP | Too cool to care\n⚡ Chasing sunsets and dreams\n🖤 Explorer 🏄",
+        "👑 Focus on the good, leave the rest\n⚡ Just cooling around\n💯 Peace seeker 🏄",
+        "🔥 Just cooling around | Good vibes and great times | Free soul 🎯",
+        "👑 VIP | Stay cool, stay humble\n⚡ Keep walking your own path\n🖤 Stay chill 🏄",
+        "👑 VIP | Adventure is out there\n⚡ Simplicity is key to happiness\n🖤 Free soul 🍃",
+        "🎧 Riding the waves of life | Good vibes and great times | Stay chill 🚲",
+        "🍕 Chill vibes only | Free spirit with a wild heart | Good vibes only 😎",
+        "👑 Keep walking your own path\n⚡ Adventure is out there\n💯 Peace seeker 🔥",
+        "★ Adventure is out there ★\n✨ Focus on the good, leave the rest\n🎯 Explorer 🏝️",
+        "👑 VIP | Riding the waves of life\n⚡ Free spirit with a wild heart\n🖤 Stay chill 😎",
+        "👑 VIP | Just cooling around\n⚡ Life is better when you laugh\n🖤 Dreamer 😎",
+        "★ Stay cool, stay humble ★\n✨ Free spirit with a wild heart\n🎯 Explorer 🚀",
+        "🏝️ Just cooling around | Chasing sunsets and dreams | Good vibes only ⚡",
+        "🚀 Making history, not drama | Simplicity is key to happiness | Dreamer 😎",
+        "👑 Keep it simple, keep it cool\n⚡ Riding the waves of life\n💯 Stay chill 🌊",
+        "👑 VIP | Chill vibes only\n⚡ Life is better when you laugh\n🖤 Free soul ✌️",
+        "🎧 Too cool to care 🎧\n👉 Life is better when you laugh\n🔥 Peace seeker",
+        "👑 VIP | Too cool to care\n⚡ Keep it simple, keep it cool\n🖤 Stay chill 🏝️",
+        "👑 VIP | Too cool to care\n⚡ Keep walking your own path\n🖤 Stay chill 🎯",
+        "🏝️ Stay cool, stay humble\n💎 Good vibes and great times\n⚡ Free soul 🍕",
+        "👑 VIP | Making history, not drama\n⚡ Simplicity is key to happiness\n🖤 Good vibes only 🍃",
+        "👑 Simplicity is key to happiness\n⚡ Stay cool, stay humble\n💯 Explorer ✌️",
+        "😎 Chill vibes only 🏄\n👉 Chasing sunsets and dreams\n🔥 Stay chill",
+        "🔥 Living on the bright side 🎸\n👉 Focus on the good, leave the rest\n🔥 Good vibes only",
+        "⚡ Adventure is out there 🔥\n👉 Just another day in paradise\n🔥 Peace seeker",
+        "🚀 Living on the bright side\n💎 Free spirit with a wild heart\n⚡ Stay chill 🏝️",
+        "🍃 Chill vibes only\n💎 Life is better when you laugh\n⚡ Good vibes only 😎",
+        "👑 VIP | Stay cool, stay humble\n⚡ Good vibes and great times\n🖤 Peace seeker 🔥",
+        "🍃 Making history, not drama 😎\n👉 Chasing sunsets and dreams\n🔥 Peace seeker",
+        "★ Too cool to care ★\n✨ Simplicity is key to happiness\n🎯 Good vibes only 🌊",
+        "🍃 Making history, not drama\n💎 Just another day in paradise\n⚡ Explorer 🍕",
+        "★ Just cooling around ★\n✨ Life is better when you laugh\n🎯 Stay chill 🎯",
+        "🔥 Living on the bright side | Chasing sunsets and dreams | Peace seeker 🏄",
+        "🎯 Adventure is out there 🚲\n👉 Free spirit with a wild heart\n🔥 Stay chill",
+        "🎧 Adventure is out there 🏄\n👉 Good vibes and great times\n🔥 Stay chill",
+        "🏝️ Stay cool, stay humble\n💎 Chasing sunsets and dreams\n⚡ Good vibes only 🌊",
+        "🚀 Living on the bright side | Good vibes and great times | Explorer 🏝️",
+        "🍕 Riding the waves of life\n💎 Focus on the good, leave the rest\n⚡ Stay chill 😎",
+        "👑 VIP | Adventure is out there\n⚡ Life is better when you laugh\n🖤 Good vibes only 🍕",
+        "👑 Focus on the good, leave the rest\n⚡ Living on the bright side\n💯 Explorer 🌊",
+        "🍃 Making history, not drama | Free spirit with a wild heart | Good vibes only 🍃",
+        "🏄 Stay cool, stay humble ✌️\n👉 Life is better when you laugh\n🔥 Stay chill",
+        "🎸 Living on the bright side\n💎 Focus on the good, leave the rest\n⚡ Stay chill 🎸",
+        "★ Just cooling around ★\n✨ Good vibes and great times\n🎯 Peace seeker 🍃",
+        "👑 Keep it simple, keep it cool\n⚡ Stay cool, stay humble\n💯 Good vibes only 🌊",
+        "🌊 Chill vibes only ⚡\n👉 Just another day in paradise\n🔥 Peace seeker",
+        "😎 Just cooling around\n💎 Collect moments, not things\n⚡ Free soul 🏝️",
+        "🔥 Too cool to care | Free spirit with a wild heart | Good vibes only 🚲",
+        "🚀 Making history, not drama\n💎 Keep walking your own path\n⚡ Explorer ⚡",
+        "🏄 Making history, not drama | Keep it simple, keep it cool | Good vibes only 😎",
+        "★ Just cooling around ★\n✨ Life is better when you laugh\n🎯 Good vibes only 🔥",
+        "👑 VIP | Stay cool, stay humble\n⚡ Simplicity is key to happiness\n🖤 Dreamer 🍃",
+        "👑 Keep it simple, keep it cool\n⚡ Chill vibes only\n💯 Good vibes only ⚡",
+        "🎸 Riding the waves of life | Keep it simple, keep it cool | Peace seeker 🎯",
+        "★ Chill vibes only ★\n✨ Life is better when you laugh\n🎯 Dreamer 🔥",
+        "★ Adventure is out there ★\n✨ Good vibes and great times\n🎯 Stay chill ⚡",
+        "🚲 Riding the waves of life 🚀\n👉 Collect moments, not things\n🔥 Good vibes only",
+        "🌊 Making history, not drama\n💎 Life is better when you laugh\n⚡ Stay chill 🌊",
+        "★ Just cooling around ★\n✨ Free spirit with a wild heart\n🎯 Free soul 🍕",
+        "★ Chill vibes only ★\n✨ Keep it simple, keep it cool\n🎯 Peace seeker 🎧",
+        "👑 Keep walking your own path\n⚡ Just cooling around\n💯 Good vibes only ✌️",
+        "👑 VIP | Chill vibes only\n⚡ Focus on the good, leave the rest\n🖤 Explorer 🎯",
+        "🎸 Making history, not drama\n💎 Collect moments, not things\n⚡ Dreamer 🎧",
+        "👑 VIP | Too cool to care\n⚡ Life is better when you laugh\n🖤 Stay chill 🍃",
+        "★ Chill vibes only ★\n✨ Free spirit with a wild heart\n🎯 Stay chill 🍕",
+        "🎧 Just cooling around 🍃\n👉 Life is better when you laugh\n🔥 Stay chill",
+        "🚲 Too cool to care | Keep walking your own path | Explorer 🏄",
+        "🎯 Adventure is out there 🏄\n👉 Collect moments, not things\n🔥 Good vibes only",
+        "🏄 Living on the bright side | Collect moments, not things | Dreamer 🍕",
+        "🏝️ Living on the bright side 🏝️\n👉 Simplicity is key to happiness\n🔥 Dreamer",
+        "🍕 Making history, not drama 🏄\n👉 Keep walking your own path\n🔥 Peace seeker",
+        "🎸 Stay cool, stay humble\n💎 Chasing sunsets and dreams\n⚡ Good vibes only 🔥",
+        "🏄 Making history, not drama\n💎 Chasing sunsets and dreams\n⚡ Peace seeker 🔥",
+        "🏄 Riding the waves of life 🎯\n👉 Collect moments, not things\n🔥 Explorer",
+        "🎯 Living on the bright side ⚡\n👉 Chasing sunsets and dreams\n🔥 Stay chill",
+        "👑 VIP | Riding the waves of life\n⚡ Keep it simple, keep it cool\n🖤 Dreamer 🍕",
+        "👑 VIP | Adventure is out there\n⚡ Simplicity is key to happiness\n🖤 Stay chill 😎",
+        "★ Riding the waves of life ★\n✨ Life is better when you laugh\n🎯 Explorer 🌊",
+        "👑 Collect moments, not things\n⚡ Making history, not drama\n💯 Good vibes only 🎯",
+        "🎧 Living on the bright side\n💎 Just another day in paradise\n⚡ Explorer 🏝️",
+        "👑 Free spirit with a wild heart\n⚡ Adventure is out there\n💯 Explorer ⚡",
+        "🌊 Riding the waves of life\n💎 Chasing sunsets and dreams\n⚡ Explorer ✌️",
+        "👑 VIP | Chill vibes only\n⚡ Life is better when you laugh\n🖤 Dreamer 🚀",
+        "★ Just cooling around ★\n✨ Simplicity is key to happiness\n🎯 Stay chill 🎯",
+        "👑 VIP | Stay cool, stay humble\n⚡ Just another day in paradise\n🖤 Peace seeker ✌️",
+        "✌️ Stay cool, stay humble | Collect moments, not things | Free soul 🚲",
+        "👑 VIP | Just cooling around\n⚡ Keep it simple, keep it cool\n🖤 Peace seeker 🌊",
+        "★ Chill vibes only ★\n✨ Chasing sunsets and dreams\n🎯 Free soul 🎯",
+        "★ Riding the waves of life ★\n✨ Focus on the good, leave the rest\n🎯 Free soul 🏝️",
+        "🍃 Adventure is out there\n💎 Keep it simple, keep it cool\n⚡ Free soul 🎧",
+        "🚲 Just cooling around | Life is better when you laugh | Free soul 🎯",
+        "👑 VIP | Chill vibes only\n⚡ Free spirit with a wild heart\n🖤 Stay chill 🎯",
+        "★ Stay cool, stay humble ★\n✨ Collect moments, not things\n🎯 Good vibes only 🌊",
+        "👑 VIP | Stay cool, stay humble\n⚡ Keep walking your own path\n🖤 Stay chill ✌️",
+        "👑 Chasing sunsets and dreams\n⚡ Making history, not drama\n💯 Free soul 🍕",
+        "✌️ Adventure is out there | Life is better when you laugh | Stay chill 🍕",
+        "🍃 Just cooling around\n💎 Focus on the good, leave the rest\n⚡ Explorer 🏄",
+        "🏝️ Too cool to care 🏝️\n👉 Free spirit with a wild heart\n🔥 Peace seeker",
+        "★ Adventure is out there ★\n✨ Simplicity is key to happiness\n🎯 Dreamer 😎",
+        "✌️ Living on the bright side | Chasing sunsets and dreams | Free soul 🔥",
+        "🌊 Making history, not drama | Just another day in paradise | Stay chill ⚡",
+        "🏄 Too cool to care | Keep it simple, keep it cool | Free soul ✌️",
+        "👑 Good vibes and great times\n⚡ Adventure is out there\n💯 Free soul 🌊",
+        "★ Adventure is out there ★\n✨ Life is better when you laugh\n🎯 Peace seeker 🌊",
+        "★ Making history, not drama ★\n✨ Chasing sunsets and dreams\n🎯 Peace seeker 🍃",
+        "🎸 Just cooling around | Free spirit with a wild heart | Dreamer 🌊",
+        "👑 VIP | Stay cool, stay humble\n⚡ Keep it simple, keep it cool\n🖤 Explorer ✌️",
+    ],
+    trending: [
+        "💎 Unapologetically me\n💎 Every day is a fresh start\n⚡ Vibe curator 🧬",
+        "⚡ Unapologetically me\n💎 Living my best and truest self\n⚡ Success path 🧿",
+        "★ Leveling up daily ★\n✨ Every day is a fresh start\n🎯 Vibe curator 🦾",
+        "🚀 Unapologetically me\n💎 Trusting the universe and process\n⚡ Goal getter 📈",
+        "🧬 In my own lane 💎\n👉 Building a life I don't need a vacation from\n🔥 Success path",
+        "★ Era of abundance ★\n✨ My potential is limitless\n🎯 Trending boy 🔥",
+        "📈 Unapologetically me 🦾\n👉 Focused on growth, peace, and success\n🔥 Always forward",
+        "🧿 Self-made and proud | One step closer to my dreams | Always forward 🧪",
+        "👑 VIP | Unapologetically me\n⚡ Living my best and truest self\n🖤 Mindset shift 📈",
+        "🧬 Next level unlocked\n💎 Every day is a fresh start\n⚡ Goal getter 🔮",
+        "💎 2026 Vibe Creator 💡\n👉 Be the energy you want to attract\n🔥 Vibe curator",
+        "🧪 2026 Vibe Creator | Building a life I don't need a vacation from | Goal getter 🧪",
+        "★ Manifesting greatness ★\n✨ Be the energy you want to attract\n🎯 Mindset shift 💎",
+        "👑 VIP | Leveling up daily\n⚡ Trusting the universe and process\n🖤 Vibe curator 🦾",
+        "👑 VIP | Unapologetically me\n⚡ Trusting the universe and process\n🖤 Success path 💡",
+        "👑 VIP | Next level unlocked\n⚡ No looking back, only forward\n🖤 Mindset shift 👑",
+        "★ Self-made and proud ★\n✨ Creating my own sunshine\n🎯 Mindset shift ⚡",
+        "👑 VIP | 2026 Vibe Creator\n⚡ Focused on growth, peace, and success\n🖤 Vibe curator 🧿",
+        "★ Manifesting greatness ★\n✨ Creating my own sunshine\n🎯 Always forward 👑",
+        "🧪 2026 Vibe Creator 🦾\n👉 Focused on growth, peace, and success\n🔥 Success path",
+        "🧿 Leveling up daily | Living my best and truest self | Mindset shift 💡",
+        "👑 Building a life I don't need a vacation from\n⚡ In my own lane\n💯 Mindset shift 🧬",
+        "🧬 In my own lane | Living my best and truest self | Goal getter 💡",
+        "🔥 Era of abundance | Trusting the universe and process | Vibe curator 💯",
+        "👑 VIP | Manifesting greatness\n⚡ Focused on growth, peace, and success\n🖤 Mindset shift 🔮",
+        "🧿 Unapologetically me | Building a life I don't need a vacation from | Always forward 🔮",
+        "💯 Leveling up daily 🌟\n👉 Every day is a fresh start\n🔥 Success path",
+        "👑 VIP | Manifesting greatness\n⚡ One step closer to my dreams\n🖤 Vibe curator 🧿",
+        "★ 2026 Vibe Creator ★\n✨ Creating my own sunshine\n🎯 Trending boy 👑",
+        "⚡ Era of abundance 🔥\n👉 Focused on growth, peace, and success\n🔥 Always forward",
+        "🦾 Self-made and proud | Be the energy you want to attract | Goal getter 💯",
+        "👑 No looking back, only forward\n⚡ Next level unlocked\n💯 Vibe curator 🧿",
+        "🔥 Next level unlocked\n💎 Focused on growth, peace, and success\n⚡ Mindset shift 🧪",
+        "👑 VIP | Self-made and proud\n⚡ Be the energy you want to attract\n🖤 Success path 💎",
+        "👑 No looking back, only forward\n⚡ Era of abundance\n💯 Mindset shift 🔮",
+        "🧬 Unapologetically me | Every day is a fresh start | Trending boy 🧿",
+        "🧬 Manifesting greatness\n💎 Living my best and truest self\n⚡ Always forward 🦾",
+        "🧪 Self-made and proud | Building a life I don't need a vacation from | Success path 🚀",
+        "👑 Creating my own sunshine\n⚡ Manifesting greatness\n💯 Mindset shift 🌟",
+        "👑 Self-made and proud\n💎 Focused on growth, peace, and success\n⚡ Vibe curator 🦾",
+        "👑 Every day is a fresh start\n⚡ Next level unlocked\n💯 Success path 💎",
+        "★ In my own lane ★\n✨ Trusting the universe and process\n🎯 Always forward 🌟",
+        "👑 Be the energy you want to attract\n⚡ Unapologetically me\n💯 Success path 🚀",
+        "👑 One step closer to my dreams\n⚡ Era of abundance\n💯 Always forward ⚡",
+        "👑 VIP | Leveling up daily\n⚡ One step closer to my dreams\n🖤 Goal getter 💯",
+        "★ In my own lane ★\n✨ Creating my own sunshine\n🎯 Trending boy 🧿",
+        "👑 Living my best and truest self\n⚡ Self-made and proud\n💯 Vibe curator 🔥",
+        "🌟 2026 Vibe Creator 🦾\n👉 Focused on growth, peace, and success\n🔥 Mindset shift",
+        "👑 VIP | Self-made and proud\n⚡ Be the energy you want to attract\n🖤 Mindset shift 👑",
+        "★ Self-made and proud ★\n✨ No looking back, only forward\n🎯 Trending boy 🚀",
+        "⚡ 2026 Vibe Creator\n💎 No looking back, only forward\n⚡ Vibe curator 🧿",
+        "★ Unapologetically me ★\n✨ Living my best and truest self\n🎯 Mindset shift 📈",
+        "👑 VIP | In my own lane\n⚡ My potential is limitless\n🖤 Vibe curator ⚡",
+        "👑 My potential is limitless\n⚡ Leveling up daily\n💯 Mindset shift 💡",
+        "👑 No looking back, only forward\n⚡ 2026 Vibe Creator\n💯 Mindset shift 🔥",
+        "👑 VIP | Next level unlocked\n⚡ Trusting the universe and process\n🖤 Success path 🔥",
+        "★ In my own lane ★\n✨ Every day is a fresh start\n🎯 Vibe curator 💯",
+        "★ 2026 Vibe Creator ★\n✨ My potential is limitless\n🎯 Goal getter 💎",
+        "★ Unapologetically me ★\n✨ Be the energy you want to attract\n🎯 Success path 🦾",
+        "👑 VIP | Era of abundance\n⚡ One step closer to my dreams\n🖤 Trending boy ⚡",
+        "💎 Era of abundance | Trusting the universe and process | Always forward 🧿",
+        "👑 VIP | Era of abundance\n⚡ Focused on growth, peace, and success\n🖤 Always forward 🦾",
+        "🚀 2026 Vibe Creator\n💎 Be the energy you want to attract\n⚡ Goal getter 🔥",
+        "👑 VIP | 2026 Vibe Creator\n⚡ Trusting the universe and process\n🖤 Mindset shift 🚀",
+        "🔮 Manifesting greatness 👑\n👉 Be the energy you want to attract\n🔥 Always forward",
+        "★ Manifesting greatness ★\n✨ Focused on growth, peace, and success\n🎯 Vibe curator 🌟",
+        "👑 My potential is limitless\n⚡ Era of abundance\n💯 Vibe curator ⚡",
+        "👑 Building a life I don't need a vacation from\n⚡ In my own lane\n💯 Mindset shift ⚡",
+        "👑 VIP | Next level unlocked\n⚡ Be the energy you want to attract\n🖤 Always forward 🦾",
+        "👑 Every day is a fresh start\n⚡ Next level unlocked\n💯 Trending boy 💎",
+        "📈 Next level unlocked | Trusting the universe and process | Always forward 🦾",
+        "👑 VIP | Unapologetically me\n⚡ Building a life I don't need a vacation from\n🖤 Goal getter 💡",
+        "👑 Focused on growth, peace, and success\n⚡ In my own lane\n💯 Always forward 🔮",
+        "🦾 Self-made and proud | Be the energy you want to attract | Always forward ⚡",
+        "👑 Every day is a fresh start\n⚡ Self-made and proud\n💯 Goal getter 🦾",
+        "🔥 2026 Vibe Creator\n💎 Living my best and truest self\n⚡ Always forward 💡",
+        "📈 2026 Vibe Creator 🚀\n👉 Building a life I don't need a vacation from\n🔥 Success path",
+        "👑 VIP | Self-made and proud\n⚡ Living my best and truest self\n🖤 Vibe curator 🧪",
+        "👑 Self-made and proud\n💎 My potential is limitless\n⚡ Trending boy 💡",
+        "🔮 Leveling up daily | One step closer to my dreams | Vibe curator 💯",
+        "👑 Building a life I don't need a vacation from\n⚡ 2026 Vibe Creator\n💯 Goal getter ⚡",
+        "👑 Living my best and truest self\n⚡ 2026 Vibe Creator\n💯 Trending boy 🔮",
+        "👑 VIP | Self-made and proud\n⚡ Focused on growth, peace, and success\n🖤 Success path 👑",
+        "🚀 Next level unlocked | Building a life I don't need a vacation from | Vibe curator 🔮",
+        "👑 One step closer to my dreams\n⚡ Manifesting greatness\n💯 Success path 🧿",
+        "👑 Trusting the universe and process\n⚡ Next level unlocked\n💯 Vibe curator 📈",
+        "🦾 Manifesting greatness\n💎 One step closer to my dreams\n⚡ Success path 🔥",
+        "🚀 2026 Vibe Creator 👑\n👉 One step closer to my dreams\n🔥 Mindset shift",
+        "★ Unapologetically me ★\n✨ No looking back, only forward\n🎯 Mindset shift 📈",
+        "👑 Leveling up daily 🧿\n👉 Be the energy you want to attract\n🔥 Always forward",
+        "★ Next level unlocked ★\n✨ My potential is limitless\n🎯 Trending boy 📈",
+        "★ Leveling up daily ★\n✨ My potential is limitless\n🎯 Goal getter 🧪",
+        "★ Next level unlocked ★\n✨ My potential is limitless\n🎯 Success path 💎",
+        "👑 VIP | Leveling up daily\n⚡ Trusting the universe and process\n🖤 Trending boy 📈",
+        "🦾 Next level unlocked\n💎 Living my best and truest self\n⚡ Always forward 🌟",
+        "👑 Era of abundance\n💎 One step closer to my dreams\n⚡ Goal getter 🧪",
+        "👑 Be the energy you want to attract\n⚡ 2026 Vibe Creator\n💯 Always forward 👑",
+        "💯 Manifesting greatness\n💎 Be the energy you want to attract\n⚡ Vibe curator 🔮",
+        "★ Next level unlocked ★\n✨ My potential is limitless\n🎯 Goal getter 🧪",
+        "👑 VIP | In my own lane\n⚡ Building a life I don't need a vacation from\n🖤 Success path 🧿",
+        "💯 Self-made and proud 🌟\n👉 Trusting the universe and process\n🔥 Goal getter",
+        "🧬 Unapologetically me | Be the energy you want to attract | Vibe curator 🦾",
+        "★ Leveling up daily ★\n✨ Building a life I don't need a vacation from\n🎯 Success path 🔮",
+        "★ Leveling up daily ★\n✨ Trusting the universe and process\n🎯 Trending boy 🌟",
+        "💡 Next level unlocked\n💎 Building a life I don't need a vacation from\n⚡ Goal getter ⚡",
+        "👑 VIP | Era of abundance\n⚡ No looking back, only forward\n🖤 Mindset shift 🦾",
+        "🧿 Era of abundance\n💎 No looking back, only forward\n⚡ Mindset shift ⚡",
+        "★ Leveling up daily ★\n✨ One step closer to my dreams\n🎯 Always forward 💎",
+        "👑 VIP | Era of abundance\n⚡ Trusting the universe and process\n🖤 Mindset shift 📈",
+        "👑 VIP | Self-made and proud\n⚡ Living my best and truest self\n🖤 Goal getter 🧿",
+        "👑 Next level unlocked 📈\n👉 My potential is limitless\n🔥 Success path",
+        "🧿 Unapologetically me\n💎 Building a life I don't need a vacation from\n⚡ Mindset shift 👑",
+        "★ 2026 Vibe Creator ★\n✨ Be the energy you want to attract\n🎯 Vibe curator 💯",
+        "★ Era of abundance ★\n✨ One step closer to my dreams\n🎯 Trending boy 🧿",
+        "👑 No looking back, only forward\n⚡ 2026 Vibe Creator\n💯 Success path ⚡",
+        "🧪 In my own lane\n💎 No looking back, only forward\n⚡ Trending boy 🧬",
+        "👑 Unapologetically me\n💎 Every day is a fresh start\n⚡ Success path ⚡",
+        "★ In my own lane ★\n✨ My potential is limitless\n🎯 Trending boy 💎",
+        "★ Manifesting greatness ★\n✨ Living my best and truest self\n🎯 Success path 🦾",
+        "👑 VIP | Era of abundance\n⚡ Creating my own sunshine\n🖤 Success path 🧪",
+        "🚀 In my own lane\n💎 My potential is limitless\n⚡ Success path 🔮",
+        "👑 Living my best and truest self\n⚡ Self-made and proud\n💯 Mindset shift 👑",
+        "👑 Era of abundance\n💎 Focused on growth, peace, and success\n⚡ Vibe curator 🧬",
+        "👑 My potential is limitless\n⚡ Manifesting greatness\n💯 Always forward 👑",
+        "🔥 Manifesting greatness\n💎 Building a life I don't need a vacation from\n⚡ Mindset shift 🧬",
+        "★ Unapologetically me ★\n✨ Living my best and truest self\n🎯 Mindset shift 🔮",
+        "💎 2026 Vibe Creator ⚡\n👉 Trusting the universe and process\n🔥 Success path",
+        "⚡ Next level unlocked 🦾\n👉 Focused on growth, peace, and success\n🔥 Mindset shift",
+        "👑 My potential is limitless\n⚡ Self-made and proud\n💯 Trending boy 🚀",
+        "👑 VIP | Era of abundance\n⚡ Living my best and truest self\n🖤 Trending boy 💎",
+        "👑 Every day is a fresh start\n⚡ 2026 Vibe Creator\n💯 Always forward 🧿",
+        "🧬 Era of abundance 🧿\n👉 Living my best and truest self\n🔥 Success path",
+        "★ Self-made and proud ★\n✨ Trusting the universe and process\n🎯 Success path 🧬",
+        "💡 Manifesting greatness | Living my best and truest self | Trending boy 💎",
+        "👑 Era of abundance 🚀\n👉 Every day is a fresh start\n🔥 Success path",
+        "👑 Every day is a fresh start\n⚡ Manifesting greatness\n💯 Goal getter 🦾",
+        "🧪 Era of abundance 💯\n👉 Creating my own sunshine\n🔥 Success path",
+        "🦾 In my own lane\n💎 My potential is limitless\n⚡ Always forward 📈",
+        "📈 Next level unlocked\n💎 Be the energy you want to attract\n⚡ Mindset shift 💡",
+        "🚀 In my own lane | Every day is a fresh start | Mindset shift 🔥",
+        "👑 VIP | In my own lane\n⚡ Trusting the universe and process\n🖤 Vibe curator 🌟",
+        "🧪 Self-made and proud\n💎 No looking back, only forward\n⚡ Goal getter ⚡",
+        "🌟 Manifesting greatness 📈\n👉 Living my best and truest self\n🔥 Vibe curator",
+        "🧬 In my own lane\n💎 Be the energy you want to attract\n⚡ Goal getter 📈",
+        "👑 Focused on growth, peace, and success\n⚡ Manifesting greatness\n💯 Vibe curator 💡",
+        "🌟 Manifesting greatness\n💎 Creating my own sunshine\n⚡ Vibe curator 🌟",
+        "👑 VIP | Next level unlocked\n⚡ Building a life I don't need a vacation from\n🖤 Always forward 🧬",
+        "👑 VIP | Era of abundance\n⚡ Trusting the universe and process\n🖤 Always forward 🔮",
+        "💡 2026 Vibe Creator\n💎 Be the energy you want to attract\n⚡ Mindset shift 💎",
+        "👑 Next level unlocked\n💎 Living my best and truest self\n⚡ Mindset shift 🚀",
+        "👑 VIP | Leveling up daily\n⚡ No looking back, only forward\n🖤 Trending boy 💎",
+        "🦾 Manifesting greatness | Living my best and truest self | Trending boy 💯",
+        "👑 Building a life I don't need a vacation from\n⚡ Next level unlocked\n💯 Vibe curator 🔥",
+        "🦾 Era of abundance 💎\n👉 Be the energy you want to attract\n🔥 Trending boy",
+        "👑 Building a life I don't need a vacation from\n⚡ Unapologetically me\n💯 Always forward 🧬",
+        "🔥 Leveling up daily | One step closer to my dreams | Trending boy ⚡",
+        "📈 In my own lane | Creating my own sunshine | Goal getter ⚡",
+        "★ Era of abundance ★\n✨ Creating my own sunshine\n🎯 Success path 🧪",
+        "🔮 Unapologetically me | Be the energy you want to attract | Mindset shift 🦾",
+        "👑 Living my best and truest self\n⚡ 2026 Vibe Creator\n💯 Trending boy 💡",
+        "👑 Every day is a fresh start\n⚡ 2026 Vibe Creator\n💯 Trending boy 👑",
+        "👑 VIP | Manifesting greatness\n⚡ Living my best and truest self\n🖤 Trending boy 🧿",
+        "👑 VIP | Self-made and proud\n⚡ Every day is a fresh start\n🖤 Trending boy 💎",
+        "💎 Unapologetically me | Be the energy you want to attract | Always forward 🔮",
+        "★ Era of abundance ★\n✨ My potential is limitless\n🎯 Always forward 🔮",
+        "👑 My potential is limitless\n⚡ Self-made and proud\n💯 Mindset shift 💎",
+        "💎 Manifesting greatness\n💎 Trusting the universe and process\n⚡ Goal getter 🧿",
+        "🔥 Next level unlocked\n💎 Trusting the universe and process\n⚡ Goal getter 📈",
+        "👑 Creating my own sunshine\n⚡ 2026 Vibe Creator\n💯 Vibe curator 💡",
+        "👑 Focused on growth, peace, and success\n⚡ Manifesting greatness\n💯 Success path 👑",
+        "🧿 In my own lane 🧬\n👉 My potential is limitless\n🔥 Vibe curator",
+        "🧪 Self-made and proud 🧿\n👉 Focused on growth, peace, and success\n🔥 Trending boy",
+    ],
+    emoji: [
+        "👑 🎧 Audio addict | 🎸 Rock on\n⚡ 👑 VIP | 💸 Rich Mind | 💎 Gold\n💯 👑 Royal Boy 💎",
+        "★ 🔥 🎮 ⚽ 📸 ★\n✨ ✈️ Globetrotter | 🗺️ Wanderlust\n🎯 💎 Diamond Soul 👑",
+        "👑 VIP | ❤️ ✈️ 🍃 🍕\n⚡ ✈️ Globetrotter | 🗺️ Wanderlust\n🖤 😜 Happy Go Lucky 🎨",
+        "👑 VIP | 🖤 Black Lover | 🥂 Cheers\n⚡ 🐶 Dog lover | 🐾 Pet parent\n🖤 🔥 Trend Setter 👑",
+        "★ ❤️ ✈️ 🍃 🍕 ★\n✨ 🏍️ Rider boy | 🛣️ Long drive\n🎯 👑 Royal Boy 🏋️",
+        "👑 ✈️ Globetrotter | 🗺️ Wanderlust\n⚡ 🖤 Black Lover | 🥂 Cheers\n💯 💯 Keep It Real ⚽",
+        "★ 🖤 Black Lover | 🥂 Cheers ★\n✨ 🏋️ Gym Freak | 💪 Fitness\n🎯 👑 Royal Boy ✈️",
+        "❤️ 🖤 Black Lover | 🥂 Cheers\n💎 📸 Photography is life | 🎥 Vlog\n⚡ 🔥 Trend Setter ❤️",
+        "🎧 🔥 🎮 ⚽ 📸\n💎 📸 Photography is life | 🎥 Vlog\n⚡ 💯 Keep It Real ⚽",
+        "🏏 🔥 🎮 ⚽ 📸\n💎 🎧 Audio addict | 🎸 Rock on\n⚡ 😜 Happy Go Lucky 🏍️",
+        "😜 🎧 Music | 🏏 Cricket | 🚗 Cars\n💎 ✈️ Globetrotter | 🗺️ Wanderlust\n⚡ 😜 Happy Go Lucky 💎",
+        "★ 👑 VIP | 💸 Rich Mind | 💎 Gold ★\n✨ 🏋️ Gym Freak | 💪 Fitness\n🎯 👑 Royal Boy 🏍️",
+        "🚗 👑 King | 🎂 18 Jan\n💎 🏋️ Gym Freak | 💪 Fitness\n⚡ 🔥 Trend Setter 💎",
+        "💯 🎧 Music | 🏏 Cricket | 🚗 Cars | 🏍️ Rider boy | 🛣️ Long drive | 💎 Diamond Soul 👑",
+        "🚗 ❤️ ✈️ 🍃 🍕 ⚽\n👉 🐶 Dog lover | 🐾 Pet parent\n🔥 💯 Keep It Real",
+        "💎 ❤️ ✈️ 🍃 🍕 | 🐶 Dog lover | 🐾 Pet parent | 👑 Royal Boy 💎",
+        "👑 VIP | ⚡ 💯 🎯 🚀\n⚡ 🎧 Audio addict | 🎸 Rock on\n🖤 👑 Royal Boy 🚗",
+        "★ ⚡ 💯 🎯 🚀 ★\n✨ 🏍️ Rider boy | 🛣️ Long drive\n🎯 🔥 Trend Setter 🚗",
+        "👑 🏍️ Rider boy | 🛣️ Long drive\n⚡ 👑 👑 👑 | 🎧 🎧 🎧\n💯 😜 Happy Go Lucky ❤️",
+        "👑 🏋️ Gym Freak | 💪 Fitness\n⚡ 👑 King | 🎂 18 Jan\n💯 🔥 Trend Setter 💯",
+        "📸 🔥 🎮 ⚽ 📸 🎬\n👉 📸 Photography is life | 🎥 Vlog\n🔥 🔥 Trend Setter",
+        "★ 🖤 Black Lover | 🥂 Cheers ★\n✨ 🏍️ Rider boy | 🛣️ Long drive\n🎯 🔥 Trend Setter 💯",
+        "😜 ❤️ ✈️ 🍃 🍕 💯\n👉 🐶 Dog lover | 🐾 Pet parent\n🔥 💯 Keep It Real",
+        "👑 👑 King | 🎂 18 Jan 💯\n👉 ✈️ Globetrotter | 🗺️ Wanderlust\n🔥 💯 Keep It Real",
+        "👑 VIP | 🔥 🎮 ⚽ 📸\n⚡ ✈️ Globetrotter | 🗺️ Wanderlust\n🖤 🔥 Trend Setter ⚽",
+        "🎧 👑 VIP | 💸 Rich Mind | 💎 Gold\n💎 🐶 Dog lover | 🐾 Pet parent\n⚡ 💯 Keep It Real 🖤",
+        "⚽ 👑 👑 👑 | 🎧 🎧 🎧 ✈️\n👉 ✈️ Globetrotter | 🗺️ Wanderlust\n🔥 😜 Happy Go Lucky",
+        "💎 ❤️ ✈️ 🍃 🍕 | 🏋️ Gym Freak | 💪 Fitness | 💎 Diamond Soul 💎",
+        "💎 👑 👑 👑 | 🎧 🎧 🎧 🎮\n👉 🏋️ Gym Freak | 💪 Fitness\n🔥 👑 Royal Boy",
+        "💯 👑 👑 👑 | 🎧 🎧 🎧 📸\n👉 📸 Photography is life | 🎥 Vlog\n🔥 😜 Happy Go Lucky",
+        "★ 👑 VIP | 💸 Rich Mind | 💎 Gold ★\n✨ 🏋️ Gym Freak | 💪 Fitness\n🎯 💯 Keep It Real ❤️",
+        "👑 📸 Photography is life | 🎥 Vlog\n⚡ ❤️ ✈️ 🍃 🍕\n💯 💯 Keep It Real 🎮",
+        "★ 🔥 🎮 ⚽ 📸 ★\n✨ ✈️ Globetrotter | 🗺️ Wanderlust\n🎯 🔥 Trend Setter 🎨",
+        "🎮 👑 👑 👑 | 🎧 🎧 🎧\n💎 ✈️ Globetrotter | 🗺️ Wanderlust\n⚡ 💎 Diamond Soul 🎧",
+        "✈️ 🔥 🎮 ⚽ 📸\n💎 🏋️ Gym Freak | 💪 Fitness\n⚡ 🔥 Trend Setter 🎮",
+        "👑 🎧 Audio addict | 🎸 Rock on\n⚡ 🔥 🎮 ⚽ 📸\n💯 🔥 Trend Setter 🔥",
+        "★ 👑 👑 👑 | 🎧 🎧 🎧 ★\n✨ 🍔 Foodie | 🍕 Pizza lover | 🥤 Coke\n🎯 💎 Diamond Soul 🎮",
+        "★ 🎧 Music | 🏏 Cricket | 🚗 Cars ★\n✨ ✈️ Globetrotter | 🗺️ Wanderlust\n🎯 🔥 Trend Setter 🎬",
+        "👑 VIP | 🔥 🎮 ⚽ 📸\n⚡ 🍔 Foodie | 🍕 Pizza lover | 🥤 Coke\n🖤 💯 Keep It Real 🎬",
+        "🖤 🔥 🎮 ⚽ 📸\n💎 📸 Photography is life | 🎥 Vlog\n⚡ 💎 Diamond Soul 🚗",
+        "✈️ ⚡ 💯 🎯 🚀\n💎 🦁 Lion Heart | 👑 Royal Blood\n⚡ 😜 Happy Go Lucky 🏍️",
+        "👑 🍔 Foodie | 🍕 Pizza lover | 🥤 Coke\n⚡ 👑 👑 👑 | 🎧 🎧 🎧\n💯 💯 Keep It Real 💯",
+        "★ 🖤 Black Lover | 🥂 Cheers ★\n✨ 🎧 Audio addict | 🎸 Rock on\n🎯 💯 Keep It Real 🎨",
+        "👑 VIP | 👑 King | 🎂 18 Jan\n⚡ 🍔 Foodie | 🍕 Pizza lover | 🥤 Coke\n🖤 💎 Diamond Soul 💎",
+        "🏍️ ⚡ 💯 🎯 🚀\n💎 🍔 Foodie | 🍕 Pizza lover | 🥤 Coke\n⚡ 💎 Diamond Soul 📸",
+        "👑 VIP | 🖤 Black Lover | 🥂 Cheers\n⚡ 🐶 Dog lover | 🐾 Pet parent\n🖤 👑 Royal Boy 🖤",
+        "👑 🏋️ Gym Freak | 💪 Fitness\n⚡ 🎧 Music | 🏏 Cricket | 🚗 Cars\n💯 😜 Happy Go Lucky 💎",
+        "🚗 ❤️ ✈️ 🍃 🍕\n💎 🎧 Audio addict | 🎸 Rock on\n⚡ 💯 Keep It Real ❤️",
+        "👑 🏋️ Gym Freak | 💪 Fitness\n⚡ 👑 👑 👑 | 🎧 🎧 🎧\n💯 🔥 Trend Setter 📸",
+        "★ ❤️ ✈️ 🍃 🍕 ★\n✨ 🐶 Dog lover | 🐾 Pet parent\n🎯 💎 Diamond Soul 😜",
+        "👑 👑 King | 🎂 18 Jan | ✈️ Globetrotter | 🗺️ Wanderlust | 👑 Royal Boy 👑",
+        "🔥 🎧 Music | 🏏 Cricket | 🚗 Cars | 📸 Photography is life | 🎥 Vlog | 💎 Diamond Soul 📸",
+        "👑 🦁 Lion Heart | 👑 Royal Blood\n⚡ 👑 VIP | 💸 Rich Mind | 💎 Gold\n💯 💯 Keep It Real ⚽",
+        "💯 ⚡ 💯 🎯 🚀\n💎 🦁 Lion Heart | 👑 Royal Blood\n⚡ 💎 Diamond Soul 🏋️",
+        "💯 ❤️ ✈️ 🍃 🍕 🚗\n👉 🦁 Lion Heart | 👑 Royal Blood\n🔥 👑 Royal Boy",
+        "👑 VIP | 🔥 🎮 ⚽ 📸\n⚡ 📸 Photography is life | 🎥 Vlog\n🖤 🔥 Trend Setter 😜",
+        "📸 ⚡ 💯 🎯 🚀 | 🦁 Lion Heart | 👑 Royal Blood | 😜 Happy Go Lucky 📸",
+        "⚡ 🖤 Black Lover | 🥂 Cheers 🏋️\n👉 🏍️ Rider boy | 🛣️ Long drive\n🔥 👑 Royal Boy",
+        "🏏 🎧 Music | 🏏 Cricket | 🚗 Cars ❤️\n👉 🦁 Lion Heart | 👑 Royal Blood\n🔥 👑 Royal Boy",
+        "👑 VIP | 🔥 🎮 ⚽ 📸\n⚡ 🎧 Audio addict | 🎸 Rock on\n🖤 💎 Diamond Soul ✈️",
+        "★ 👑 King | 🎂 18 Jan ★\n✨ 📸 Photography is life | 🎥 Vlog\n🎯 🔥 Trend Setter 🎨",
+        "👑 🏍️ Rider boy | 🛣️ Long drive\n⚡ ⚡ 💯 🎯 🚀\n💯 🔥 Trend Setter 💎",
+        "👑 VIP | 👑 👑 👑 | 🎧 🎧 🎧\n⚡ 🐶 Dog lover | 🐾 Pet parent\n🖤 😜 Happy Go Lucky ❤️",
+        "★ ⚡ 💯 🎯 🚀 ★\n✨ ✈️ Globetrotter | 🗺️ Wanderlust\n🎯 👑 Royal Boy 👑",
+        "👑 VIP | 👑 👑 👑 | 🎧 🎧 🎧\n⚡ 📸 Photography is life | 🎥 Vlog\n🖤 💯 Keep It Real 🎬",
+        "👑 🖤 Black Lover | 🥂 Cheers 📸\n👉 🎧 Audio addict | 🎸 Rock on\n🔥 💎 Diamond Soul",
+        "👑 VIP | 🖤 Black Lover | 🥂 Cheers\n⚡ ✈️ Globetrotter | 🗺️ Wanderlust\n🖤 💎 Diamond Soul 🖤",
+        "👑 ✈️ Globetrotter | 🗺️ Wanderlust\n⚡ 👑 VIP | 💸 Rich Mind | 💎 Gold\n💯 💯 Keep It Real ⚽",
+        "🚗 ⚡ 💯 🎯 🚀 🏍️\n👉 ✈️ Globetrotter | 🗺️ Wanderlust\n🔥 💯 Keep It Real",
+        "👑 🎧 Audio addict | 🎸 Rock on\n⚡ 🔥 🎮 ⚽ 📸\n💯 😜 Happy Go Lucky 🎬",
+        "🖤 👑 👑 👑 | 🎧 🎧 🎧\n💎 🐶 Dog lover | 🐾 Pet parent\n⚡ 👑 Royal Boy 😜",
+        "🎨 👑 King | 🎂 18 Jan\n💎 🐶 Dog lover | 🐾 Pet parent\n⚡ 💯 Keep It Real 🖤",
+        "🏍️ ⚡ 💯 🎯 🚀\n💎 🏋️ Gym Freak | 💪 Fitness\n⚡ 😜 Happy Go Lucky 📸",
+        "👑 🏍️ Rider boy | 🛣️ Long drive\n⚡ 👑 👑 👑 | 🎧 🎧 🎧\n💯 🔥 Trend Setter ✈️",
+        "👑 🐶 Dog lover | 🐾 Pet parent\n⚡ 🔥 🎮 ⚽ 📸\n💯 👑 Royal Boy ⚽",
+        "😜 ⚡ 💯 🎯 🚀 | 🍔 Foodie | 🍕 Pizza lover | 🥤 Coke | 💎 Diamond Soul 😜",
+        "👑 VIP | 👑 King | 🎂 18 Jan\n⚡ 🏋️ Gym Freak | 💪 Fitness\n🖤 💎 Diamond Soul 🎨",
+        "🚗 👑 VIP | 💸 Rich Mind | 💎 Gold 🏍️\n👉 🏍️ Rider boy | 🛣️ Long drive\n🔥 👑 Royal Boy",
+        "👑 VIP | ⚡ 💯 🎯 🚀\n⚡ 🍔 Foodie | 🍕 Pizza lover | 🥤 Coke\n🖤 👑 Royal Boy 🖤",
+        "📸 👑 VIP | 💸 Rich Mind | 💎 Gold 🏍️\n👉 🏋️ Gym Freak | 💪 Fitness\n🔥 💎 Diamond Soul",
+        "💎 🔥 🎮 ⚽ 📸\n💎 📸 Photography is life | 🎥 Vlog\n⚡ 💯 Keep It Real 🚗",
+        "★ ⚡ 💯 🎯 🚀 ★\n✨ 🏋️ Gym Freak | 💪 Fitness\n🎯 💯 Keep It Real ✈️",
+        "👑 🐶 Dog lover | 🐾 Pet parent\n⚡ 🎧 Music | 🏏 Cricket | 🚗 Cars\n💯 💯 Keep It Real 😜",
+        "👑 VIP | 🖤 Black Lover | 🥂 Cheers\n⚡ 🐶 Dog lover | 🐾 Pet parent\n🖤 👑 Royal Boy 💯",
+        "👑 🍔 Foodie | 🍕 Pizza lover | 🥤 Coke\n⚡ 👑 👑 👑 | 🎧 🎧 🎧\n💯 😜 Happy Go Lucky ⚡",
+        "👑 📸 Photography is life | 🎥 Vlog\n⚡ ⚡ 💯 🎯 🚀\n💯 🔥 Trend Setter ⚽",
+        "👑 VIP | 🖤 Black Lover | 🥂 Cheers\n⚡ 📸 Photography is life | 🎥 Vlog\n🖤 👑 Royal Boy 🎧",
+        "★ 👑 King | 🎂 18 Jan ★\n✨ 🏍️ Rider boy | 🛣️ Long drive\n🎯 😜 Happy Go Lucky ⚡",
+        "👑 VIP | ⚡ 💯 🎯 🚀\n⚡ 🏋️ Gym Freak | 💪 Fitness\n🖤 👑 Royal Boy 🎧",
+        "★ 👑 VIP | 💸 Rich Mind | 💎 Gold ★\n✨ 🐶 Dog lover | 🐾 Pet parent\n🎯 😜 Happy Go Lucky 🎨",
+        "★ ❤️ ✈️ 🍃 🍕 ★\n✨ 🏋️ Gym Freak | 💪 Fitness\n🎯 👑 Royal Boy 🏋️",
+        "👑 VIP | 🔥 🎮 ⚽ 📸\n⚡ 🎧 Audio addict | 🎸 Rock on\n🖤 💯 Keep It Real 💎",
+        "🚗 🖤 Black Lover | 🥂 Cheers\n💎 📸 Photography is life | 🎥 Vlog\n⚡ 👑 Royal Boy 🎨",
+        "📸 👑 VIP | 💸 Rich Mind | 💎 Gold\n💎 🏍️ Rider boy | 🛣️ Long drive\n⚡ 💎 Diamond Soul 🏍️",
+        "❤️ ❤️ ✈️ 🍃 🍕 ✈️\n👉 🏋️ Gym Freak | 💪 Fitness\n🔥 😜 Happy Go Lucky",
+        "★ 🔥 🎮 ⚽ 📸 ★\n✨ ✈️ Globetrotter | 🗺️ Wanderlust\n🎯 💯 Keep It Real 🚗",
+        "🎧 🔥 🎮 ⚽ 📸 | 🐶 Dog lover | 🐾 Pet parent | 💎 Diamond Soul 🎧",
+        "😜 🔥 🎮 ⚽ 📸\n💎 🎧 Audio addict | 🎸 Rock on\n⚡ 👑 Royal Boy 📸",
+        "🎮 🎧 Music | 🏏 Cricket | 🚗 Cars 👑\n👉 📸 Photography is life | 🎥 Vlog\n🔥 💯 Keep It Real",
+        "🏋️ ❤️ ✈️ 🍃 🍕 ❤️\n👉 🏋️ Gym Freak | 💪 Fitness\n🔥 💎 Diamond Soul",
+        "★ 🖤 Black Lover | 🥂 Cheers ★\n✨ 🏍️ Rider boy | 🛣️ Long drive\n🎯 🔥 Trend Setter 😜",
+        "⚡ 👑 VIP | 💸 Rich Mind | 💎 Gold 🏍️\n👉 🏋️ Gym Freak | 💪 Fitness\n🔥 💎 Diamond Soul",
+        "★ 🎧 Music | 🏏 Cricket | 🚗 Cars ★\n✨ 📸 Photography is life | 🎥 Vlog\n🎯 👑 Royal Boy 💎",
+        "👑 VIP | 🔥 🎮 ⚽ 📸\n⚡ 🐶 Dog lover | 🐾 Pet parent\n🖤 👑 Royal Boy ⚡",
+        "✈️ ❤️ ✈️ 🍃 🍕 | 📸 Photography is life | 🎥 Vlog | 😜 Happy Go Lucky 🏍️",
+        "💯 🖤 Black Lover | 🥂 Cheers\n💎 📸 Photography is life | 🎥 Vlog\n⚡ 🔥 Trend Setter 🎮",
+        "★ 👑 VIP | 💸 Rich Mind | 💎 Gold ★\n✨ 📸 Photography is life | 🎥 Vlog\n🎯 😜 Happy Go Lucky 😜",
+        "★ 👑 👑 👑 | 🎧 🎧 🎧 ★\n✨ 🏍️ Rider boy | 🛣️ Long drive\n🎯 💯 Keep It Real 🏋️",
+        "👑 ✈️ Globetrotter | 🗺️ Wanderlust\n⚡ 🎧 Music | 🏏 Cricket | 🚗 Cars\n💯 💯 Keep It Real ⚡",
+        "★ ⚡ 💯 🎯 🚀 ★\n✨ 📸 Photography is life | 🎥 Vlog\n🎯 😜 Happy Go Lucky 📸",
+        "👑 VIP | 👑 King | 🎂 18 Jan\n⚡ 📸 Photography is life | 🎥 Vlog\n🖤 💎 Diamond Soul 🚗",
+        "👑 VIP | 🔥 🎮 ⚽ 📸\n⚡ 🏋️ Gym Freak | 💪 Fitness\n🖤 💯 Keep It Real ✈️",
+        "★ 👑 VIP | 💸 Rich Mind | 💎 Gold ★\n✨ 📸 Photography is life | 🎥 Vlog\n🎯 💎 Diamond Soul 🎧",
+        "🏏 👑 👑 👑 | 🎧 🎧 🎧\n💎 🏋️ Gym Freak | 💪 Fitness\n⚡ 😜 Happy Go Lucky 🎨",
+        "😜 🔥 🎮 ⚽ 📸 ⚽\n👉 📸 Photography is life | 🎥 Vlog\n🔥 👑 Royal Boy",
+        "❤️ ⚡ 💯 🎯 🚀 | 🎧 Audio addict | 🎸 Rock on | 💯 Keep It Real 😜",
+        "★ 🖤 Black Lover | 🥂 Cheers ★\n✨ 🍔 Foodie | 🍕 Pizza lover | 🥤 Coke\n🎯 👑 Royal Boy 🖤",
+        "🎬 👑 👑 👑 | 🎧 🎧 🎧 ❤️\n👉 🏍️ Rider boy | 🛣️ Long drive\n🔥 😜 Happy Go Lucky",
+        "★ 🎧 Music | 🏏 Cricket | 🚗 Cars ★\n✨ 🎧 Audio addict | 🎸 Rock on\n🎯 💎 Diamond Soul 🔥",
+        "⚽ 👑 King | 🎂 18 Jan | 🍔 Foodie | 🍕 Pizza lover | 🥤 Coke | 😜 Happy Go Lucky 🏏",
+        "🚗 👑 VIP | 💸 Rich Mind | 💎 Gold 📸\n👉 ✈️ Globetrotter | 🗺️ Wanderlust\n🔥 😜 Happy Go Lucky",
+        "👑 🐶 Dog lover | 🐾 Pet parent\n⚡ ⚡ 💯 🎯 🚀\n💯 🔥 Trend Setter ❤️",
+        "🏋️ ❤️ ✈️ 🍃 🍕\n💎 🦁 Lion Heart | 👑 Royal Blood\n⚡ 💎 Diamond Soul 🎨",
+        "👑 VIP | 👑 VIP | 💸 Rich Mind | 💎 Gold\n⚡ 📸 Photography is life | 🎥 Vlog\n🖤 💯 Keep It Real 🎧",
+        "👑 VIP | 🔥 🎮 ⚽ 📸\n⚡ ✈️ Globetrotter | 🗺️ Wanderlust\n🖤 🔥 Trend Setter 🔥",
+        "😜 👑 King | 🎂 18 Jan ⚽\n👉 🎧 Audio addict | 🎸 Rock on\n🔥 🔥 Trend Setter",
+        "😜 👑 VIP | 💸 Rich Mind | 💎 Gold | 🏋️ Gym Freak | 💪 Fitness | 👑 Royal Boy 🔥",
+        "👑 VIP | 👑 VIP | 💸 Rich Mind | 💎 Gold\n⚡ 🎧 Audio addict | 🎸 Rock on\n🖤 💎 Diamond Soul 🚗",
+        "🔥 🖤 Black Lover | 🥂 Cheers | 🏋️ Gym Freak | 💪 Fitness | 💎 Diamond Soul 🔥",
+        "👑 🏍️ Rider boy | 🛣️ Long drive\n⚡ ⚡ 💯 🎯 🚀\n💯 💎 Diamond Soul 🎮",
+        "👑 VIP | ⚡ 💯 🎯 🚀\n⚡ 🦁 Lion Heart | 👑 Royal Blood\n🖤 🔥 Trend Setter 🎬",
+        "🎮 👑 👑 👑 | 🎧 🎧 🎧\n💎 🐶 Dog lover | 🐾 Pet parent\n⚡ 🔥 Trend Setter 🏍️",
+        "🏋️ 👑 VIP | 💸 Rich Mind | 💎 Gold ⚡\n👉 ✈️ Globetrotter | 🗺️ Wanderlust\n🔥 💎 Diamond Soul",
+        "⚡ 🖤 Black Lover | 🥂 Cheers\n💎 🐶 Dog lover | 🐾 Pet parent\n⚡ 👑 Royal Boy 🎬",
+        "👑 VIP | 🔥 🎮 ⚽ 📸\n⚡ 🏋️ Gym Freak | 💪 Fitness\n🖤 🔥 Trend Setter ⚡",
+        "👑 🐶 Dog lover | 🐾 Pet parent\n⚡ 🖤 Black Lover | 🥂 Cheers\n💯 😜 Happy Go Lucky 🏍️",
+        "👑 VIP | ❤️ ✈️ 🍃 🍕\n⚡ 🦁 Lion Heart | 👑 Royal Blood\n🖤 💎 Diamond Soul 💯",
+        "🚗 🔥 🎮 ⚽ 📸\n💎 🍔 Foodie | 🍕 Pizza lover | 🥤 Coke\n⚡ 💯 Keep It Real 🎨",
+        "★ ❤️ ✈️ 🍃 🍕 ★\n✨ 📸 Photography is life | 🎥 Vlog\n🎯 👑 Royal Boy 🖤",
+        "🎨 🔥 🎮 ⚽ 📸 🎧\n👉 🎧 Audio addict | 🎸 Rock on\n🔥 😜 Happy Go Lucky",
+        "⚽ ⚡ 💯 🎯 🚀 🔥\n👉 🎧 Audio addict | 🎸 Rock on\n🔥 🔥 Trend Setter",
+        "🎧 🎧 Music | 🏏 Cricket | 🚗 Cars\n💎 🐶 Dog lover | 🐾 Pet parent\n⚡ 💎 Diamond Soul 🔥",
+        "💎 👑 👑 👑 | 🎧 🎧 🎧\n💎 🏍️ Rider boy | 🛣️ Long drive\n⚡ 💯 Keep It Real 🏍️",
+        "★ ⚡ 💯 🎯 🚀 ★\n✨ 🐶 Dog lover | 🐾 Pet parent\n🎯 😜 Happy Go Lucky 👑",
+        "🔥 🎧 Music | 🏏 Cricket | 🚗 Cars\n💎 🏍️ Rider boy | 🛣️ Long drive\n⚡ 😜 Happy Go Lucky 🎬",
+        "🏍️ 👑 👑 👑 | 🎧 🎧 🎧 | 🎧 Audio addict | 🎸 Rock on | 👑 Royal Boy 💯",
+        "🏏 🔥 🎮 ⚽ 📸\n💎 🎧 Audio addict | 🎸 Rock on\n⚡ 💯 Keep It Real 💯",
+        "👑 ✈️ Globetrotter | 🗺️ Wanderlust\n⚡ ⚡ 💯 🎯 🚀\n💯 💎 Diamond Soul 📸",
+        "👑 VIP | 🎧 Music | 🏏 Cricket | 🚗 Cars\n⚡ 🎧 Audio addict | 🎸 Rock on\n🖤 💎 Diamond Soul ⚽",
+        "❤️ 🔥 🎮 ⚽ 📸\n💎 🏋️ Gym Freak | 💪 Fitness\n⚡ 💯 Keep It Real ✈️",
+        "📸 🖤 Black Lover | 🥂 Cheers\n💎 🏋️ Gym Freak | 💪 Fitness\n⚡ 💎 Diamond Soul 💯",
+        "★ 🖤 Black Lover | 🥂 Cheers ★\n✨ 🏍️ Rider boy | 🛣️ Long drive\n🎯 👑 Royal Boy ❤️",
+        "✈️ ⚡ 💯 🎯 🚀\n💎 ✈️ Globetrotter | 🗺️ Wanderlust\n⚡ 🔥 Trend Setter 🎨",
+        "🏍️ 👑 VIP | 💸 Rich Mind | 💎 Gold | 🐶 Dog lover | 🐾 Pet parent | 🔥 Trend Setter 🎬",
+        "🔥 👑 👑 👑 | 🎧 🎧 🎧 | 🏋️ Gym Freak | 💪 Fitness | 👑 Royal Boy 🏋️",
+        "👑 🏍️ Rider boy | 🛣️ Long drive\n⚡ ⚡ 💯 🎯 🚀\n💯 😜 Happy Go Lucky 🏋️",
+        "★ ❤️ ✈️ 🍃 🍕 ★\n✨ 🎧 Audio addict | 🎸 Rock on\n🎯 😜 Happy Go Lucky 🏍️",
+        "🎬 ❤️ ✈️ 🍃 🍕\n💎 📸 Photography is life | 🎥 Vlog\n⚡ 👑 Royal Boy 🎮",
+        "🚗 👑 King | 🎂 18 Jan\n💎 📸 Photography is life | 🎥 Vlog\n⚡ 😜 Happy Go Lucky 🚗",
+        "★ ⚡ 💯 🎯 🚀 ★\n✨ 🎧 Audio addict | 🎸 Rock on\n🎯 👑 Royal Boy 📸",
+        "👑 📸 Photography is life | 🎥 Vlog\n⚡ 🔥 🎮 ⚽ 📸\n💯 😜 Happy Go Lucky ⚽",
+        "👑 VIP | 🔥 🎮 ⚽ 📸\n⚡ 🦁 Lion Heart | 👑 Royal Blood\n🖤 👑 Royal Boy 💎",
+        "✈️ 🔥 🎮 ⚽ 📸 | ✈️ Globetrotter | 🗺️ Wanderlust | 💎 Diamond Soul ✈️",
+        "📸 👑 King | 🎂 18 Jan\n💎 🦁 Lion Heart | 👑 Royal Blood\n⚡ 👑 Royal Boy 🔥",
+        "💎 🖤 Black Lover | 🥂 Cheers | ✈️ Globetrotter | 🗺️ Wanderlust | 💯 Keep It Real 🎮",
+        "👑 VIP | 🔥 🎮 ⚽ 📸\n⚡ ✈️ Globetrotter | 🗺️ Wanderlust\n🖤 🔥 Trend Setter 📸",
+        "★ ❤️ ✈️ 🍃 🍕 ★\n✨ 🏍️ Rider boy | 🛣️ Long drive\n🎯 😜 Happy Go Lucky 📸",
+        "★ 🎧 Music | 🏏 Cricket | 🚗 Cars ★\n✨ 📸 Photography is life | 🎥 Vlog\n🎯 😜 Happy Go Lucky 💎",
+        "💯 ❤️ ✈️ 🍃 🍕\n💎 🏋️ Gym Freak | 💪 Fitness\n⚡ 🔥 Trend Setter ✈️",
+        "🏏 🎧 Music | 🏏 Cricket | 🚗 Cars\n💎 ✈️ Globetrotter | 🗺️ Wanderlust\n⚡ 💎 Diamond Soul 🖤",
+        "★ ⚡ 💯 🎯 🚀 ★\n✨ 🎧 Audio addict | 🎸 Rock on\n🎯 👑 Royal Boy 💯",
+        "★ 🔥 🎮 ⚽ 📸 ★\n✨ 🎧 Audio addict | 🎸 Rock on\n🎯 🔥 Trend Setter 🎨",
+    ],
+    short: [
+        "💫 Dream big\n💎 Stay true to you\n⚡ Focus ON 💫",
+        "⚓ Stay focused\n💎 No regrets\n⚡ Focus ON 📌",
+        "★ Fearless ★\n✨ Just be you\n🎯 Keep smiling 💡",
+        "👑 VIP | Dream big\n⚡ Creating myself\n🖤 Real vibes 📌",
+        "👑 One day at a time\n⚡ Believe\n💯 Peace out 🔥",
+        "📌 Pure vibes | No regrets | Focus ON ⚡",
+        "★ Stay humble ★\n✨ Keep it simple\n🎯 Move forward 💫",
+        "📌 Dream big 💫\n👉 Do epic things\n🔥 Keep smiling",
+        "💯 Stay focused\n💎 Do epic things\n⚡ Move forward 💯",
+        "⚔️ Believe\n💎 Just living\n⚡ Move forward 🔥",
+        "⚓ Be real | Keep it simple | Keep smiling 💯",
+        "✨ Believe | Just be you | Focus ON ⚡",
+        "👑 One day at a time\n⚡ Be real\n💯 Move forward 🖤",
+        "✨ On my way | Stay true to you | Peace out ⚓",
+        "★ On my way ★\n✨ Make it count\n🎯 Keep smiling ✨",
+        "💯 Stay humble\n💎 Stay true to you\n⚡ Move forward ⚔️",
+        "★ Hustle hard ★\n✨ Creating myself\n🎯 Make history 💯",
+        "💯 Be real\n💎 Just living\n⚡ Keep smiling ⚔️",
+        "✨ Fearless 💫\n👉 Make it count\n🔥 Real vibes",
+        "👑 Stay true to you\n⚡ On my way\n💯 Focus ON 📌",
+        "👑 Keep it simple\n⚡ Choose happy\n💯 Peace out ✨",
+        "✨ Be real 🌟\n👉 Do epic things\n🔥 Focus ON",
+        "👑 No regrets\n⚡ Go wild\n💯 Peace out 🔥",
+        "👑 Just be you\n⚡ On my way\n💯 Real vibes 🌟",
+        "★ Dream big ★\n✨ Just be you\n🎯 Keep smiling ⚡",
+        "✨ Limitless 🎯\n👉 Mindset is everything\n🔥 Make history",
+        "👑 Just be you\n⚡ Hustle hard\n💯 Make history ⚡",
+        "👑 Keep it simple\n⚡ Hustle hard\n💯 Real vibes 🧬",
+        "💯 Go wild\n💎 No regrets\n⚡ Real vibes 🔥",
+        "👑 Do epic things\n⚡ Stay humble\n💯 Make history 🔥",
+        "👑 Limitless | No regrets | Real vibes 🔥",
+        "★ Go wild ★\n✨ Make it count\n🎯 Focus ON 🧬",
+        "⚔️ On my way 💡\n👉 Keep it simple\n🔥 Keep smiling",
+        "👑 Hustle hard\n💎 Just living\n⚡ Make history 🔥",
+        "✨ Pure vibes\n💎 Just be you\n⚡ Keep smiling 🎯",
+        "⚡ On my way | Just living | Focus ON ⚡",
+        "⚔️ Fearless\n💎 No regrets\n⚡ Make history 🧬",
+        "★ On my way ★\n✨ Stay true to you\n🎯 Keep smiling 🖤",
+        "🖤 Hustle hard 🖤\n👉 No regrets\n🔥 Keep smiling",
+        "📌 Be real 🌟\n👉 Keep it simple\n🔥 Move forward",
+        "⚔️ Dream big ⚓\n👉 Creating myself\n🔥 Peace out",
+        "👑 VIP | Pure vibes\n⚡ Mindset is everything\n🖤 Real vibes 🖤",
+        "💡 Dream big | Make it count | Move forward 🖤",
+        "🎯 Go wild\n💎 Stay true to you\n⚡ Move forward ⚔️",
+        "👑 Do epic things\n⚡ Pure vibes\n💯 Make history ⚔️",
+        "★ Be real ★\n✨ Do epic things\n🎯 Peace out ⚔️",
+        "🖤 Be real\n💎 Creating myself\n⚡ Make history 💡",
+        "🌟 Be real\n💎 Do epic things\n⚡ Move forward ⚔️",
+        "★ Be real ★\n✨ Creating myself\n🎯 Focus ON 🧬",
+        "★ Stay focused ★\n✨ Mindset is everything\n🎯 Keep smiling 🌟",
+        "★ Be real ★\n✨ Do epic things\n🎯 Keep smiling ✨",
+        "💡 Fearless\n💎 One day at a time\n⚡ Real vibes ⚓",
+        "★ Pure vibes ★\n✨ Do epic things\n🎯 Keep smiling 👑",
+        "★ Fearless ★\n✨ Just living\n🎯 Keep smiling 🌟",
+        "👑 VIP | Dream big\n⚡ Mindset is everything\n🖤 Peace out 🎯",
+        "👑 No regrets\n⚡ On my way\n💯 Real vibes 💫",
+        "👑 VIP | Stay humble\n⚡ Mindset is everything\n🖤 Real vibes 👑",
+        "👑 Believe\n💎 Make it count\n⚡ Real vibes 💯",
+        "🎯 Go wild | Do epic things | Move forward 🔥",
+        "🧬 Limitless 🔥\n👉 Just be you\n🔥 Real vibes",
+        "🔥 Hustle hard | No regrets | Real vibes 💡",
+        "👑 Mindset is everything\n⚡ Stay focused\n💯 Focus ON 🌟",
+        "🔥 Hustle hard\n💎 Creating myself\n⚡ Peace out 👑",
+        "★ Be real ★\n✨ Mindset is everything\n🎯 Move forward 🧬",
+        "💯 Be real 🧬\n👉 Just be you\n🔥 Move forward",
+        "★ On my way ★\n✨ Mindset is everything\n🎯 Move forward ⚡",
+        "🖤 Pure vibes 👑\n👉 Just be you\n🔥 Peace out",
+        "💯 Pure vibes | Do epic things | Keep smiling ✨",
+        "🔥 Be real 🔥\n👉 Stay true to you\n🔥 Peace out",
+        "👑 VIP | On my way\n⚡ Just be you\n🖤 Make history 💡",
+        "💫 Be real 👑\n👉 One day at a time\n🔥 Move forward",
+        "👑 Just be you\n⚡ Stay focused\n💯 Real vibes 🔥",
+        "★ Pure vibes ★\n✨ Do epic things\n🎯 Keep smiling ⚔️",
+        "👑 VIP | Limitless\n⚡ Just living\n🖤 Peace out ⚔️",
+        "💫 Go wild\n💎 One day at a time\n⚡ Move forward 💫",
+        "👑 No regrets\n⚡ Fearless\n💯 Peace out 👑",
+        "💡 Limitless\n💎 Do epic things\n⚡ Move forward ✨",
+        "⚡ Dream big | Just be you | Peace out ⚔️",
+        "★ On my way ★\n✨ Do epic things\n🎯 Peace out 🎯",
+        "⚔️ Pure vibes\n💎 Keep it simple\n⚡ Move forward ⚔️",
+        "💡 Stay focused\n💎 Do epic things\n⚡ Make history 💫",
+        "💫 Pure vibes\n💎 Just be you\n⚡ Move forward 🔥",
+        "⚔️ Fearless\n💎 Mindset is everything\n⚡ Keep smiling ⚓",
+        "⚡ Stay focused | Creating myself | Peace out ⚔️",
+        "📌 On my way 🖤\n👉 One day at a time\n🔥 Real vibes",
+        "👑 VIP | Go wild\n⚡ Make it count\n🖤 Peace out 🧬",
+        "👑 Creating myself\n⚡ On my way\n💯 Peace out 💫",
+        "👑 VIP | Stay focused\n⚡ Keep it simple\n🖤 Peace out ⚡",
+        "✨ Choose happy | Stay true to you | Peace out 💯",
+        "⚓ Limitless\n💎 Make it count\n⚡ Real vibes 💫",
+        "👑 VIP | Hustle hard\n⚡ Creating myself\n🖤 Focus ON 🎯",
+        "⚓ Fearless 🖤\n👉 Just living\n🔥 Real vibes",
+        "👑 VIP | On my way\n⚡ Mindset is everything\n🖤 Make history 🖤",
+        "👑 VIP | Go wild\n⚡ Just living\n🖤 Make history 🖤",
+        "🎯 On my way\n💎 Stay true to you\n⚡ Make history ⚔️",
+        "📌 Pure vibes | Stay true to you | Focus ON ⚡",
+        "👑 Stay true to you\n⚡ Be real\n💯 Move forward 🔥",
+        "★ Hustle hard ★\n✨ Just be you\n🎯 Make history 💯",
+        "👑 VIP | Stay humble\n⚡ Keep it simple\n🖤 Real vibes 🔥",
+        "★ Stay focused ★\n✨ Make it count\n🎯 Peace out ⚔️",
+        "⚡ Fearless\n💎 Keep it simple\n⚡ Keep smiling 💫",
+        "✨ Stay humble 🔥\n👉 Stay true to you\n🔥 Peace out",
+        "👑 Choose happy\n💎 Just living\n⚡ Move forward 🖤",
+        "🔥 Limitless\n💎 Mindset is everything\n⚡ Real vibes ⚡",
+        "✨ Limitless\n💎 No regrets\n⚡ Peace out 🧬",
+        "★ Dream big ★\n✨ Just living\n🎯 Move forward ⚓",
+        "👑 VIP | Choose happy\n⚡ One day at a time\n🖤 Peace out ⚔️",
+        "★ Pure vibes ★\n✨ One day at a time\n🎯 Focus ON 📌",
+        "📌 Choose happy\n💎 Keep it simple\n⚡ Peace out 👑",
+        "🧬 On my way ✨\n👉 Creating myself\n🔥 Focus ON",
+        "★ Stay focused ★\n✨ Do epic things\n🎯 Focus ON ⚡",
+        "👑 VIP | Stay focused\n⚡ No regrets\n🖤 Keep smiling ⚓",
+        "👑 Pure vibes | Do epic things | Make history 📌",
+        "👑 VIP | Limitless\n⚡ Do epic things\n🖤 Focus ON ⚡",
+        "🔥 Stay focused ⚔️\n👉 Just be you\n🔥 Keep smiling",
+        "★ Pure vibes ★\n✨ Stay true to you\n🎯 Make history 👑",
+        "📌 Be real | Mindset is everything | Real vibes 🔥",
+        "★ Be real ★\n✨ One day at a time\n🎯 Move forward 👑",
+        "👑 Just be you\n⚡ Pure vibes\n💯 Real vibes 🔥",
+        "👑 VIP | Pure vibes\n⚡ Stay true to you\n🖤 Focus ON ⚔️",
+        "★ Believe ★\n✨ Do epic things\n🎯 Peace out 💡",
+        "★ Stay humble ★\n✨ Mindset is everything\n🎯 Peace out 🎯",
+        "✨ On my way ⚓\n👉 Mindset is everything\n🔥 Move forward",
+        "★ Pure vibes ★\n✨ Keep it simple\n🎯 Focus ON ⚡",
+        "★ On my way ★\n✨ Stay true to you\n🎯 Focus ON 🔥",
+        "👑 VIP | Stay humble\n⚡ Mindset is everything\n🖤 Peace out 🖤",
+        "🖤 Hustle hard\n💎 Keep it simple\n⚡ Focus ON 🖤",
+        "👑 One day at a time\n⚡ Choose happy\n💯 Move forward 🎯",
+        "🧬 Limitless | Do epic things | Real vibes 👑",
+        "🧬 Choose happy\n💎 Mindset is everything\n⚡ Move forward ✨",
+        "🌟 Pure vibes ⚡\n👉 Creating myself\n🔥 Make history",
+        "👑 Stay true to you\n⚡ Stay humble\n💯 Keep smiling 🖤",
+        "🎯 Go wild\n💎 Just be you\n⚡ Focus ON 🌟",
+        "👑 One day at a time\n⚡ Hustle hard\n💯 Real vibes ⚔️",
+        "🎯 Fearless\n💎 One day at a time\n⚡ Make history 💡",
+        "🖤 Choose happy 💫\n👉 One day at a time\n🔥 Move forward",
+        "👑 Just be you\n⚡ Stay humble\n💯 Peace out ✨",
+        "👑 Stay true to you\n⚡ Go wild\n💯 Move forward 💡",
+        "⚓ Stay humble\n💎 Creating myself\n⚡ Keep smiling 📌",
+        "🧬 Be real ⚓\n👉 No regrets\n🔥 Real vibes",
+        "🖤 Stay focused\n💎 Make it count\n⚡ Make history 💯",
+        "🖤 Dream big\n💎 Stay true to you\n⚡ Focus ON ⚡",
+        "👑 VIP | Stay focused\n⚡ Make it count\n🖤 Real vibes 🧬",
+        "★ Be real ★\n✨ Just be you\n🎯 Make history 👑",
+        "💡 Stay focused\n💎 Just living\n⚡ Focus ON 🔥",
+        "📌 Believe | Do epic things | Focus ON 📌",
+        "👑 Creating myself\n⚡ Be real\n💯 Move forward 💡",
+        "★ On my way ★\n✨ Stay true to you\n🎯 Real vibes 🎯",
+        "👑 Do epic things\n⚡ Go wild\n💯 Keep smiling 🌟",
+        "★ Hustle hard ★\n✨ Creating myself\n🎯 Make history 🔥",
+        "👑 No regrets\n⚡ Go wild\n💯 Focus ON 💡",
+        "🔥 Be real | One day at a time | Real vibes 🔥",
+        "🔥 Fearless | Make it count | Keep smiling ⚔️",
+        "🔥 Go wild\n💎 Mindset is everything\n⚡ Real vibes ⚓",
+        "★ Hustle hard ★\n✨ Mindset is everything\n🎯 Make history 🌟",
+        "💯 Fearless 💡\n👉 Make it count\n🔥 Focus ON",
+        "★ Pure vibes ★\n✨ Just living\n🎯 Make history 🔥",
+        "★ Dream big ★\n✨ Do epic things\n🎯 Focus ON 💡",
+        "💯 Limitless\n💎 Just living\n⚡ Peace out 🎯",
+        "★ Limitless ★\n✨ One day at a time\n🎯 Make history 🖤",
+        "★ Hustle hard ★\n✨ Do epic things\n🎯 Focus ON ⚔️",
+        "💯 Choose happy 👑\n👉 Just be you\n🔥 Peace out",
+        "👑 One day at a time\n⚡ Believe\n💯 Real vibes 🖤",
+        "💯 Pure vibes | Keep it simple | Make history 🧬",
+        "💫 Be real\n💎 Mindset is everything\n⚡ Move forward 💯",
+        "👑 VIP | Believe\n⚡ Stay true to you\n🖤 Move forward 🖤",
+        "👑 No regrets\n⚡ Stay focused\n💯 Peace out 🧬",
+        "🎯 Stay focused | Just be you | Focus ON ⚔️",
+        "⚓ Pure vibes | No regrets | Make history 🖤",
+        "👑 VIP | Believe\n⚡ Just be you\n🖤 Peace out ⚓",
+        "👑 VIP | Hustle hard\n⚡ Do epic things\n🖤 Peace out 🖤",
+        "👑 VIP | Pure vibes\n⚡ Keep it simple\n🖤 Focus ON ✨",
+    ],
+    professional: [
+        "👑 Creating visual stories that connect\n⚡ Digital Marketer & Consultant\n💯 Open to projects 💼",
+        "👑 VIP | Lifelong Student and Explorer\n⚡ Turning creative ideas into reality\n🖤 India 📍 📊",
+        "📈 UX/UI Designer molding pixels\n💎 Making a positive impact daily\n⚡ India 📍 🌐",
+        "🤝 Photographer and Visual Artist\n💎 Building tech solutions for tomorrow\n⚡ India 📍 💼",
+        "🤝 Lifelong Student and Explorer 📊\n👉 Passionate about innovation and tech\n🔥 Let's connect",
+        "👑 Guiding people to healthy lifestyles\n⚡ Entrepreneur building things\n💯 Open to projects 👔",
+        "🤝 Software Engineer & Creator | Sharing knowledge and experiences | DM for Collabs 🎓",
+        "★ Fitness Coach and Athlete ★\n✨ Making a positive impact daily\n🎯 Work mode ON 📊",
+        "👑 Passionate about innovation and tech\n⚡ UX/UI Designer molding pixels\n💯 Hustler 🌐",
+        "★ Content Strategist & Writer ★\n✨ Creating visual stories that connect\n🎯 Open to projects 🖋️",
+        "👑 VIP | Lifelong Student and Explorer\n⚡ Passionate about innovation and tech\n🖤 Hustler 💼",
+        "👑 Building tech solutions for tomorrow\n⚡ Software Engineer & Creator\n💯 Open to projects 📷",
+        "👑 VIP | Fitness Coach and Athlete\n⚡ Sharing knowledge and experiences\n🖤 Work mode ON 🎓",
+        "🚀 Digital Marketer & Consultant\n💎 Sharing knowledge and experiences\n⚡ Hustler 📈",
+        "👑 VIP | UX/UI Designer molding pixels\n⚡ Guiding people to healthy lifestyles\n🖤 Open to projects 🖋️",
+        "👔 Entrepreneur building things | Turning creative ideas into reality | Open to projects 🌐",
+        "👔 Digital Marketer & Consultant | Helping brands grow digitally | Let's connect 💼",
+        "👑 Turning creative ideas into reality\n⚡ Lifelong Student and Explorer\n💯 India 📍 📷",
+        "🚀 UX/UI Designer molding pixels\n💎 Helping brands grow digitally\n⚡ DM for Collabs 🚀",
+        "💻 UX/UI Designer molding pixels | Building tech solutions for tomorrow | Hustler 💼",
+        "👑 Passionate about innovation and tech\n⚡ Entrepreneur building things\n💯 Hustler 💻",
+        "🔬 Entrepreneur building things 📈\n👉 Building tech solutions for tomorrow\n🔥 Hustler",
+        "★ Lifelong Student and Explorer ★\n✨ Building tech solutions for tomorrow\n🎯 Hustler 🚀",
+        "🚀 Fitness Coach and Athlete 📈\n👉 Turning creative ideas into reality\n🔥 Work mode ON",
+        "★ Content Strategist & Writer ★\n✨ Helping brands grow digitally\n🎯 Let's connect 📈",
+        "★ Content Strategist & Writer ★\n✨ Sharing knowledge and experiences\n🎯 India 📍 🎓",
+        "👑 Passionate about innovation and tech\n⚡ UX/UI Designer molding pixels\n💯 India 📍 💻",
+        "🎨 Entrepreneur building things\n💎 Passionate about innovation and tech\n⚡ India 📍 💻",
+        "👔 Lifelong Student and Explorer | Sharing knowledge and experiences | DM for Collabs 💻",
+        "★ Content Strategist & Writer ★\n✨ Making a positive impact daily\n🎯 DM for Collabs 💻",
+        "★ Software Engineer & Creator ★\n✨ Helping brands grow digitally\n🎯 Hustler 📊",
+        "🚀 Photographer and Visual Artist | Passionate about innovation and tech | Open to projects 📊",
+        "★ Lifelong Student and Explorer ★\n✨ Making a positive impact daily\n🎯 Let's connect 📷",
+        "★ Digital Marketer & Consultant ★\n✨ Guiding people to healthy lifestyles\n🎯 DM for Collabs 🤝",
+        "🌐 Lifelong Student and Explorer\n💎 Building tech solutions for tomorrow\n⚡ Open to projects 🤝",
+        "👑 Passionate about innovation and tech\n⚡ Content Strategist & Writer\n💯 DM for Collabs 🎓",
+        "★ Photographer and Visual Artist ★\n✨ Turning creative ideas into reality\n🎯 DM for Collabs 👔",
+        "📈 Content Strategist & Writer\n💎 Guiding people to healthy lifestyles\n⚡ India 📍 📈",
+        "★ UX/UI Designer molding pixels ★\n✨ Sharing knowledge and experiences\n🎯 Hustler 💼",
+        "👑 Making a positive impact daily\n⚡ Photographer and Visual Artist\n💯 DM for Collabs 💻",
+        "🎨 UX/UI Designer molding pixels 🌐\n👉 Creating visual stories that connect\n🔥 DM for Collabs",
+        "💼 UX/UI Designer molding pixels | Making a positive impact daily | Let's connect 🌐",
+        "★ Content Strategist & Writer ★\n✨ Making a positive impact daily\n🎯 Open to projects 📈",
+        "👑 Helping brands grow digitally\n⚡ Photographer and Visual Artist\n💯 Work mode ON 💼",
+        "👑 Guiding people to healthy lifestyles\n⚡ Digital Marketer & Consultant\n💯 Hustler 💼",
+        "📷 Entrepreneur building things | Guiding people to healthy lifestyles | DM for Collabs 🎨",
+        "🌐 Lifelong Student and Explorer\n💎 Helping brands grow digitally\n⚡ Let's connect 📊",
+        "👑 Helping brands grow digitally\n⚡ Entrepreneur building things\n💯 India 📍 💼",
+        "💼 Digital Marketer & Consultant 🚀\n👉 Making a positive impact daily\n🔥 Open to projects",
+        "★ Digital Marketer & Consultant ★\n✨ Building tech solutions for tomorrow\n🎯 DM for Collabs 🤝",
+        "★ UX/UI Designer molding pixels ★\n✨ Building tech solutions for tomorrow\n🎯 India 📍 🔬",
+        "👑 Turning creative ideas into reality\n⚡ Fitness Coach and Athlete\n💯 DM for Collabs 🎓",
+        "🔬 Entrepreneur building things | Turning creative ideas into reality | India 📍 📷",
+        "👑 VIP | Photographer and Visual Artist\n⚡ Building tech solutions for tomorrow\n🖤 DM for Collabs 🔬",
+        "👑 VIP | Fitness Coach and Athlete\n⚡ Creating visual stories that connect\n🖤 Hustler 📊",
+        "📷 Lifelong Student and Explorer | Guiding people to healthy lifestyles | Open to projects 📊",
+        "★ Fitness Coach and Athlete ★\n✨ Creating visual stories that connect\n🎯 DM for Collabs 📊",
+        "👑 Creating visual stories that connect\n⚡ Software Engineer & Creator\n💯 DM for Collabs 💻",
+        "★ Content Strategist & Writer ★\n✨ Passionate about innovation and tech\n🎯 Hustler 👔",
+        "👑 VIP | UX/UI Designer molding pixels\n⚡ Creating visual stories that connect\n🖤 Hustler 🌐",
+        "📷 Fitness Coach and Athlete\n💎 Guiding people to healthy lifestyles\n⚡ India 📍 🎨",
+        "🌐 Entrepreneur building things | Making a positive impact daily | Open to projects 💼",
+        "👔 Content Strategist & Writer | Turning creative ideas into reality | Let's connect 🤝",
+        "📷 UX/UI Designer molding pixels | Building tech solutions for tomorrow | Open to projects 💡",
+        "👑 Making a positive impact daily\n⚡ UX/UI Designer molding pixels\n💯 Hustler 🔬",
+        "💡 Software Engineer & Creator 🚀\n👉 Guiding people to healthy lifestyles\n🔥 DM for Collabs",
+        "👔 Lifelong Student and Explorer 🤝\n👉 Making a positive impact daily\n🔥 India 📍",
+        "👔 Software Engineer & Creator 💼\n👉 Turning creative ideas into reality\n🔥 Work mode ON",
+        "🖋️ Photographer and Visual Artist | Making a positive impact daily | DM for Collabs 🚀",
+        "★ Entrepreneur building things ★\n✨ Creating visual stories that connect\n🎯 DM for Collabs 🌐",
+        "★ Digital Marketer & Consultant ★\n✨ Guiding people to healthy lifestyles\n🎯 Hustler 📷",
+        "👑 Passionate about innovation and tech\n⚡ Photographer and Visual Artist\n💯 India 📍 🔬",
+        "👔 UX/UI Designer molding pixels 🎓\n👉 Building tech solutions for tomorrow\n🔥 Work mode ON",
+        "💻 Fitness Coach and Athlete 💡\n👉 Guiding people to healthy lifestyles\n🔥 Let's connect",
+        "💻 Lifelong Student and Explorer 🎨\n👉 Helping brands grow digitally\n🔥 Let's connect",
+        "👑 VIP | Lifelong Student and Explorer\n⚡ Creating visual stories that connect\n🖤 Let's connect 💡",
+        "📊 UX/UI Designer molding pixels 🎨\n👉 Turning creative ideas into reality\n🔥 Work mode ON",
+        "🎓 Software Engineer & Creator 📊\n👉 Helping brands grow digitally\n🔥 Work mode ON",
+        "💻 Lifelong Student and Explorer 🤝\n👉 Making a positive impact daily\n🔥 Let's connect",
+        "📈 UX/UI Designer molding pixels 🎓\n👉 Sharing knowledge and experiences\n🔥 Open to projects",
+        "★ Entrepreneur building things ★\n✨ Guiding people to healthy lifestyles\n🎯 DM for Collabs 📈",
+        "★ Lifelong Student and Explorer ★\n✨ Guiding people to healthy lifestyles\n🎯 Open to projects 🤝",
+        "★ Content Strategist & Writer ★\n✨ Helping brands grow digitally\n🎯 Hustler 🤝",
+        "★ UX/UI Designer molding pixels ★\n✨ Guiding people to healthy lifestyles\n🎯 Work mode ON 🌐",
+        "🔬 Entrepreneur building things | Helping brands grow digitally | Let's connect 💡",
+        "★ Software Engineer & Creator ★\n✨ Passionate about innovation and tech\n🎯 Open to projects 💼",
+        "🎨 Digital Marketer & Consultant 📈\n👉 Making a positive impact daily\n🔥 Let's connect",
+        "💻 Software Engineer & Creator 📷\n👉 Passionate about innovation and tech\n🔥 India 📍",
+        "★ UX/UI Designer molding pixels ★\n✨ Building tech solutions for tomorrow\n🎯 DM for Collabs 🎓",
+        "👑 Making a positive impact daily\n⚡ Entrepreneur building things\n💯 Open to projects 👔",
+        "👑 Making a positive impact daily\n⚡ Lifelong Student and Explorer\n💯 India 📍 🔬",
+        "👑 Making a positive impact daily\n⚡ Photographer and Visual Artist\n💯 Hustler 🖋️",
+        "👑 VIP | Digital Marketer & Consultant\n⚡ Passionate about innovation and tech\n🖤 Hustler 💼",
+        "👑 Passionate about innovation and tech\n⚡ Content Strategist & Writer\n💯 Work mode ON 📷",
+        "👑 VIP | UX/UI Designer molding pixels\n⚡ Building tech solutions for tomorrow\n🖤 Open to projects 🔬",
+        "★ Photographer and Visual Artist ★\n✨ Helping brands grow digitally\n🎯 DM for Collabs 🌐",
+        "🎓 Software Engineer & Creator 🎨\n👉 Turning creative ideas into reality\n🔥 Work mode ON",
+        "👑 VIP | Digital Marketer & Consultant\n⚡ Guiding people to healthy lifestyles\n🖤 India 📍 👔",
+        "💡 Digital Marketer & Consultant\n💎 Making a positive impact daily\n⚡ Hustler 📷",
+        "👑 VIP | UX/UI Designer molding pixels\n⚡ Guiding people to healthy lifestyles\n🖤 Work mode ON 🤝",
+        "🚀 Fitness Coach and Athlete | Sharing knowledge and experiences | DM for Collabs 📷",
+        "🎓 Lifelong Student and Explorer\n💎 Making a positive impact daily\n⚡ Open to projects 🎓",
+        "🤝 Lifelong Student and Explorer\n💎 Sharing knowledge and experiences\n⚡ Let's connect 💻",
+        "🎓 Digital Marketer & Consultant | Guiding people to healthy lifestyles | Let's connect 📈",
+        "💻 Entrepreneur building things | Sharing knowledge and experiences | DM for Collabs 🖋️",
+        "📊 Digital Marketer & Consultant 🚀\n👉 Creating visual stories that connect\n🔥 Let's connect",
+        "👑 Sharing knowledge and experiences\n⚡ Software Engineer & Creator\n💯 Let's connect 🤝",
+        "★ Lifelong Student and Explorer ★\n✨ Turning creative ideas into reality\n🎯 Let's connect 📷",
+        "🌐 Software Engineer & Creator | Sharing knowledge and experiences | India 📍 👔",
+        "💼 UX/UI Designer molding pixels\n💎 Turning creative ideas into reality\n⚡ Let's connect 🤝",
+        "👑 Making a positive impact daily\n⚡ Photographer and Visual Artist\n💯 Open to projects 🎓",
+        "🌐 Lifelong Student and Explorer\n💎 Making a positive impact daily\n⚡ Work mode ON 📷",
+        "📊 Content Strategist & Writer 📈\n👉 Creating visual stories that connect\n🔥 Work mode ON",
+        "👑 VIP | Content Strategist & Writer\n⚡ Helping brands grow digitally\n🖤 India 📍 🎨",
+        "🚀 Entrepreneur building things\n💎 Creating visual stories that connect\n⚡ Hustler 🎨",
+        "🚀 Entrepreneur building things 📊\n👉 Creating visual stories that connect\n🔥 India 📍",
+        "👑 VIP | Photographer and Visual Artist\n⚡ Creating visual stories that connect\n🖤 Let's connect 💻",
+        "👑 VIP | UX/UI Designer molding pixels\n⚡ Helping brands grow digitally\n🖤 Hustler 🎓",
+        "🎓 Photographer and Visual Artist 📊\n👉 Making a positive impact daily\n🔥 Open to projects",
+        "★ Digital Marketer & Consultant ★\n✨ Helping brands grow digitally\n🎯 Let's connect 📷",
+        "📈 Lifelong Student and Explorer | Turning creative ideas into reality | India 📍 📊",
+        "👑 VIP | Photographer and Visual Artist\n⚡ Sharing knowledge and experiences\n🖤 Let's connect 🌐",
+        "👑 Making a positive impact daily\n⚡ Entrepreneur building things\n💯 Work mode ON 📈",
+        "👑 Helping brands grow digitally\n⚡ Lifelong Student and Explorer\n💯 India 📍 💻",
+        "📷 Content Strategist & Writer\n💎 Helping brands grow digitally\n⚡ Let's connect 💻",
+        "👑 VIP | Lifelong Student and Explorer\n⚡ Turning creative ideas into reality\n🖤 DM for Collabs 🤝",
+        "💼 UX/UI Designer molding pixels 🔬\n👉 Guiding people to healthy lifestyles\n🔥 Work mode ON",
+        "★ Lifelong Student and Explorer ★\n✨ Building tech solutions for tomorrow\n🎯 Open to projects 💼",
+        "👑 VIP | Photographer and Visual Artist\n⚡ Helping brands grow digitally\n🖤 Hustler 💡",
+        "👑 VIP | Fitness Coach and Athlete\n⚡ Turning creative ideas into reality\n🖤 Let's connect 🖋️",
+        "★ Photographer and Visual Artist ★\n✨ Turning creative ideas into reality\n🎯 Work mode ON 💼",
+        "★ Digital Marketer & Consultant ★\n✨ Guiding people to healthy lifestyles\n🎯 Hustler 🤝",
+        "👑 Sharing knowledge and experiences\n⚡ Lifelong Student and Explorer\n💯 India 📍 🌐",
+        "🖋️ Fitness Coach and Athlete\n💎 Creating visual stories that connect\n⚡ Open to projects 🌐",
+        "💻 UX/UI Designer molding pixels\n💎 Sharing knowledge and experiences\n⚡ Let's connect 📊",
+        "★ Fitness Coach and Athlete ★\n✨ Building tech solutions for tomorrow\n🎯 DM for Collabs 🎓",
+        "★ Fitness Coach and Athlete ★\n✨ Creating visual stories that connect\n🎯 Open to projects 👔",
+        "★ Entrepreneur building things ★\n✨ Guiding people to healthy lifestyles\n🎯 India 📍 🌐",
+        "🚀 Lifelong Student and Explorer\n💎 Helping brands grow digitally\n⚡ Work mode ON 📷",
+        "🚀 Lifelong Student and Explorer | Guiding people to healthy lifestyles | DM for Collabs 🎨",
+        "👑 Making a positive impact daily\n⚡ Content Strategist & Writer\n💯 DM for Collabs 📊",
+        "👑 Creating visual stories that connect\n⚡ Fitness Coach and Athlete\n💯 Let's connect 👔",
+        "★ Software Engineer & Creator ★\n✨ Building tech solutions for tomorrow\n🎯 Work mode ON 👔",
+        "★ Photographer and Visual Artist ★\n✨ Making a positive impact daily\n🎯 Open to projects 💻",
+        "🤝 Lifelong Student and Explorer\n💎 Building tech solutions for tomorrow\n⚡ Work mode ON 🚀",
+        "🌐 Software Engineer & Creator\n💎 Sharing knowledge and experiences\n⚡ India 📍 🔬",
+        "💼 Photographer and Visual Artist 📊\n👉 Making a positive impact daily\n🔥 Hustler",
+        "★ Software Engineer & Creator ★\n✨ Sharing knowledge and experiences\n🎯 Work mode ON 🎓",
+        "👔 Software Engineer & Creator\n💎 Sharing knowledge and experiences\n⚡ Work mode ON 🎓",
+        "👔 UX/UI Designer molding pixels\n💎 Creating visual stories that connect\n⚡ DM for Collabs 💻",
+        "👑 VIP | Photographer and Visual Artist\n⚡ Turning creative ideas into reality\n🖤 Hustler 📈",
+        "🚀 Photographer and Visual Artist\n💎 Building tech solutions for tomorrow\n⚡ Open to projects 👔",
+        "🎓 Entrepreneur building things\n💎 Helping brands grow digitally\n⚡ India 📍 🤝",
+        "🚀 Lifelong Student and Explorer 🎓\n👉 Passionate about innovation and tech\n🔥 Work mode ON",
+        "💻 Entrepreneur building things\n💎 Guiding people to healthy lifestyles\n⚡ India 📍 💡",
+        "🔬 Digital Marketer & Consultant | Passionate about innovation and tech | Let's connect 🌐",
+        "👑 VIP | Entrepreneur building things\n⚡ Helping brands grow digitally\n🖤 Let's connect 💻",
+        "🚀 Photographer and Visual Artist\n💎 Creating visual stories that connect\n⚡ Let's connect 🌐",
+        "👑 VIP | Photographer and Visual Artist\n⚡ Creating visual stories that connect\n🖤 Hustler 📷",
+        "👑 Guiding people to healthy lifestyles\n⚡ Digital Marketer & Consultant\n💯 India 📍 💼",
+        "📊 UX/UI Designer molding pixels 🌐\n👉 Sharing knowledge and experiences\n🔥 India 📍",
+        "📊 Fitness Coach and Athlete | Building tech solutions for tomorrow | DM for Collabs 💻",
+        "📈 Fitness Coach and Athlete | Helping brands grow digitally | India 📍 🎨",
+        "👑 VIP | Software Engineer & Creator\n⚡ Making a positive impact daily\n🖤 DM for Collabs 💼",
+        "💼 Content Strategist & Writer | Helping brands grow digitally | DM for Collabs 💻",
+        "👑 VIP | UX/UI Designer molding pixels\n⚡ Creating visual stories that connect\n🖤 Hustler 🔬",
+        "👑 VIP | Entrepreneur building things\n⚡ Sharing knowledge and experiences\n🖤 Open to projects 💼",
+        "🎓 UX/UI Designer molding pixels\n💎 Building tech solutions for tomorrow\n⚡ DM for Collabs 📊",
+        "📈 UX/UI Designer molding pixels 💼\n👉 Guiding people to healthy lifestyles\n🔥 Work mode ON",
+        "📈 Software Engineer & Creator\n💎 Building tech solutions for tomorrow\n⚡ India 📍 📷",
+        "🤝 Lifelong Student and Explorer\n💎 Turning creative ideas into reality\n⚡ Hustler 🌐",
+        "★ Digital Marketer & Consultant ★\n✨ Creating visual stories that connect\n🎯 Work mode ON 📊",
+    ],
+    gamer: [
+        "👑 VIP | Esports Athlete\n⚡ Building gaming communities\n🖤 Streamer 📺 👾",
+        "👑 VIP | Leveling up in game & life\n⚡ Cyberpunk vibe in real life\n🖤 No lag, pure skill 🎧",
+        "★ Eat. Sleep. Game. Repeat. ★\n✨ Addicted to high scores\n🎯 Join the lobby 👑",
+        "👑 FPS and RPG lover\n⚡ Gaming is my lifestyle\n💯 Clan Leader 👑 🎧",
+        "★ Console & PC Gamer ★\n✨ Team Captain and Coordinator\n🎯 Clan Leader 👑 🔥",
+        "★ Mobile Legend player ★\n✨ Team Captain and Coordinator\n🎯 Streamer 📺 🔥",
+        "★ Born to play games ★\n✨ Climbing the leaderboard daily\n🎯 Gamer boy ⚡",
+        "👑 FPS and RPG lover\n⚡ Mobile Legend player\n💯 Clan Leader 👑 ⚡",
+        "★ Leveling up in game & life ★\n✨ Cyberpunk vibe in real life\n🎯 No lag, pure skill ⚡",
+        "👑 VIP | Leveling up in game & life\n⚡ Cyberpunk vibe in real life\n🖤 Streamer 📺 👑",
+        "🏆 Esports Athlete 💀\n👉 Building gaming communities\n🔥 Streamer 📺",
+        "🏹 Console & PC Gamer\n💎 Always chasing the next quest\n⚡ Gamer boy 👾",
+        "👑 Game mode is always active\n⚡ Mobile Legend player\n💯 No lag, pure skill 🎯",
+        "★ Console & PC Gamer ★\n✨ Always chasing the next quest\n🎯 Level 99 🎯",
+        "🎧 Gaming is my lifestyle 🎧\n👉 FPS and RPG lover\n🔥 No lag, pure skill",
+        "⚡ Eat. Sleep. Game. Repeat. | Addicted to high scores | Gamer boy 🕹️",
+        "★ Console & PC Gamer ★\n✨ Climbing the leaderboard daily\n🎯 Level 99 🏹",
+        "🎯 Headshot Specialist\n💎 Cyberpunk vibe in real life\n⚡ Join the lobby ⚡",
+        "🎯 Leveling up in game & life 🎧\n👉 FPS and RPG lover\n🔥 No lag, pure skill",
+        "👑 VIP | Console & PC Gamer\n⚡ FPS and RPG lover\n🖤 Clan Leader 👑 🔥",
+        "📱 Eat. Sleep. Game. Repeat. | Climbing the leaderboard daily | No lag, pure skill 💀",
+        "★ Headshot Specialist ★\n✨ Building gaming communities\n🎯 No lag, pure skill 👾",
+        "🎮 Born to play games 🎮\n👉 Always chasing the next quest\n🔥 Gamer boy",
+        "★ Born to play games ★\n✨ Always chasing the next quest\n🎯 Gamer boy 💻",
+        "💻 Leveling up in game & life\n💎 FPS and RPG lover\n⚡ Gamer boy 🗡️",
+        "⚡ Console & PC Gamer 📱\n👉 FPS and RPG lover\n🔥 Clan Leader 👑",
+        "📱 Mobile Legend player\n💎 Always chasing the next quest\n⚡ No lag, pure skill 🎮",
+        "👾 Headshot Specialist | Always chasing the next quest | Join the lobby 🎯",
+        "👑 VIP | Eat. Sleep. Game. Repeat.\n⚡ Cyberpunk vibe in real life\n🖤 Join the lobby 🎮",
+        "🗡️ Eat. Sleep. Game. Repeat. | Game mode is always active | No lag, pure skill 👑",
+        "👾 Headshot Specialist | Building gaming communities | Join the lobby 💀",
+        "👑 VIP | Esports Athlete\n⚡ Team Captain and Coordinator\n🖤 Gamer boy ⚡",
+        "👑 VIP | Leveling up in game & life\n⚡ Always chasing the next quest\n🖤 Streamer 📺 🎯",
+        "👑 Climbing the leaderboard daily\n⚡ Headshot Specialist\n💯 No lag, pure skill 🕹️",
+        "👑 Always chasing the next quest\n⚡ Mobile Legend player\n💯 Streamer 📺 🏹",
+        "💻 Eat. Sleep. Game. Repeat.\n💎 Game mode is always active\n⚡ No lag, pure skill 🎯",
+        "👑 FPS and RPG lover\n⚡ Leveling up in game & life\n💯 Streamer 📺 👾",
+        "👑 FPS and RPG lover\n⚡ Headshot Specialist\n💯 Clan Leader 👑 ⚡",
+        "💀 Gaming is my lifestyle 🕹️\n👉 Game mode is always active\n🔥 No lag, pure skill",
+        "👑 VIP | Leveling up in game & life\n⚡ Team Captain and Coordinator\n🖤 Join the lobby 💻",
+        "👑 Team Captain and Coordinator\n⚡ Mobile Legend player\n💯 Clan Leader 👑 🎮",
+        "🎧 Leveling up in game & life | Game mode is always active | Join the lobby 👑",
+        "👑 VIP | Console & PC Gamer\n⚡ Building gaming communities\n🖤 Level 99 🎯",
+        "👑 Always chasing the next quest\n⚡ Gaming is my lifestyle\n💯 No lag, pure skill 🗡️",
+        "👑 VIP | Esports Athlete\n⚡ Building gaming communities\n🖤 No lag, pure skill 📱",
+        "👑 Cyberpunk vibe in real life\n⚡ Console & PC Gamer\n💯 Streamer 📺 🎯",
+        "👑 FPS and RPG lover\n⚡ Born to play games\n💯 Level 99 👑",
+        "🏹 Console & PC Gamer\n💎 Always chasing the next quest\n⚡ Gamer boy 👑",
+        "🗡️ Mobile Legend player 🎯\n👉 Climbing the leaderboard daily\n🔥 Clan Leader 👑",
+        "👑 Team Captain and Coordinator\n⚡ Born to play games\n💯 Level 99 💀",
+        "👑 VIP | Gaming is my lifestyle\n⚡ Building gaming communities\n🖤 No lag, pure skill ⚡",
+        "👑 VIP | Leveling up in game & life\n⚡ Team Captain and Coordinator\n🖤 No lag, pure skill 🏹",
+        "🏹 Born to play games\n💎 Always chasing the next quest\n⚡ Gamer boy 🔥",
+        "🏆 Esports Athlete 👾\n👉 Addicted to high scores\n🔥 Level 99",
+        "🎮 Gaming is my lifestyle\n💎 FPS and RPG lover\n⚡ No lag, pure skill 🏆",
+        "👑 VIP | Eat. Sleep. Game. Repeat.\n⚡ Team Captain and Coordinator\n🖤 Level 99 👾",
+        "🕹️ Gaming is my lifestyle\n💎 Always chasing the next quest\n⚡ Gamer boy 🎮",
+        "🕹️ Eat. Sleep. Game. Repeat. | FPS and RPG lover | Streamer 📺 ⚡",
+        "★ Headshot Specialist ★\n✨ Always chasing the next quest\n🎯 Streamer 📺 🏹",
+        "💀 Leveling up in game & life ⚡\n👉 Building gaming communities\n🔥 Gamer boy",
+        "🏆 Leveling up in game & life | Always chasing the next quest | No lag, pure skill 🎧",
+        "🏆 Leveling up in game & life\n💎 Game mode is always active\n⚡ Join the lobby 🎯",
+        "👑 Esports Athlete 👾\n👉 Building gaming communities\n🔥 Level 99",
+        "★ Esports Athlete ★\n✨ Always chasing the next quest\n🎯 No lag, pure skill 🎧",
+        "👑 VIP | Eat. Sleep. Game. Repeat.\n⚡ FPS and RPG lover\n🖤 Clan Leader 👑 🔥",
+        "👑 Building gaming communities\n⚡ Headshot Specialist\n💯 No lag, pure skill 👑",
+        "👑 Game mode is always active\n⚡ Born to play games\n💯 No lag, pure skill 🏆",
+        "💀 Gaming is my lifestyle\n💎 Climbing the leaderboard daily\n⚡ Gamer boy 🏹",
+        "🎮 Eat. Sleep. Game. Repeat.\n💎 Team Captain and Coordinator\n⚡ Join the lobby 🏹",
+        "👾 Headshot Specialist 🔥\n👉 Addicted to high scores\n🔥 Clan Leader 👑",
+        "👑 VIP | Mobile Legend player\n⚡ Climbing the leaderboard daily\n🖤 No lag, pure skill 🏹",
+        "🔥 Esports Athlete 🎧\n👉 Always chasing the next quest\n🔥 Level 99",
+        "👑 VIP | Headshot Specialist\n⚡ Building gaming communities\n🖤 Streamer 📺 💻",
+        "★ Console & PC Gamer ★\n✨ FPS and RPG lover\n🎯 Gamer boy 🏹",
+        "👑 Addicted to high scores\n⚡ Mobile Legend player\n💯 Level 99 🏹",
+        "🔥 Leveling up in game & life\n💎 Game mode is always active\n⚡ No lag, pure skill 📱",
+        "👑 Headshot Specialist | FPS and RPG lover | Gamer boy 🏹",
+        "🗡️ Born to play games 🎮\n👉 FPS and RPG lover\n🔥 Gamer boy",
+        "🎮 Esports Athlete\n💎 Always chasing the next quest\n⚡ Join the lobby 👾",
+        "👑 Team Captain and Coordinator\n⚡ Born to play games\n💯 Clan Leader 👑 🎧",
+        "★ Born to play games ★\n✨ Building gaming communities\n🎯 Join the lobby 🗡️",
+        "👑 Always chasing the next quest\n⚡ Born to play games\n💯 Level 99 💻",
+        "🎯 Headshot Specialist | Always chasing the next quest | Level 99 🏹",
+        "👾 Born to play games\n💎 Building gaming communities\n⚡ No lag, pure skill 💀",
+        "★ Eat. Sleep. Game. Repeat. ★\n✨ Team Captain and Coordinator\n🎯 Streamer 📺 🏆",
+        "🏆 Born to play games\n💎 Climbing the leaderboard daily\n⚡ No lag, pure skill 🔥",
+        "👑 VIP | Gaming is my lifestyle\n⚡ Cyberpunk vibe in real life\n🖤 Streamer 📺 👾",
+        "🕹️ Leveling up in game & life\n💎 Climbing the leaderboard daily\n⚡ Gamer boy 🎯",
+        "👾 Console & PC Gamer 🗡️\n👉 FPS and RPG lover\n🔥 Streamer 📺",
+        "👑 Always chasing the next quest\n⚡ Esports Athlete\n💯 Join the lobby 👑",
+        "💻 Born to play games\n💎 Building gaming communities\n⚡ Level 99 👾",
+        "🏆 Gaming is my lifestyle 🏹\n👉 Team Captain and Coordinator\n🔥 No lag, pure skill",
+        "👑 VIP | Born to play games\n⚡ Climbing the leaderboard daily\n🖤 Join the lobby 👾",
+        "🏆 Console & PC Gamer\n💎 Team Captain and Coordinator\n⚡ Join the lobby 🎯",
+        "★ Console & PC Gamer ★\n✨ Addicted to high scores\n🎯 Streamer 📺 ⚡",
+        "🕹️ Headshot Specialist 🏹\n👉 Building gaming communities\n🔥 Gamer boy",
+        "👑 Mobile Legend player | Always chasing the next quest | Streamer 📺 👾",
+        "★ Eat. Sleep. Game. Repeat. ★\n✨ Game mode is always active\n🎯 Level 99 📱",
+        "💀 Eat. Sleep. Game. Repeat.\n💎 Climbing the leaderboard daily\n⚡ Join the lobby 🎯",
+        "👑 VIP | Gaming is my lifestyle\n⚡ Building gaming communities\n🖤 Gamer boy 🎯",
+        "🕹️ Eat. Sleep. Game. Repeat. 📱\n👉 Cyberpunk vibe in real life\n🔥 Join the lobby",
+        "📱 Headshot Specialist | FPS and RPG lover | Level 99 💻",
+        "💀 Mobile Legend player | Cyberpunk vibe in real life | Join the lobby 👑",
+        "👑 FPS and RPG lover\n⚡ Born to play games\n💯 Join the lobby 💀",
+        "👑 VIP | Gaming is my lifestyle\n⚡ Always chasing the next quest\n🖤 Clan Leader 👑 💀",
+        "👑 Cyberpunk vibe in real life\n⚡ Mobile Legend player\n💯 Join the lobby 📱",
+        "💻 Born to play games 🗡️\n👉 FPS and RPG lover\n🔥 Streamer 📺",
+        "★ Esports Athlete ★\n✨ Cyberpunk vibe in real life\n🎯 Streamer 📺 🕹️",
+        "★ Console & PC Gamer ★\n✨ Building gaming communities\n🎯 Streamer 📺 🔥",
+        "★ Headshot Specialist ★\n✨ FPS and RPG lover\n🎯 No lag, pure skill 🎮",
+        "🎧 Born to play games | Addicted to high scores | Join the lobby 🏹",
+        "👑 Cyberpunk vibe in real life\n⚡ Gaming is my lifestyle\n💯 Level 99 🏆",
+        "📱 Gaming is my lifestyle | Team Captain and Coordinator | Clan Leader 👑 🏹",
+        "📱 Born to play games 🗡️\n👉 Building gaming communities\n🔥 Streamer 📺",
+        "👑 VIP | Leveling up in game & life\n⚡ Game mode is always active\n🖤 Streamer 📺 🗡️",
+        "⚡ Leveling up in game & life\n💎 Building gaming communities\n⚡ Join the lobby ⚡",
+        "🎧 Headshot Specialist | Cyberpunk vibe in real life | Streamer 📺 🏹",
+        "👑 VIP | Console & PC Gamer\n⚡ FPS and RPG lover\n🖤 Gamer boy 💻",
+        "👑 Game mode is always active\n⚡ Eat. Sleep. Game. Repeat.\n💯 Streamer 📺 🎯",
+        "🎯 Headshot Specialist | Cyberpunk vibe in real life | Level 99 💻",
+        "👑 Game mode is always active\n⚡ Gaming is my lifestyle\n💯 Streamer 📺 🗡️",
+        "👑 VIP | Mobile Legend player\n⚡ Addicted to high scores\n🖤 No lag, pure skill 🎧",
+        "🕹️ Mobile Legend player 🏆\n👉 Addicted to high scores\n🔥 Streamer 📺",
+        "👑 Always chasing the next quest\n⚡ Mobile Legend player\n💯 Gamer boy 🕹️",
+        "👑 FPS and RPG lover\n⚡ Gaming is my lifestyle\n💯 No lag, pure skill 🕹️",
+        "🗡️ Born to play games | Game mode is always active | Gamer boy 🔥",
+        "★ Esports Athlete ★\n✨ FPS and RPG lover\n🎯 No lag, pure skill 🏹",
+        "👑 VIP | Mobile Legend player\n⚡ Addicted to high scores\n🖤 No lag, pure skill 💻",
+        "🎯 Mobile Legend player | Building gaming communities | Streamer 📺 🕹️",
+        "👑 Team Captain and Coordinator\n⚡ Console & PC Gamer\n💯 Gamer boy 📱",
+        "★ Console & PC Gamer ★\n✨ Addicted to high scores\n🎯 Join the lobby 👑",
+        "👾 Console & PC Gamer 🎧\n👉 Always chasing the next quest\n🔥 Level 99",
+        "⚡ Esports Athlete\n💎 Building gaming communities\n⚡ Join the lobby 🔥",
+        "🎮 Leveling up in game & life | Climbing the leaderboard daily | Clan Leader 👑 📱",
+        "👑 Addicted to high scores\n⚡ Mobile Legend player\n💯 No lag, pure skill 📱",
+        "👑 Gaming is my lifestyle\n💎 Game mode is always active\n⚡ Join the lobby 🎯",
+        "👑 Addicted to high scores\n⚡ Eat. Sleep. Game. Repeat.\n💯 Gamer boy 🎧",
+        "💻 Born to play games | Building gaming communities | Streamer 📺 🕹️",
+        "👑 Game mode is always active\n⚡ Gaming is my lifestyle\n💯 Clan Leader 👑 👾",
+        "💻 Console & PC Gamer 🗡️\n👉 Always chasing the next quest\n🔥 Join the lobby",
+        "🏆 Leveling up in game & life | Always chasing the next quest | Gamer boy 🕹️",
+        "👾 Eat. Sleep. Game. Repeat. | Climbing the leaderboard daily | No lag, pure skill 📱",
+        "★ Console & PC Gamer ★\n✨ FPS and RPG lover\n🎯 Gamer boy 🎮",
+        "🏹 Console & PC Gamer\n💎 Always chasing the next quest\n⚡ Clan Leader 👑 ⚡",
+        "💀 Mobile Legend player 👑\n👉 Always chasing the next quest\n🔥 Streamer 📺",
+        "👑 Addicted to high scores\n⚡ Esports Athlete\n💯 Streamer 📺 🕹️",
+        "👑 Team Captain and Coordinator\n⚡ Eat. Sleep. Game. Repeat.\n💯 No lag, pure skill 🏆",
+        "🕹️ Esports Athlete\n💎 Building gaming communities\n⚡ Gamer boy ⚡",
+        "★ Gaming is my lifestyle ★\n✨ FPS and RPG lover\n🎯 Level 99 🏆",
+        "👑 Cyberpunk vibe in real life\n⚡ Leveling up in game & life\n💯 Level 99 👾",
+        "★ Console & PC Gamer ★\n✨ FPS and RPG lover\n🎯 Streamer 📺 👑",
+        "★ Esports Athlete ★\n✨ Always chasing the next quest\n🎯 Clan Leader 👑 🎯",
+        "👑 Addicted to high scores\n⚡ Eat. Sleep. Game. Repeat.\n💯 Gamer boy 🎮",
+        "★ Console & PC Gamer ★\n✨ Always chasing the next quest\n🎯 Streamer 📺 👾",
+        "👾 Console & PC Gamer | Team Captain and Coordinator | Gamer boy 💻",
+        "📱 Mobile Legend player | Game mode is always active | Clan Leader 👑 🎮",
+        "★ Mobile Legend player ★\n✨ FPS and RPG lover\n🎯 Streamer 📺 🔥",
+        "★ Headshot Specialist ★\n✨ FPS and RPG lover\n🎯 Gamer boy 🎯",
+        "👑 VIP | Gaming is my lifestyle\n⚡ Team Captain and Coordinator\n🖤 No lag, pure skill 🎮",
+        "👑 Game mode is always active\n⚡ Esports Athlete\n💯 Clan Leader 👑 💻",
+        "👑 Always chasing the next quest\n⚡ Born to play games\n💯 Gamer boy ⚡",
+        "👾 Headshot Specialist\n💎 FPS and RPG lover\n⚡ Level 99 👾",
+        "🏆 Leveling up in game & life 🔥\n👉 FPS and RPG lover\n🔥 Level 99",
+        "★ Console & PC Gamer ★\n✨ Addicted to high scores\n🎯 No lag, pure skill 🏆",
+        "👑 VIP | Esports Athlete\n⚡ Climbing the leaderboard daily\n🖤 Streamer 📺 🔥",
+        "🔥 Born to play games | Cyberpunk vibe in real life | Clan Leader 👑 💀",
+        "🗡️ Headshot Specialist\n💎 Building gaming communities\n⚡ Streamer 📺 🎧",
+        "👑 VIP | Esports Athlete\n⚡ FPS and RPG lover\n🖤 Join the lobby 🏆",
+        "👑 Always chasing the next quest\n⚡ Eat. Sleep. Game. Repeat.\n💯 Level 99 🗡️",
+        "★ Leveling up in game & life ★\n✨ Climbing the leaderboard daily\n🎯 No lag, pure skill 🏹",
+        "🏹 Leveling up in game & life\n💎 Addicted to high scores\n⚡ Clan Leader 👑 🗡️",
+        "🗡️ Leveling up in game & life | Climbing the leaderboard daily | Clan Leader 👑 🏹",
+    ],
 };
 
-const TONE_FN: Record<string, (s: string) => string> = {
-    "Funny":         s => s.replace("DM", "Slide into DMs").replace("every single", "every"),
-    "Minimalist":    s => s.split("\n").slice(0, 2).join("\n"),
-    "Bold":          s => s.split("\n").map(l => l.toUpperCase()).join("\n"),
-    "Inspirational": s => "Believe. Achieve. Repeat.\n" + s,
-    "Aesthetic":     s => s.replace(/\|/g, "·").replace(/\n/g, "\n "),
+const CATEGORY_META: Record<string, { name: string; icon: string; desc: string }> = {
+    attitude: { name: 'Attitude', icon: '😎', desc: 'Bold, confident, and high-attitude bios for boys.' },
+    stylish: { name: 'Stylish', icon: '✨', desc: 'Stylish typography and creative font bios.' },
+    vip: { name: 'VIP', icon: '👑', desc: 'Premium status, official-look and Royal VIP bios.' },
+    cool: { name: 'Cool', icon: '🔥', desc: 'Chill, smooth, and charismatic bios.' },
+    trending: { name: 'Trending', icon: '⚡', desc: 'The most popular bios for 2026.' },
+    emoji: { name: 'Emoji', icon: '😜', desc: 'Bio combinations rich with expressive emojis.' },
+    short: { name: 'Short', icon: '📌', desc: 'Minimalist, punchy, and short bios.' },
+    professional: { name: 'Professional', icon: '💼', desc: 'Career, creator, and business-focused bios.' },
+    gamer: { name: 'Gamer', icon: '🎮', desc: 'Cyberpunk, gaming-centric, and esports bios.' }
 };
 
-const MAX = 150;
-const IG_GRAD = "linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)";
-
-const toStylishFont = (text: string, style: 'cursive' | 'bold') => {
-    const cursive: Record<string, string> = {
-        'a': '𝓪', 'b': '𝓫', 'c': '𝓬', 'd': '𝓭', 'e': '𝓮', 'f': '𝓯', 'g': '𝓰', 'h': '𝓱', 'i': '𝓲',
-        'j': '𝓳', 'k': '𝓴', 'l': '𝓵', 'm': '𝓶', 'n': '𝓷', 'o': '𝓸', 'p': '𝓹', 'q': '𝓺', 'r': '𝓻',
-        's': '𝓼', 't': '𝓽', 'u': '𝓾', 'v': '𝓿', 'w': '𝔀', 'x': '𝔁', 'y': '𝔂', 'z': '𝔃',
-        'A': '𝓐', 'B': '𝓑', 'C': '𝓒', 'D': '𝓓', 'E': '𝓔', 'F': '𝓕', 'G': '𝓖', 'H': '𝓗', 'I': '𝓘',
-        'J': '𝓙', 'K': '𝓚', 'L': '𝓛', 'M': '𝓜', 'N': '𝓝', 'O': '𝓞', 'P': '𝓟', 'Q': '𝓠', 'R': '𝓡',
-        'S': '𝓢', 'T': '𝓣', 'U': '𝓤', 'V': '𝓥', 'W': '𝓦', 'X': '𝓧', 'Y': '𝓨', 'Z': '𝓩'
-    };
-    const bold: Record<string, string> = {
-        'a': '𝗮', 'b': '𝗯', 'c': '𝗰', 'd': '𝗱', 'e': '𝗲', 'f': '𝗳', 'g': '𝗴', 'h': '𝗵', 'i': '𝗶',
-        'j': '𝗷', 'k': '𝗸', 'l': '𝗹', 'm': '𝗺', 'n': '𝗻', 'o': '𝗼', 'p': '𝗽', 'q': '𝗾', 'r': '𝗿',
-        's': '𝘀', 't': '𝘁', 'u': '𝘂', 'v': '𝘃', 'w': '𝘄', 'x': '𝘅', 'y': '𝘆', 'z': '𝘇',
-        'A': '𝗔', 'B': '𝗕', 'C': '𝗖', 'D': '𝗗', 'E': '𝗘', 'F': '𝗙', 'G': '𝗚', 'H': '𝗛', 'I': '𝗜',
-        'J': '𝗝', 'K': '𝗞', 'L': '𝗟', 'M': '𝗠', 'N': '𝗡', 'O': '𝗢', 'P': '𝗣', 'Q': '𝗤', 'R': '𝗥',
-        'S': '𝗦', 'T': '𝗧', 'U': '𝗨', 'V': '𝗩', 'W': '𝗪', 'X': '𝗫', 'Y': '𝗬', 'Z': '𝗭'
-    };
-    const map = style === 'cursive' ? cursive : bold;
-    return text.split('').map(c => map[c] || c).join('');
-};
-
-/* ── component ──────────────────────────────────────────────────── */
 export default function InstagramBioClient() {
-    const [cat,      setCat]      = useState("personal");
-    const [tone,     setTone]     = useState("Professional");
-    const [name,     setName]     = useState("");
-    const [username, setUsername] = useState("");
-    const [keywords, setKeywords] = useState("");
-    const [bios,     setBios]     = useState<string[]>([]);
-    const [loading,  setLoading]  = useState(false);
-    const [copied,   setCopied]   = useState<number | null>(null);
-    const [preview,  setPreview]  = useState(0); // which bio is shown in phone
+    const [selectedCategory, setSelectedCategory] = useState<string>('all');
+    const [searchQuery, setSearchQuery] = useState<string>('');
+    const [copiedIndex, setCopiedIndex] = useState<string | null>(null);
+    const [visibleCount, setVisibleCount] = useState<number>(24);
 
-    const generate = () => {
-        setLoading(true); setBios([]);
-        setTimeout(() => {
-            const pool = TEMPLATES[cat] || TEMPLATES.personal;
-            const kws  = keywords.trim() ? keywords.split(",").map(k => k.trim()).filter(Boolean) : [];
-            const fn   = TONE_FN[tone] ?? ((s: string) => s);
-            const gen  = pool.map((t, idx) => {
-                let b = fn(t);
-                if (name.trim()) b = `${name.trim()}\n` + b;
-                if (kws.length) b += `\n${kws.slice(0, 3).join(" | ")}`;
-                b = b.slice(0, MAX);
-                if (idx === 0) return toStylishFont(b, 'cursive');
-                if (idx === 1) return toStylishFont(b, 'bold');
-                return b;
+    const categories = Object.keys(BIOS_DATA);
+
+    // Filter and search logic
+    const filteredBios = useMemo(() => {
+        let list: { text: string; cat: string }[] = [];
+        
+        if (selectedCategory === 'all') {
+            categories.forEach(cat => {
+                BIOS_DATA[cat].forEach(text => {
+                    list.push({ text, cat });
+                });
             });
-            setBios(gen); setPreview(0); setLoading(false);
-        }, 650);
-    };
+        } else {
+            BIOS_DATA[selectedCategory]?.forEach(text => {
+                list.push({ text, cat: selectedCategory });
+            });
+        }
 
-    const copyBio = (text: string, idx: number) => {
+        if (searchQuery.trim().length > 0) {
+            const query = searchQuery.toLowerCase();
+            list = list.filter(item => item.text.toLowerCase().includes(query));
+        }
+
+        return list;
+    }, [selectedCategory, searchQuery, categories]);
+
+    const displayBios = useMemo(() => {
+        return filteredBios.slice(0, visibleCount);
+    }, [filteredBios, visibleCount]);
+
+    const handleCopy = (text: string, id: string) => {
         navigator.clipboard.writeText(text);
-        setCopied(idx); setTimeout(() => setCopied(null), 2000);
+        setCopiedIndex(id);
+        setTimeout(() => setCopiedIndex(null), 2000);
     };
 
-    const selectedCat = CATEGORIES.find(c => c.id === cat)!;
+    const handleShare = (text: string) => {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Instagram Bio',
+                text: text,
+                url: window.location.href
+            }).catch(() => {});
+        } else {
+            // Fallback: Share on WhatsApp
+            const encodedText = encodeURIComponent(text + "\n\nFind more stylish bios at: " + window.location.href);
+            window.open(`https://api.whatsapp.com/send?text=${encodedText}`, '_blank');
+        }
+    };
+
+    const handleLoadMore = () => {
+        setVisibleCount(prev => prev + 24);
+    };
+
+    const handleCategoryChange = (cat: string) => {
+        setSelectedCategory(cat);
+        setVisibleCount(24);
+    };
 
     return (
-        <>
-            <style>{`
-                @keyframes igSpin { to { transform:rotate(360deg); } }
-                @keyframes igFade { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
-
-                /* ── hero ── */
-                .igb-hero {
-                    background: #1a1a2e;
-                    border-radius: 24px; padding: 32px 28px 26px;
-                    margin-bottom: 20px; position: relative; overflow: hidden;
-                }
-                .igb-hero-ring {
-                    position: absolute; top: -60px; right: -60px;
-                    width: 220px; height: 220px; border-radius: 50%;
-                    border: 40px solid rgba(188,24,136,0.18);
-                    pointer-events: none;
-                }
-                .igb-ig-logo {
-                    width: 48px; height: 48px; border-radius: 14px;
-                    background: ${IG_GRAD};
-                    display: flex; align-items: center; justify-content: center;
-                    box-shadow: 0 6px 20px rgba(220,39,67,0.5);
-                    flex-shrink: 0;
-                }
-                .igb-hero h1 { margin:0; font-size:22px; font-weight:900; color:#fff; line-height:1.2; }
-                .igb-hero-sub { margin:8px 0 18px; font-size:13px; color:#a78bfa; line-height:1.6; }
-                .igb-badge {
-                    display:inline-flex; align-items:center; gap:5px;
-                    background:rgba(255,255,255,0.08);
-                    border:1px solid rgba(255,255,255,0.12);
-                    border-radius:100px; padding:5px 12px;
-                    font-size:11px; font-weight:700; color:#e2e8f0;
-                }
-
-                /* ── card ── */
-                .igb-card {
-                    background:#fff; border-radius:20px;
-                    border:1.5px solid #f1f5f9; padding:20px;
-                    box-shadow:0 2px 12px rgba(0,0,0,0.04);
-                    margin-bottom:14px;
-                }
-                .igb-label { font-size:12px; font-weight:800; color:#1a1a2e; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
-                .igb-input {
-                    width:100%; padding:12px 14px; font-size:14px;
-                    border:1.5px solid #e2e8f0; border-radius:12px;
-                    outline:none; font-family:inherit; color:#0f172a;
-                    transition:border 0.15s; box-sizing:border-box; background:#fafbff;
-                }
-                .igb-input:focus { border-color:#bc1888; background:#fff; }
-
-                /* ── category highlights (Instagram story style) ── */
-                .igb-cats { display:flex; gap:14px; overflow-x:auto; padding-bottom:6px; scrollbar-width:none; }
-                .igb-cats::-webkit-scrollbar { display:none; }
-                .igb-cat {
-                    display:flex; flex-direction:column; align-items:center; gap:6px;
-                    cursor:pointer; flex-shrink:0; background:none; border:none; padding:0;
-                }
-                .igb-cat-ring {
-                    width:58px; height:58px; border-radius:50%;
-                    background:#e2e8f0; /* default unglow */
-                    display:flex; align-items:center; justify-content:center;
-                    transition:all 0.15s;
-                }
-                .igb-cat-ring.active {
-                    background: ${IG_GRAD};
-                    box-shadow: 0 0 0 3px #fff, 0 0 0 5px #e1306c;
-                }
-                .igb-cat-inner {
-                    width:50px; height:50px; border-radius:50%;
-                    background:#f1f5f9;
-                    display:flex; align-items:center; justify-content:center;
-                    transition:background 0.15s;
-                }
-                .igb-cat.active .igb-cat-inner { background:#fff0f5; }
-                .igb-cat-label { font-size:10px; font-weight:700; color:#64748b; }
-                .igb-cat.active .igb-cat-label { color:#e1306c; }
-
-                /* ── tone pills ── */
-                .igb-tone-row { display:flex; flex-wrap:wrap; gap:8px; }
-                .igb-tone {
-                    padding:7px 16px; border-radius:100px; cursor:pointer;
-                    border:1.5px solid #f1f5f9; background:#fafbff;
-                    font-size:12px; font-weight:700; color:#64748b; transition:all 0.13s;
-                }
-                .igb-tone.active { border-color:#bc1888; background:#fff0f6; color:#bc1888; }
-
-                /* ── generate btn ── */
-                .igb-gen {
-                    width:100%; padding:15px; border-radius:14px; border:none;
-                    background:${IG_GRAD}; color:#fff;
-                    font-weight:800; font-size:15px; cursor:pointer;
-                    display:flex; align-items:center; justify-content:center; gap:9px;
-                    box-shadow:0 6px 24px rgba(220,39,67,0.4);
-                    transition:opacity 0.18s; margin-bottom:20px;
-                }
-                .igb-gen:disabled { opacity:0.5; cursor:not-allowed; }
-
-                /* ── result + phone preview ── */
-                .igb-results-wrap {
-                    display:grid; grid-template-columns:1fr 220px; gap:16px;
-                    align-items:start; animation:igFade 0.35s ease;
-                }
-                .igb-result {
-                    background:#fafbff; border:1.5px solid #f3e8ff;
-                    border-radius:14px; padding:16px; cursor:pointer;
-                    transition:all 0.15s;
-                }
-                .igb-result:hover { border-color:#bc1888; background:#fff0f6; }
-                .igb-result.active { border-color:#bc1888; background:#fff0f6; box-shadow:0 0 0 3px rgba(188,24,136,0.1); }
-                .igb-editor {
-                    width:100%; font-size:13px; color:#1e1b4b; line-height:1.75; font-weight:500;
-                    border:none; outline:none; background:transparent; resize:none;
-                    font-family:inherit; margin:0 0 6px; padding:0; display:block;
-                }
-                .igb-editor::placeholder { color:#94a3b8; }
-                .igb-row { display:flex; align-items:center; justify-content:space-between; }
-                .igb-chars { font-size:10px; font-weight:700; color:#94a3b8; }
-                .igb-edit {
-                    display:inline-flex; align-items:center; gap:5px;
-                    padding:6px 14px; border-radius:100px; border:1.5px solid #e1306c; cursor:pointer;
-                    background:transparent; color:#e1306c; font-size:11px; font-weight:700; transition:all 0.13s;
-                }
-                .igb-edit:hover { background:#fff0f5; }
-                .igb-copy {
-                    display:inline-flex; align-items:center; gap:5px;
-                    padding:6px 14px; border-radius:100px; border:none; cursor:pointer;
-                    background:#bc1888; color:#fff; font-size:11px; font-weight:700; transition:all 0.13s;
-                }
-                .igb-copy.done { background:#10b981; }
-
-                /* ── phone mockup ── */
-                .igb-phone {
-                    width:200px; background:#fff;
-                    border-radius:28px; border:8px solid #1a1a2e;
-                    box-shadow:0 20px 60px rgba(0,0,0,0.25);
-                    overflow:hidden; position:sticky; top:100px;
-                }
-                .igb-phone-top {
-                    background:${IG_GRAD}; height:6px;
-                }
-                .igb-phone-body { padding:14px 12px; }
-                .igb-phone-avatar {
-                    width:52px; height:52px; border-radius:50%;
-                    background:${IG_GRAD}; margin-bottom:8px;
-                    display:flex; align-items:center; justify-content:center;
-                    box-shadow:0 4px 10px rgba(188,24,136,0.4);
-                    font-size:20px; color:#fff; font-weight:900;
-                }
-                .igb-phone-user { font-size:13px; font-weight:800; color:#0f172a; margin:0 0 1px; }
-                .igb-phone-name { font-size:10px; color:#64748b; margin:0 0 8px; }
-                .igb-phone-bio { font-size:10px; color:#1e293b; white-space:pre-line; line-height:1.6; }
-                .igb-phone-flw {
-                    display:flex; gap:12px; margin-top:10px; padding-top:10px;
-                    border-top:1px solid #f1f5f9;
-                }
-                .igb-phone-stat { text-align:center; }
-                .igb-phone-stat b { display:block; font-size:11px; font-weight:900; color:#0f172a; }
-                .igb-phone-stat span { font-size:9px; color:#64748b; }
-
-                /* ── tips ── */
-                .igb-tips {
-                    background:#fffbeb; border:1.5px solid #fde68a;
-                    border-radius:14px; padding:16px 18px; margin-top:6px;
-                }
-
-                /* ── mobile ── */
-                @media (max-width:640px) {
-                    .igb-hero { padding:20px 16px 18px; }
-                    .igb-hero h1 { font-size:19px; }
-                    .igb-results-wrap { grid-template-columns:1fr; }
-                    .igb-phone { 
-                        position: relative; 
-                        top: 0; 
-                        width: 100%; 
-                        max-width: 320px; 
-                        margin: 20px auto 0;
-                    }
-                }
-            `}</style>
-
-            {/* ── HERO ── */}
-            <div className="igb-hero">
-                <div className="igb-hero-ring" />
-                <div style={{ display:"flex", alignItems:"center", gap:14, marginBottom:12, position:"relative" }}>
-                    <div className="igb-ig-logo">
-                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                        </svg>
+        <div className="w-full max-w-6xl mx-auto my-8 font-sans antialiased text-slate-100">
+            {/* Control Panel: Search & Filter */}
+            <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-[2.5rem] p-6 shadow-2xl mb-8">
+                
+                {/* Search Bar */}
+                <div className="relative mb-6">
+                    <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <Search className="h-5 w-5 text-slate-400" />
                     </div>
-                    <div>
-                        <p style={{ margin:"0 0 2px", fontSize:10, fontWeight:700, color:"#f09433", letterSpacing:"0.1em", textTransform:"uppercase" }}>
-                            Instagram Tools — Free
-                        </p>
-                        <h1>Instagram Bio Generator</h1>
-                    </div>
-                </div>
-                <p className="igb-hero-sub">
-                    Pick your category, set the tone, add keywords — get 3 professional bios ready to copy in seconds.
-                </p>
-                <div style={{ display:"flex", flexWrap:"wrap", gap:7 }}>
-                    {["Free","No Signup","150-char limit","1-click copy"].map(l => (
-                        <span key={l} className="igb-badge">{l}</span>
-                    ))}
-                </div>
-            </div>
-
-            {/* ── INPUTS ── */}
-            <div className="igb-card">
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
-                    <div>
-                        <div className="igb-label"><User size={13} color="#bc1888" /> Name</div>
-                        <input suppressHydrationWarning className="igb-input" placeholder="e.g. Priya Sharma" value={name} onChange={e => setName(e.target.value)} />
-                    </div>
-                    <div>
-                        <div className="igb-label">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#bc1888" strokeWidth="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                            Username
-                        </div>
-                        <input suppressHydrationWarning className="igb-input" placeholder="e.g. @priya.creates" value={username} onChange={e => setUsername(e.target.value)} />
-                    </div>
-                </div>
-                <div style={{ marginTop:12 }}>
-                    <div className="igb-label"><Sparkles size={13} color="#bc1888" /> Keywords / Niche <span style={{ fontWeight:500, color:"#94a3b8", fontSize:11 }}>(comma separated)</span></div>
-                    <input suppressHydrationWarning className="igb-input" placeholder="e.g. travel, photography, Mumbai" value={keywords} onChange={e => setKeywords(e.target.value)} />
-                </div>
-            </div>
-
-            {/* ── CATEGORY — Story Highlight Style ── */}
-            <div className="igb-card">
-                <div className="igb-label">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#bc1888" strokeWidth="2.5"><circle cx="12" cy="12" r="10"/><path d="m9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
-                    Your Category
-                </div>
-                <div className="igb-cats">
-                    {CATEGORIES.map(({ id, label, Icon }) => (
-                        <button suppressHydrationWarning key={id} onClick={() => setCat(id)} className={`igb-cat${cat === id ? " active" : ""}`}>
-                            <div className={`igb-cat-ring${cat === id ? " active" : ""}`}>
-                                <div className="igb-cat-inner">
-                                    <Icon size={22} color={cat === id ? "#e1306c" : "#64748b"} />
-                                </div>
-                            </div>
-                            <span className="igb-cat-label">{label}</span>
+                    <input
+                        type="text"
+                        placeholder="Search bios (e.g. King, Attitude, Gamer, Love)..."
+                        className="block w-full pl-12 pr-4 py-4 bg-slate-950/80 border border-slate-800 rounded-2xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all text-[15px] font-medium"
+                        value={searchQuery}
+                        onChange={(e) => {
+                            setSearchQuery(e.target.value);
+                            setVisibleCount(24);
+                        }}
+                    />
+                    {searchQuery && (
+                        <button 
+                            onClick={() => setSearchQuery('')}
+                            className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-slate-200 text-sm font-semibold"
+                        >
+                            Clear
                         </button>
-                    ))}
+                    )}
+                </div>
+
+                {/* Filter Categories */}
+                <div className="flex flex-wrap gap-2.5">
+                    <button
+                        onClick={() => handleCategoryChange('all')}
+                        className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all border ${
+                            selectedCategory === 'all'
+                                ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-transparent shadow-lg shadow-indigo-500/20'
+                                : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                        }`}
+                    >
+                        🚀 All (1548)
+                    </button>
+                    {categories.map((cat) => {
+                        const meta = CATEGORY_META[cat];
+                        return (
+                            <button
+                                key={cat}
+                                onClick={() => handleCategoryChange(cat)}
+                                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all border flex items-center gap-1.5 ${
+                                    selectedCategory === cat
+                                        ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-transparent shadow-lg shadow-indigo-500/20'
+                                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                                }`}
+                            >
+                                <span>{meta.icon}</span>
+                                <span>{meta.name}</span>
+                                <span className="text-xs opacity-60 font-medium">({BIOS_DATA[cat].length})</span>
+                            </button>
+                        );
+                    })}
                 </div>
             </div>
 
-            {/* ── TONE ── */}
-            <div className="igb-card">
-                <div className="igb-label"><Edit3 size={13} color="#bc1888" /> Tone</div>
-                <div className="igb-tone-row">
-                    {TONES.map(t => (
-                        <button suppressHydrationWarning key={t} onClick={() => setTone(t)} className={`igb-tone${tone === t ? " active" : ""}`}>{t}</button>
-                    ))}
-                </div>
-            </div>
-
-            {/* ── GENERATE ── */}
-            <button suppressHydrationWarning onClick={generate} disabled={loading} className="igb-gen">
-                {loading
-                    ? <><RefreshCw size={17} style={{ animation:"igSpin 1s linear infinite" }} /> Generating…</>
-                    : <><Sparkles size={17} /> Generate Bio Ideas</>}
-            </button>
-
-            {/* ── RESULTS + PHONE PREVIEW ── */}
-            {bios.length > 0 && (
-                <div className="igb-results-wrap">
-                    {/* Bio cards */}
-                    <div>
-                        <p style={{ fontSize:13, fontWeight:800, color:"#374151", marginBottom:10 }}>
-                            Click to edit and preview your bio
-                        </p>
-                        {bios.map((bio, idx) => (
-                            <div key={idx} className={`igb-result${preview === idx ? " active" : ""}`}
-                                onClick={() => setPreview(idx)}
-                                style={{ marginBottom:10 }}>
-                                <textarea
-                                    className="igb-editor"
-                                    rows={4}
-                                    value={bio}
-                                    onChange={e => {
-                                        const newBios = [...bios];
-                                        newBios[idx] = e.target.value.slice(0, MAX);
-                                        setBios(newBios);
-                                    }}
-                                    onClick={e => e.stopPropagation()}
-                                    onFocus={() => setPreview(idx)}
-                                />
-                                <div className="igb-row">
-                                    <span className="igb-chars">{bio.length}/{MAX} chars</span>
-                                    <div style={{ display: "flex", gap: "6px" }}>
-                                        <button onClick={e => {
-                                            e.stopPropagation();
-                                            (document.querySelectorAll('.igb-editor')[idx] as HTMLTextAreaElement)?.focus();
-                                        }}
-                                            className="igb-edit">
-                                            <Edit3 size={12} /> Edit
-                                        </button>
-                                        <button onClick={e => { e.stopPropagation(); copyBio(bio, idx); }}
-                                            className={`igb-copy${copied === idx ? " done" : ""}`}>
-                                            {copied === idx
-                                                ? <><CheckCircle2 size={12} /> Copied!</>
-                                                : <><Copy size={12} /> Copy</>}
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
+            {/* Category Banner */}
+            {selectedCategory !== 'all' && (
+                <div className="bg-gradient-to-r from-indigo-950/20 to-purple-950/20 border border-slate-800/80 rounded-2xl p-5 mb-8 flex items-start gap-4">
+                    <div className="text-3xl p-3 bg-slate-900 border border-slate-800 rounded-xl">
+                        {CATEGORY_META[selectedCategory].icon}
                     </div>
-
-                    {/* Phone mockup */}
-                    <div className="igb-phone">
-                        <div className="igb-phone-top" />
-                        <div className="igb-phone-body">
-                            <div className="igb-phone-avatar">
-                                {(name || username || "U").charAt(0).toUpperCase()}
-                            </div>
-                            <p className="igb-phone-user">
-                                {username ? username.replace("@", "") : "yourhandle"}
-                            </p>
-                            <p className="igb-phone-name">{name || "Your Name"} · {selectedCat.label}</p>
-                            <p className="igb-phone-bio">{bios[preview]}</p>
-                            <div className="igb-phone-flw">
-                                <div className="igb-phone-stat"><b>0</b><span>Posts</span></div>
-                                <div className="igb-phone-stat"><b>1K</b><span>Followers</span></div>
-                                <div className="igb-phone-stat"><b>250</b><span>Following</span></div>
-                            </div>
-                        </div>
+                    <div>
+                        <h3 className="text-lg font-black text-slate-100 mb-1">
+                            {CATEGORY_META[selectedCategory].name} Bios
+                        </h3>
+                        <p className="text-sm text-slate-400">
+                            {CATEGORY_META[selectedCategory].desc}
+                        </p>
                     </div>
                 </div>
             )}
 
-            {/* ── TIPS ── */}
-            <div className="igb-tips">
-                <p style={{ margin:"0 0 8px", fontWeight:800, fontSize:13, color:"#92400e" }}>Pro Tips for a Great Instagram Bio</p>
-                <ul style={{ margin:0, paddingLeft:18, fontSize:12, color:"#78350f", lineHeight:1.85 }}>
-                    <li>Keep it under 150 characters — Instagram's limit.</li>
-                    <li>Use line breaks to separate sections clearly.</li>
-                    <li>Add a CTA like "DM for collabs" or "Link below."</li>
-                    <li>Include 1-2 niche keywords your audience searches.</li>
-                    <li>Use · or | to separate ideas without using up too many characters.</li>
-                </ul>
+            {/* Bios Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {displayBios.map((item, index) => {
+                    const uniqueId = `${item.cat}-${index}`;
+                    const isCopied = copiedIndex === uniqueId;
+                    return (
+                        <div 
+                            key={uniqueId}
+                            className="group relative bg-slate-900 border border-slate-800 hover:border-slate-700 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1 shadow-lg hover:shadow-2xl hover:shadow-indigo-500/5 flex flex-col justify-between"
+                        >
+                            {/* Card Header Tag */}
+                            <div className="flex justify-between items-center mb-4">
+                                <span className="px-3 py-1 rounded-full bg-slate-950 border border-slate-800 text-slate-400 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                                    {CATEGORY_META[item.cat].icon} {CATEGORY_META[item.cat].name}
+                                </span>
+                                <span className="text-[11px] text-slate-600 font-bold">#{index + 1}</span>
+                            </div>
+
+                            {/* Bio Content */}
+                            <div className="my-3 flex-grow select-all">
+                                <pre className="whitespace-pre-wrap font-sans text-[15px] font-medium leading-relaxed text-slate-200 tracking-wide break-words border-l-2 border-indigo-500/20 pl-3">
+                                    {item.text}
+                                </pre>
+                            </div>
+
+                            {/* Card Footer Actions */}
+                            <div className="flex gap-2.5 mt-5 border-t border-slate-800/80 pt-4">
+                                <button
+                                    onClick={() => handleCopy(item.text, uniqueId)}
+                                    className={`flex-1 py-3 rounded-2xl text-xs font-bold transition-all flex items-center justify-center gap-2 border ${
+                                        isCopied
+                                            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                                            : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400 hover:bg-indigo-500 hover:text-white hover:border-transparent hover:shadow-lg hover:shadow-indigo-500/20'
+                                    }`}
+                                >
+                                    {isCopied ? (
+                                        <>
+                                            <Check className="h-4 w-4" />
+                                            <span>Copied!</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Copy className="h-4 w-4" />
+                                            <span>Copy Bio</span>
+                                        </>
+                                    )}
+                                </button>
+                                <button
+                                    onClick={() => handleShare(item.text)}
+                                    className="px-4 py-3 bg-slate-950 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-400 hover:text-slate-200 rounded-2xl text-xs font-bold transition-all flex items-center justify-center gap-1.5"
+                                    title="Share Bio"
+                                >
+                                    <Share2 className="h-4 w-4" />
+                                </button>
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
-        </>
+
+            {/* Empty State */}
+            {filteredBios.length === 0 && (
+                <div className="text-center py-20 bg-slate-900/50 border border-slate-800 rounded-3xl">
+                    <p className="text-slate-400 text-lg font-bold">No bios match your search query.</p>
+                    <button 
+                        onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}
+                        className="mt-4 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-sm font-bold transition-all"
+                    >
+                        Reset Filters
+                    </button>
+                </div>
+            )}
+
+            {/* Load More Button */}
+            {filteredBios.length > visibleCount && (
+                <div className="text-center mt-12">
+                    <button
+                        onClick={handleLoadMore}
+                        className="px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white text-sm font-black rounded-2xl shadow-lg hover:shadow-indigo-500/25 transition-all transform active:scale-95 flex items-center gap-2 mx-auto"
+                    >
+                        <Sparkles className="h-4 w-4" />
+                        <span>Load More Bios ({filteredBios.length - visibleCount} remaining)</span>
+                    </button>
+                </div>
+            )}
+        </div>
     );
 }

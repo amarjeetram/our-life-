@@ -41,6 +41,12 @@ export default function MathCalculatorsPage() {
             desc: 'Compute indefinite integrals and antiderivatives symbolically with zero limits.',
             tags: ['Math', 'Calculus'],
             gradient: "linear-gradient(135deg, #0ea5e9, #3b82f6)",
+        },
+        {
+            route: '/calculators/gst-calculator', title: 'GST Calculator Online',
+            desc: 'Instantly add or remove GST from any amount. Calculate exact CGST and SGST breakdowns for India and globally.',
+            tags: ['Finance', 'Tax', 'Business'],
+            gradient: "linear-gradient(135deg, #6366f1, #3b82f6)",
         }
     ];
 

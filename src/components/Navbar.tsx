@@ -45,6 +45,7 @@ const Navbar = () => {
                 { name: 'Calculators', href: '/calculators' },
                 { name: 'Unit Converters', href: '/unit-converters' },
                 { name: 'Date & Time Tools', href: '/date-time-tools' },
+                { name: 'Generators', href: '/generators' },
                 { name: 'Other Tools', href: '/other-tools' },
             ]
         },
@@ -121,7 +122,7 @@ const Navbar = () => {
                         {/* Desktop CTA */}
                         <div className="hidden md:flex items-center gap-3">
                             <Link
-                                href="/compress-image-to-20kb"
+                                href="/image-compressor-to-20kb"
                                 className="btn-primary"
                                 style={{ padding: '10px 20px', fontSize: '14px', borderRadius: '12px' }}
                             >
@@ -236,7 +237,7 @@ const Navbar = () => {
                 {/* Drawer Footer */}
                 <div style={{ padding: '16px', borderTop: '1px solid #f1f5f9' }}>
                     <Link
-                        href="/compress-image-to-20kb"
+                        href="/image-compressor-to-20kb"
                         onClick={() => setIsOpen(false)}
                         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '14px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: '#ffffff', fontWeight: 700, fontSize: '15px', borderRadius: '14px', textDecoration: 'none' }}
                     >

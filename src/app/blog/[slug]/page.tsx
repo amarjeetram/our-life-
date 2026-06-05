@@ -7,6 +7,8 @@ import { Calendar, User, ArrowLeft, Clock, Heart, Sparkles, Hash, Type } from 'l
 import { getPostBySlug, getAllPosts } from '@/lib/mdx';
 import FloatingCTA from '@/components/FloatingCTA';
 import CoupleNameClient from '@/components/CoupleNameClient';
+import InstagramBioClient from '@/components/InstagramBioClient';
+import AdBanner from '@/components/AdBanner';
 
 // EXPLICIT FORCE STATIC - Critical for fast indexing and crawling
 export const dynamic = 'force-static';
@@ -35,13 +37,13 @@ const TAG_CTA: Record<string, { title: string; badge: string; buttonLink: string
     'cta-compress-20kb': {
         title: 'Compress Image to 20KB – Exams Ready!',
         badge: '📝 Free Tool',
-        buttonLink: '/compress-image-to-20kb',
+        buttonLink: '/image-compressor-to-20kb',
         gradient: 'linear-gradient(135deg, #ec4899, #be185d)',
     },
     'cta-compress-30kb': {
         title: 'Compress Image to 30KB – Exact Size!',
         badge: '🎯 Free Tool',
-        buttonLink: '/compress-image-to-30kb',
+        buttonLink: '/photo-compressor-to-30kb',
         gradient: 'linear-gradient(135deg, #8b5cf6, #6d28d9)',
     },
     'cta-compress-200kb': {
@@ -235,6 +237,135 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         "mainEntity": faqInFaqSection
     } : null;
 
+    const isInstagramBioPost = post.slug === 'instagram-bio-for-boys';
+
+    const howToJsonLd = isInstagramBioPost ? {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Customize and Set a Stylish Instagram Bio",
+        "description": "A step-by-step guide to customizing, styling, and copying bios for your Instagram profile using our tools.",
+        "image": `${SITE}/images/blogs/instagram-bio-for-boys-featured.webp`,
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Select a Bio Category",
+                "text": "Browse through categories such as Attitude, VIP, Stylish, or Gamer to find the style that represents you.",
+                "url": `${SITE}/blog/instagram-bio-for-boys#ai-tools`
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Use the Search Feature",
+                "text": "Type keywords like 'King' or 'Fitness' into the search bar to find bios matching your exact vibe.",
+                "url": `${SITE}/blog/instagram-bio-for-boys#ai-tools`
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Copy the Selected Bio",
+                "text": "Click the copy button on your chosen bio card. The text will be saved to your clipboard instantly.",
+                "url": `${SITE}/blog/instagram-bio-for-boys#ai-tools`
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Paste on Instagram Profile",
+                "text": "Open Instagram, go to Edit Profile, paste the bio into the bio text field, and save your changes.",
+                "url": "https://www.instagram.com"
+            }
+        ]
+    } : null;
+
+    const collectionJsonLd = isInstagramBioPost ? {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "[1500+] Best Instagram Bio For Boys – Attitude, Stylish & VIP Bios (2026)",
+        "description": "Discover 1500+ Instagram Bio For Boys including attitude, stylish, VIP, cool, trending and emoji bios. Copy and use instantly.",
+        "url": `${SITE}/blog/instagram-bio-for-boys`,
+        "about": {
+            "@type": "ItemList",
+            "numberOfItems": 1548,
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Attitude Bios for Boys",
+                    "description": "Bold, confident, and high-attitude bios."
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Stylish Bios for Boys",
+                    "description": "Stylish typography and creative font bios."
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": "VIP Bios for Boys",
+                    "description": "Premium status, official-look and Royal VIP bios."
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 4,
+                    "name": "Cool Bios for Boys",
+                    "description": "Chill, smooth, and charismatic bios."
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 5,
+                    "name": "Trending Bios for Boys",
+                    "description": "The most popular bios for 2026."
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 6,
+                    "name": "Emoji Bios for Boys",
+                    "description": "Bio combinations rich with expressive emojis."
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 7,
+                    "name": "Short Bios for Boys",
+                    "description": "Minimalist, punchy, and short bios."
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 8,
+                    "name": "Professional Bios for Boys",
+                    "description": "Career, creator, and business-focused bios."
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 9,
+                    "name": "Gamer Bios for Boys",
+                    "description": "Cyberpunk, gaming-centric, and esports bios."
+                }
+            ]
+        }
+    } : null;
+
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": SITE
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": `${SITE}/blog`
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": post.title,
+                "item": canonical
+            }
+        ]
+    };
+
     const ctaConfig = post.tags?.map((t) => TAG_CTA[t]).find(Boolean) ?? null;
 
     // Define custom MDX components corresponding to the tags injected in MDX files
@@ -260,6 +391,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     <CoupleNameClient />
                 </span>
             </span>
+        ),
+        InteractiveInstagramBio: () => (
+            <span className="block my-12 not-prose border border-slate-800 rounded-3xl bg-slate-950 shadow-xl overflow-hidden relative z-50">
+                <span className="block bg-slate-900 p-4 text-center border-b border-slate-800">
+                    <span className="text-sm font-bold text-indigo-500 uppercase tracking-widest">Interactive Tool</span>
+                </span>
+                <span className="block p-2 sm:p-6">
+                    <InstagramBioClient />
+                </span>
+            </span>
         )
     };
 
@@ -276,9 +417,33 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
                     />
                 )}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+                />
+                {howToJsonLd && (
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+                    />
+                )}
+                {collectionJsonLd && (
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+                    />
+                )}
 
                 {/* ── Page Header / Hero ─────────────────────────────────────────── */}
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 mb-12 text-center relative z-10">
+                    {/* Visual Breadcrumbs */}
+                    <nav className="flex items-center justify-center gap-2 text-xs text-slate-500 font-semibold mb-6 flex-wrap" aria-label="Breadcrumb">
+                        <Link href="/" className="hover:text-indigo-600 transition-colors text-slate-500">Home</Link>
+                        <span className="text-slate-400">/</span>
+                        <Link href="/blog" className="hover:text-indigo-600 transition-colors text-slate-500">Blog</Link>
+                        <span className="text-slate-400">/</span>
+                        <span className="text-slate-700 truncate max-w-[200px] sm:max-w-xs md:max-w-none">{post.title}</span>
+                    </nav>
                     <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-pink-100 border border-pink-200 text-pink-700 text-xs font-bold uppercase tracking-wider mb-6 shadow-sm">
                         <Heart className="w-3.5 h-3.5 fill-pink-500" />
                         Free Utility Tool
@@ -328,7 +493,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     prose-li:text-slate-700 marker:text-indigo-500
                     prose-img:rounded-3xl prose-img:border prose-img:border-slate-200 prose-img:shadow-lg
                 ">
-                        <MDXRemote source={post.content} components={mdxComponents} />
+                        <AdBanner dataAdSlot="slot_blog_top" className="mb-8" />
+                                <MDXRemote source={post.content} components={mdxComponents} />
+                                <AdBanner dataAdSlot="slot_blog_bottom" className="mt-8 mb-4" />
                      </div>
                 </div>
             </div>
@@ -348,12 +515,37 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
                     />
                 )}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+                />
+                {howToJsonLd && (
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+                    />
+                )}
+                {collectionJsonLd && (
+                    <script
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+                    />
+                )}
 
                 {/* Header Section */}
                 <header className="bg-white border-b border-slate-200/60 pt-28 pb-16 relative">
                     <div className="absolute top-0 inset-x-0 h-[300px] bg-gradient-to-b from-indigo-50/50 to-transparent pointer-events-none"></div>
 
                     <div className="max-w-3xl mx-auto px-4 sm:px-6 relative z-10">
+                        {/* Visual Breadcrumbs */}
+                        <nav className="flex items-center gap-2 text-xs text-slate-500 font-semibold mb-6 flex-wrap" aria-label="Breadcrumb">
+                            <Link href="/" className="hover:text-indigo-600 transition-colors text-slate-500">Home</Link>
+                            <span className="text-slate-400">/</span>
+                            <Link href="/blog" className="hover:text-indigo-600 transition-colors text-slate-500">Blog</Link>
+                            <span className="text-slate-400">/</span>
+                            <span className="text-slate-700 truncate max-w-[200px] sm:max-w-xs md:max-w-none">{post.title}</span>
+                        </nav>
+
                         <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-indigo-600 transition-colors font-medium mb-10">
                             <ArrowLeft className="w-4 h-4" /> Back to Blog
                         </Link>
@@ -427,7 +619,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     prose-li:text-slate-700 marker:text-indigo-500
                     prose-img:rounded-3xl prose-img:border prose-img:border-slate-200 prose-img:shadow-lg
                 ">
-                        <MDXRemote source={post.content} components={mdxComponents} />
+                        <AdBanner dataAdSlot="slot_blog_top" className="mb-8" />
+                                <MDXRemote source={post.content} components={mdxComponents} />
+                                <AdBanner dataAdSlot="slot_blog_bottom" className="mt-8 mb-4" />
                         
                         {/* Contextual Internal Linking (SEO: "Also Read") */}
                         {relatedPosts.length > 0 && (

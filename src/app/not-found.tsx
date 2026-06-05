@@ -53,7 +53,7 @@ export default function NotFound() {
                         </p>
 
                         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                            <Link href="/compress-image-to-20kb" style={{
+                            <Link href="/image-compressor-to-20kb" style={{
                                 display: "flex", alignItems: "center", justifyContent: "center", gap: "9px",
                                 background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
                                 color: "#fff", fontWeight: 800, fontSize: "15px",

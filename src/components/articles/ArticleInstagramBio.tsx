@@ -220,7 +220,7 @@ export default function ArticleInstagramBio() {
                         <Link href="/youtube-tag-extractor" className="text-pink-600 font-bold hover:underline">
                             YouTube Tag Extractor &rarr;
                         </Link>
-                        <Link href="/compress-image-to-20kb" className="text-pink-600 font-bold hover:underline">
+                        <Link href="/image-compressor-to-20kb" className="text-pink-600 font-bold hover:underline">
                             Profile Picture Compressor (20KB) &rarr;
                         </Link>
                     </div>

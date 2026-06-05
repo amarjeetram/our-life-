@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import FlamesCalculatorClient from '@/components/FlamesCalculatorClient';
 import ArticleFlamesCalculator from '@/components/articles/ArticleFlamesCalculator';
+import RelatedFunCalculators from '@/components/RelatedFunCalculators';
 
 const SITE_URL = 'https://smarttoolswala.com';
 const PAGE_URL = `${SITE_URL}/calculators/fun/flames-calculator`;
@@ -107,6 +108,8 @@ export default function FlamesCalculatorPage() {
                 <FlamesCalculatorClient />
 
                 <ArticleFlamesCalculator />
+
+                <RelatedFunCalculators currentRoute="/calculators/fun/flames-calculator" />
             </main>
         </div>
     );

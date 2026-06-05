@@ -1,4 +1,5 @@
 "use client";
+import AdBanner from '@/components/AdBanner';
 
 
 import React, { useState, useCallback, useEffect } from 'react';
@@ -103,29 +104,68 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
 
     const compressOne = useCallback(async (id: string, imgFile: File) => {
         setItems(prev => prev.map(it => it.id === id ? { ...it, loading: true, error: null } : it));
+        
         try {
-            // Pre-shrink on client if file is too large for the API body limit
-            const fileToSend = await preshrinkFile(imgFile);
+            let blob: Blob | null = null;
+            let usedServerFallback = false;
 
-            const formData = new FormData();
-            formData.append('file', fileToSend);
-            formData.append('targetSize', userTargetSize.toString());
-            const res = await fetch('/api/compress', { method: 'POST', body: formData });
+            // Step 1: Attempt Client-Side Compression (Hybrid Approach)
+            // We try to compress standard formats locally to save Vercel CPU and Bandwidth
+            const isStandardFormat = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(imgFile.type);
+            
+            if (isStandardFormat) {
+                try {
+                    const mod = await import('browser-image-compression');
+                    const imageCompression = mod.default || mod;
+                    
+                    // Convert target size KB to MB for the library
+                    const targetSizeMB = userTargetSize / 1024;
+                    
+                    const compressedFile = await imageCompression(imgFile, {
+                        maxSizeMB: targetSizeMB,
+                        maxWidthOrHeight: 4096, // Keep good resolution
+                        useWebWorker: true,
+                        initialQuality: 0.85,
+                        alwaysKeepResolution: true, // Try to keep dimensions if possible
+                    });
 
-            if (!res.ok) {
-                const errorData = await res.json().catch(() => ({}));
-                throw new Error(errorData.error || `Server error: ${res.status}`);
+                    // Check if client-side compression successfully reached the target size
+                    // Allow a tiny 1KB margin of error
+                    if (compressedFile.size <= (userTargetSize * 1024) + 1024) {
+                        blob = compressedFile;
+                    } else {
+                        console.log(`Client compression reached ${compressedFile.size / 1024}KB, which is above ${userTargetSize}KB target. Falling back to server...`);
+                    }
+                } catch (clientErr) {
+                    console.warn("Client-side compression failed, falling back to server:", clientErr);
+                }
             }
 
-            const blob = await res.blob();
+            // Step 2: Fallback to Server-Side Compression if client failed or format is unsupported
+            if (!blob) {
+                usedServerFallback = true;
+                const fileToSend = await preshrinkFile(imgFile);
 
-            if (blob.size === 0) {
+                const formData = new FormData();
+                formData.append('file', fileToSend);
+                formData.append('targetSize', userTargetSize.toString());
+                const res = await fetch('/api/compress', { method: 'POST', body: formData });
+
+                if (!res.ok) {
+                    const errorData = await res.json().catch(() => ({}));
+                    throw new Error(errorData.error || `Server error: ${res.status}`);
+                }
+
+                blob = await res.blob();
+            }
+
+            if (!blob || blob.size === 0) {
                 throw new Error("Received empty resulting image");
             }
 
             setItems(prev => prev.map(it =>
                 it.id === id
-                    ? { ...it, loading: false, optimizedUrl: URL.createObjectURL(blob), resultSize: blob.size }
+                    ? { ...it, loading: false, optimizedUrl: URL.createObjectURL(blob as Blob), resultSize: blob?.size || 0 }
                     : it
             ));
         } catch (err: any) {
@@ -409,6 +449,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                             </span>
                         ))}
                     </div>
+
 
                     {belowUseCasesContent && (
                         <div style={{ marginTop: '24px' }}>
@@ -863,7 +904,9 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                     </div>
                 </div>
 
-                {/* ── Trust Bar ── */}
+                <AdBanner dataAdSlot="slot_compress_top" className="mt-8 mb-4" />
+
+                {/* Trust Bar */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -908,7 +951,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                 <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Use our other tools</span>
                                 <div className="ci-happy-btns">
                                     {[
-                                        { href: '/compress-image-to-20kb', label: 'Compress 20KB' },
+                                        { href: '/image-compressor-to-20kb', label: 'Compress 20KB' },
                                         { href: '/compress-image-to-50kb', label: 'Compress 50KB' },
                                         { href: '/govt-exam-tools/signature-resize', label: 'Signature Resize' },
                                         { href: '/mb-to-kb-image-converter', label: 'MB to KB' },

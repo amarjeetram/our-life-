@@ -64,7 +64,7 @@ export default function Article30KB() {
             <div className="bg-blue-50/50 border border-blue-100 rounded-2xl p-6 mt-10">
                 <h3 className="text-lg font-bold text-gray-900 mb-4 mt-0">Explore More Compression Tools</h3>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-0 list-none pl-0">
-                    <li className="pl-0"><Link href="/compress-image-to-20kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress to 20KB</Link></li>
+                    <li className="pl-0"><Link href="/image-compressor-to-20kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress to 20KB</Link></li>
                     <li className="pl-0"><Link href="/compress-image-to-50kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress to 50KB</Link></li>
                     <li className="pl-0"><Link href="/compress-image-to-100kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress to 100KB</Link></li>
                     <li className="pl-0"><Link href="/compress-image-to-200kb" className="text-blue-600 hover:text-blue-800 font-semibold no-underline flex items-center gap-2 transition-colors"><span>→</span> Compress to 200KB</Link></li>

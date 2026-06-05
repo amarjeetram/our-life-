@@ -32,19 +32,72 @@ export default function RrbSignatureResizerClient({ children }: { children?: Rea
     const compressOne = useCallback(async (id: string, imgFile: File) => {
         setItems(prev => prev.map(it => it.id === id ? { ...it, loading: true, error: null } : it));
         try {
-            const formData = new FormData();
-            formData.append('file', imgFile);
-            formData.append('targetSize', config.targetKB.toString());
-            formData.append('width', config.width.toString());
-            formData.append('height', config.height.toString());
+            let blob: Blob | null = null;
+            const isStandardFormat = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(imgFile.type);
 
-            const res = await fetch('/api/compress', { method: 'POST', body: formData });
-            if (!res.ok) throw new Error("Resize failed");
+            // Step 1: Client-Side Exact Resize & Compress
+            if (isStandardFormat) {
+                try {
+                    // Exact resize using Canvas
+                    const img = new Image();
+                    const objectUrl = URL.createObjectURL(imgFile);
+                    await new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = reject;
+                        img.src = objectUrl;
+                    });
 
-            const blob = await res.blob();
+                    const canvas = document.createElement('canvas');
+                    canvas.width = config.width;
+                    canvas.height = config.height;
+                    const ctx = canvas.getContext('2d');
+                    
+                    if (ctx) {
+                        ctx.drawImage(img, 0, 0, config.width, config.height);
+                        const canvasBlob = await new Promise<Blob | null>(res => canvas.toBlob(res, 'image/jpeg', 1.0));
+                        URL.revokeObjectURL(objectUrl);
+                        
+                        if (canvasBlob) {
+                            const canvasFile = new File([canvasBlob], imgFile.name.replace(/\.[^/.]+$/, "") + ".jpg", { type: 'image/jpeg' });
+                            
+                            // Compress the resized image
+                            const mod = await import('browser-image-compression');
+                            const imageCompression = mod.default || mod;
+                            
+                            const compressedFile = await imageCompression(canvasFile, {
+                                maxSizeMB: config.targetKB / 1024,
+                                maxWidthOrHeight: Math.max(config.width, config.height),
+                                useWebWorker: true,
+                                initialQuality: 0.85,
+                            });
+                            
+                            if (compressedFile.size <= (config.targetKB * 1024) + 1024) {
+                                blob = compressedFile;
+                            }
+                        }
+                    }
+                } catch (clientErr) {
+                    console.warn("Client side resize/compress failed:", clientErr);
+                }
+            }
+
+            // Step 2: Fallback to Server if client failed
+            if (!blob) {
+                const formData = new FormData();
+                formData.append('file', imgFile);
+                formData.append('targetSize', config.targetKB.toString());
+                formData.append('width', config.width.toString());
+                formData.append('height', config.height.toString());
+
+                const res = await fetch('/api/compress', { method: 'POST', body: formData });
+                if (!res.ok) throw new Error("Resize failed");
+
+                blob = await res.blob();
+            }
+
             setItems(prev => prev.map(it =>
                 it.id === id
-                    ? { ...it, loading: false, optimizedUrl: URL.createObjectURL(blob), resultSize: blob.size }
+                    ? { ...it, loading: false, optimizedUrl: URL.createObjectURL(blob as Blob), resultSize: blob?.size || 0 }
                     : it
             ));
         } catch (err: any) {

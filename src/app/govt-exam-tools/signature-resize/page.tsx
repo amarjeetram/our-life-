@@ -3,9 +3,9 @@ import SignatureResizeClient from '@/components/SignatureResizeClient';
 import ArticleSignatureResize from '@/components/articles/ArticleSignatureResize';
 
 export const metadata: Metadata = {
-    title: 'Resize Signature to 10KB, 20KB for SSC & RRB – Free Online Tool',
-    description: 'Resize your signature to 10KB, 20KB or any size online. Perfect for SSC & RRB exams. Adjust size, width & height instantly. Free, fast, no signup.',
-    keywords: 'signature resize, signature resize 10 to 20 kb, ssc signature resize, signature resize width and height in cm, rrb signature resize, signature resize 20kb, signature resize in kb',
+    title: 'Free Signature Resize Tool (10-20KB) for SSC, RRB & PAN Card',
+    description: 'Easily do signature resize in kb (10 to 20 kb, 20kb) and adjust width and height in cm. Best free tool for SSC, RRB, PAN Card, GDS, and GATE forms.',
+    keywords: 'signature resize, signature resize 10 to 20 kb, ssc signature resize, signature resize width and height in cm, rrb signature resize, signature resize 20kb, signature resize in kb, pan card signature resize, gds signature resize, gate signature resize',
     alternates: {
         canonical: 'https://smarttoolswala.com/govt-exam-tools/signature-resize',
     },
@@ -35,7 +35,7 @@ export default function Page() {
                                 "@type": "WebApplication",
                                 "name": "Signature Resize Tool",
                                 "url": "https://smarttoolswala.com/govt-exam-tools/signature-resize",
-                                "description": "Resize your signature to 10KB, 20KB or any size online. Perfect for SSC & RRB exams. Adjust size, width & height instantly. Free, fast, no signup.",
+                                "description": "Easily do signature resize in kb (10 to 20 kb, 20kb) and adjust width and height in cm. Best free tool for SSC, RRB, PAN Card, GDS, and GATE forms.",
                                 "applicationCategory": "Utility",
                                 "operatingSystem": "All",
                                 "browserRequirements": "Requires JavaScript",

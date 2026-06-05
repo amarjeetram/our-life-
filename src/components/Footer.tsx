@@ -95,7 +95,7 @@ const Footer = () => (
                     </h4>
                     <ul className="space-y-3.5">
                         {[
-                            { name: 'Compress to 20KB', href: '/compress-image-to-20kb' },
+                            { name: 'Compress to 20KB', href: '/image-compressor-to-20kb' },
                             { name: 'Compress to 50KB', href: '/compress-image-to-50kb' },
                             { name: 'Derivative Calc', href: '/calculators/derivative-calculator' },
                             { name: 'MB to KB Converter', href: '/mb-to-kb-image-converter' },

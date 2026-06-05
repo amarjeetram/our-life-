@@ -6,11 +6,11 @@ import Article30KB from '@/components/articles/Article30KB';
 
 
 export const metadata: Metadata = {
-    title: 'Compress Image to 30KB Without Losing Quality – Free Online Tool',
-    description: 'Compress image to 30kb online quickly and securely. Free online tool to precisely compress your photos and images under 30KB without losing quality.',
-    keywords: 'compress image to 30kb, compress photo 30kb, image reducer 30kb',
+    title: 'Photo Compressor to 30KB Without Losing Quality – Free Online Tool',
+    description: 'Photo compressor to 30kb online quickly and securely. Free online tool to precisely compress your photos and images under 30KB without losing quality.',
+    keywords: 'photo compressor to 30kb, compress photo 30kb, image reducer 30kb',
     alternates: {
-        canonical: 'https://smarttoolswala.com/compress-image-to-30kb',
+        canonical: 'https://smarttoolswala.com/photo-compressor-to-30kb',
     },
 };
 
@@ -48,7 +48,7 @@ export default function Page() {
                             {
                                 "@type": "WebApplication",
                                 "name": "30KB Image Compressor",
-                                "url": "https://smarttoolswala.com/compress-image-to-30kb",
+                                "url": "https://smarttoolswala.com/photo-compressor-to-30kb",
                                 "applicationCategory": "Utility",
                                 "operatingSystem": "All",
                                 "browserRequirements": "Requires JavaScript",
@@ -74,19 +74,19 @@ export default function Page() {
                                         "@type": "HowToStep",
                                         "name": "Upload your image",
                                         "text": "Click or drag your photo into the upload area. The tool will parse your image securely in your browser.",
-                                        "url": "https://smarttoolswala.com/compress-image-to-30kb#upload"
+                                        "url": "https://smarttoolswala.com/photo-compressor-to-30kb#upload"
                                     },
                                     {
                                         "@type": "HowToStep",
                                         "name": "Confirm Target Size",
                                         "text": "The target KB size is automatically set to 30KB. You can keep it as is or slightly adjust it based on your form rules.",
-                                        "url": "https://smarttoolswala.com/compress-image-to-30kb#target"
+                                        "url": "https://smarttoolswala.com/photo-compressor-to-30kb#target"
                                     },
                                     {
                                         "@type": "HowToStep",
                                         "name": "Download resulting image",
                                         "text": "The tool will instantly compress your image under 30KB while preserving visual layout. Once ready, click the download button to save it locally.",
-                                        "url": "https://smarttoolswala.com/compress-image-to-30kb#download"
+                                        "url": "https://smarttoolswala.com/photo-compressor-to-30kb#download"
                                     }
                                 ]
                             },
@@ -110,7 +110,7 @@ export default function Page() {
                                         "@type": "ListItem",
                                         "position": 3,
                                         "name": "30KB Image Compressor",
-                                        "item": "https://smarttoolswala.com/compress-image-to-30kb"
+                                        "item": "https://smarttoolswala.com/photo-compressor-to-30kb"
                                     }
                                 ]
                             },

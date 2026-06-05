@@ -182,10 +182,10 @@ export default function SignatureResizeClient({ children, title, subtitle }: { c
 
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '40px' }}>
                     <h1 style={{ fontSize: 'clamp(30px, 5vw, 44px)', fontWeight: 900, color: '#0f172a', lineHeight: 1.1, marginBottom: '16px' }}>
-                        {title || 'Signature Resize to KB & Pixels/Cm'}
+                        {title || 'Free Signature Resize Tool (10-20 KB & CM) for Govt Exams'}
                     </h1>
                     <p style={{ fontSize: '17px', color: '#64748b', maxWidth: '600px', margin: '0 auto', lineHeight: 1.7 }}>
-                        {subtitle || 'Resize your signature photo to exact width and height (cm or px) and compress size to Kb instantly for SSC, RRB, UPSC, and government portals.'}
+                        {subtitle || 'Easily resize your photo and signature to exact width and height (cm or px) and compress size to 10-20Kb instantly for SSC, RRB, PAN Card, and GATE forms.'}
                     </p>
                 </motion.div>
 
@@ -398,7 +398,7 @@ export default function SignatureResizeClient({ children, title, subtitle }: { c
                                 <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Use our other tools</span>
                                 <div className="ci-happy-btns">
                                     {[
-                                        { href: '/compress-image-to-20kb', label: 'Compress 20KB' },
+                                        { href: '/image-compressor-to-20kb', label: 'Compress 20KB' },
                                         { href: '/compress-image-to-50kb', label: 'Compress 50KB' },
                                         { href: '/govt-exam-tools/signature-resize', label: 'Signature Resize' },
                                         { href: '/mb-to-kb-image-converter', label: 'MB to KB' },

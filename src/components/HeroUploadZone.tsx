@@ -7,8 +7,8 @@ import toast from "react-hot-toast";
 
 // Target size options — extend this as more tools are added
 const SIZE_OPTIONS = [
-    { label: "20 KB", value: "20", route: "/compress-image-to-20kb" },
-    { label: "30 KB", value: "30", route: "/compress-image-to-30kb" },
+    { label: "20 KB", value: "20", route: "/image-compressor-to-20kb" },
+    { label: "30 KB", value: "30", route: "/photo-compressor-to-30kb" },
     { label: "40 KB", value: "40", route: "/compress-image-to-50kb" },
     { label: "50 KB", value: "50", route: "/compress-image-to-50kb" },
     { label: "100 KB", value: "100", route: "/compress-image-to-100kb" },

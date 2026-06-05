@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
  * - On compress pages: fires "global-drop-compress" event so CompressImageClient
  *   handles files locally (no navigation, correct target size preserved).
  * - On homepage: fires "global-drop-home" for HeroUploadZone.
- * - On all other pages: navigates to /compress-image-to-20kb as default.
+ * - On all other pages: navigates to /image-compressor-to-20kb as default.
  */
 export default function GlobalDropZone() {
     const router = useRouter();

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Script from 'next/script';
+
 
 type AdBannerProps = {
     dataAdSlot?: string;
@@ -10,7 +10,7 @@ type AdBannerProps = {
 };
 
 export default function AdBanner({
-    dataAdSlot = "7477322886", // Default to the provided STW Banner Ads slot
+    dataAdSlot = "9681118312", // Default to the provided STW Banner Ads slot
     dataAdFormat = 'auto',
     dataFullWidthResponsive = 'true',
     className = '',
@@ -35,7 +35,7 @@ export default function AdBanner({
     // Check if the provided slot is numeric (valid for AdSense)
     // Non-numeric slots (like "slot_blog_top") are treated as placeholders and fallback to default
     const isNumeric = /^\d+$/.test(dataAdSlot);
-    const activeAdSlot = isNumeric ? dataAdSlot : "7477322886";
+    const activeAdSlot = isNumeric ? dataAdSlot : "9681118312";
 
     // Show a visible placeholder during local development
     if (process.env.NODE_ENV === 'development') {
@@ -51,13 +51,7 @@ export default function AdBanner({
 
     return (
         <div className={`w-full flex justify-center overflow-hidden my-6 min-h-[250px] ${className}`}>
-            {/* AdSense Script loaded once globally via Next.js Script deduplication */}
-            <Script
-                id="adsbygoogle-init"
-                strategy="afterInteractive"
-                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7117465882400046"
-                crossOrigin="anonymous"
-            />
+            
             {isMounted ? (
                 <ins
                     key={activeAdSlot}

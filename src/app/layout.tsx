@@ -65,13 +65,15 @@ export default function RootLayout({
     <html lang="en" className={`scroll-smooth ${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <head>
         <meta name="google-adsense-account" content="ca-pub-7117465882400046" />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7117465882400046"
-          crossOrigin="anonymous"
-        />
+        
       </head>
       <body className="antialiased" suppressHydrationWarning>
+        <Script
+          id="adsense-init"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7117465882400046"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
         <Suspense fallback={null}>
           <ClientToaster />
         </Suspense>

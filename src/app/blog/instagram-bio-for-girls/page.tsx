@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import BioApp from "./BioApp";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import {
   CUTE_BIOS, STYLISH_BIOS, VIP_BIOS, ATTITUDE_BIOS, AESTHETIC_BIOS,
   SAVAGE_BIOS, EMOTIONAL_BIOS, SHORT_BIOS, EMOJI_BIOS, LOVE_BIOS,
   FUNNY_BIOS, HINDI_BIOS, CLASSY_BIOS, TRENDING_BIOS, COOL_BIOS
 } from "./biosData";
+
+import BioAppWrapper from "./BioAppWrapper";
 
 export const metadata: Metadata = {
   title: "[1500+] Best Instagram Bio For Girls – Cute, Stylish & VIP Bios (2026)",
@@ -21,6 +24,8 @@ export const metadata: Metadata = {
 };
 
 const CSS_STYLES = `
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  .spinner { animation: spin 1.2s linear infinite; border: 3px solid #ffd6e7; border-top: 3px solid #e91e8c; border-radius: 50%; width: 32px; height: 32px; margin: 0 auto 12px; }
   .bio-page { max-width: 860px; margin: 0 auto; padding: 120px 16px 80px; font-family: system-ui, -apple-system, sans-serif; }
   .hero-featured-image { width: 100%; height: 400px; object-fit: cover; object-position: center; border-radius: 20px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(233,30,140,0.08); }
   @media (max-width: 768px) { .hero-featured-image { height: 300px; } }
@@ -71,9 +76,12 @@ export default function InstagramBioForGirlsPage() {
           <Link href="/blog">Blog</Link><span>/</span>
           <span>Instagram Bio For Girls</span>
         </nav>
-        <img 
-          src="/images/blogs/instagram-bio-for-girls-featured.png" 
+        <Image 
+          src="/images/blogs/instagram-bio-for-girls-featured.webp" 
           alt="Best Instagram Bio for Girls" 
+          width={860}
+          height={400}
+          priority={true}
           className="hero-featured-image" 
         />
 
@@ -207,7 +215,7 @@ export default function InstagramBioForGirlsPage() {
           <p className="txt">
             Use our state-of-the-art interactive tool below to explore all 1500+ girl bios. You can search by keywords (like "star", "sunshine", "queen"), filter by categories, bookmark your favorites, and even type custom text into the mobile mockup preview tool to see exactly how it will wrap on a real phone screen before copying!
           </p>
-          <BioApp />
+          <BioAppWrapper />
         </section>
         <hr className="divider" />
 

@@ -3,7 +3,6 @@ import { Metadata } from 'next';
 import BlooketCalculatorWrapper from '@/components/BlooketCalculatorWrapper';
 import ArticleBlooketCalculator from '@/components/articles/ArticleBlooketCalculator';
 import RelatedFunCalculators from '@/components/RelatedFunCalculators';
-import AdBanner from '@/components/AdBanner';
 
 export const metadata: Metadata = {
     title: 'Blooket Calculator (2026) – Free Probability & Token Tool',
@@ -153,11 +152,9 @@ export default function BlooketCalculatorPage() {
                             Never waste your hard-earned tokens guessing again!
                         </p>
                     </div>
-                    <AdBanner dataAdSlot="slot_blooket_1" className="mb-8" />
 
                     {/* Highly Interactive Tool */}
                     <BlooketCalculatorWrapper />
-                    <AdBanner dataAdSlot="slot_blooket_2" className="mt-8" />
 
                     {/* SEO Rich Article Below */}
                     <div className="mt-16 bg-white p-8 md:p-12 rounded-[2rem] shadow-sm border border-slate-200">

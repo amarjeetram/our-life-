@@ -21,8 +21,10 @@ export const metadata: Metadata = {
 };
 
 const CSS_STYLES = `
-  .bio-page { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; font-family: system-ui, -apple-system, sans-serif; }
-  .hero-featured-image { width: 100%; height: auto; border-radius: 20px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(233,30,140,0.08); }
+  .bio-page { max-width: 860px; margin: 0 auto; padding: 120px 16px 80px; font-family: system-ui, -apple-system, sans-serif; }
+  .hero-featured-image { width: 100%; height: 400px; object-fit: cover; object-position: center; border-radius: 20px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(233,30,140,0.08); }
+  @media (max-width: 768px) { .hero-featured-image { height: 300px; } }
+  @media (max-width: 480px) { .hero-featured-image { height: 200px; } }
   .hero-banner { background: linear-gradient(135deg, #ff6b9d 0%, #c44dff 50%, #845ef7 100%); border-radius: 24px; padding: 48px 32px; margin-bottom: 32px; color: white; text-align: center; box-shadow: 0 10px 30px rgba(233,30,140,0.15); }
   .hero-banner h1 { color: white; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; margin: 0; line-height: 1.25; }
   .hero-banner p { color: rgba(255,255,255,0.92); font-size: 1.1rem; margin: 16px 0 0; font-weight: 500; }
@@ -110,6 +112,10 @@ export default function InstagramBioForGirlsPage() {
         <p className="txt">
           In this mega guide, we have compiled the <strong>1500+ best Instagram bio for girls in 2026</strong>. This is the most comprehensive collection available on the internet, covering every mood, style, and personality type. Each bio is crafted to be unique, emoji-friendly, and instantly copy-paste ready. Whether you are a student, fashionista, travel lover, or a queen who refuses to be basic — you will find your perfect bio right here.
         </p>
+
+        <div className="tip-box" style={{ borderLeftColor: "#e91e8c", background: "linear-gradient(135deg, #fff0f6 0%, #f8f0ff 100%)" }}>
+          <p>✍️ <strong>Design Your Own Bio:</strong> Want to create a fully customized bio using your name, username, and specific keywords? Try our free <Link href="/instagram-tools/instagram-bio-generator" style={{ color: "#e91e8c", fontWeight: "bold", textDecoration: "underline" }}>Instagram Bio Generator Tool</Link> to generate custom bios instantly with a live mobile preview!</p>
+        </div>
 
         <div className="toc-box">
           <h2>Table of Contents</h2>
@@ -496,7 +502,7 @@ export default function InstagramBioForGirlsPage() {
             Formatting your bio on Instagram can sometimes be frustrating. Emojis can look misaligned, line breaks can disappear after saving, and fonts can fail to render. Follow these pro tricks to solve formatting issues:
           </p>
           <ul className="ul">
-            <li><strong>Use an external editor:</strong> Never write your bio directly inside the Instagram app. Write it in our Mockup Preview Tool or in your phone's Notes app first, then copy-paste it. This preserves line breaks.</li>
+            <li><strong>Use an external editor:</strong> Never write your bio directly inside the Instagram app. Write it in our <Link href="/instagram-tools/instagram-bio-generator" style={{ color: "#e91e8c", textDecoration: "underline" }}>Instagram Bio Generator</Link> or in your phone's Notes app first, then copy-paste it. This preserves line breaks.</li>
             <li><strong>Avoid spaces before line breaks:</strong> If you add a space at the end of a line and then press Enter, Instagram will often delete the line break. Make sure the last character on a line is a letter, number, or emoji, not a space.</li>
             <li><strong>Don't overuse fancy fonts:</strong> Fancy unicode fonts (like script or bold gothic) look pretty, but screen readers cannot read them, making your profile inaccessible. Some older Android devices also display them as empty boxes. Use fancy fonts for your name line or a single word, not the whole bio.</li>
             <li><strong>Center your bio:</strong> To center your bio, copy-paste special invisible spaces (Unicode characters like [⠀]) before each line. Adjust the number of spaces in our mockup tool until it looks centered.</li>

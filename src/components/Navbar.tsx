@@ -84,7 +84,7 @@ const Navbar = () => {
                                         onMouseEnter={() => setIsToolsDropdownOpen(true)}
                                         onMouseLeave={() => setIsToolsDropdownOpen(false)}
                                     >
-                                        <button className="px-5 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-white/80 rounded-xl transition-all duration-200 flex items-center gap-1">
+                                        <button suppressHydrationWarning className="px-5 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-white/80 rounded-xl transition-all duration-200 flex items-center gap-1">
                                             {link.name}
                                             <svg className={`w-4 h-4 transition-transform duration-200 ${isToolsDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                                         </button>
@@ -134,6 +134,7 @@ const Navbar = () => {
 
                         {/* Mobile Hamburger — only on mobile */}
                         <button
+                            suppressHydrationWarning
                             className="md:hidden p-2 rounded-xl bg-white/50 border border-white/60 text-gray-700 hover:bg-white transition-colors shadow-sm"
                             onClick={() => setIsOpen(true)}
                             aria-label="Open menu"
@@ -179,6 +180,7 @@ const Navbar = () => {
                         </span>
                     </Link>
                     <button
+                        suppressHydrationWarning
                         onClick={() => setIsOpen(false)}
                         style={{ padding: '8px', borderRadius: '10px', border: 'none', background: '#f8fafc', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                         aria-label="Close menu"

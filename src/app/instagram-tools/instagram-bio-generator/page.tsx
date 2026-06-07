@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import InstagramBioClient from "@/components/InstagramBioClient";
+import InstagramBioGeneratorClient from "@/components/InstagramBioGeneratorClient";
 import ArticleInstagramBio from "@/components/articles/ArticleInstagramBio";
 
 const SITE = "https://smarttoolswala.com";
@@ -223,7 +223,7 @@ export default function InstagramBioPage() {
                         <ArrowLeft size={14} /> Back to Instagram Tools
                     </Link>
 
-                    <InstagramBioClient />
+                    <InstagramBioGeneratorClient />
 
                     <ArticleInstagramBio />
                 </div>

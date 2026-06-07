@@ -87,6 +87,12 @@ const TAG_CTA: Record<string, { title: string; badge: string; buttonLink: string
         buttonLink: '/stylish-couple-name-maker',
         gradient: 'linear-gradient(135deg, #ec4899, #f43f5e)',
     },
+    'cta-instagram-bio': {
+        title: 'Free Instagram Bio Generator – Try Now!',
+        badge: '✨ Free Tool',
+        buttonLink: '/instagram-tools/instagram-bio-generator',
+        gradient: 'linear-gradient(135deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+    },
 };
 
 export async function generateStaticParams() {
@@ -381,6 +387,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         CTAYoutubeTitle: () => <MDXInlineCTA config={TAG_CTA['cta-youtube-title']} />,
         CTAYoutubeDescription: () => <MDXInlineCTA config={TAG_CTA['cta-youtube-description']} />,
         CTACoupleName: () => <MDXInlineCTA config={TAG_CTA['cta-couple-name']} />,
+        CTAInstagramBio: () => <MDXInlineCTA config={TAG_CTA['cta-instagram-bio']} />,
         InteractiveCoupleName: () => (
             <span className="block my-12 not-prose border border-pink-100 rounded-3xl bg-white shadow-xl overflow-hidden relative z-50">
                 <span className="block bg-pink-50/50 p-4 text-center border-b border-pink-100">

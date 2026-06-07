@@ -5,7 +5,6 @@ import YoutubeBannerClient from '@/components/YoutubeBannerClient';
 import ArticleYoutubeBanner from '@/components/articles/ArticleYoutubeBanner';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import RelatedYoutubeTools from '@/components/RelatedYoutubeTools';
-import AdBanner from '@/components/AdBanner';
 
 const SITE = 'https://smarttoolswala.com';
 const PAGE_URL = `${SITE}/youtube-tools/1024x576-youtube-banner-maker`;
@@ -120,7 +119,6 @@ export default function YoutubeBannerMakerPage() {
 
                 <YoutubeBannerClient />
 
-                <AdBanner dataAdSlot="slot_yt_banner_2" className="mt-8" />
 
                 <div className="mt-10">
                     <SEOBottomSection keyword="1024x576 youtube banner maker" faqs={faqs}>

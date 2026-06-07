@@ -11,17 +11,18 @@ export const metadata: Metadata = {
   title: "[1500+] Best Instagram Bio For Girls – Cute, Stylish & VIP Bios (2026)",
   description: "Looking for the best Instagram bio for girls? Here is a curated list of 1500+ cute, stylish, VIP, attitude, aesthetic, savage & emotional bios with emojis to copy-paste instantly!",
   keywords: ["instagram bio for girls", "cute instagram bio for girls", "stylish bio for instagram for girls", "vip bio for girls", "attitude bio for girls", "aesthetic instagram bio for girls", "best instagram bio for girls 2026", "instagram bio for girls with emoji", "short instagram bio for girls", "cool instagram bio for girls"],
-  alternates: { canonical: "https://smarttoolswala.com/instagram-bio-for-girls" },
+  alternates: { canonical: "https://smarttoolswala.com/blog/instagram-bio-for-girls" },
   openGraph: {
     title: "[1500+] Best Instagram Bio For Girls – Cute, Stylish & VIP Bios (2026)",
     description: "Discover 1500+ best Instagram bio for girls in 2026. Copy and paste cute, stylish, VIP, attitude, aesthetic, savage, and emotional bios with emojis instantly!",
-    url: "https://smarttoolswala.com/instagram-bio-for-girls",
+    url: "https://smarttoolswala.com/blog/instagram-bio-for-girls",
     type: "article",
   },
 };
 
 const CSS_STYLES = `
   .bio-page { max-width: 860px; margin: 0 auto; padding: 24px 16px 80px; font-family: system-ui, -apple-system, sans-serif; }
+  .hero-featured-image { width: 100%; height: auto; border-radius: 20px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(233,30,140,0.08); }
   .hero-banner { background: linear-gradient(135deg, #ff6b9d 0%, #c44dff 50%, #845ef7 100%); border-radius: 24px; padding: 48px 32px; margin-bottom: 32px; color: white; text-align: center; box-shadow: 0 10px 30px rgba(233,30,140,0.15); }
   .hero-banner h1 { color: white; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; margin: 0; line-height: 1.25; }
   .hero-banner p { color: rgba(255,255,255,0.92); font-size: 1.1rem; margin: 16px 0 0; font-weight: 500; }
@@ -65,9 +66,14 @@ export default function InstagramBioForGirlsPage() {
       <main className="bio-page">
         <nav className="breadcrumb" aria-label="Breadcrumb">
           <Link href="/">Home</Link><span>/</span>
-          <Link href="/instagram-tools">Instagram Tools</Link><span>/</span>
+          <Link href="/blog">Blog</Link><span>/</span>
           <span>Instagram Bio For Girls</span>
         </nav>
+        <img 
+          src="/images/blogs/instagram-bio-for-girls-featured.png" 
+          alt="Best Instagram Bio for Girls" 
+          className="hero-featured-image" 
+        />
 
         <div className="hero-banner">
           <h1>[1500+] Best Instagram Bio For Girls – Cute, Stylish & VIP Bios (2026)</h1>

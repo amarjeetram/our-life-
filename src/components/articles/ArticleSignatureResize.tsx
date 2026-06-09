@@ -4,196 +4,428 @@ import Link from 'next/link';
 export default function ArticleSignatureResize() {
     return (
         <article className="prose prose-slate max-w-none w-full" style={{ padding: '0 clamp(10px, 3vw, 20px)', margin: '40px auto', maxWidth: '900px', fontFamily: 'system-ui, sans-serif', color: '#1e293b', lineHeight: '1.8' }}>
-            <div style={{ background: 'linear-gradient(135deg, #f8fafc, #f1f5f9)', padding: 'clamp(20px, 5vw, 40px)', borderRadius: '24px', marginBottom: '40px', border: '1px solid #e2e8f0' }}>
-                <h2 style={{ fontSize: 'clamp(26px, 5vw, 32px)', color: '#0f172a', fontWeight: 900, marginBottom: '20px', lineHeight: 1.2 }}>
-                    The Ultimate Guide to Signature Resize for Online Forms and Exams
+            
+            {/* Hero Section */}
+            <div style={{ background: 'linear-gradient(135deg, #f8fafc, #f1f5f9)', padding: 'clamp(24px, 6vw, 48px)', borderRadius: '32px', marginBottom: '40px', border: '1px solid #e2e8f0', boxShadow: '0 4px 20px -2px rgba(0,0,0,0.02)' }}>
+                <h2 style={{ fontSize: 'clamp(28px, 5vw, 36px)', color: '#0f172a', fontWeight: 900, marginBottom: '20px', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
+                    The Complete Master Guide to Signature Resize for Online Government Exams and Registrations
                 </h2>
-                <p style={{ fontSize: 'clamp(16px, 3vw, 18px)', color: '#334155', fontWeight: 500 }}>
-                    Navigating the strict photo and signature requirements of government exams like SSC, RRB, banking, and university admissions can be incredibly frustrating. One tiny mistake in dimensions or file size, and your application gets rejected. This comprehensive guide covers everything you need to know about the <strong>signature resize</strong> process, including specific rules for <strong>SSC signature resize</strong>, <strong>RRB signature resize</strong>, and how to accurately set your <strong>signature resize width and height in cm</strong>. Let's make your form submission stress-free!
+                <p style={{ fontSize: 'clamp(16px, 3vw, 18px)', color: '#334155', fontWeight: 500, margin: 0 }}>
+                    Navigating the rigorous document requirements of Indian government exam portals like SSC, RRB, UPSC, banking (IBPS, SBI), and national registry services like PAN Card (NSDL/UTI) or India Post GDS can be incredibly frustrating. One single pixel miscalculation or Kilobyte mismatch can result in immediate application rejection, forcing you to wait months or years for the next recruitment cycle. This comprehensive, expert-level guide is designed to clarify the science of digital image resizing, mapping out exact specifications for <strong>signature resize 10 to 20 kb</strong>, converting <strong>signature resize width and height in cm</strong> to pixels, and delivering a step-by-step framework to ensure your documents pass the automated validators on the very first try.
                 </p>
             </div>
 
-            <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                Why is a "Signature Resize" So Crucial for Online Applications?
+            {/* Section 1 */}
+            <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '16px', letterSpacing: '-0.01em' }}>
+                1. Why is "Signature Resize" Critical for Modern Exam Portals?
             </h2>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                Every year, millions of candidates apply for competitive exams, government jobs, and academic programs. The organizations conducting these exams process an enormous amount of data. To manage server storage efficiently and ensure that admit cards can be printed clearly, they enforce strict guidelines for document uploads. A standard smartphone captures images that are anywhere from 2 Megabytes (MB) to 8 MB in size, with dimensions reaching 4000x3000 pixels. However, an application portal typically demands a file size no larger than 20 to 50 Kilobytes (KB). Hence, the process of <strong>signature resize in kb</strong> is an absolute necessity.
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                Every year, millions of candidates submit application forms for competitive exams, admissions, and licensing. Portals like the Staff Selection Commission (SSC) and Railway Recruitment Board (RRB) handle tens of millions of records. To prevent server bottlenecks, optimize bandwidth usage, and ensure print clarity on high-speed industrial printers used for generating admit cards, these platforms enforce rigid limits.
             </p>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                If your signature image is too large in file weight (KB) or too large in physical dimensions (cm or pixels), the portal will reject it, displaying errors like "File size exceeded" or "Invalid dimensions." By using a dedicated online tool to perform a <strong>signature resize</strong>, you ensure that your scanned signature complies perfectly with official guidelines, preventing last-minute panic before application deadlines.
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                A raw photograph captured by a modern smartphone is usually between 2 Megabytes (MB) and 10 MB, with resolutions exceeding 4000x3000 pixels. In contrast, an exam portal typically permits a signature image no larger than 20 KB, with specific limits like the <strong>signature resize 10 to 20 kb</strong> range, and exact physical dimensions (such as 4.0 cm x 2.0 cm). If you upload a raw photo directly:
             </p>
-
-            <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                Mastering the "Signature Resize 10 to 20 KB" Rule
-            </h2>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                The most common file size constraint across major Indian examination boards—including the UPSC, IBPS, and State PSCs—is that the signature image file size must fall perfectly between 10 KB and 20 KB. This specific requirement throws many applicants off balance. This is known universally as the <strong>signature resize 10 to 20 kb</strong> rule. 
-            </p>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                Achieving a file size strictly within this 10 KB margin requires precise compression algorithms. If you compress it too much, the file might become 8 KB (which will be rejected for being too small) and the signature will become blurry and illegible. If you don't compress it enough, it will stay above 20 KB and be rejected for being too large. Our tool acts as the perfect solution for a <strong>signature resize 20kb</strong> or strictly achieving a <strong>signature resize 10 to 20 kb</strong> target. It maintains the crisp lines of your ink stroke while selectively stripping out unnecessary meta-data and optimizing pixels to hit that exact sweet spot.
-            </p>
-
-            <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                SSC Signature Resize (4cm x 2cm)
-            </h2>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                The Staff Selection Commission (SSC) conducts mega examinations like SSC CGL, SSC CHSL, MTS, and GD Constable. The SSC application portal (ssc.nic.in) is notoriously strict about image formats. For any SSC exam, the official notification explicitly outlines the following signature upload guidelines:
-            </p>
-            <ul style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '24px', color: '#334155', listStyleType: 'disc', paddingLeft: '24px' }}>
-                <li style={{ marginBottom: '8px' }}><strong>Format:</strong> JPEG/JPG format only.</li>
-                <li style={{ marginBottom: '8px' }}><strong>File Size:</strong> Between 10 KB and 20 KB.</li>
-                <li style={{ marginBottom: '8px' }}><strong>Dimensions:</strong> 4.0 cm (width) x 2.0 cm (height).</li>
-                <li style={{ marginBottom: '8px' }}><strong>Clarity:</strong> The signature should not be blurred. Illegible signatures will lead to form rejection.</li>
+            <ul style={{ fontSize: '16px', marginBottom: '24px', color: '#334155', listStyleType: 'disc', paddingLeft: '24px' }}>
+                <li style={{ marginBottom: '8px' }}>The server's upload validation script will block the upload, throwing errors like <em>"File size exceeds limit"</em> or <em>"Invalid pixel dimensions"</em>.</li>
+                <li style={{ marginBottom: '8px' }}>Manual resizing attempts on basic software can distort the aspect ratio, making the signature look stretched, squashed, or illegible, leading to administrative rejection during scrutiny.</li>
+                <li style={{ marginBottom: '8px' }}>Over-compressing an image to hit a target KB limit can cause severe pixelation (blurry artifacting), rendering your signature unrecognizable.</li>
             </ul>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                Performing an <strong>ssc signature resize</strong> manually in Microsoft Paint or Photoshop can be a tedious process of trial and error. With our web-based utility, you simply upload your raw photo, set your target size stringently to "20", select the output unit as "Centimeter", and enter 4.0 and 2.0. The <strong>ssc signature resize</strong> process is executed instantly, giving you a downloadable image that the SSC application portal will accept on the very first try. 
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                By using a dedicated <strong>photo and signature resizer online</strong>, you utilize specialized resampling algorithms (like Lanczos interpolation) that compress the image size intelligently, maintaining the sharp edges of your ink stroke while scaling the file size down to the exact Kilobyte requirements.
             </p>
 
-            <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                PAN Card Photo and Signature Resize
+            {/* Section 2 */}
+            <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '16px', letterSpacing: '-0.01em' }}>
+                2. Understanding the Mathematics of Image Compression (KB vs. Pixels)
             </h2>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                Applying for a new PAN card or updating an existing one through NSDL or UTI portal? You will need a strict <strong>pan card photo and signature resize</strong>. For PAN applications, the photo and signature typically need to be resized to specific dimensions (like 213x213 pixels for photo, and 400x200 pixels or specific cm for signature) while keeping the file size under 10-20KB. Our tool acts as a perfect <strong>pan card signature resize</strong> utility, ensuring your application doesn't face unnecessary delays.
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                To execute a successful <strong>signature resize in kb</strong> without losing quality, you must understand how digital images store data. An image file's size is determined by three main elements: the total number of pixels (width × height), the color depth (number of bits used to represent color per pixel), and the file compression algorithm (typically JPEG for photographs and signatures).
             </p>
-
-            <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                RRB & GDS Signature Resize to 20KB
-            </h2>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                The Railway Recruitment Board (RRB) manages one of the largest recruitment drives in the world for posts like NTPC, Group D, and ALP. The sheer volume of applications means the RRB automated software rigorously filters out improperly formatted signatures. An <strong>rrb signature resize</strong> comes with its own unique set of challenges. The official guidelines often state:
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                For a signature, you do not need millions of colors. Most signatures are written on white paper using dark black or blue ink. A raw camera photo, however, records subtle color variations in the white paper (shadows, background noise, paper texture) and the ambient light. This noise represents unnecessary data that inflates the file weight.
             </p>
-            <div style={{ background: '#fef2f2', borderLeft: '4px solid #ef4444', padding: '16px 20px', marginBottom: '24px', borderRadius: '0 8px 8px 0' }}>
-                <strong style={{ color: '#991b1b', display: 'block', marginBottom: '8px' }}>Important Note for RRB Candidates:</strong>
-                <p style={{ color: '#7f1d1d', margin: 0, fontSize: '16px' }}>
-                    RRB often rejects signatures that are captured using mobile camera apps directly or signed in CAPITAL LETTERS. You must sign in running handwriting on white paper with a black or blue ink pen, scan it, and ensure the <strong>rrb signature resize</strong> perfectly meets the 50mm x 20mm (5cm x 2cm) or specified pixel requirement, keeping the size between 10 KB - 40 KB depending on the specific exam notification.
+            <div style={{ background: '#f8fafc', borderLeft: '4px solid #6366f1', padding: '20px', borderRadius: '0 12px 12px 0', marginBottom: '24px' }}>
+                <strong style={{ color: '#0f172a', display: 'block', marginBottom: '8px', fontSize: '15px' }}>Pro Tip: The Compression Factor</strong>
+                <p style={{ color: '#475569', margin: 0, fontSize: '15px' }}>
+                    Our compression engine analyzes the color palette of your signature and reduces the bit-depth of areas that contain solid off-whites or background noise. By discarding this invisible metadata and smoothing clean color blocks, the tool compresses a 3 MB signature down to a clean, crisp 15 KB file, satisfying the <strong>signature resize 10 to 20 kb</strong> constraint without compromising readability.
                 </p>
             </div>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                Using our tool to manage your <strong>rrb signature resize</strong> guarantees that the aspect ratio is maintained. Even if you stretch or squish the dimensions, our tool utilizes high-quality Lanczos resampling to ensure the ink strokes remain continuous and recognizable, mitigating the risk of your admit card being withheld.
+
+            {/* Section 3 */}
+            <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '16px', letterSpacing: '-0.01em' }}>
+                3. Centimeters to Pixels: Deciphering the DPI Formula
+            </h2>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                Official notification brochures are written for human beings holding physical rulers, which is why they state dimension guidelines in centimeters (e.g., <strong>signature resize width and height in cm</strong> as 4cm x 2cm). Computers, however, render images on grids of pixels. To bridge this gap, you must convert centimeters to pixels using DPI (Dots Per Inch) or PPI (Pixels Per Inch).
+            </p>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                The mathematical formula to convert Centimeters to Pixels is:
+            </p>
+            <div style={{ background: '#f1f5f9', padding: '16px 20px', borderRadius: '12px', fontFamily: 'monospace', fontSize: '15px', color: '#0f172a', marginBottom: '24px', textAlign: 'center', fontWeight: 'bold' }}>
+                Pixels = (Centimeters / 2.54) * DPI
+            </div>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                Let's understand how this applies to different DPI targets:
+            </p>
+            <ul style={{ fontSize: '16px', marginBottom: '24px', color: '#334155', listStyleType: 'decimal', paddingLeft: '24px' }}>
+                <li style={{ marginBottom: '12px' }}>
+                    <strong>Standard Web Resolution (96 DPI):</strong> Used for typical on-screen display.
+                    <br /><em>Example:</em> For a 4.0 cm × 2.0 cm signature:
+                    <br />Width = (4.0 / 2.54) * 96 ≈ 151 pixels. Height = (2.0 / 2.54) * 96 ≈ 75 pixels.
+                </li>
+                <li style={{ marginBottom: '12px' }}>
+                    <strong>Standard Scan Resolution (200 DPI):</strong> Used by moderately strict portals.
+                    <br />Width = (4.0 / 2.54) * 200 ≈ 315 pixels. Height = (2.0 / 2.54) * 200 ≈ 157 pixels.
+                </li>
+                <li style={{ marginBottom: '12px' }}>
+                    <strong>Print-Ready Resolution (300 DPI):</strong> The industry standard for high-quality printing, often explicitly demanded by exam portals (like NSDL or SSC).
+                    <br />Width = (4.0 / 2.54) * 300 ≈ 472 pixels. Height = (2.0 / 2.54) * 300 ≈ 236 pixels.
+                </li>
+            </ul>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                To save you from manual calculations, our tool includes a <strong>Centimeter mode</strong>. When you select it, the tool automatically calculates the exact pixel conversions using a print-standard 300 DPI layout.
             </p>
 
-            <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                How to set Signature Resize width and height in cm?
+            <div style={{ overflowX: 'auto', marginBottom: '32px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '15px', color: '#334155' }}>
+                    <thead>
+                        <tr style={{ background: '#f1f5f9', borderBottom: '2px solid #e2e8f0' }}>
+                            <th style={{ padding: '12px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Dimensions in CM</th>
+                            <th style={{ padding: '12px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Pixel conversion (96 DPI)</th>
+                            <th style={{ padding: '12px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Pixel conversion (200 DPI)</th>
+                            <th style={{ padding: '12px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Pixel conversion (300 DPI)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            <td style={{ padding: '12px' }}><strong>4.0 cm x 2.0 cm</strong> (SSC Standard)</td>
+                            <td style={{ padding: '12px' }}>151 x 75 px</td>
+                            <td style={{ padding: '12px' }}>315 x 157 px</td>
+                            <td style={{ padding: '12px' }}>472 x 236 px</td>
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            <td style={{ padding: '12px' }}><strong>3.5 cm x 1.5 cm</strong> (NSDL PAN Card)</td>
+                            <td style={{ padding: '12px' }}>132 x 57 px</td>
+                            <td style={{ padding: '12px' }}>275 x 118 px</td>
+                            <td style={{ padding: '12px' }}>413 x 177 px</td>
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            <td style={{ padding: '12px' }}><strong>5.0 cm x 2.0 cm</strong> (RRB Standard)</td>
+                            <td style={{ padding: '12px' }}>189 x 75 px</td>
+                            <td style={{ padding: '12px' }}>393 x 157 px</td>
+                            <td style={{ padding: '12px' }}>590 x 236 px</td>
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            <td style={{ padding: '12px' }}><strong>4.5 cm x 3.5 cm</strong> (Photo standard)</td>
+                            <td style={{ padding: '12px' }}>170 x 132 px</td>
+                            <td style={{ padding: '12px' }}>354 x 275 px</td>
+                            <td style={{ padding: '12px' }}>531 x 413 px</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            {/* Section 4 */}
+            <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '16px', letterSpacing: '-0.01em' }}>
+                4. Exam-Wise Signature Specification Directory
             </h2>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                While digital images are inherently constructed out of pixels, official government notifications are written for people carrying physical rulers in the real world. Thus, they demand dimensions in centimeters (cm). This transition from physical centimeters to digital pixels confuses many candidates. How do you perform a <strong>signature resize width and height in cm</strong> on a computer screen?
-            </p>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                The translation between centimeters and pixels relies on a concept called DPI (Dots Per Inch) or PPI (Pixels Per Inch). The standard web resolution is 96 DPI. To properly execute a <strong>signature resize width and height in cm</strong>:
-            </p>
-            <ol style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '24px', color: '#334155', listStyleType: 'decimal', paddingLeft: '24px' }}>
-                <li style={{ marginBottom: '12px' }}><strong>Select "Centimeter" mode:</strong> Instead of guessing pixel values, our tool natively supports CM inputs.</li>
-                <li style={{ marginBottom: '12px' }}><strong>Enter Width:</strong> Usually between 3.5 cm and 5.0 cm.</li>
-                <li style={{ marginBottom: '12px' }}><strong>Enter Height:</strong> Usually between 1.5 cm and 2.0 cm.</li>
-                <li style={{ marginBottom: '12px' }}><strong>Algorithm conversion:</strong> Our tool automatically multiplies your cm input by the correct DPI factor (cm / 2.54 * 96) to accurately generate the pixel grid required by the exam portal.</li>
-            </ol>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                This takes all the mathematical guesswork out of <strong>signature resize width and height in cm</strong>. You just read the notification, plug in the numbers, and download the file.
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                Each competitive exam authority operates on independent portal architectures with custom scanning requirements. Below is the official specification index for major Indian public sector exams and databases.
             </p>
 
-            <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                How to Successfully "Signature Resize 20KB" Without Losing Quality
-            </h2>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                One of the biggest concerns users face when attempting a <strong>signature resize 20kb</strong> is the loss of image fidelity. "Will my signature become blurry?" "Will the background turn grey or pixelated?" 
-            </p>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                When you do a <strong>signature resize in kb</strong>, you are essentially asking the computer to throw away data. Heavy JPEG files have thousands of unique colors. A signature, however, only really needs two colors: the white of the paper background and the dark blue/black of the ink. Our smart compression engine understands this. 
-            </p>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                To achieve a pristine <strong>signature resize 20kb</strong>, our tool reduces the color depth intelligently, discarding imperceptible shifts in the white background while preserving the high contrast of the pen strokes. This ensures that even when the file weight drops from 2000 KB (2 MB) down to a tiny 15 KB (perfect for the <strong>signature resize 10 to 20 kb</strong> constraint), the visual output remains indistinguishable from the original to the naked eye.
+            <div style={{ overflowX: 'auto', marginBottom: '32px' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px', color: '#334155' }}>
+                    <thead>
+                        <tr style={{ background: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Portal Name</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Dimensions (CM)</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Dimensions (Pixels)</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Size Limits (KB)</th>
+                            <th style={{ padding: '10px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Ink Pen Rules</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            <td style={{ padding: '10px' }}><strong>SSC (CGL, CHSL, MTS)</strong></td>
+                            <td style={{ padding: '10px' }}>4.0 x 2.0 cm</td>
+                            <td style={{ padding: '10px' }}>140 x 60 px</td>
+                            <td style={{ padding: '10px' }}><strong>10 to 20 KB</strong></td>
+                            <td style={{ padding: '10px' }}>Black Ink preferred</td>
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            <td style={{ padding: '10px' }}><strong>RRB (Railways NTPC/ALP)</strong></td>
+                            <td style={{ padding: '10px' }}>5.0 x 2.0 cm</td>
+                            <td style={{ padding: '10px' }}>140 x 60 px (minimum)</td>
+                            <td style={{ padding: '10px' }}><strong>10 to 40 KB</strong></td>
+                            <td style={{ padding: '10px' }}>Black / Blue Ink</td>
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            <td style={{ padding: '10px' }}><strong>UPSC (Civil Services)</strong></td>
+                            <td style={{ padding: '10px' }}>N/A (Standard Aspect Ratio)</td>
+                            <td style={{ padding: '10px' }}>350 x 350 px to 1000 x 1000 px</td>
+                            <td style={{ padding: '10px' }}><strong>20 to 300 KB</strong></td>
+                            <td style={{ padding: '10px' }}>Black Ink preferred</td>
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            <td style={{ padding: '10px' }}><strong>IBPS (Bank PO & Clerk)</strong></td>
+                            <td style={{ padding: '10px' }}>N/A</td>
+                            <td style={{ padding: '10px' }}>140 x 60 px</td>
+                            <td style={{ padding: '10px' }}><strong>10 to 20 KB</strong></td>
+                            <td style={{ padding: '10px' }}>Black Ink mandatory</td>
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            <td style={{ padding: '10px' }}><strong>NSDL PAN Card Application</strong></td>
+                            <td style={{ padding: '10px' }}>3.5 x 1.5 cm</td>
+                            <td style={{ padding: '10px' }}>400 x 200 px</td>
+                            <td style={{ padding: '10px' }}><strong>Under 20 KB</strong></td>
+                            <td style={{ padding: '10px' }}>Black Ink preferred</td>
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            <td style={{ padding: '10px' }}><strong>India Post GDS</strong></td>
+                            <td style={{ padding: '10px' }}>N/A</td>
+                            <td style={{ padding: '10px' }}>140 x 60 px</td>
+                            <td style={{ padding: '10px' }}><strong>10 to 20 KB</strong></td>
+                            <td style={{ padding: '10px' }}>Black / Blue Ink</td>
+                        </tr>
+                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                            <td style={{ padding: '10px' }}><strong>GATE Portal (IITs)</strong></td>
+                            <td style={{ padding: '10px' }}>N/A (Aspect Ratio 3.15:1 to 5:1)</td>
+                            <td style={{ padding: '10px' }}>Min 80x280 px to Max 160x560 px</td>
+                            <td style={{ padding: '10px' }}><strong>5 to 200 KB</strong></td>
+                            <td style={{ padding: '10px' }}>Black / Blue Ink</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style={{ fontSize: '18px', color: '#0f172a', fontWeight: 700, marginTop: '24px', marginBottom: '12px' }}>
+                SSC Signature Resize Guidelines
+            </h3>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                For Staff Selection Commission (SSC) portals (ssc.gov.in), compliance is verified by an automated AI image scanner. The **ssc signature resize** requires a layout of 4.0 cm (width) x 2.0 cm (height). Additionally, the file size must stay strictly between 10 KB and 20 KB. In pixels, at standard web compression, this maps to approximately 140x60 pixels. The portal will automatically reject files that have an incorrect aspect ratio or signatures written in CAPITAL LETTERS. 
             </p>
 
-            <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                Step-by-Step Tutorial: How to Use the Signature Resize Tool
+            <h3 style={{ fontSize: '18px', color: '#0f172a', fontWeight: 700, marginTop: '24px', marginBottom: '12px' }}>
+                RRB Signature Resize Guidelines
+            </h3>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                The Railway Recruitment Board (rrbcdg.gov.in) enforces similar standards but permits a larger file size limit of up to 40 KB. However, the physical sizing is slightly wider, often demanding 50mm x 20mm (5cm x 2cm). The **rrb signature resize** must be clear, with no shadow cast across the paper, and written using a high-density black or blue ink pen.
+            </p>
+
+            <h3 style={{ fontSize: '18px', color: '#0f172a', fontWeight: 700, marginTop: '24px', marginBottom: '12px' }}>
+                PAN Card Signature Resize (NSDL / UTIITSL)
+            </h3>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                When applying for a Permanent Account Number (PAN) Card, NSDL and UTI portals require a scan of your signature that fits perfectly within a 400x200 pixel window. The size must stay strictly under 20 KB. Performing a **pan card signature resize** ensures your physical card gets printed with a clean, high-resolution signature representation.
+            </p>
+
+            {/* Section 5 */}
+            <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '16px', letterSpacing: '-0.01em' }}>
+                5. How to Use the Signature Resize Tool: A Step-by-Step Tutorial
             </h2>
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '16px', padding: 'clamp(16px, 4vw, 24px)', marginBottom: '32px' }}>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                Our signature resizer is engineered for fast, secure, and accurate document conversion. Follow these simple steps:
+            </p>
+            
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '24px', padding: 'clamp(16px, 4vw, 28px)', marginBottom: '32px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.01)' }}>
                 <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
                     <li style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexDirection: 'row' }}>
-                        <div style={{ background: '#e0e7ff', color: '#4f46e5', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>1</div>
+                        <div style={{ background: '#ede9fe', color: '#6366f1', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>1</div>
                         <div>
-                            <h4 style={{ margin: 0, fontSize: 'clamp(16px, 3vw, 18px)', fontWeight: 700, color: '#1e293b' }}>Upload Your Signature Image</h4>
-                            <p style={{ margin: '8px 0 0 0', fontSize: '16px', color: '#475569' }}>Take a clear picture of your signature on white paper. Drag and drop it into the upload zone, or browse from your mobile gallery. We support JPG, JPEG, PNG, and WebP formats.</p>
+                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: '#1e293b' }}>Upload Your Scanned Signature or Photo</h4>
+                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: '#475569' }}>
+                                Drag and drop your image file directly into the upload area or click **Select Images** to browse your computer or mobile device. You can select up to 10 files to batch process. We support JPEG, JPG, PNG, and WebP format.
+                            </p>
                         </div>
                     </li>
                     <li style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexDirection: 'row' }}>
-                        <div style={{ background: '#e0e7ff', color: '#4f46e5', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>2</div>
+                        <div style={{ background: '#ede9fe', color: '#6366f1', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>2</div>
                         <div>
-                            <h4 style={{ margin: 0, fontSize: 'clamp(16px, 3vw, 18px)', fontWeight: 700, color: '#1e293b' }}>Select Dimensions (CM or Pixels)</h4>
-                            <p style={{ margin: '8px 0 0 0', fontSize: '16px', color: '#475569' }}>Check your official notification. If it asks for 3.5cm x 1.5cm, select the 'Centimeter' toggle and enter those numbers. If it asks for pixels (like 140x60), select 'Pixel' and enter them. This perfectly handles your <strong>signature resize width and height in cm</strong>.</p>
+                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: '#1e293b' }}>Define Your Target Dimensions</h4>
+                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: '#475569' }}>
+                                Choose between **Pixel** and **Centimeter** mode depending on the exam brochure guidelines. Enter the required width and height (such as 4.0 cm × 2.0 cm for SSC or 140px × 60px for IBPS).
+                            </p>
                         </div>
                     </li>
                     <li style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexDirection: 'row' }}>
-                        <div style={{ background: '#e0e7ff', color: '#4f46e5', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>3</div>
+                        <div style={{ background: '#ede9fe', color: '#6366f1', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>3</div>
                         <div>
-                            <h4 style={{ margin: 0, fontSize: 'clamp(16px, 3vw, 18px)', fontWeight: 700, color: '#1e293b' }}>Set Target File Size (KB)</h4>
-                            <p style={{ margin: '8px 0 0 0', fontSize: '16px', color: '#475569' }}>If the portal enforces a <strong>signature resize 10 to 20 kb</strong> limit, enter '20' in the target size box to achieve the optimal <strong>signature resize 20kb</strong> limit.</p>
+                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: '#1e293b' }}>Select Target KB Limit</h4>
+                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: '#475569' }}>
+                                Input the desired maximum file weight in the **Target File Size** box. If the portal requires a 10-20 KB file, set the value to 20 KB. The algorithm will automatically adjust image quality parameters to compress the file under that ceiling while keeping text crisp.
+                            </p>
+                        </div>
+                    </li>
+                    <li style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexDirection: 'row' }}>
+                        <div style={{ background: '#ede9fe', color: '#6366f1', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>4</div>
+                        <div>
+                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: '#1e293b' }}>Crop &amp; Align (Optional)</h4>
+                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: '#475569' }}>
+                                If your photo contains a lot of empty margins, click the **Crop** button on the file preview card. Align the crop frame around your signature to remove redundant margins and lock the aspect ratio.
+                            </p>
                         </div>
                     </li>
                     <li style={{ display: 'flex', gap: '16px', flexDirection: 'row' }}>
-                        <div style={{ background: '#e0e7ff', color: '#4f46e5', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>4</div>
+                        <div style={{ background: '#ede9fe', color: '#6366f1', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>5</div>
                         <div>
-                            <h4 style={{ margin: 0, fontSize: 'clamp(16px, 3vw, 18px)', fontWeight: 700, color: '#1e293b' }}>Resize and Download</h4>
-                            <p style={{ margin: '8px 0 0 0', fontSize: '16px', color: '#475569' }}>Click the process button. The tool will instantly generate your new, perfectly formatted compliant image. Download it and upload it safely to your exam portal!</p>
+                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: '#1e293b' }}>Execute Resizing and Download</h4>
+                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: '#475569' }}>
+                                Click **Resize Signature**. The processing bar will load, and your optimized signature will be ready in under a second. Click **Download** to save your perfectly formatted image, ready for immediate upload.
+                            </p>
                         </div>
                     </li>
                 </ul>
             </div>
 
-            <h2 style={{ fontSize: 'clamp(24px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                Common Mistakes to Avoid While Photographing Your Signature
+            {/* Section 6 */}
+            <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '16px', letterSpacing: '-0.01em' }}>
+                6. Master Class: Photographing and Scanning Your Physical Signature
             </h2>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                Even the best <strong>signature resize in kb</strong> tool cannot fix a fundamentally bad photograph. To guarantee your <strong>ssc signature resize</strong> or <strong>rrb signature resize</strong> is accepted without fail, avoid these grave mistakes:
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                A resizing tool is only as good as the input file it receives. If you upload a dark, blurry, or low-contrast photograph of your signature, the resizer will struggle to yield a high-quality outcome. Follow these professional guidelines to capture the best possible input:
             </p>
-            <ul style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '24px', color: '#334155', listStyleType: 'disc', paddingLeft: '24px' }}>
-                <li style={{ marginBottom: '12px' }}><strong>Lined Paper:</strong> Never sign on a notebook with ruled lines. The computer AI algorithms get confused by the horizontal lines crossing your text. ALWAYS use stark, unlined white printing paper.</li>
-                <li style={{ marginBottom: '12px' }}><strong>Dim Lighting:</strong> Taking a photo under a yellow bulb or in shadow causes "noise" in the image. This drastically inflates the KB size, making a clean <strong>signature resize 20kb</strong> harder to achieve without blur. Use natural daylight near a window.</li>
-                <li style={{ marginBottom: '12px' }}><strong>Capital Letters:</strong> Almost all government notifications (SSC, RRB, UPSC) strictly state that signatures in all CAPITAL LETTERS WILL BE REJECTED. Your signature must be in your normal, running handwriting.</li>
-                <li style={{ marginBottom: '12px' }}><strong>Red/Green Ink:</strong> Use a high-contrast Black or dark Blue ink pen. Thin gel pens or pencils often scan poorly, leading to rejection. Use a medium-tip ballpoint or marker for the best results.</li>
+            
+            <h3 style={{ fontSize: '18px', color: '#0f172a', fontWeight: 700, marginTop: '24px', marginBottom: '12px' }}>
+                Choosing the Right Pen and Paper
+            </h3>
+            <ul style={{ fontSize: '16px', marginBottom: '24px', color: '#334155', listStyleType: 'disc', paddingLeft: '24px' }}>
+                <li style={{ marginBottom: '8px' }}><strong>Stark White, Unruled Paper:</strong> Never sign on ruled notebook paper, diaries, or textured surfaces. The horizontal lines will interfere with automated optical character readers. Use fresh, unlined A4 printer copy paper.</li>
+                <li style={{ marginBottom: '8px' }}><strong>Use Black or Blue Ink:</strong> Check your official exam notification. Many portals (such as IBPS and UPSC) mandate black ink. Use a clean-flowing gel pen or a fine-tip marker instead of a standard ballpoint pen. This ensures clean, continuous ink strokes that scan well.</li>
             </ul>
 
-            <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                Security and Privacy of Your Uploaded Signatures
+            <h3 style={{ fontSize: '18px', color: '#0f172a', fontWeight: 700, marginTop: '24px', marginBottom: '12px' }}>
+                Lighting and Camera Angles
+            </h3>
+            <ul style={{ fontSize: '16px', marginBottom: '24px', color: '#334155', listStyleType: 'disc', paddingLeft: '24px' }}>
+                <li style={{ marginBottom: '8px' }}><strong>Avoid Shadows:</strong> Standing directly under an overhead ceiling lamp will cast a shadow of your body/hands over the paper. Instead, place the paper near a window under indirect natural daylight.</li>
+                <li style={{ marginBottom: '8px' }}><strong>Keep Your Camera Parallel:</strong> Do not snap the photograph from an angle, as this skews the perspective. Position your phone directly above the paper, parallel to the surface.</li>
+                <li style={{ marginBottom: '8px' }}><strong>Disable Flash:</strong> Using a smartphone flash from close range will wash out the signature and create an overexposed hotspot on the white paper. Keep flash off.</li>
+            </ul>
+
+            {/* Section 7 */}
+            <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '16px', letterSpacing: '-0.01em' }}>
+                7. Troubleshooting Common Portal Rejection Errors
             </h2>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                A signature is a highly sensitive piece of personal identifiable information (PII). We take your privacy with the utmost seriousness. When you utilize our service for a <strong>signature resize</strong>, all images are processed using secure temporary memory and are permanently deleted from our servers immediately after the download link expires. We do not store, view, or analyze your signatures. Whether you are generating an <strong>ssc signature resize</strong> or adjusting <strong>signature resize width and height in cm</strong>, your data remains safely in your hands.
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                If you encounter upload failures or your form gets rejected at a later stage, it is usually due to one of these common mistakes:
             </p>
+            
+            <ul style={{ fontSize: '16px', marginBottom: '24px', color: '#334155', listStyleType: 'disc', paddingLeft: '24px' }}>
+                <li style={{ marginBottom: '12px' }}>
+                    <strong>"Signature in Capital Letters":</strong> This is one of the most common reasons for rejection. Exam notifications explicitly state that signatures written in all-caps block letters are invalid. Your signature must represent your normal, running handwriting.
+                </li>
+                <li style={{ marginBottom: '12px' }}>
+                    <strong>"Grey or Dark Background":</strong> If the background of your scanned signature is grey, yellowish, or tinted, the contrast drops significantly. This can make the image unreadable for automated systems. Ensure the background is stark white. Our cropping and exposure adjustment controls can help normalize this.
+                </li>
+                <li style={{ marginBottom: '12px' }}>
+                    <strong>"Incorrect File Format":</strong> Many portals only support `.jpg` or `.jpeg` files. If you attempt to upload a PNG or PDF file, the portal will block it. Our tool automatically converts any input format (PNG, WebP, BMP) to highly compatible `.jpg` on export.
+                </li>
+                <li style={{ marginBottom: '12px' }}>
+                    <strong>"Blurry Lines / Over-compression":</strong> Resizing a low-quality file can result in illegible text. If your signature is rejected for blurriness, re-photograph it in brighter light and resize it with a slightly higher quality setting.
+                </li>
+            </ul>
 
-            <h2 style={{ fontSize: 'clamp(24px, 5vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '20px' }}>
-                Explore More Essential Utilities
+            {/* Section 8 */}
+            <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '16px', letterSpacing: '-0.01em' }}>
+                8. Security and Privacy: Protecting Your Personal Signature
             </h2>
-            <p style={{ fontSize: 'clamp(16px, 3vw, 17px)', marginBottom: '20px', color: '#334155' }}>
-                Our suite of tools extends far beyond simple signature management. If you are preparing application forms, you will likely need to compress passport-size photographs and academic mark sheets. Check out our <Link href="/compress-image-to-50kb" style={{ color: '#4f46e5', fontWeight: 700, textDecoration: 'underline' }}>Compress Image to 50KB</Link> tool for your portrait photos, or explore our massive collection of photo enhancement utilities at our main <Link href="/image-tools" style={{ color: '#4f46e5', fontWeight: 700, textDecoration: 'underline' }}>Image Tools Directory</Link>. Need to convert heavy MB files to KB? The <Link href="/mb-to-kb-image-converter" style={{ color: '#4f46e5', fontWeight: 700, textDecoration: 'underline' }}>MB to KB Image Converter</Link> is built precisely for that!
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                A signature is a highly sensitive piece of personal data. Unscrupulous websites may collect uploaded signatures for malicious purposes. We take your security and privacy with the utmost seriousness:
             </p>
+            <ul style={{ fontSize: '16px', marginBottom: '24px', color: '#334155', listStyleType: 'disc', paddingLeft: '24px' }}>
+                <li style={{ marginBottom: '8px' }}><strong>Zero File Storage:</strong> We do not log, view, or retain your signatures on our servers.</li>
+                <li style={{ marginBottom: '8px' }}><strong>Local Memory Processing:</strong> Resizing tasks are handled in secure temporary runtime memory, and the records are permanently purged from the cloud the moment your session is closed or your download is complete.</li>
+                <li style={{ marginBottom: '8px' }}><strong>No Ads/Spyware:</strong> Our interface is clean, safe, and designed to help you prepare your exam documents without exposure to tracking scripts.</li>
+            </ul>
 
-            {/* --- FAQs Section --- */}
-            <div style={{ marginTop: '60px', background: '#f8fafc', padding: 'clamp(20px, 5vw, 40px)', borderRadius: '32px', border: '1px solid #cbd5e1', boxShadow: '0 10px 30px -10px rgba(0,0,0,0.05)' }}>
-                <h2 style={{ fontSize: 'clamp(26px, 5vw, 32px)', color: '#0f172a', fontWeight: 900, marginBottom: '32px', textAlign: 'center' }}>Frequently Asked Questions (FAQs)</h2>
+            {/* Section 9 */}
+            <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '40px', marginBottom: '16px', letterSpacing: '-0.01em' }}>
+                9. Explore More Digital Document Tools
+            </h2>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                If you are applying for public sector vacancies, you will likely need to optimize multiple documents. Explore our other free, high-performance tools:
+            </p>
+            <ul style={{ fontSize: '16px', marginBottom: '32px', color: '#334155', listStyleType: 'disc', paddingLeft: '24px' }}>
+                <li style={{ marginBottom: '8px' }}>Use our <Link href="/compress-image-to-50kb" style={{ color: '#4f46e5', fontWeight: 700, textDecoration: 'underline' }}>Compress Image to 50KB</Link> tool for scaling down passport-size photographs.</li>
+                <li style={{ marginBottom: '8px' }}>Check out the <Link href="/image-compressor-to-20kb" style={{ color: '#4f46e5', fontWeight: 700, textDecoration: 'underline' }}>Image Compressor to 20KB</Link> to fit documents within tight upload constraints.</li>
+                <li style={{ marginBottom: '8px' }}>Use our <Link href="/mb-to-kb-image-converter" style={{ color: '#4f46e5', fontWeight: 700, textDecoration: 'underline' }}>MB to KB Converter</Link> to reduce large scans, marksheets, and identity cards under specified limits.</li>
+                <li style={{ marginBottom: '8px' }}>Browse all available photo editing tools in our <Link href="/image-tools" style={{ color: '#4f46e5', fontWeight: 700, textDecoration: 'underline' }}>Image Tools Directory</Link>.</li>
+            </ul>
 
-                <div style={{ marginBottom: '24px', background: '#fff', padding: 'clamp(16px, 4vw, 24px)', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#1e293b', marginBottom: '12px' }}>1. What exactly does "signature resize 10 to 20 kb" mean?</h3>
-                    <p style={{ fontSize: '16px', color: '#475569', margin: 0 }}>This is a prevalent requirement for online Indian exams where the uploaded JPEG file must be physically heavier than 10 Kilobytes (KB) but strictly lighter than 20 Kilobytes (KB). Our tool enables you to accurately target this threshold.</p>
-                </div>
+            {/* FAQs Section */}
+            <div style={{ marginTop: '60px', background: '#f8fafc', padding: 'clamp(20px, 5vw, 40px)', borderRadius: '32px', border: '1px solid #cbd5e1', boxShadow: '0 10px 30px -10px rgba(0,0,0,0.03)' }}>
+                <h2 style={{ fontSize: 'clamp(24px, 5vw, 32px)', color: '#0f172a', fontWeight: 900, marginBottom: '32px', textAlign: 'center', letterSpacing: '-0.02em' }}>
+                    Frequently Asked Questions (FAQs)
+                </h2>
 
-                <div style={{ marginBottom: '24px', background: '#fff', padding: '24px', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#1e293b', marginBottom: '12px' }}>2. How do I achieve a "signature resize width and height in cm"?</h3>
-                    <p style={{ fontSize: '16px', color: '#475569', margin: 0 }}>On our tool interface, simply click the unit toggle from "Pixel" to "Centimeter". Once selected, you can input the exact dimensions (e.g., 4.0 cm width and 2.0 cm height) as instructed in your exam notification brochure.</p>
-                </div>
-
-                <div style={{ marginBottom: '24px', background: '#fff', padding: '24px', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#1e293b', marginBottom: '12px' }}>3. Can this tool be used for an "SSC signature resize"?</h3>
-                    <p style={{ fontSize: '16px', color: '#475569', margin: 0 }}>Absolutely. For SSC registration, the parameters are almost always 4.0cm x 2.0cm and between 10 KB to 20 KB. By setting the width to 4, height to 2, and target size to 20, you instantly get a perfect SSC signature resize file.</p>
-                </div>
-
-                <div style={{ marginBottom: '24px', background: '#fff', padding: '24px', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#1e293b', marginBottom: '12px' }}>4. Is the process of "signature resize in kb" entirely free?</h3>
-                    <p style={{ fontSize: '16px', color: '#475569', margin: 0 }}>Yes, performing a signature resize in kb on our platform is 100% free forever. There are no hidden charges, watermarks, or software installation requirements. And you can batch process multiple signatures simultaneously.</p>
-                </div>
-
-                <div style={{ marginBottom: '24px', background: '#fff', padding: '24px', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
-                    <h3 style={{ fontSize: '18px', fontWeight: 800, color: '#1e293b', marginBottom: '12px' }}>5. What happens if my "RRB signature resize" results in a blurry image?</h3>
-                    <p style={{ fontSize: '16px', color: '#475569', margin: 0 }}>If your resulting image is blurry, it usually means your original photograph was too dark, taken out of focus, or signed on a low-contrast background. Please reshoot your signature using a thick black pen on stark white paper in bright daylight and try the RRB signature resize process again.</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                    {[
+                        {
+                            q: "1. What does the 'signature resize 10 to 20 kb' rule mean?",
+                            a: "This is a common requirement for competitive exam portals (like SSC) where the uploaded JPEG file must be larger than 10 Kilobytes but smaller than 20 Kilobytes. Our tool compresses your signature precisely to stay within this target window."
+                        },
+                        {
+                            q: "2. How do I execute a 'signature resize width and height in cm'?",
+                            a: "Simply click the toggle button above to switch the input mode to 'Centimeter'. Once selected, enter the required dimensions (e.g., 4.0 cm width and 2.0 cm height) as outlined in the official exam brochure."
+                        },
+                        {
+                            q: "3. What is the standard pixel size for a 4cm x 2cm signature?",
+                            a: "At a standard web resolution of 96 DPI, it translates to 151x75 pixels. At a high-quality print scan resolution of 300 DPI, it converts to 472x236 pixels. For most standard portals, 140x60 pixels is the benchmark size."
+                        },
+                        {
+                            q: "4. Why does my signature file need to be under 20KB?",
+                            a: "Exam authorities process millions of applications. Keeping document sizes small (like 20KB for signatures and 50KB for photos) optimizes database performance and ensures admit cards print quickly and clearly."
+                        },
+                        {
+                            q: "5. Can I use this tool for my SSC Signature Resize?",
+                            a: "Yes. For SSC forms, set the dimensions to 4.0cm width and 2.0cm height (or 140x60 pixels) and target 20 KB size. The exported file will be ready for immediate upload to the SSC portal."
+                        },
+                        {
+                            q: "6. Can I crop my signature during the resize process?",
+                            a: "Yes. If your uploaded image has wide margins, click the 'Crop' button on the preview card. Drag the crop boundaries to focus closely on the signature stroke before processing."
+                        },
+                        {
+                            q: "7. Why is my resized signature rejected for being blurry?",
+                            a: "Blurry images occur when the original photo was captured in dim light or was out of focus. Ensure you sign with a high-contrast black pen on white paper under bright light, and capture a clean, sharp photo."
+                        },
+                        {
+                            q: "8. Is a signature written in capital letters valid?",
+                            a: "No. Signatures written in all CAPITAL letters are universally rejected by exam boards. Sign in your normal, running cursive handwriting."
+                        },
+                        {
+                            q: "9. What file formats are supported for signature uploads?",
+                            a: "Most exam portals only accept JPEG or JPG format. Our tool automatically converts other formats (PNG, WebP, BMP) to JPEG during export, ensuring compatibility."
+                        },
+                        {
+                            q: "10. How can I ensure the background of my signature is white?",
+                            a: "Use bright, indirect natural light when photographing your signature, and ensure the paper is flat and clean. Avoid shadow casting. Our cropping tool also helps remove unnecessary dark margins."
+                        },
+                        {
+                            q: "11. Is this online signature resizer completely free to use?",
+                            a: "Yes, this tool is 100% free and requires no registration or software installation. You can resize and compress as many files as you need."
+                        },
+                        {
+                            q: "12. Can I batch resize multiple signatures at the same time?",
+                            a: "Yes, you can upload and batch process up to 10 signature images simultaneously. You can configure dimensions and sizes for all files together."
+                        },
+                        {
+                            q: "13. Are my uploaded signatures safe on your website?",
+                            a: "Absolutely. We do not store or track any of your uploaded files. All image processing occurs in temporary memory and is purged immediately once you complete your task."
+                        },
+                        {
+                            q: "14. How do I resize a signature for a PAN Card application?",
+                            a: "For NSDL PAN Card forms, select Pixel mode, set the dimensions to 400x200 pixels, and select a target size of 20 KB. This guarantees compatibility with NSDL portals."
+                        },
+                        {
+                            q: "15. What pen color is best for signature scans?",
+                            a: "We highly recommend using a black ink gel pen or fine-point felt pen. Black ink offers the highest contrast against white paper, making it easier for scanner software to read clearly."
+                        }
+                    ].map((item, index) => (
+                        <div key={index} style={{ marginBottom: '24px', background: '#ffffff', padding: '24px', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.01)' }}>
+                            <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#1e293b', marginTop: 0, marginBottom: '12px' }}>{item.q}</h3>
+                            <p style={{ fontSize: '15px', color: '#475569', margin: 0, lineHeight: 1.6 }}>{item.a}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
 
@@ -207,42 +439,122 @@ export default function ArticleSignatureResize() {
                         "mainEntity": [
                             {
                                 "@type": "Question",
-                                "name": "What exactly does signature resize 10 to 20 kb mean?",
+                                "name": "What does the signature resize 10 to 20 kb rule mean?",
                                 "acceptedAnswer": {
                                     "@type": "Answer",
-                                    "text": "This is a prevalent requirement for online Indian exams where the uploaded JPEG file must be physically heavier than 10 Kilobytes (KB) but strictly lighter than 20 Kilobytes (KB). Our tool enables you to accurately target this threshold."
+                                    "text": "This is a common requirement for competitive exam portals (like SSC) where the uploaded JPEG file must be larger than 10 Kilobytes but smaller than 20 Kilobytes. Our tool compresses your signature precisely to stay within this target window."
                                 }
                             },
                             {
                                 "@type": "Question",
-                                "name": "How do I achieve a signature resize width and height in cm?",
+                                "name": "How do I execute a signature resize width and height in cm?",
                                 "acceptedAnswer": {
                                     "@type": "Answer",
-                                    "text": "On our tool interface, simply click the unit toggle from 'Pixel' to 'Centimeter'. Once selected, you can input the exact dimensions (e.g., 4.0 cm width and 2.0 cm height) as instructed in your exam notification brochure."
+                                    "text": "Simply click the toggle button above to switch the input mode to 'Centimeter'. Once selected, enter the required dimensions (e.g., 4.0 cm width and 2.0 cm height) as outlined in the official exam brochure."
                                 }
                             },
                             {
                                 "@type": "Question",
-                                "name": "Can this tool be used for an SSC signature resize?",
+                                "name": "What is the standard pixel size for a 4cm x 2cm signature?",
                                 "acceptedAnswer": {
                                     "@type": "Answer",
-                                    "text": "Absolutely. For SSC registration, the parameters are almost always 4.0cm x 2.0cm and between 10 KB to 20 KB. By setting the width to 4, height to 2, and target size to 20, you instantly get a perfect SSC signature resize file."
+                                    "text": "At a standard web resolution of 96 DPI, it translates to 151x75 pixels. At a high-quality print scan resolution of 300 DPI, it converts to 472x236 pixels. For most standard portals, 140x60 pixels is the benchmark size."
                                 }
                             },
                             {
                                 "@type": "Question",
-                                "name": "Is the process of signature resize in kb entirely free?",
+                                "name": "Why does my signature file need to be under 20KB?",
                                 "acceptedAnswer": {
                                     "@type": "Answer",
-                                    "text": "Yes, performing a signature resize in kb on our platform is 100% free forever. There are no hidden charges, watermarks, or software installation requirements. And you can batch process multiple signatures simultaneously."
+                                    "text": "Exam authorities process millions of applications. Keeping document sizes small (like 20KB for signatures and 50KB for photos) optimizes database performance and ensures admit cards print quickly and clearly."
                                 }
                             },
                             {
                                 "@type": "Question",
-                                "name": "What happens if my RRB signature resize results in a blurry image?",
+                                "name": "Can I use this tool for my SSC Signature Resize?",
                                 "acceptedAnswer": {
                                     "@type": "Answer",
-                                    "text": "If your resulting image is blurry, it usually means your original photograph was too dark, taken out of focus, or signed on a low-contrast background. Please reshoot your signature using a thick black pen on stark white paper in bright daylight and try the RRB signature resize process again."
+                                    "text": "Yes. For SSC forms, set the dimensions to 4.0cm width and 2.0cm height (or 140x60 pixels) and target 20 KB size. The exported file will be ready for immediate upload to the SSC portal."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "Can I crop my signature during the resize process?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Yes. If your uploaded image has wide margins, click the 'Crop' button on the preview card. Drag the crop boundaries to focus closely on the signature stroke before processing."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "Why is my resized signature rejected for being blurry?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Blurry images occur when the original photo was captured in dim light or was out of focus. Ensure you sign with a high-contrast black pen on white paper under bright light, and capture a clean, sharp photo."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "Is a signature written in capital letters valid?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "No. Signatures written in all CAPITAL letters are universally rejected by exam boards. Sign in your normal, running cursive handwriting."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "What file formats are supported for signature uploads?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Most exam portals only accept JPEG or JPG format. Our tool automatically converts other formats (PNG, WebP, BMP) to JPEG during export, ensuring compatibility."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "How can I ensure the background of my signature is white?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Use bright, indirect natural light when photographing your signature, and ensure the paper is flat and clean. Avoid shadow casting. Our cropping tool also helps remove unnecessary dark margins."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "Is this online signature resizer completely free to use?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Yes, this tool is 100% free and requires no registration or software installation. You can resize and compress as many files as you need."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "Can I batch resize multiple signatures at the same time?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Yes, you can upload and batch process up to 10 signature images simultaneously. You can configure dimensions and sizes for all files together."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "Are my uploaded signatures safe on your website?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "Absolutely. We do not store or track any of your uploaded files. All image processing occurs in temporary memory and is purged immediately once you complete your task."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "How do I resize a signature for a PAN Card application?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "For NSDL PAN Card forms, select Pixel mode, set the dimensions to 400x200 pixels, and select a target size of 20 KB. This guarantees compatibility with NSDL portals."
+                                }
+                            },
+                            {
+                                "@type": "Question",
+                                "name": "What pen color is best for signature scans?",
+                                "acceptedAnswer": {
+                                    "@type": "Answer",
+                                    "text": "We highly recommend using a black ink gel pen or fine-point felt pen. Black ink offers the highest contrast against white paper, making it easier for scanner software to read clearly."
                                 }
                             }
                         ]

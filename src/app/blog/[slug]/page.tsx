@@ -6,8 +6,8 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Calendar, User, ArrowLeft, Clock, Heart, Sparkles, Hash, Type } from 'lucide-react';
 import { getPostBySlug, getAllPosts } from '@/lib/mdx';
 import FloatingCTA from '@/components/FloatingCTA';
-import CoupleNameClient from '@/components/CoupleNameClient';
-import InstagramBioClient from '@/components/InstagramBioClient';
+import CoupleNameClientWrapper from '@/components/CoupleNameClientWrapper';
+import InstagramBioClientWrapper from '@/components/InstagramBioClientWrapper';
 
 // EXPLICIT FORCE STATIC - Critical for fast indexing and crawling
 export const dynamic = 'force-static';
@@ -394,7 +394,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     <span className="text-sm font-bold text-pink-600 uppercase tracking-widest">Interactive Tool</span>
                 </span>
                 <span className="block p-2 sm:p-6">
-                    <CoupleNameClient />
+                    <CoupleNameClientWrapper />
                 </span>
             </span>
         ),
@@ -404,7 +404,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     <span className="text-sm font-bold text-indigo-500 uppercase tracking-widest">Interactive Tool</span>
                 </span>
                 <span className="block p-2 sm:p-6">
-                    <InstagramBioClient />
+                    <InstagramBioClientWrapper />
                 </span>
             </span>
         )
@@ -486,7 +486,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
                 {/* ── Interactive Tool Component ─────────────────────────────────── */}
                 <div className="px-4 sm:px-6 relative z-20">
-                    <CoupleNameClient />
+                    <CoupleNameClientWrapper />
                 </div>
 
                 {/* ── SEO Article Section ────────────────────────────────────────── */}
@@ -580,7 +580,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                                     <span className="text-sm font-black text-pink-600 uppercase tracking-widest">Stylish Couple Name Maker</span>
                                 </div>
                                 <div className="p-4 sm:p-8 bg-gradient-to-b from-white to-pink-50/20">
-                                    <CoupleNameClient />
+                                    <CoupleNameClientWrapper />
                                 </div>
                             </div>
                         )}
@@ -598,6 +598,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                                     alt={post.title}
                                     width={1200}
                                     height={675}
+                                    sizes="(max-width: 768px) 100vw, 800px"
                                     className="w-full h-full object-cover"
                                     priority
                                 />

@@ -13,8 +13,10 @@ const Navbar = () => {
     const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
 
     const handleLoginClick = () => {
+        toast.dismiss(); // Clear any existing toasts to prevent stacking
         toast("Login system is under development. Coming soon! \nलॉगिन सिस्टम अभी डेवलपमेंट में है, जल्द ही आ जाएगा! 🚀", {
-            duration: 4000,
+            id: 'login-toast', // Fixed ID to overwrite instead of creating new toast instances
+            duration: 3000,    // Set duration to 3 seconds
             icon: '🔒',
             style: {
                 borderRadius: '12px',

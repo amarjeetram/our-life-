@@ -71,7 +71,7 @@ export async function getLatestWPPosts(limit: number = 10): Promise<Post[]> {
 
         return wpPosts.map((wpPost) => {
             const authorName = wpPost._embedded?.author?.[0]?.name || 'SmartToolsWala';
-            const imageUrl = wpPost._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/images/blog-placeholder.jpg';
+            const imageUrl = wpPost._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/og-image.png';
 
             return {
                 slug: wpPost.slug,

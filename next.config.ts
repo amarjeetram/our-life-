@@ -111,6 +111,21 @@ const nextConfig: NextConfig = {
         destination: '/govt-exam-tools/pan-card-photo-resize',
         permanent: true,
       },
+      {
+        source: '/sad-bio-for-instagram',
+        destination: '/blog/sad-bio-for-instagram',
+        permanent: true,
+      },
+      {
+        source: '/instagram-stylish-bio',
+        destination: '/blog/instagram-stylish-bio',
+        permanent: true,
+      },
+      {
+        source: '/instagram-bio-in-hindi',
+        destination: '/blog/instagram-bio-in-hindi',
+        permanent: true,
+      },
     ];
   },
   experimental: {

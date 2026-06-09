@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect, useMemo } from "react";
 import { Search, Copy, Check, Heart, Sparkles, Smartphone, User, Image, Trash2, Star, Camera, Heart as HeartIcon } from "lucide-react";
@@ -67,6 +67,13 @@ export default function BioApp() {
   const [isVerified, setIsVerified] = useState(true);
   const [avatarIndex, setAvatarIndex] = useState(1);
   const [customAvatar, setCustomAvatar] = useState<string | null>(null);
+
+  const [visibleCount, setVisibleCount] = useState(30);
+
+  // Reset pagination whenever category or search query changes
+  useEffect(() => {
+    setVisibleCount(30);
+  }, [selectedCategory, searchQuery]);
 
   useEffect(() => {
     try {
@@ -137,6 +144,10 @@ export default function BioApp() {
 
     return list;
   }, [selectedCategory, searchQuery, favorites]);
+
+  const visibleBios = useMemo(() => {
+    return filteredBios.slice(0, visibleCount);
+  }, [filteredBios, visibleCount]);
 
   return (
     <div className="dashboard-container">
@@ -339,6 +350,28 @@ export default function BioApp() {
           margin: 0 auto 12px;
           color: #ffb3d1;
         }
+        .load-more-btn {
+          display: block;
+          width: 100%;
+          padding: 12px;
+          margin-top: 16px;
+          background: linear-gradient(135deg, #fff0f6 0%, #f8f0ff 100%);
+          border: 1.5px dashed #ffb3d1;
+          border-radius: 12px;
+          color: #e91e8c;
+          font-size: 0.9rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s;
+          text-align: center;
+        }
+        .load-more-btn:hover {
+          background: linear-gradient(135deg, #ff6b9d 0%, #c44dff 100%);
+          color: white;
+          border-style: solid;
+          border-color: transparent;
+          box-shadow: 0 4px 12px rgba(233,30,140,0.15);
+        }
       `}</style>
 
       {/* Left Column: Explorer */}
@@ -377,8 +410,8 @@ export default function BioApp() {
         </div>
 
         <div className="bios-scroll-container">
-          {filteredBios.length > 0 ? (
-            filteredBios.map((bio, index) => {
+          {visibleBios.length > 0 ? (
+            visibleBios.map((bio, index) => {
               const uniqueId = `${selectedCategory}-${index}`;
               const isFav = favorites.includes(bio);
               return (
@@ -428,6 +461,15 @@ export default function BioApp() {
                 <p style={{ fontSize: "0.85rem", color: "#aaa" }}>Click the heart icon on any bio to save it here!</p>
               )}
             </div>
+          )}
+
+          {filteredBios.length > visibleCount && (
+            <button suppressHydrationWarning={true}
+              className="load-more-btn"
+              onClick={() => setVisibleCount(prev => prev + 30)}
+            >
+              Load More Bios ({filteredBios.length - visibleCount} remaining)
+            </button>
           )}
         </div>
       </div>

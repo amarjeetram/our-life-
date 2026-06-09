@@ -49,20 +49,24 @@ export default function NotFound() {
                         <p style={{
                             fontSize: "15px", color: "#64748b", lineHeight: 1.7, marginBottom: "28px"
                         }}>
-                            Yeh page abhi exist nahi karta. Shayad URL galat hai ya page hata diya gaya hai.
+                            This page does not exist. The URL might be incorrect, or the page has been removed.
                         </p>
 
                         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                            <Link href="/image-compressor-to-20kb" style={{
-                                display: "flex", alignItems: "center", justifyContent: "center", gap: "9px",
-                                background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
-                                color: "#fff", fontWeight: 800, fontSize: "15px",
-                                padding: "14px 24px", borderRadius: "14px",
-                                boxShadow: "0 4px 16px rgba(99,102,241,0.38)",
-                                textDecoration: "none", letterSpacing: "-0.01em"
-                            }}>
-                                <Zap size={17} /> Compress Image to 20KB
-                            </Link>
+                            <button 
+                                onClick={() => window.history.back()}
+                                style={{
+                                    display: "flex", alignItems: "center", justifyContent: "center", gap: "9px",
+                                    background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
+                                    color: "#fff", fontWeight: 800, fontSize: "15px",
+                                    padding: "14px 24px", borderRadius: "14px",
+                                    boxShadow: "0 4px 16px rgba(99,102,241,0.38)",
+                                    border: "none", cursor: "pointer",
+                                    fontFamily: "inherit"
+                                }}
+                            >
+                                <ArrowLeft size={17} /> Previous Page
+                            </button>
                             <Link href="/" style={{
                                 display: "flex", alignItems: "center", justifyContent: "center", gap: "8px",
                                 background: "#f8faff", color: "#4338ca",
@@ -76,14 +80,6 @@ export default function NotFound() {
                         </div>
                     </div>
                 </div>
-
-                <Link href="javascript:history.back()" style={{
-                    display: "inline-flex", alignItems: "center", gap: "6px",
-                    fontSize: "13px", fontWeight: 600, color: "#94a3b8",
-                    textDecoration: "none"
-                }}>
-                    <ArrowLeft size={14} /> Go back
-                </Link>
             </div>
         </div>
     );

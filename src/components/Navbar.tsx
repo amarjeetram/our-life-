@@ -120,16 +120,19 @@ const Navbar = () => {
                         </div>
 
                         {/* Desktop CTA */}
-                        <div className="hidden md:flex items-center gap-3">
-                            <Link
-                                href="/image-compressor-to-20kb"
-                                className="btn-primary"
-                                style={{ padding: '10px 20px', fontSize: '14px', borderRadius: '12px' }}
+                        <div className="hidden md:flex items-center gap-2">
+                            <button
+                                disabled
+                                className="px-4 py-2 text-sm font-bold text-gray-500 bg-gray-100 rounded-xl cursor-not-allowed opacity-60"
                             >
-                                <ImageIcon className="w-4 h-4" />
-                                Compress Now
-                                <ChevronRight className="w-4 h-4 -ml-1 opacity-70" />
-                            </Link>
+                                Login
+                            </button>
+                            <button
+                                disabled
+                                className="px-4 py-2 text-sm font-bold text-white bg-indigo-600 rounded-xl cursor-not-allowed opacity-60 shadow-sm"
+                            >
+                                Sign Up
+                            </button>
                         </div>
 
                         {/* Mobile Hamburger — only on mobile */}
@@ -237,16 +240,21 @@ const Navbar = () => {
                 </nav>
 
                 {/* Drawer Footer */}
-                <div style={{ padding: '16px', borderTop: '1px solid #f1f5f9' }}>
-                    <Link
-                        href="/image-compressor-to-20kb"
-                        onClick={() => setIsOpen(false)}
-                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', padding: '14px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: '#ffffff', fontWeight: 700, fontSize: '15px', borderRadius: '14px', textDecoration: 'none' }}
-                    >
-                        <ImageIcon size={18} />
-                        Compress Image Free
-                    </Link>
-                    <p style={{ textAlign: 'center', fontSize: '11px', color: '#9ca3af', marginTop: '10px', fontWeight: 500 }}>No signup · 100% Free · Instant</p>
+                <div style={{ padding: '16px', borderTop: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                        <button
+                            disabled
+                            style={{ flex: 1, padding: '12px', background: '#f1f5f9', color: '#94a3b8', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: 'none', cursor: 'not-allowed', opacity: 0.7 }}
+                        >
+                            Login
+                        </button>
+                        <button
+                            disabled
+                            style={{ flex: 1, padding: '12px', background: '#4f46e5', color: '#ffffff', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: 'none', cursor: 'not-allowed', opacity: 0.7 }}
+                        >
+                            Sign Up
+                        </button>
+                    </div>
                 </div>
             </div>
         </>

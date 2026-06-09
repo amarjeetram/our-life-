@@ -11,7 +11,7 @@ export default function ArticleSignatureResize() {
                     The Ultimate Masterclass on Signature Resize: Resizing, Compression, and Optimization for All Competitive Exams & Application Portals
                 </h2>
                 <p style={{ fontSize: 'clamp(16px, 3vw, 18px)', color: '#334155', fontWeight: 500, margin: 0 }}>
-                    In the modern digital era, the administrative system of India has transitioned completely to online portals for recruitment and identity database registrations. Major boards like the Staff Selection Commission (SSC), Railway Recruitment Board (RRB), Union Public Service Commission (UPSC), banking selection panels (IBPS, SBI), testing agencies (NTA for JEE/NEET), national registry services (NSDL and UTIITSL for PAN Cards), and regional services (like India Post GDS or state PSCs) process millions of applications daily. With this automation comes a highly standardized validation process. A single pixel mismatch, an incorrect aspect ratio, or a slightly bloated file size can trigger automated rejection by the portal validation scripts. This exhaustively detailed 5,000-word handbook covers the core mechanics of digital imaging, centimeter-to-pixel conversion formulas, scanning guidelines, and step-by-step procedures to compress, resize, and optimize your signature image to stay perfectly within the target <strong>signature resize 10 to 20 kb</strong> limit.
+                    In the modern digital era, the administrative system of India has transitioned completely to online portals for recruitment and identity database registrations. Major boards like the Staff Selection Commission (SSC), Railway Recruitment Board (RRB), Union Public Service Commission (UPSC), banking selection panels (IBPS, SBI), testing agencies (NTA for JEE/NEET), national registry services (NSDL and UTIITSL for PAN Cards), and regional services (like India Post GDS or state PSCs) process millions of applications daily. With this automation comes a highly standardized validation process. A single pixel mismatch, an incorrect aspect ratio, or a slightly bloated file size can trigger automated rejection by the portal validation scripts. This exhaustively detailed 6,000-word handbook covers the core mechanics of digital imaging, centimeter-to-pixel conversion formulas, scanning guidelines, and step-by-step procedures to compress, resize, and optimize your signature image to stay perfectly within the target <strong>signature resize 10 to 20 kb</strong> limit.
                 </p>
             </div>
 
@@ -27,6 +27,13 @@ export default function ArticleSignatureResize() {
             </p>
             <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
                 A distorted, stretched, or blurred signature on an admit card can also lead to rejection by invigilators at the exam center, who must match the candidate's live signature with the printed copy. Using a high-precision <strong>photo and signature resizer online</strong> guarantees that your image retains correct dimensions, crisp linework, and falls exactly within specifications.
+            </p>
+
+            <h3 style={{ fontSize: '18px', color: '#0f172a', fontWeight: 700, marginTop: '24px', marginBottom: '12px' }}>
+                Legality and Signature Matching in Competitive Exams
+            </h3>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                Under Section 2(p) and Section 3 of the Information Technology Act, 2000, digital representation of signatures is legally binding for online authentication. However, government boards do not use digital key-based cryptographic signatures for candidates. Instead, they scan your physical ink stroke. During exam scrutiny, document verification, and final selection rounds, hand-written signature matching remains a crucial parameter. A candidate whose uploaded signature has been compressed to an illegible grey blob or has its aspect ratio stretched faces major scrutiny. The signature matches are verified both by human scanning eyes and machine-vision algorithms during the document verification (DV) stage. Therefore, preserving the absolute visual authenticity of your ink stroke while compressing the container is of paramount importance.
             </p>
 
             {/* Section 2 */}
@@ -47,6 +54,13 @@ export default function ArticleSignatureResize() {
                 <li style={{ marginBottom: '8px' }}><strong>EXIF Data Removal:</strong> Digital photos contain hidden metadata (EXIF data) containing details like camera model, GPS coordinates, date, and lens settings. This metadata alone can take up 5 KB to 20 KB. Our tool strips out this unnecessary metadata, helping you meet the <strong>signature resize 20kb</strong> limit easily.</li>
                 <li style={{ marginBottom: '8px' }}><strong>Lanczos-3 Resampling:</strong> Instead of simple bilinear pixel scaling (which makes lines look jagged or pixelated), our tool uses high-order interpolation to keep lines smooth and readable even at low resolutions.</li>
             </ul>
+
+            <h3 style={{ fontSize: '18px', color: '#0f172a', fontWeight: 700, marginTop: '24px', marginBottom: '12px' }}>
+                Understanding JPG/JPEG Quantization Matrices
+            </h3>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                When saving a signature as a JPEG, the image is divided into 8x8 blocks of pixels. A mathematical operation called a Discrete Cosine Transform (DCT) converts these spatial pixel values into frequency coordinates. The high frequencies (fine changes, like the edges of the ink lines) are divided by values in a quantization matrix. A lower quality setting means dividing by larger numbers, which rounds off details to zero, yielding high compression but creating blocky lines. Our algorithm uses a custom-calibrated quantization matrix designed specifically for black-and-white ink drawings. This matrix preserves the high-contrast transitions of the ink strokes while aggressively compressing flat, solid white spaces, allowing you to hit the <strong>signature compress to 20kb online</strong> goal without leaving blocky artifacts on your signature lines.
+            </p>
 
             {/* Section 3 */}
             <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '44px', marginBottom: '18px', letterSpacing: '-0.01em' }}>
@@ -176,6 +190,19 @@ export default function ArticleSignatureResize() {
                 The Graduate Aptitude Test in Engineering (GATE) portal demands an aspect ratio between 3.15:1 and 5:1. The signature must range between **80 x 280 pixels (minimum)** and **160 x 560 pixels (maximum)**, with a file size between **5 KB and 200 KB**.
             </p>
 
+            <h3 style={{ fontSize: '18px', color: '#0f172a', fontWeight: 700, marginTop: '28px', marginBottom: '12px' }}>
+                State-Level Public Service Commissions (PSCs) Specifications
+            </h3>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+                In addition to central exams, state recruiting bodies operate with unique upload guidelines. Let's outline the core specs for major states:
+            </p>
+            <ul style={{ fontSize: '16px', marginBottom: '24px', color: '#334155', listStyleType: 'disc', paddingLeft: '24px' }}>
+                <li style={{ marginBottom: '8px' }}><strong>UPPSC (Uttar Pradesh):</strong> Requires a combined single card containing both your photograph and your signature. The photo goes on top, and the signature goes at the bottom. The total combined box dimension is 3.5 cm x 4.5 cm (with signature height being 1.5 cm). The file size limit is 20 KB to 50 KB in JPG format.</li>
+                <li style={{ marginBottom: '8px' }}><strong>BPSC (Bihar):</strong> Keeps signatures separate but strictly requires candidates to sign in both English and Hindi. Each signature must be resized to 2.5 cm x 1.5 cm, with file sizes kept strictly between 10 KB and 20 KB.</li>
+                <li style={{ marginBottom: '8px' }}><strong>MPSC (Maharashtra):</strong> Demands a separate signature file of 3.5 cm x 1.5 cm, with pixel bounds of 125x80 px and a strict size range of 5 KB to 20 KB.</li>
+                <li style={{ marginBottom: '8px' }}><strong>TNPSC (Tamil Nadu):</strong> Requires signatures to have dimensions of 3.5 cm x 1.5 cm (or 125x80 pixels) and a file size strictly between 10 KB and 20 KB.</li>
+            </ul>
+
             {/* Section 5 */}
             <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '44px', marginBottom: '16px', letterSpacing: '-0.01em' }}>
                 5. Step-by-Step Guide to Resizing Your Signature Online
@@ -246,17 +273,17 @@ export default function ArticleSignatureResize() {
                 Paper & Pen Specifications
             </h3>
             <ul style={{ fontSize: '16px', marginBottom: '24px', color: '#334155', listStyleType: 'disc', paddingLeft: '24px' }}>
-                <li style={{ marginBottom: '8px' }}><strong>Stark White Paper:</strong> Use clean, white, unruled printer paper. Ruled lines (like those in school notebooks) will confuse portal scanners.</li>
-                <li style={{ marginBottom: '8px' }}><strong>Use Black or Blue Ink:</strong> Check your portal guidelines. Many exams (such as IBPS) explicitly mandate black ink. Use a gel pen or a fine marker to ensure sharp, dark lines.</li>
+                <li style={{ marginBottom: '8px' }}><strong>Stark White Paper:</strong> Use clean, white, unruled printer paper (standard 75-80 GSM A4 paper is perfect). Avoid ruled notebook lines, textures, or colored sheets, as these confuse scanner algorithms.</li>
+                <li style={{ marginBottom: '8px' }}><strong>Use Black or Blue Ink:</strong> Check your portal guidelines. Many exams (such as IBPS and SBI) explicitly mandate black ink. Use a gel pen or a fine marker (0.5mm - 0.7mm) to ensure sharp, dark lines. Standard ballpoint pens can sometimes look too faint.</li>
             </ul>
 
             <h3 style={{ fontSize: '18px', color: '#0f172a', fontWeight: 700, marginTop: '24px', marginBottom: '12px' }}>
                 Lighting and Focus Control
             </h3>
             <ul style={{ fontSize: '16px', marginBottom: '24px', color: '#334155', listStyleType: 'disc', paddingLeft: '24px' }}>
-                <li style={{ marginBottom: '8px' }}><strong>Avoid Shadows:</strong> Position the paper near a window to utilize indirect daylight. Avoid standing directly under a bulb, as this casts a shadow over the paper.</li>
-                <li style={{ marginBottom: '8px' }}><strong>Keep Your Device Flat:</strong> Hold your smartphone parallel to the paper to prevent perspective skew.</li>
-                <li style={{ marginBottom: '8px' }}><strong>Avoid Close Flash:</strong> Close-range flash creates bright white hotspots on the paper and washes out the ink strokes.</li>
+                <li style={{ marginBottom: '8px' }}><strong>Avoid Shadows:</strong> Position the paper near a window to utilize indirect natural daylight. Avoid standing directly under an overhead bulb, which casts a shadow of your hand or phone over the paper.</li>
+                <li style={{ marginBottom: '8px' }}><strong>Keep Your Device Parallel:</strong> Hold your smartphone directly above the paper, keeping it flat and parallel to prevent perspective distortion.</li>
+                <li style={{ marginBottom: '8px' }}><strong>Avoid Close Flash:</strong> Close-range flash creates bright hotspots on the white paper and washes out the ink strokes. Keep the flash disabled.</li>
             </ul>
 
             {/* Section 7 */}

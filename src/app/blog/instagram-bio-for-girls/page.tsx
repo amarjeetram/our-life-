@@ -82,6 +82,7 @@ export default function InstagramBioForGirlsPage() {
           width={860}
           height={400}
           priority={true}
+          sizes="(max-width: 768px) 100vw, 860px"
           className="hero-featured-image" 
         />
 

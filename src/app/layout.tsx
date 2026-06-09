@@ -7,6 +7,7 @@ import ClientToaster from "../components/ClientToaster";
 import ClientDropZone from "../components/ClientDropZone";
 import Script from "next/script";
 import DeferredGTM from "../components/DeferredGTM";
+import DeferredAdSense from "../components/DeferredAdSense";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "optional", preload: true });
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "optional", preload: true });
@@ -65,12 +66,6 @@ export default function RootLayout({
     <html lang="en" className={`scroll-smooth ${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
       <head>
         <meta name="google-adsense-account" content="ca-pub-7117465882400046" />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7117465882400046"
-          crossOrigin="anonymous"
-        />
-        
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <Suspense fallback={null}>
@@ -86,6 +81,7 @@ export default function RootLayout({
         <Script id="ahrefs-analytics" src="https://analytics.ahrefs.com/analytics.js" data-key="d8ok06KdnbbIqz7qNwaXMw" strategy="lazyOnload" />
 
         <DeferredGTM />
+        <DeferredAdSense />
       </body>
     </html>
   );

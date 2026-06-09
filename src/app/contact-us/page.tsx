@@ -1,10 +1,9 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { Mail, MapPin, Clock, CheckCircle2 } from "lucide-react";
-
-
+import toast from "react-hot-toast";
 
 export default function ContactPage() {
     const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
@@ -14,10 +13,36 @@ export default function ContactPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
-        // Simulate submission (replace with real API call / EmailJS / Formspree)
-        await new Promise(r => setTimeout(r, 1200));
-        setSent(true);
-        setLoading(false);
+        
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
+                },
+                body: JSON.stringify({
+                    access_key: "2fcdb858-0568-4e1e-8554-2af8c4432adc",
+                    name: form.name,
+                    email: form.email,
+                    subject: form.subject,
+                    message: form.message
+                })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                setSent(true);
+                toast.success("Message sent successfully! ✅");
+            } else {
+                toast.error(result.message || "Failed to submit the form.");
+            }
+        } catch (error) {
+            console.error("Web3Forms submission error:", error);
+            toast.error("Something went wrong. Please try again later.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const inputStyle = {

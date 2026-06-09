@@ -4,12 +4,29 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, Image as ImageIcon, ChevronRight, Home, Wrench, BookOpen, Zap, Heart } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
     const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
+
+    const handleLoginClick = () => {
+        toast("Login system is under development. Coming soon! \nलॉगिन सिस्टम अभी डेवलपमेंट में है, जल्द ही आ जाएगा! 🚀", {
+            duration: 4000,
+            icon: '🔒',
+            style: {
+                borderRadius: '12px',
+                background: '#334155',
+                color: '#fff',
+                fontSize: '14px',
+                fontWeight: '600',
+                lineHeight: '1.5',
+                padding: '12px 18px',
+            }
+        });
+    };
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -122,14 +139,14 @@ const Navbar = () => {
                         {/* Desktop CTA */}
                         <div className="hidden md:flex items-center gap-2">
                             <button
-                                disabled
-                                className="px-4 py-2 text-sm font-bold text-gray-500 bg-gray-100 rounded-xl cursor-not-allowed opacity-60"
+                                onClick={handleLoginClick}
+                                className="px-4 py-2 text-sm font-bold text-slate-600 bg-slate-50 hover:bg-slate-100 rounded-xl transition-all duration-200 border border-slate-200 shadow-sm cursor-pointer"
                             >
                                 Login
                             </button>
                             <button
-                                disabled
-                                className="px-4 py-2 text-sm font-bold text-white bg-indigo-600 rounded-xl cursor-not-allowed opacity-60 shadow-sm"
+                                onClick={handleLoginClick}
+                                className="px-4 py-2 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl transition-all duration-200 shadow-sm shadow-indigo-100 cursor-pointer"
                             >
                                 Sign Up
                             </button>
@@ -243,14 +260,14 @@ const Navbar = () => {
                 <div style={{ padding: '16px', borderTop: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <div style={{ display: 'flex', gap: '8px' }}>
                         <button
-                            disabled
-                            style={{ flex: 1, padding: '12px', background: '#f1f5f9', color: '#94a3b8', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: 'none', cursor: 'not-allowed', opacity: 0.7 }}
+                            onClick={() => { setIsOpen(false); handleLoginClick(); }}
+                            style={{ flex: 1, padding: '12px', background: '#f8fafc', color: '#475569', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: '1px solid #e2e8f0', cursor: 'pointer' }}
                         >
                             Login
                         </button>
                         <button
-                            disabled
-                            style={{ flex: 1, padding: '12px', background: '#4f46e5', color: '#ffffff', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: 'none', cursor: 'not-allowed', opacity: 0.7 }}
+                            onClick={() => { setIsOpen(false); handleLoginClick(); }}
+                            style={{ flex: 1, padding: '12px', background: '#4f46e5', color: '#ffffff', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: 'none', cursor: 'pointer' }}
                         >
                             Sign Up
                         </button>

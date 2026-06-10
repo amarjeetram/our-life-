@@ -126,6 +126,51 @@ const nextConfig: NextConfig = {
         destination: '/blog/instagram-bio-in-hindi',
         permanent: true,
       },
+      {
+        source: '/instagram-bio-shayari',
+        destination: '/blog/instagram-bio-shayari',
+        permanent: true,
+      },
+      {
+        source: '/gym-bio-for-instagram',
+        destination: '/blog/gym-bio-for-instagram',
+        permanent: true,
+      },
+      {
+        source: '/free-fire-bio-for-instagram',
+        destination: '/blog/free-fire-bio-for-instagram',
+        permanent: true,
+      },
+      {
+        source: '/instagram-bio-me-kya-likhe',
+        destination: '/blog/instagram-bio-me-kya-likhe',
+        permanent: true,
+      },
+      {
+        source: '/alone-bio-for-instagram',
+        destination: '/blog/alone-bio-for-instagram',
+        permanent: true,
+      },
+      {
+        source: '/gangster-bio-for-instagram',
+        destination: '/blog/gangster-bio-for-instagram',
+        permanent: true,
+      },
+      {
+        source: '/badmashi-bio-for-instagram',
+        destination: '/blog/badmashi-bio-for-instagram',
+        permanent: true,
+      },
+      {
+        source: '/mahakal-bio-for-instagram',
+        destination: '/blog/mahakal-bio-for-instagram',
+        permanent: true,
+      },
+      {
+        source: '/jai-shree-ram-bio-for-instagram',
+        destination: '/blog/jai-shree-ram-bio-for-instagram',
+        permanent: true,
+      },
     ];
   },
   experimental: {

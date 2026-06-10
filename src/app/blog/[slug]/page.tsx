@@ -389,7 +389,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         CTACoupleName: () => <MDXInlineCTA config={TAG_CTA['cta-couple-name']} />,
         CTAInstagramBio: () => <MDXInlineCTA config={TAG_CTA['cta-instagram-bio']} />,
         InteractiveCoupleName: () => (
-            <span className="block my-12 not-prose border border-pink-100 rounded-3xl bg-white shadow-xl overflow-hidden relative z-50">
+            <span className="block my-12 not-prose border border-pink-100 rounded-3xl bg-white shadow-xl overflow-hidden relative z-10">
                 <span className="block bg-pink-50/50 p-4 text-center border-b border-pink-100">
                     <span className="text-sm font-bold text-pink-600 uppercase tracking-widest">Interactive Tool</span>
                 </span>
@@ -399,7 +399,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             </span>
         ),
         InteractiveInstagramBio: () => (
-            <span className="block my-12 not-prose border border-slate-800 rounded-3xl bg-slate-950 shadow-xl overflow-hidden relative z-50">
+            <span className="block my-12 not-prose border border-slate-800 rounded-3xl bg-slate-950 shadow-xl overflow-hidden relative z-10">
                 <span className="block bg-slate-900 p-4 text-center border-b border-slate-800">
                     <span className="text-sm font-bold text-indigo-500 uppercase tracking-widest">Interactive Tool</span>
                 </span>
@@ -574,7 +574,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
                         {/* Interactive Tool Injection (Before Content/Description) */}
                         {post.slug === 'stylish-couple-name-maker-with-meaning-find-unique-names-with-romantic-significance' && (
-                            <div className="my-10 w-full bg-white border border-pink-100 rounded-[2rem] shadow-xl overflow-hidden relative z-50 ring-4 ring-pink-50/50">
+                            <div className="my-10 w-full bg-white border border-pink-100 rounded-[2rem] shadow-xl overflow-hidden relative z-10 ring-4 ring-pink-50/50">
                                 <div className="bg-pink-50/80 p-5 text-center border-b border-pink-100 flex items-center justify-center gap-2">
                                     <div className="w-2 h-2 rounded-full bg-pink-500 animate-pulse"></div>
                                     <span className="text-sm font-black text-pink-600 uppercase tracking-widest">Stylish Couple Name Maker</span>

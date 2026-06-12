@@ -9,7 +9,7 @@ import HeroUploadZone from "./HeroUploadZone";
 
 
 const stats = [
-    { value: "50K+", label: "Images Compressed", icon: <ImageIcon className="w-5 h-5" /> },
+    { value: "50K+", label: "Tools Used Daily", icon: <Zap className="w-5 h-5" /> },
     { value: "< 3s", label: "Average Processing", icon: <Clock className="w-5 h-5" /> },
     { value: "100%", label: "Privacy Guaranteed", icon: <ShieldCheck className="w-5 h-5" /> },
     { value: "4.9★", label: "User Rating", icon: <Star className="w-5 h-5" /> },
@@ -70,7 +70,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                                 <span style={{ position: "absolute", inset: 0, borderRadius: "50%", background: "#6366f1", opacity: 0.75, animation: "ping 1.5s cubic-bezier(0,0,0.2,1) infinite" }} />
                                 <span style={{ position: "relative", borderRadius: "50%", background: "#6366f1", width: "8px", height: "8px", display: "block" }} />
                             </span>
-                            #1 Free Image Compression Tool in India
+                            #1 Free Utility & Web Tools Platform
                         </span>
                     </div>
 
@@ -78,10 +78,10 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                     <h1
                         style={{ fontSize: "clamp(38px, 7vw, 72px)", fontWeight: 900, color: "#0f172a", lineHeight: 1.08, letterSpacing: "-0.04em", marginBottom: "20px" }}
                     >
-                        Compress Images to
+                        All-in-One Online
                         <br />
                         <span style={{ background: "linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                            Any Size, Instantly
+                            Utility & Web Tools
                         </span>
                     </h1>
 
@@ -89,7 +89,7 @@ export default function HomeClient({ children }: { children: React.ReactNode }) 
                     <p
                         style={{ fontSize: "clamp(15px, 2.5vw, 19px)", color: "#64748b", maxWidth: "600px", margin: "0 auto 36px", lineHeight: 1.7 }}
                     >
-                        Compress image to 20KB, 50KB, 100KB or any target size online. Free image size reducer perfect for UPSC, SSC, banking forms, and web optimization. <strong style={{ color: "#0f172a" }}>No signup required.</strong>
+                        Access free, fast, and SEO-optimized web tools. Generate stylish Instagram bios, compress images, calculate GPA, extract YouTube tags, and use other digital utilities. <strong style={{ color: "#0f172a" }}>No signup required.</strong>
                     </p>
 
                     {/* ── Hero Upload Zone ── */}

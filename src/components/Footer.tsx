@@ -100,7 +100,7 @@ const Footer = () => (
                             { name: 'Derivative Calc', href: '/calculators/derivative-calculator' },
                             { name: 'MB to KB Converter', href: '/mb-to-kb-image-converter' },
                             { name: 'YouTube Tags', href: '/youtube-tag-extractor' },
-                            { name: 'Couple Names', href: '/stylish-couple-name-maker' },
+                            { name: 'Instagram Bio', href: '/instagram-tools' },
                         ].map(link => (
                             <li key={link.name}>
                                 <Link href={link.href} className="text-sm text-slate-400 hover:text-white transition-colors flex items-center group">

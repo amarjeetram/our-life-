@@ -15,11 +15,11 @@ const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakart
 export const metadata: Metadata = {
   metadataBase: new URL("https://smarttoolswala.com"),
   title: {
-    default: "SmartToolsWala - All-in-One Online Image Optimization Hub",
+    default: "SmartToolsWala - All-in-One Web Tools & Utilities Platform",
     template: "%s | SmartToolsWala"
   },
-  description: "Free, fast, and SEO-optimized image tools. Compress images to 20kb, optimize for web, and convert formats with industrial Sharp engine precision.",
-  keywords: ["image optimizer", "compress to 20kb", "png to jpg", "webp converter", "seo image tools", "online image compressor"],
+  description: "Free, fast, and SEO-optimized online web tools. Generate Instagram bios, compress images, calculate GPA, extract YouTube tags, and use other digital utilities.",
+  keywords: ["online utility tools", "instagram bio generator", "image compressor", "gpa calculator", "youtube seo tools", "free web tools"],
   authors: [{ name: "SmartToolsWala Team" }],
   icons: {
     icon: "/logo.svg",
@@ -31,14 +31,14 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://smarttoolswala.com",
     siteName: "SmartToolsWala",
-    title: "SmartToolsWala - Professional Image Optimization",
-    description: "The fastest Sharp-powered image tool suite on the web.",
+    title: "SmartToolsWala - All-in-One Web Tools & Utilities Platform",
+    description: "Free, fast, and SEO-optimized online web tools and utilities.",
     images: [{ url: "/og-image.png" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "SmartToolsWala - Professional Image Optimization",
-    description: "The fastest Sharp-powered image tool suite on the web.",
+    title: "SmartToolsWala - All-in-One Web Tools & Utilities Platform",
+    description: "Free, fast, and SEO-optimized online web tools and utilities.",
     images: ["/og-image.png"],
   },
   robots: {

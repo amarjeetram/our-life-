@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function ArticleSignatureResize() {
     return (
         <article className="prose prose-slate max-w-none w-full" style={{ padding: '0 clamp(10px, 3vw, 20px)', margin: '40px auto', maxWidth: '900px', fontFamily: 'system-ui, sans-serif', color: '#1e293b', lineHeight: '1.9' }}>
-            
+
             {/* Header / Intro Card */}
             <div style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)', padding: 'clamp(24px, 6vw, 48px)', borderRadius: '32px', marginBottom: '40px', border: '1px solid #e2e8f0', boxShadow: '0 4px 20px -2px rgba(0,0,0,0.02)' }}>
                 <h2 style={{ fontSize: 'clamp(28px, 5vw, 36px)', color: '#0f172a', fontWeight: 900, marginBottom: '20px', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
@@ -23,7 +23,7 @@ export default function ArticleSignatureResize() {
                 When you apply for a job or a national document, you are introducing yourself to an automated database system. To host millions of candidates' details efficiently, servers must limit the footprint of uploaded attachments. A typical high-resolution camera on a modern smartphone captures images that range from 3 MB to 12 MB, with raw resolutions like 4000x3000 pixels. If an exam portal allowed raw images to be uploaded, the database would quickly run out of storage, network bandwidth costs would soar, and the page load speeds for examiners retrieving hall tickets would slow to a crawl.
             </p>
             <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
-                To mitigate this, portals implement automated validation checks. As soon as you select a file and click upload, client-side and server-side validation scripts check the file size and dimensions. If your file falls outside the limits, the upload fails immediately, showing errors like <em>"File size out of range (10KB - 20KB)"</em> or <em>"Invalid dimensions"</em>. 
+                To mitigate this, portals implement automated validation checks. As soon as you select a file and click upload, client-side and server-side validation scripts check the file size and dimensions. If your file falls outside the limits, the upload fails immediately, showing errors like <em>"File size out of range (10KB - 20KB)"</em> or <em>"Invalid dimensions"</em>.
             </p>
             <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
                 A distorted, stretched, or blurred signature on an admit card can also lead to rejection by invigilators at the exam center, who must match the candidate's live signature with the printed copy. Using a high-precision <strong>photo and signature resizer online</strong> guarantees that your image retains correct dimensions, crisp linework, and falls exactly within specifications.
@@ -75,7 +75,7 @@ export default function ArticleSignatureResize() {
             <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
                 DPI stands for Dots Per Inch, representing the density of pixels in a physical inch (1 inch = 2.54 cm). Let's see how this formula calculates standard sizes at different DPI configurations:
             </p>
-            
+
             <h3 style={{ fontSize: '18px', color: '#0f172a', fontWeight: 700, marginTop: '24px', marginBottom: '12px' }}>
                 Case Study: Resizing a Signature to 4.0 cm x 2.0 cm
             </h3>
@@ -173,7 +173,7 @@ export default function ArticleSignatureResize() {
                 Union Public Service Commission (UPSC) Sizing
             </h3>
             <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
-                UPSC (Civil Services, NDA, CDS) portal requirements use a square aspect ratio. The signature image dimensions must range between **350 x 350 pixels (minimum)** and **1000 x 1000 pixels (maximum)**, with a file size between **20 KB and 300 KB**. 
+                UPSC (Civil Services, NDA, CDS) portal requirements use a square aspect ratio. The signature image dimensions must range between **350 x 350 pixels (minimum)** and **1000 x 1000 pixels (maximum)**, with a file size between **20 KB and 300 KB**.
             </p>
 
             <h3 style={{ fontSize: '18px', color: '#0f172a', fontWeight: 700, marginTop: '28px', marginBottom: '12px' }}>
@@ -210,7 +210,7 @@ export default function ArticleSignatureResize() {
             <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
                 Our tool is designed to make signature resizing fast and accurate. Here is how to use it:
             </p>
-            
+
             <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '24px', padding: 'clamp(16px, 4vw, 28px)', marginBottom: '32px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.01)' }}>
                 <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
                     <li style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexDirection: 'row' }}>
@@ -268,7 +268,7 @@ export default function ArticleSignatureResize() {
             <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
                 Even the best online resizer cannot fix a low-quality initial photograph. Follow these scanning best practices to capture a high-quality signature:
             </p>
-            
+
             <h3 style={{ fontSize: '18px', color: '#0f172a', fontWeight: 700, marginTop: '24px', marginBottom: '12px' }}>
                 Paper & Pen Specifications
             </h3>
@@ -675,7 +675,7 @@ export default function ArticleSignatureResize() {
                     })
                 }}
             />
-            
+
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{

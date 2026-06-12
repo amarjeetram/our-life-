@@ -5,12 +5,13 @@ import { getAllPosts } from '@/lib/mdx';
 import { getLatestWPPosts } from '@/lib/wordpress';
 
 export default async function BlogSection() {
-    let posts = await getLatestWPPosts(3);
+    const localPosts = getAllPosts();
+    const wpPosts = await getLatestWPPosts(10); // Fetch top 10 recent WordPress posts
 
-    // Fallback to local posts if WP fetching fails
-    if (!posts || posts.length === 0) {
-        posts = getAllPosts().slice(0, 3);
-    }
+    // Merge and sort all posts by date descending, taking the top 3 latest posts
+    const posts = [...wpPosts, ...localPosts]
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, 3);
 
     if (!posts || posts.length === 0) return null;
 

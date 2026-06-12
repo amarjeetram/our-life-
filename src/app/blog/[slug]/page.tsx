@@ -1,3 +1,4 @@
+import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -8,6 +9,8 @@ import { getPostBySlug, getAllPosts } from '@/lib/mdx';
 import FloatingCTA from '@/components/FloatingCTA';
 import CoupleNameClientWrapper from '@/components/CoupleNameClientWrapper';
 import InstagramBioClientWrapper from '@/components/InstagramBioClientWrapper';
+import AIPromptCard from '@/components/AIPromptCard';
+import BioCard from '@/components/BioCard';
 
 // EXPLICIT FORCE STATIC - Critical for fast indexing and crawling
 export const dynamic = 'force-static';
@@ -407,7 +410,36 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     <InstagramBioClientWrapper />
                 </span>
             </span>
-        )
+        ),
+        AIPromptCard,
+        pre: ({ children, ...props }: any) => {
+            const childArray = React.Children.toArray(children);
+            const codeElement = childArray[0] as React.ReactElement;
+            let codeText = '';
+            const codeProps = codeElement && (codeElement.props as any);
+            if (codeProps && codeProps.children) {
+                codeText = String(codeProps.children);
+            } else if (typeof children === 'string') {
+                codeText = children;
+            } else {
+                return <pre {...props}>{children}</pre>;
+            }
+
+            // Exclude programming code
+            const isCodeContent = codeText.includes('function ') || 
+                                  codeText.includes('import ') || 
+                                  codeText.includes('const ') || 
+                                  codeText.includes('class ') || 
+                                  codeText.includes('<html>') ||
+                                  codeText.includes('css') ||
+                                  codeText.includes('//');
+
+            if (isCodeContent) {
+                return <pre {...props}>{children}</pre>;
+            }
+
+            return <BioCard text={codeText} />;
+        }
     };
 
     if (post.slug === 'stylish-couple-name-maker-with-meaning-find-unique-names-with-romantic-significance') {
@@ -625,25 +657,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     prose-img:rounded-3xl prose-img:border prose-img:border-slate-200 prose-img:shadow-lg
                 ">
                                 <MDXRemote source={post.content} components={mdxComponents} />
-                        
-                        {/* Contextual Internal Linking (SEO: "Also Read") */}
-                        {relatedPosts.length > 0 && (
-                            <div className="mt-12 p-6 md:p-8 bg-gradient-to-br from-slate-50 to-indigo-50/30 rounded-[2rem] border border-indigo-100/60 shadow-sm not-prose">
-                                <h3 className="text-[17px] font-black text-slate-900 mb-4 flex items-center gap-2 uppercase tracking-wide">
-                                    <span className="text-indigo-600">📚</span> Recommended Reading
-                               </h3>
-                                <ul className="space-y-3 m-0 p-0 list-none">
-                                    {relatedPosts.map(rp => (
-                                        <li key={rp.slug} className="flex items-start gap-3">
-                                            <span className="text-indigo-400 font-bold mt-0.5 select-none">→</span>
-                                            <Link href={`/blog/${rp.slug}`} className="text-indigo-700 font-semibold text-[17px] leading-tight hover:text-indigo-900 hover:underline transition-colors decoration-indigo-300 underline-offset-4">
-                                                {rp.title}
-                                            </Link>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
+
                     </div>
 
                     {/* Footer */}
@@ -672,17 +686,33 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 {relatedPosts.map(rp => (
-                                    <Link key={rp.slug} href={`/blog/${rp.slug}`} className="group block bg-slate-50 rounded-2xl p-5 border border-slate-100 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
-                                        <div className="flex items-center gap-2 text-xs font-semibold text-indigo-600 mb-3">
-                                            <Calendar className="w-3.5 h-3.5" />
-                                            {new Date(rp.date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                                    <Link key={rp.slug} href={`/blog/${rp.slug}`} className="group block bg-white rounded-3xl border border-slate-200/80 hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                                        {rp.image ? (
+                                            <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-100 border-b border-slate-100">
+                                                <img 
+                                                    src={rp.image} 
+                                                    alt={rp.title}
+                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                        ) : (
+                                            <div className="relative aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center border-b border-slate-100">
+                                                <Sparkles className="w-8 h-8 text-indigo-400" />
+                                            </div>
+                                        )}
+                                        <div className="p-6">
+                                            <div className="flex items-center gap-2 text-xs font-bold text-indigo-600 mb-3 uppercase tracking-wider">
+                                                <Calendar className="w-3.5 h-3.5" />
+                                                {new Date(rp.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                            </div>
+                                            <h3 className="font-extrabold text-slate-900 text-lg mb-2 line-clamp-2 group-hover:text-indigo-600 transition-colors leading-snug">
+                                                {rp.title}
+                                            </h3>
+                                            <p className="text-sm text-slate-500 font-medium line-clamp-2 leading-relaxed">
+                                                {rp.description}
+                                            </p>
                                         </div>
-                                        <h3 className="font-bold text-slate-900 text-lg mb-2 line-clamp-2 group-hover:text-indigo-600 transition-colors">
-                                            {rp.title}
-                                        </h3>
-                                        <p className="text-sm text-slate-600 line-clamp-2">
-                                            {rp.description}
-                                        </p>
                                     </Link>
                                 ))}
                             </div>

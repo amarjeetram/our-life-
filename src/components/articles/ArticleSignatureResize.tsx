@@ -3,14 +3,14 @@ import Link from 'next/link';
 
 export default function ArticleSignatureResize() {
     return (
-        <article className="prose prose-slate max-w-none w-full" style={{ padding: '0 clamp(10px, 3vw, 20px)', margin: '40px auto', maxWidth: '900px', fontFamily: 'system-ui, sans-serif', color: '#1e293b', lineHeight: '1.9' }}>
+        <article className="prose prose-slate max-w-none w-full" style={{ padding: '0 clamp(10px, 3vw, 20px)', margin: '40px auto', maxWidth: '900px', fontFamily: 'system-ui, sans-serif', color: 'var(--text-primary)', lineHeight: '1.9' }}>
 
             {/* Header / Intro Card */}
-            <div style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)', padding: 'clamp(24px, 6vw, 48px)', borderRadius: '32px', marginBottom: '40px', border: '1px solid #e2e8f0', boxShadow: '0 4px 20px -2px rgba(0,0,0,0.02)' }}>
-                <h2 style={{ fontSize: 'clamp(28px, 5vw, 36px)', color: '#0f172a', fontWeight: 900, marginBottom: '20px', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
+            <div style={{ background: 'linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%)', padding: 'clamp(24px, 6vw, 48px)', borderRadius: '32px', marginBottom: '40px', border: '1px solid var(--border-light)', boxShadow: 'var(--shadow-sm)' }}>
+                <h2 style={{ fontSize: 'clamp(28px, 5vw, 36px)', color: 'var(--text-primary)', fontWeight: 900, marginBottom: '20px', lineHeight: 1.2, letterSpacing: '-0.02em' }}>
                     The Ultimate Masterclass on Signature Resize: Resizing, Compression, and Optimization for All Competitive Exams & Application Portals
                 </h2>
-                <p style={{ fontSize: 'clamp(16px, 3vw, 18px)', color: '#334155', fontWeight: 500, margin: 0 }}>
+                <p style={{ fontSize: 'clamp(16px, 3vw, 18px)', color: 'var(--text-secondary)', fontWeight: 500, margin: 0 }}>
                     In the modern digital era, the administrative system of India has transitioned completely to online portals for recruitment and identity database registrations. Major boards like the Staff Selection Commission (SSC), Railway Recruitment Board (RRB), Union Public Service Commission (UPSC), banking selection panels (IBPS, SBI), testing agencies (NTA for JEE/NEET), national registry services (NSDL and UTIITSL for PAN Cards), and regional services (like India Post GDS or state PSCs) process millions of applications daily. With this automation comes a highly standardized validation process. A single pixel mismatch, an incorrect aspect ratio, or a slightly bloated file size can trigger automated rejection by the portal validation scripts. This exhaustively detailed 6,000-word handbook covers the core mechanics of digital imaging, centimeter-to-pixel conversion formulas, scanning guidelines, and step-by-step procedures to compress, resize, and optimize your signature image to stay perfectly within the target <strong>signature resize 10 to 20 kb</strong> limit.
                 </p>
             </div>
@@ -69,7 +69,7 @@ export default function ArticleSignatureResize() {
             <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
                 Most official notification documents define image sizes in centimeters (e.g., <strong>signature resize width and height in cm</strong> as 4.0 cm x 2.0 cm). But computer screens and upload forms require pixel values. To convert physical centimeters to digital pixels, you must use the DPI (Dots Per Inch) conversion formula:
             </p>
-            <div style={{ background: '#f1f5f9', padding: '20px', borderRadius: '16px', fontFamily: 'monospace', fontSize: '16px', color: '#0f172a', marginBottom: '24px', textAlign: 'center', fontWeight: 'bold' }}>
+            <div style={{ background: 'var(--bg-tertiary)', padding: '20px', borderRadius: '16px', fontFamily: 'monospace', fontSize: '16px', color: 'var(--text-primary)', marginBottom: '24px', textAlign: 'center', fontWeight: 'bold' }}>
                 Pixels = (Centimeters / 2.54) * DPI
             </div>
             <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
@@ -101,36 +101,36 @@ export default function ArticleSignatureResize() {
                 Using our online tool, you do not need to calculate these formulas manually. Switching the toggle above to **Centimeter** mode handles all conversions automatically in the background using standard print-quality scaling.
             </p>
 
-            <div style={{ overflowX: 'auto', marginBottom: '36px', borderRadius: '16px', border: '1px solid #e2e8f0' }}>
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '15px', color: '#334155' }}>
+            <div style={{ overflowX: 'auto', marginBottom: '36px', borderRadius: '16px', border: '1px solid var(--border-light)' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '15px', color: 'var(--text-secondary)' }}>
                     <thead>
-                        <tr style={{ background: '#f8fafc', borderBottom: '2px solid #e2e8f0' }}>
-                            <th style={{ padding: '14px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Input size in Centimeters</th>
+                        <tr style={{ background: 'var(--bg-secondary)', borderBottom: '2px solid var(--border-light)' }}>
+                            <th style={{ padding: '14px', textAlign: 'left', fontWeight: 'bold', color: 'var(--text-primary)' }}>Input size in Centimeters</th>
                             <th style={{ padding: '14px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Equivalent Pixels (96 DPI)</th>
                             <th style={{ padding: '14px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Equivalent Pixels (200 DPI)</th>
                             <th style={{ padding: '14px', textAlign: 'left', fontWeight: 'bold', color: '#0f172a' }}>Equivalent Pixels (300 DPI)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                        <tr style={{ borderBottom: '1px solid var(--border-light)' }}>
                             <td style={{ padding: '14px' }}><strong>4.0 cm x 2.0 cm</strong> (SSC Standard)</td>
                             <td style={{ padding: '14px' }}>151 x 75 px</td>
                             <td style={{ padding: '14px' }}>315 x 157 px</td>
                             <td style={{ padding: '14px' }}>472 x 236 px</td>
                         </tr>
-                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                        <tr style={{ borderBottom: '1px solid var(--border-light)' }}>
                             <td style={{ padding: '14px' }}><strong>3.5 cm x 1.5 cm</strong> (NSDL Standard)</td>
                             <td style={{ padding: '14px' }}>132 x 57 px</td>
                             <td style={{ padding: '14px' }}>275 x 118 px</td>
                             <td style={{ padding: '14px' }}>413 x 177 px</td>
                         </tr>
-                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                        <tr style={{ borderBottom: '1px solid var(--border-light)' }}>
                             <td style={{ padding: '14px' }}><strong>5.0 cm x 2.0 cm</strong> (RRB Standard)</td>
                             <td style={{ padding: '14px' }}>189 x 75 px</td>
                             <td style={{ padding: '14px' }}>393 x 157 px</td>
                             <td style={{ padding: '14px' }}>590 x 236 px</td>
                         </tr>
-                        <tr style={{ borderBottom: '1px solid #e2e8f0' }}>
+                        <tr style={{ borderBottom: '1px solid var(--border-light)' }}>
                             <td style={{ padding: '14px' }}><strong>4.5 cm x 3.5 cm</strong> (Passport Photo)</td>
                             <td style={{ padding: '14px' }}>170 x 132 px</td>
                             <td style={{ padding: '14px' }}>354 x 275 px</td>
@@ -211,49 +211,49 @@ export default function ArticleSignatureResize() {
                 Our tool is designed to make signature resizing fast and accurate. Here is how to use it:
             </p>
 
-            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '24px', padding: 'clamp(16px, 4vw, 28px)', marginBottom: '32px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.01)' }}>
+            <div style={{ background: 'var(--bg-secondary)', border: '1px solid var(--border-light)', borderRadius: '24px', padding: 'clamp(16px, 4vw, 28px)', marginBottom: '32px', boxShadow: 'var(--shadow-sm)' }}>
                 <ul style={{ listStyleType: 'none', padding: 0, margin: 0 }}>
                     <li style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexDirection: 'row' }}>
-                        <div style={{ background: '#ede9fe', color: '#6366f1', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>1</div>
+                        <div style={{ background: 'var(--brand-light)', color: 'var(--brand-primary)', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>1</div>
                         <div>
-                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: '#1e293b' }}>Upload Your Signature File</h4>
-                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: '#475569' }}>
+                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: 'var(--text-primary)' }}>Upload Your Signature File</h4>
+                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: 'var(--text-secondary)' }}>
                                 Drag and drop your image file into the dashed box above, or click **Select Images** to browse your files. You can upload up to 10 images at once.
                             </p>
                         </div>
                     </li>
                     <li style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexDirection: 'row' }}>
-                        <div style={{ background: '#ede9fe', color: '#6366f1', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>2</div>
+                        <div style={{ background: 'var(--brand-light)', color: 'var(--brand-primary)', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>2</div>
                         <div>
-                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: '#1e293b' }}>Choose Dimension Mode</h4>
-                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: '#475569' }}>
+                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: 'var(--text-primary)' }}>Choose Dimension Mode</h4>
+                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: 'var(--text-secondary)' }}>
                                 Switch between **Pixel** and **Centimeter** mode using the toggle button. Enter the required width and height (e.g., 4.0 cm × 2.0 cm or 140px × 60px).
                             </p>
                         </div>
                     </li>
                     <li style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexDirection: 'row' }}>
-                        <div style={{ background: '#ede9fe', color: '#6366f1', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>3</div>
+                        <div style={{ background: 'var(--brand-light)', color: 'var(--brand-primary)', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>3</div>
                         <div>
-                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: '#1e293b' }}>Define Maximum File Size (KB)</h4>
-                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: '#475569' }}>
+                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: 'var(--text-primary)' }}>Define Maximum File Size (KB)</h4>
+                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: 'var(--text-secondary)' }}>
                                 Enter the target file limit in the size input box. If your exam portal enforces a 20 KB limit, enter '20' to ensure the output remains strictly within range.
                             </p>
                         </div>
                     </li>
                     <li style={{ display: 'flex', gap: '16px', marginBottom: '24px', flexDirection: 'row' }}>
-                        <div style={{ background: '#ede9fe', color: '#6366f1', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>4</div>
+                        <div style={{ background: 'var(--brand-light)', color: 'var(--brand-primary)', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>4</div>
                         <div>
-                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: '#1e293b' }}>Crop margins (Optional)</h4>
-                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: '#475569' }}>
+                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: 'var(--text-primary)' }}>Crop margins (Optional)</h4>
+                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: 'var(--text-secondary)' }}>
                                 If your photo contains too much blank space around the signature, click **Crop** on the preview card to adjust boundaries and focus on the handwriting lines.
                             </p>
                         </div>
                     </li>
                     <li style={{ display: 'flex', gap: '16px', flexDirection: 'row' }}>
-                        <div style={{ background: '#ede9fe', color: '#6366f1', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>5</div>
+                        <div style={{ background: 'var(--brand-light)', color: 'var(--brand-primary)', width: '36px', height: '36px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>5</div>
                         <div>
-                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: '#1e293b' }}>Process and Save</h4>
-                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: '#475569' }}>
+                            <h4 style={{ margin: 0, fontSize: '17px', fontWeight: 700, color: 'var(--text-primary)' }}>Process and Save</h4>
+                            <p style={{ margin: '6px 0 0 0', fontSize: '15px', color: 'var(--text-secondary)' }}>
                                 Click **Resize Signature**. The progress bar will load, and your optimized JPEG image will be ready for download in under a second.
                             </p>
                         </div>
@@ -333,22 +333,22 @@ export default function ArticleSignatureResize() {
             </ul>
 
             {/* Section 10 */}
-            <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: '#0f172a', fontWeight: 800, marginTop: '44px', marginBottom: '16px', letterSpacing: '-0.01em' }}>
+            <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', color: 'var(--text-primary)', fontWeight: 800, marginTop: '44px', marginBottom: '16px', letterSpacing: '-0.01em' }}>
                 10. Explore More Digital Document Tools
             </h2>
-            <p style={{ fontSize: '16px', marginBottom: '20px', color: '#334155' }}>
+            <p style={{ fontSize: '16px', marginBottom: '20px', color: 'var(--text-secondary)' }}>
                 If you are applying for multiple exams, you can use our other free tools to optimize your documents:
             </p>
-            <ul style={{ fontSize: '16px', marginBottom: '32px', color: '#334155', listStyleType: 'disc', paddingLeft: '24px' }}>
-                <li style={{ marginBottom: '8px' }}>Use the <Link href="/compress-image-to-50kb" style={{ color: '#4f46e5', fontWeight: 700, textDecoration: 'underline' }}>Compress Image to 50KB</Link> tool for passport photos.</li>
-                <li style={{ marginBottom: '8px' }}>Use the <Link href="/image-compressor-to-20kb" style={{ color: '#4f46e5', fontWeight: 700, textDecoration: 'underline' }}>Image Compressor to 20KB</Link> to fit documents within tight upload constraints.</li>
-                <li style={{ marginBottom: '8px' }}>Use the <Link href="/mb-to-kb-image-converter" style={{ color: '#4f46e5', fontWeight: 700, textDecoration: 'underline' }}>MB to KB Converter</Link> to reduce large document scans.</li>
-                <li style={{ marginBottom: '8px' }}>Browse our full collection of editing options in our <Link href="/image-tools" style={{ color: '#4f46e5', fontWeight: 700, textDecoration: 'underline' }}>Image Tools Directory</Link>.</li>
+            <ul style={{ fontSize: '16px', marginBottom: '32px', color: 'var(--text-secondary)', listStyleType: 'disc', paddingLeft: '24px' }}>
+                <li style={{ marginBottom: '8px' }}>Use the <Link href="/compress-image-to-50kb" style={{ color: 'var(--brand-primary)', fontWeight: 700, textDecoration: 'underline' }}>Compress Image to 50KB</Link> tool for passport photos.</li>
+                <li style={{ marginBottom: '8px' }}>Use the <Link href="/image-compressor-to-20kb" style={{ color: 'var(--brand-primary)', fontWeight: 700, textDecoration: 'underline' }}>Image Compressor to 20KB</Link> to fit documents within tight upload constraints.</li>
+                <li style={{ marginBottom: '8px' }}>Use the <Link href="/mb-to-kb-image-converter" style={{ color: 'var(--brand-primary)', fontWeight: 700, textDecoration: 'underline' }}>MB to KB Converter</Link> to reduce large document scans.</li>
+                <li style={{ marginBottom: '8px' }}>Browse our full collection of editing options in our <Link href="/image-tools" style={{ color: 'var(--brand-primary)', fontWeight: 700, textDecoration: 'underline' }}>Image Tools Directory</Link>.</li>
             </ul>
 
             {/* Section 11: Master FAQ Section (25 detailed Q&As) */}
-            <div style={{ marginTop: '60px', background: '#f8fafc', padding: 'clamp(20px, 5vw, 40px)', borderRadius: '32px', border: '1px solid #cbd5e1', boxShadow: '0 10px 30px -10px rgba(0,0,0,0.03)' }}>
-                <h2 style={{ fontSize: 'clamp(24px, 5vw, 32px)', color: '#0f172a', fontWeight: 900, marginBottom: '32px', textAlign: 'center', letterSpacing: '-0.02em' }}>
+            <div style={{ marginTop: '60px', background: 'var(--bg-secondary)', padding: 'clamp(20px, 5vw, 40px)', borderRadius: '32px', border: '1px solid var(--border-medium)', boxShadow: 'var(--shadow-sm)' }}>
+                <h2 style={{ fontSize: 'clamp(24px, 5vw, 32px)', color: 'var(--text-primary)', fontWeight: 900, marginBottom: '32px', textAlign: 'center', letterSpacing: '-0.02em' }}>
                     Frequently Asked Questions (FAQs) - Ultimate Sizing Guide
                 </h2>
 
@@ -455,9 +455,9 @@ export default function ArticleSignatureResize() {
                             a: "Locate the file on your device, right-click and select 'Properties' (on Windows) or 'Get Info' (on Mac) to verify the dimensions and file size."
                         }
                     ].map((item, index) => (
-                        <div key={index} style={{ marginBottom: '24px', background: '#ffffff', padding: '24px', borderRadius: '16px', border: '1px solid #e2e8f0', boxShadow: '0 2px 4px rgba(0,0,0,0.01)' }}>
-                            <h3 style={{ fontSize: '17px', fontWeight: 800, color: '#1e293b', marginTop: 0, marginBottom: '12px' }}>{item.q}</h3>
-                            <p style={{ fontSize: '15px', color: '#475569', margin: 0, lineHeight: 1.6 }}>{item.a}</p>
+                        <div key={index} style={{ marginBottom: '24px', background: 'var(--bg-primary)', padding: '24px', borderRadius: '16px', border: '1px solid var(--border-light)', boxShadow: 'var(--shadow-sm)' }}>
+                            <h3 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)', marginTop: 0, marginBottom: '12px' }}>{item.q}</h3>
+                            <p style={{ fontSize: '15px', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.6 }}>{item.a}</p>
                         </div>
                     ))}
                 </div>

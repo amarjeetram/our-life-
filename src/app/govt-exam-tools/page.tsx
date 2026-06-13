@@ -12,15 +12,34 @@ export const metadata: Metadata = {
 
 export default function GovtExamToolsPage() {
     return (
-        <main className="min-h-screen bg-slate-50 flex flex-col container mx-auto px-4 py-12 md:py-24 mt-16">
+        <main className="min-h-screen govt-exam-main flex flex-col container mx-auto px-4 py-12 md:py-24 mt-16">
+            <style>{`
+                .govt-exam-main {
+                    background: #f8fafc;
+                }
+                .dark .govt-exam-main {
+                    background: var(--bg-primary) !important;
+                }
+                .govt-tool-card {
+                    background: #ffffff !important;
+                    border: 1.5px solid var(--border-light) !important;
+                    box-shadow: 0 4px 24px rgba(16,185,129,0.06), 0 1px 3px rgba(0,0,0,0.02) !important;
+                    transition: all 0.2s ease;
+                }
+                .dark .govt-tool-card {
+                    background: var(--bg-secondary) !important;
+                    border-color: var(--border-light) !important;
+                    box-shadow: 0 16px 48px rgba(16,185,129,0.12), 0 2px 8px rgba(0,0,0,0.2) !important;
+                }
+            `}</style>
             <div style={{ textAlign: "center", marginBottom: "40px" }}>
                 <span style={{ display: "block", fontSize: "12px", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#10b981", marginBottom: "12px" }}>
                     Photo &amp; Document Tools
                 </span>
-                <h1 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "#0f172a", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
+                <h1 style={{ fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, color: "var(--text-primary)", letterSpacing: "-0.03em", lineHeight: 1.15 }}>
                     Govt Exam Tools
                 </h1>
-                <p style={{ marginTop: "16px", color: "#64748b", fontSize: "16px", maxWidth: "600px", margin: "16px auto 0" }}>
+                <p style={{ marginTop: "16px", color: "var(--text-secondary)", fontSize: "16px", maxWidth: "600px", margin: "16px auto 0" }}>
                     Bypass strict portal upload errors. Compress and resize your passport photos and signatures precisely for UPSC, SSC, Banking, and State Govt applications.
                 </p>
             </div>
@@ -83,10 +102,7 @@ export default function GovtExamToolsPage() {
                         className={`native-fade-in delay-${(index % 5 + 1) * 100}`}
                     >
                         <Link href={tool.route}
-                            className="flex flex-col h-full bg-white rounded-3xl border border-slate-100 overflow-hidden no-underline transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_16px_48px_rgba(16,185,129,0.12),0_2px_8px_rgba(0,0,0,0.04)]"
-                            style={{
-                                boxShadow: "0 4px 24px rgba(16,185,129,0.06), 0 1px 3px rgba(0,0,0,0.02)",
-                            }}
+                            className="flex flex-col h-full govt-tool-card rounded-3xl overflow-hidden no-underline transition-all duration-200 hover:-translate-y-1"
                         >
                             <div style={{ height: "4px", background: "linear-gradient(90deg, #10b981, #34d399)" }} />
 
@@ -101,12 +117,12 @@ export default function GovtExamToolsPage() {
                                     }}>
                                         <BadgeCheck size={24} />
                                     </div>
-                                    <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0f172a", letterSpacing: "-0.01em" }}>
+                                    <h3 style={{ fontSize: "20px", fontWeight: 800, color: "var(--text-primary)", letterSpacing: "-0.01em" }}>
                                         {tool.title}
                                     </h3>
                                 </div>
 
-                                <p style={{ fontSize: "15px", color: "#64748b", lineHeight: 1.6 }}>
+                                <p style={{ fontSize: "15px", color: "var(--text-secondary)", lineHeight: 1.6 }}>
                                     {tool.desc}
                                 </p>
 
@@ -121,7 +137,7 @@ export default function GovtExamToolsPage() {
                                 </div>
                             </div>
                             <div style={{
-                                background: "#fafbff", borderTop: "1px solid #f1f5f9",
+                                background: "var(--bg-secondary)", borderTop: "1px solid var(--border-light)",
                                 padding: "16px 32px", display: "flex", alignItems: "center", justifyContent: "space-between",
                                 color: "#059669", fontWeight: 800, fontSize: "14px"
                             }}>

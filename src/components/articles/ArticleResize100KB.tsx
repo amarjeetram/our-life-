@@ -32,13 +32,13 @@ export default function ArticleResize100KB() {
                     The <strong>100KB photo size</strong> limit is not an arbitrary restriction. It is a deliberate technical constraint set by web developers who manage government databases, university admission systems, and corporate HR portals. There are two primary reasons this specific size is chosen:
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div className="bg-indigo-50 rounded-xl p-5 border border-indigo-100">
-                        <h3 className="font-bold text-slate-800 mb-2">Database Storage Efficiency</h3>
-                        <p className="text-sm text-slate-600">When millions of applicants upload photos, each extra megabyte multiplies into terabytes of storage cost. A strict <strong>100 KB photo size</strong> limit keeps the database lean and fast to query.</p>
+                    <div className="bg-indigo-50 dark:bg-indigo-950/20 rounded-xl p-5 border border-indigo-100 dark:border-indigo-900/30">
+                        <h3 className="font-bold text-slate-800 dark:text-slate-200 mb-2">Database Storage Efficiency</h3>
+                        <p className="text-sm text-slate-600 dark:text-slate-400">When millions of applicants upload photos, each extra megabyte multiplies into terabytes of storage cost. A strict <strong>100 KB photo size</strong> limit keeps the database lean and fast to query.</p>
                     </div>
-                    <div className="bg-purple-50 rounded-xl p-5 border border-purple-100">
-                        <h3 className="font-bold text-slate-800 mb-2">Slow Network Compatibility</h3>
-                        <p className="text-sm text-slate-600">Many rural applicants upload on 2G or slow 3G connections. A <strong>100kb photo size</strong> loads and uploads reliably even on the weakest internet signals available in India.</p>
+                    <div className="bg-purple-50 dark:bg-purple-950/20 rounded-xl p-5 border border-purple-100 dark:border-purple-900/30">
+                        <h3 className="font-bold text-slate-800 dark:text-slate-200 mb-2">Slow Network Compatibility</h3>
+                        <p className="text-sm text-slate-600 dark:text-slate-400">Many rural applicants upload on 2G or slow 3G connections. A <strong>100kb photo size</strong> loads and uploads reliably even on the weakest internet signals available in India.</p>
                     </div>
                 </div>
                 <p className="mt-4">
@@ -62,13 +62,13 @@ export default function ArticleResize100KB() {
                         { step: "3", title: "Preview the Result", desc: "Our smart engine compresses the image in milliseconds. You can preview both the original and compressed versions side by side to inspect quality." },
                         { step: "4", title: "Resize Image to 100KB Download", desc: "Click the Download button to save the optimized file directly to your device. The file will be named with a clear indicator so you do not confuse it with the original." },
                     ].map((item) => (
-                        <div key={item.step} className="flex items-start gap-4 p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+                        <div key={item.step} className="flex items-start gap-4 p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm rounded-xl">
                             <div className="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-sm shrink-0 mt-0.5">
                                 {item.step}
                             </div>
                             <div>
-                                <p className="font-bold text-slate-800 mb-1">{item.title}</p>
-                                <p className="text-sm text-slate-600">{item.desc}</p>
+                                <p className="font-bold text-slate-800 dark:text-slate-200 mb-1">{item.title}</p>
+                                <p className="text-sm text-slate-600 dark:text-slate-400">{item.desc}</p>
                             </div>
                         </div>
                     ))}
@@ -87,11 +87,11 @@ export default function ArticleResize100KB() {
                 <p className="mb-4">
                     On mobile, simply open the tool in Chrome or Safari, tap the upload button (which opens your camera roll or files app directly), and download the result. The compressed file lands in your standard Downloads folder and is immediately ready to attach to any form or email.
                 </p>
-                <div className="bg-slate-50 rounded-xl p-5 border border-slate-200 flex items-start gap-4">
+                <div className="bg-slate-50 dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-800 flex items-start gap-4">
                     <Smartphone className="text-indigo-500 shrink-0 mt-1" size={24} />
                     <div>
-                        <p className="font-bold text-slate-800 mb-1">Pro Tip for Government Form Uploads</p>
-                        <p className="text-sm text-slate-600">After you resize and download the image, always verify the final file size before submitting. On Android, long-press the file &gt; Properties. On iPhone, use the Files app &gt; Get Info. This prevents last-minute rejection errors.</p>
+                        <p className="font-bold text-slate-800 dark:text-slate-200 mb-1">Pro Tip for Government Form Uploads</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-400">After you resize and download the image, always verify the final file size before submitting. On Android, long-press the file &gt; Properties. On iPhone, use the Files app &gt; Get Info. This prevents last-minute rejection errors.</p>
                     </div>
                 </div>
             </section>
@@ -130,9 +130,9 @@ export default function ArticleResize100KB() {
                         { title: "Format Flexibility", desc: "Upload PNG, WEBP, or HEIC and download a perfectly compressed JPG or JPEG — whichever the portal requires — automatically." },
                         { title: "Instant Preview", desc: "See quality before you download. Our side-by-side comparison lets you inspect faces, text, and fine details before clicking download." },
                     ].map((item, i) => (
-                        <div key={i} className="p-4 bg-white rounded-xl border border-slate-200 shadow-sm hover:border-indigo-300 transition-colors">
-                            <p className="font-bold text-slate-800 text-sm mb-1">{item.title}</p>
-                            <p className="text-xs text-slate-500">{item.desc}</p>
+                        <div key={i} className="p-4 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors">
+                            <p className="font-bold text-slate-800 dark:text-slate-200 text-sm mb-1">{item.title}</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-400">{item.desc}</p>
                         </div>
                     ))}
                 </div>
@@ -149,9 +149,9 @@ export default function ArticleResize100KB() {
                 <p className="mb-4">
                     So whether you need to <strong>resize image to 100KB jpg</strong> or <strong>resize image to 100KB jpeg</strong>, our tool handles both cases with one click. Upload your file in any format and download a clean JPEG/JPG ready for portal submission.
                 </p>
-                <div className="bg-amber-50 rounded-xl p-5 border border-amber-100">
-                    <p className="font-bold text-slate-800 mb-2">⚡ Quick Tip on JPEG Quality</p>
-                    <p className="text-sm text-slate-600">
+                <div className="bg-amber-50 dark:bg-amber-950/20 rounded-xl p-5 border border-amber-100 dark:border-amber-900/30">
+                    <p className="font-bold text-slate-800 dark:text-slate-200 mb-2">⚡ Quick Tip on JPEG Quality</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
                         For human portrait photos (passport, ID), our engine prioritizes face sharpness even at high compression ratios. For document scans, it prioritizes text legibility. This intelligent profile-switching is what keeps your compressed image looking professional.
                     </p>
                 </div>
@@ -180,8 +180,8 @@ export default function ArticleResize100KB() {
                         <p className="text-sm"><strong>Export/Print to PDF.</strong> Since your image is already at 100KB, the resulting PDF will be lightweight and well within most portal limits.</p>
                     </li>
                 </ol>
-                <p className="text-sm text-slate-600">
-                    Alternatively, if you have an oversized MB-sized image file, you can first run it through our <Link href="/mb-to-kb-image-converter" className="text-indigo-600 hover:underline font-semibold">MB to KB Image Converter</Link> to reduce it drastically before the final precision resize here.
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                    Alternatively, if you have an oversized MB-sized image file, you can first run it through our <Link href="/mb-to-kb-image-converter" className="text-indigo-600 dark:text-indigo-400 hover:underline font-semibold">MB to KB Image Converter</Link> to reduce it drastically before the final precision resize here.
                 </p>
             </section>
 
@@ -199,15 +199,15 @@ export default function ArticleResize100KB() {
             </section>
 
             {/* Privacy */}
-            <section className="bg-green-50 rounded-2xl p-6 border border-green-100">
+            <section className="bg-green-50 dark:bg-green-950/20 rounded-2xl p-6 border border-green-100 dark:border-green-900/30">
                 <div className="flex items-center gap-3 mb-4">
-                    <Shield className="text-green-600" size={24} />
-                    <h2 className="text-xl font-bold text-slate-800">Your Privacy is Completely Protected</h2>
+                    <Shield className="text-green-600 dark:text-green-400" size={24} />
+                    <h2 className="text-xl font-bold text-slate-800 dark:text-slate-200">Your Privacy is Completely Protected</h2>
                 </div>
-                <p className="text-sm text-slate-600 mb-3">
+                <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
                     Government ID photos, passport photos, and signature images are highly sensitive. Our tool is built with privacy as the top priority:
                 </p>
-                <ul className="space-y-2 text-sm text-slate-600">
+                <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
                     <li className="flex items-center gap-2"><CheckCircle className="text-green-500 shrink-0" size={16} /> All compression runs client-side inside your browser</li>
                     <li className="flex items-center gap-2"><CheckCircle className="text-green-500 shrink-0" size={16} /> No images are stored on our servers permanently</li>
                     <li className="flex items-center gap-2"><CheckCircle className="text-green-500 shrink-0" size={16} /> Files are wiped from memory immediately after download</li>
@@ -233,9 +233,9 @@ export default function ArticleResize100KB() {
                         { href: "/mb-to-kb-image-converter", label: "MB to KB Image Converter", desc: "For very large 2MB–10MB source photos." },
                         { href: "/govt-exam-tools/ssc-signature-resize", label: "SSC Signature Resize Tool", desc: "Officially calibrated for SSC CGL, CHSL portals." },
                     ].map((tool, i) => (
-                        <Link key={i} href={tool.href} className="flex flex-col p-4 rounded-xl border border-slate-200 bg-white hover:border-indigo-300 hover:bg-indigo-50 transition-all group shadow-sm">
-                            <span className="font-bold text-indigo-700 group-hover:underline mb-1">{tool.label} →</span>
-                            <span className="text-xs text-slate-500">{tool.desc}</span>
+                        <Link key={i} href={tool.href} className="flex flex-col p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-indigo-300 dark:hover:border-indigo-700 hover:bg-indigo-50 dark:hover:bg-indigo-950/20 transition-all group shadow-sm">
+                            <span className="font-bold text-indigo-700 dark:text-indigo-400 group-hover:underline mb-1">{tool.label} →</span>
+                            <span className="text-xs text-slate-500 dark:text-slate-400">{tool.desc}</span>
                         </Link>
                     ))}
                 </div>

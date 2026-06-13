@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Code, TrendingUp, Megaphone, CheckCircle2, Rocket, Globe, Search } from "lucide-react";
+import { CheckCircle2, Rocket, Globe } from "lucide-react";
+import TeamDisplayCards from "@/components/ui/TeamDisplayCards";
 
 
 
@@ -61,51 +62,52 @@ export default function AboutPage() {
                     </p>
                 </div>
 
-                {/* Team Section */}
-                <h3 className="text-2xl font-bold text-center text-slate-900 mb-10">Meet the Team</h3>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
-                        <div className="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4 shadow-inner">
-                            <Code size={30} />
-                        </div>
-                        <h4 className="text-lg font-bold text-slate-900">Amarjeet Ram</h4>
-                        <span className="text-xs font-bold text-indigo-600 mb-3 uppercase tracking-wider block mt-1">Owner & Lead Developer</span>
-                        <p className="text-slate-600 text-sm leading-relaxed">
-                            The visionary behind SmartToolsWala. With a strong background in web development, software, and cybersecurity, he ensures that every tool we create is reliable, fast, and user-friendly.
-                        </p>
+                {/* Team Section — DisplayCards stacked design */}
+                <h3 className="text-2xl font-bold text-center text-slate-900 mb-4">Meet the Team</h3>
+                <p className="text-center text-slate-500 text-sm mb-16">Hover over the cards to explore</p>
+
+                <div className="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-3xl overflow-hidden py-16 px-6 mb-20">
+                    {/* Background glow */}
+                    <div className="absolute inset-0 opacity-30 pointer-events-none">
+                        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-indigo-600 rounded-full blur-[120px] -translate-y-1/2" />
+                        <div className="absolute top-1/2 right-1/4 w-64 h-64 bg-purple-600 rounded-full blur-[100px] -translate-y-1/2" />
                     </div>
 
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
-                        <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-4 shadow-inner">
-                            <TrendingUp size={30} />
-                        </div>
-                        <h4 className="text-lg font-bold text-slate-900">Ankush Prasad</h4>
-                        <span className="text-xs font-bold text-emerald-600 mb-3 uppercase tracking-wider block mt-1">CFO & Strategy Head</span>
-                        <p className="text-slate-600 text-sm leading-relaxed">
-                            Handles the financial strategy and long-term vision of the platform. His expertise ensures that SmartToolsWala grows sustainably while delivering maximum value to users.
-                        </p>
-                    </div>
+                    <div className="relative z-10 flex flex-col lg:flex-row items-center gap-16 lg:gap-8">
+                        {/* Left: Label + description */}
+                        <div className="lg:w-2/5 text-center lg:text-left flex-shrink-0">
+                            <span className="inline-block text-xs font-bold tracking-widest uppercase text-indigo-400 mb-4 border border-indigo-500/30 rounded-full px-4 py-1 bg-indigo-500/10">
+                                Our People
+                            </span>
+                            <h4 className="text-3xl font-extrabold text-white mb-4 leading-tight">
+                                The Brains<br />
+                                <span className="text-indigo-400">Behind the Tools</span>
+                            </h4>
+                            <p className="text-slate-400 text-sm leading-relaxed max-w-xs mx-auto lg:mx-0">
+                                A passionate team of developers, strategists, and marketers dedicated to simplifying your digital life.
+                            </p>
 
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
-                        <div className="w-16 h-16 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mb-4 shadow-inner">
-                            <Megaphone size={30} />
+                            {/* Quick name list */}
+                            <div className="mt-8 flex flex-col gap-3">
+                                {[
+                                    { name: "Amarjeet Ram", role: "Owner & Lead Developer", color: "bg-blue-500" },
+                                    { name: "Ankush Prasad", role: "CFO & Strategy Head", color: "bg-emerald-500" },
+                                    { name: "Satender", role: "Digital Marketing Expert", color: "bg-rose-500" },
+                                    { name: "Abhishek Baghel", role: "SEO Expert", color: "bg-amber-500" },
+                                ].map((m) => (
+                                    <div key={m.name} className="flex items-center gap-3">
+                                        <span className={`w-2 h-2 rounded-full flex-shrink-0 ${m.color}`} />
+                                        <span className="text-white font-semibold text-sm">{m.name}</span>
+                                        <span className="text-slate-400 text-xs">— {m.role}</span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                        <h4 className="text-lg font-bold text-slate-900">Satender</h4>
-                        <span className="text-xs font-bold text-rose-600 mb-3 uppercase tracking-wider block mt-1">Digital Marketing Expert</span>
-                        <p className="text-slate-600 text-sm leading-relaxed">
-                            Leads our digital marketing efforts, helping SmartToolsWala reach users across India and beyond. From SEO to social media campaigns, he ensures our tools reach the people who need them most.
-                        </p>
-                    </div>
 
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300">
-                        <div className="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mb-4 shadow-inner">
-                            <Search size={30} />
+                        {/* Right: Stacked DisplayCards */}
+                        <div className="lg:w-3/5 flex justify-center items-center min-h-[320px]">
+                            <TeamDisplayCards />
                         </div>
-                        <h4 className="text-lg font-bold text-slate-900">Abhishek Baghel</h4>
-                        <span className="text-xs font-bold text-amber-600 mb-3 uppercase tracking-wider block mt-1">SEO Expert</span>
-                        <p className="text-slate-600 text-sm leading-relaxed">
-                            Spearheads our SEO strategies to improve search engine rankings, ensuring our platform is highly visible and easily accessible to users actively searching for online tools.
-                        </p>
                     </div>
                 </div>
 

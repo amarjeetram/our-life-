@@ -80,15 +80,27 @@ const groupIcons: Record<string, React.ReactNode> = {
 
 export default function ImageCompressionToolsPage() {
     return (
-        <main style={{ minHeight: "100vh", background: "linear-gradient(180deg, #eff6ff 0%, #fafafa 100%)", fontFamily: "sans-serif" }}>
+        <main className="image-tools-main">
             <style>{`
+                .image-tools-main {
+                    min-height: 100vh;
+                    background: linear-gradient(180deg, #eff6ff 0%, #fafafa 100%);
+                    font-family: sans-serif;
+                }
+                .dark .image-tools-main {
+                    background: var(--bg-primary) !important;
+                }
                 .img-tool-card {
-                    background: #fff; border-radius: 20px;
-                    border: 1.5px solid #e2e8f0; padding: 24px;
-                    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+                    background: var(--bg-primary); border-radius: 20px;
+                    border: 1.5px solid var(--border-light); padding: 24px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
                     transition: all 0.18s; cursor: pointer;
                     display: flex; flex-direction: column;
                     text-decoration: none; color: inherit;
+                }
+                .dark .img-tool-card {
+                    background: var(--bg-secondary);
+                    border-color: var(--border-light);
                 }
                 .img-tool-card:hover {
                     box-shadow: 0 12px 36px var(--hover-shadow);
@@ -106,10 +118,10 @@ export default function ImageCompressionToolsPage() {
                     }}>
                         IMAGE TOOLS
                     </span>
-                    <h1 style={{ fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 900, color: "#0f172a", margin: "0 0 16px", lineHeight: 1.2 }}>
+                    <h1 style={{ fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 900, color: "var(--text-primary)", margin: "0 0 16px", lineHeight: 1.2 }}>
                         Free Image Tools
                     </h1>
-                    <p style={{ fontSize: "clamp(15px, 3vw, 18px)", color: "#64748b", maxWidth: 640, margin: "0 auto", lineHeight: 1.7 }}>
+                    <p style={{ fontSize: "clamp(15px, 3vw, 18px)", color: "var(--text-secondary)", maxWidth: 640, margin: "0 auto", lineHeight: 1.7 }}>
                         Fast, free, and secure image optimization tools. Compress, resize, and convert your photos to exact KB sizes instantly without losing quality.
                     </p>
                 </div>
@@ -126,10 +138,10 @@ export default function ImageCompressionToolsPage() {
                                 {groupIcons[group.id]}
                             </div>
                             <div>
-                                <h2 style={{ fontSize: 24, fontWeight: 900, color: '#0f172a', margin: '0 0 6px' }}>
+                                <h2 style={{ fontSize: 24, fontWeight: 900, color: 'var(--text-primary)', margin: '0 0 6px' }}>
                                     {group.heading}
                                 </h2>
-                                <p style={{ fontSize: 15, color: '#64748b', margin: 0, lineHeight: 1.5 }}>
+                                <p style={{ fontSize: 15, color: 'var(--text-secondary)', margin: 0, lineHeight: 1.5 }}>
                                     {group.subtitle}
                                 </p>
                             </div>
@@ -151,8 +163,8 @@ export default function ImageCompressionToolsPage() {
                                         '--hover-border': `${group.iconColor}80`
                                     } as React.CSSProperties}
                                 >
-                                    <h3 style={{ fontSize: 18, fontWeight: 800, color: "#0f172a", margin: "0 0 10px" }}>{tool.title}</h3>
-                                    <p style={{ fontSize: 14, color: "#64748b", lineHeight: 1.6, margin: "0 0 20px", flex: 1 }}>{tool.desc}</p>
+                                    <h3 style={{ fontSize: 18, fontWeight: 800, color: "var(--text-primary)", margin: "0 0 10px" }}>{tool.title}</h3>
+                                    <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6, margin: "0 0 20px", flex: 1 }}>{tool.desc}</p>
                                     
                                     <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
                                         {tool.tags.map(tag => (

@@ -940,13 +940,13 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.5 }}
-                            style={{ background: '#fff', borderRadius: '20px', border: '1px solid #e2e8f0', boxShadow: '0 4px 24px rgba(0,0,0,0.06)', overflow: 'hidden', marginBottom: '24px' }}
+                            style={{ background: 'var(--bg-secondary)', borderRadius: '20px', border: '1px solid var(--border-light)', boxShadow: 'var(--shadow-sm)', overflow: 'hidden', marginBottom: '24px' }}
                         >
-                            <div style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0', padding: '16px 24px' }}>
-                                <p style={{ fontSize: '16px', fontWeight: 800, color: '#0f172a' }}>Are you a happy user? 😊</p>
+                            <div style={{ background: 'var(--bg-tertiary)', borderBottom: '1px solid var(--border-light)', padding: '16px 24px' }}>
+                                <p style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-primary)' }}>Are you a happy user? 😊</p>
                             </div>
                             <div className="ci-happy-row">
-                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Use our other tools</span>
+                                <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)' }}>Use our other tools</span>
                                 <div className="ci-happy-btns">
                                     {[
                                         { href: '/image-compressor-to-20kb', label: 'Compress 20KB' },
@@ -954,22 +954,22 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                         { href: '/govt-exam-tools/signature-resize', label: 'Signature Resize' },
                                         { href: '/mb-to-kb-image-converter', label: 'MB to KB' },
                                     ].map(t => (
-                                        <Link key={t.href} href={t.href} style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
-                                            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
-                                            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                                        <Link key={t.href} href={t.href} style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', padding: '7px 14px', borderRadius: '8px', border: '1.5px solid var(--brand-light)', background: 'var(--bg-tertiary)', fontSize: '13px', fontWeight: 700, color: 'var(--brand-primary)', textDecoration: 'none' }}
+                                            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'var(--brand-light)'; }}
+                                            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'var(--bg-tertiary)'; }}
                                         ><Zap size={12} /> {t.label}</Link>
                                     ))}
                                 </div>
                             </div>
                             <div className="ci-happy-row">
-                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Support Our Work ❤️</span>
-                                <Link href="/donate" style={{ padding: '8px 18px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
-                                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
-                                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                                <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)' }}>Support Our Work ❤️</span>
+                                <Link href="/donate" style={{ padding: '8px 18px', borderRadius: '8px', border: '1.5px solid var(--brand-light)', background: 'var(--bg-tertiary)', fontSize: '13px', fontWeight: 700, color: 'var(--brand-primary)', textDecoration: 'none' }}
+                                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'var(--brand-light)'; }}
+                                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'var(--bg-tertiary)'; }}
                                 >☕ Donate</Link>
                             </div>
                             <div className="ci-happy-row">
-                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Sharing is caring 🤝</span>
+                                <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)' }}>Sharing is caring 🤝</span>
                                 <div className="ci-happy-btns">
                                     {[
                                         { label: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com')}` },
@@ -977,32 +977,32 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                         { label: 'WhatsApp', href: `https://wa.me/?text=${encodeURIComponent('Free image compression tool: ' + (typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com'))}` },
                                         { label: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com')}` },
                                     ].map(s => (
-                                        <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" style={{ padding: '7px 14px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
-                                            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
-                                            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                                        <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" style={{ padding: '7px 14px', borderRadius: '8px', border: '1.5px solid var(--brand-light)', background: 'var(--bg-tertiary)', fontSize: '13px', fontWeight: 700, color: 'var(--brand-primary)', textDecoration: 'none' }}
+                                            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'var(--brand-light)'; }}
+                                            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'var(--bg-tertiary)'; }}
                                         >{s.label}</a>
                                     ))}
                                 </div>
                             </div>
                             <div className="ci-happy-row">
-                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Come back! 🔖</span>
-                                <button onClick={() => alert('Press Ctrl+D (or ⌘+D on Mac) to bookmark this page!')} style={{ padding: '8px 18px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', cursor: 'pointer' }}
-                                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
-                                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                                <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)' }}>Come back! 🔖</span>
+                                <button onClick={() => alert('Press Ctrl+D (or ⌘+D on Mac) to bookmark this page!')} style={{ padding: '8px 18px', borderRadius: '8px', border: '1.5px solid var(--brand-light)', background: 'var(--bg-tertiary)', fontSize: '13px', fontWeight: 700, color: 'var(--brand-primary)', cursor: 'pointer' }}
+                                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'var(--brand-light)'; }}
+                                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'var(--bg-tertiary)'; }}
                                 >🔖 Bookmark Page</button>
                             </div>
                             <div className="ci-happy-row">
-                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Link to this tool 🔗</span>
+                                <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)' }}>Link to this tool 🔗</span>
                                 <div className="ci-link-row">
                                     <input readOnly value={typeof window !== 'undefined' ? window.location.href : 'https://smarttoolswala.com'} className="ci-link-input" />
                                     <button onClick={() => { navigator.clipboard.writeText(window.location.href); toast.success('Link copied!'); }} style={{ padding: '8px 16px', borderRadius: '8px', background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', color: '#fff', border: 'none', fontSize: '13px', fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }}>📋 Copy</button>
                                 </div>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 24px', flexWrap: 'wrap', gap: '12px' }}>
-                                <span style={{ fontSize: '14px', fontWeight: 600, color: '#374151' }}>Send Feedback ✉️</span>
-                                <Link href="/contact-us" style={{ padding: '8px 18px', borderRadius: '8px', border: '1.5px solid #e0e7ff', background: '#fafbff', fontSize: '13px', fontWeight: 700, color: '#4f46e5', textDecoration: 'none' }}
-                                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = '#ede9fe'; }}
-                                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#fafbff'; }}
+                                <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-secondary)' }}>Send Feedback ✉️</span>
+                                <Link href="/contact-us" style={{ padding: '8px 18px', borderRadius: '8px', border: '1.5px solid var(--brand-light)', background: 'var(--bg-tertiary)', fontSize: '13px', fontWeight: 700, color: 'var(--brand-primary)', textDecoration: 'none' }}
+                                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'var(--brand-light)'; }}
+                                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'var(--bg-tertiary)'; }}
                                 >✉️ Contact us</Link>
                             </div>
                         </motion.div>
@@ -1015,13 +1015,13 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.18 }}
                     style={{
-                        background: '#fff', borderRadius: '28px',
-                        border: '1px solid #e8eaf0',
-                        boxShadow: '0 2px 20px rgba(0,0,0,0.04)',
+                        background: 'var(--bg-secondary)', borderRadius: '28px',
+                        border: '1px solid var(--border-light)',
+                        boxShadow: 'var(--shadow-sm)',
                         padding: '28px 32px', marginBottom: '24px'
                     }}
                 >
-                    <h2 style={{ fontSize: '17px', fontWeight: 800, color: '#0f172a', marginBottom: '20px', letterSpacing: '-0.02em' }}>
+                    <h2 style={{ fontSize: '17px', fontWeight: 800, color: 'var(--text-primary)', marginBottom: '20px', letterSpacing: '-0.02em' }}>
                         How it works
                     </h2>
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))', gap: '14px' }}>
@@ -1032,7 +1032,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                         ].map((s) => (
                             <div key={s.n} style={{
                                 padding: '18px', borderRadius: '18px',
-                                background: '#f8faff', border: '1px solid #eff0f7',
+                                background: 'var(--bg-tertiary)', border: '1px solid var(--border-light)',
                                 display: 'flex', flexDirection: 'column', gap: '12px'
                             }}>
                                 <span style={{
@@ -1043,8 +1043,8 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                     boxShadow: `0 4px 10px ${s.color}40`
                                 }}>{s.n}</span>
                                 <div>
-                                    <p style={{ fontSize: '14px', fontWeight: 700, color: '#1e293b', marginBottom: '4px' }}>{s.label}</p>
-                                    <p style={{ fontSize: '12px', color: '#64748b', lineHeight: 1.6 }}>{s.desc}</p>
+                                    <p style={{ fontSize: '14px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '4px' }}>{s.label}</p>
+                                    <p style={{ fontSize: '12px', color: 'var(--text-tertiary)', lineHeight: 1.6 }}>{s.desc}</p>
                                 </div>
                             </div>
                         ))}

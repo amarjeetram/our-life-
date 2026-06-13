@@ -39,15 +39,27 @@ export default function YouTubeToolsPage() {
     ];
 
     return (
-        <main style={{ minHeight: "100vh", background: "linear-gradient(180deg, #fef2f2 0%, #fafafa 100%)", fontFamily: "sans-serif" }}>
+        <main className="youtube-tools-main">
             <style>{`
+                .youtube-tools-main {
+                    min-height: 100vh;
+                    background: linear-gradient(180deg, #fef2f2 0%, #fafafa 100%);
+                    font-family: sans-serif;
+                }
+                .dark .youtube-tools-main {
+                    background: var(--bg-primary) !important;
+                }
                 .yt-tool-card {
-                    background: #fff; border-radius: 20px;
-                    border: 1.5px solid #e2e8f0; padding: 24px;
-                    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+                    background: var(--bg-primary); border-radius: 20px;
+                    border: 1.5px solid var(--border-light); padding: 24px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
                     transition: all 0.18s; cursor: pointer;
                     display: flex; flex-direction: column;
                     text-decoration: none; color: inherit;
+                }
+                .dark .yt-tool-card {
+                    background: var(--bg-secondary);
+                    border-color: var(--border-light);
                 }
                 .yt-tool-card:hover {
                     box-shadow: 0 12px 36px rgba(239,68,68,0.15);
@@ -65,10 +77,10 @@ export default function YouTubeToolsPage() {
                     }}>
                         YOUTUBE TOOLS
                     </span>
-                    <h1 style={{ fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 900, color: "#0f172a", margin: "0 0 16px", lineHeight: 1.2 }}>
+                    <h1 style={{ fontSize: "clamp(28px, 5vw, 42px)", fontWeight: 900, color: "var(--text-primary)", margin: "0 0 16px", lineHeight: 1.2 }}>
                         Free YouTube SEO Growth Tools
                     </h1>
-                    <p style={{ fontSize: "clamp(15px, 3vw, 18px)", color: "#64748b", maxWidth: 680, margin: "0 auto", lineHeight: 1.7 }}>
+                    <p style={{ fontSize: "clamp(15px, 3vw, 18px)", color: "var(--text-secondary)", maxWidth: 680, margin: "0 auto", lineHeight: 1.7 }}>
                         Powerful free tools for YouTube creators. Extract tags, analyze descriptions, and reverse-engineer titles to rank your videos higher.
                     </p>
                 </div>
@@ -83,8 +95,8 @@ export default function YouTubeToolsPage() {
                             }}>
                                 <Youtube size={22} color="#fff" />
                             </div>
-                            <h2 style={{ fontSize: 18, fontWeight: 800, color: "#0f172a", margin: "0 0 10px" }}>{title}</h2>
-                            <p style={{ fontSize: 14, color: "#64748b", lineHeight: 1.6, margin: "0 0 20px", flex: 1 }}>{desc}</p>
+                            <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--text-primary)", margin: "0 0 10px" }}>{title}</h2>
+                            <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6, margin: "0 0 20px", flex: 1 }}>{desc}</p>
                             
                             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
                                 {tags.map(tag => (

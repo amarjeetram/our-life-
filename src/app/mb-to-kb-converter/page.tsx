@@ -146,12 +146,12 @@ export default function Page() {
 
                 {/* Internal Links to Resize Tools */}
                 <div className="max-w-4xl mx-auto px-4 mt-10 mb-6">
-                    <h3 className="text-lg font-bold text-slate-800 mb-4">More Image Resize Tools</h3>
+                    <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-4">More Image Resize Tools</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <Link href="/image-tools/resize-image-to-100kb" className="flex items-start gap-3 p-4 rounded-xl border border-slate-200 bg-white hover:border-blue-400 hover:bg-blue-50 transition-all group shadow-sm">
+                        <Link href="/image-tools/resize-image-to-100kb" className="flex items-start gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-all group shadow-sm">
                             <div>
-                                <p className="font-bold text-slate-800 group-hover:text-blue-700 text-sm">Resize Image to 100KB</p>
-                                <p className="text-xs text-slate-500 mt-1">Resize file under 100KB for professional registration forms.</p>
+                                <p className="font-bold text-slate-800 dark:text-slate-200 group-hover:text-blue-700 dark:group-hover:text-blue-400 text-sm">Resize Image to 100KB</p>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Resize file under 100KB for professional registration forms.</p>
                                 <span className="inline-flex items-center gap-1 mt-2 text-xs font-semibold text-blue-600">Web · Use Tool →</span>
                             </div>
                         </Link>

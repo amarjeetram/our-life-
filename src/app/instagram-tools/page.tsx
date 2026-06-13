@@ -22,15 +22,27 @@ export default function InstagramToolsPage() {
     ];
 
     return (
-        <main style={{ minHeight: "100vh", background: "linear-gradient(180deg, #f5f3ff 0%, #fafafa 100%)" }}>
+        <main className="instagram-tools-main">
             <style>{`
+                .instagram-tools-main {
+                    min-height: 100vh;
+                    background: linear-gradient(180deg, #f5f3ff 0%, #fafafa 100%);
+                    font-family: sans-serif;
+                }
+                .dark .instagram-tools-main {
+                    background: var(--bg-primary) !important;
+                }
                 .ig-tool-card {
-                    background: #fff; border-radius: 20px;
-                    border: 1.5px solid #e2e8f0; padding: 24px;
-                    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+                    background: var(--bg-primary); border-radius: 20px;
+                    border: 1.5px solid var(--border-light); padding: 24px;
+                    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
                     transition: all 0.18s; cursor: pointer;
                     display: flex; flex-direction: column;
                     text-decoration: none; color: inherit;
+                }
+                .dark .ig-tool-card {
+                    background: var(--bg-secondary);
+                    border-color: var(--border-light);
                 }
                 .ig-tool-card:hover {
                     box-shadow: 0 12px 36px rgba(147,51,234,0.15);
@@ -48,10 +60,10 @@ export default function InstagramToolsPage() {
                     }}>
                         INSTAGRAM TOOLS
                     </span>
-                    <h1 style={{ fontSize: 36, fontWeight: 900, color: "#0f172a", margin: "0 0 14px", lineHeight: 1.2 }}>
+                    <h1 style={{ fontSize: 36, fontWeight: 900, color: "var(--text-primary)", margin: "0 0 14px", lineHeight: 1.2 }}>
                         Free Instagram Tools
                     </h1>
-                    <p style={{ fontSize: 16, color: "#64748b", maxWidth: 520, margin: "0 auto", lineHeight: 1.7 }}>
+                    <p style={{ fontSize: 16, color: "var(--text-secondary)", maxWidth: 520, margin: "0 auto", lineHeight: 1.7 }}>
                         Create bios, optimize your profile, and grow your Instagram — all free, no signup needed.
                     </p>
                 </div>
@@ -66,8 +78,8 @@ export default function InstagramToolsPage() {
                             }}>
                                 <Instagram size={22} color="#fff" />
                             </div>
-                            <h2 style={{ fontSize: 17, fontWeight: 800, color: "#0f172a", margin: "0 0 8px" }}>{title}</h2>
-                            <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.65, margin: "0 0 16px", flex: 1 }}>{desc}</p>
+                            <h2 style={{ fontSize: 17, fontWeight: 800, color: "var(--text-primary)", margin: "0 0 8px" }}>{title}</h2>
+                            <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.65, margin: "0 0 16px", flex: 1 }}>{desc}</p>
                             <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 16 }}>
                                 {tags.map(tag => (
                                     <span key={tag} style={{

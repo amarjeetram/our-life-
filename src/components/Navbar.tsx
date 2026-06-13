@@ -3,13 +3,38 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, Image as ImageIcon, ChevronRight, Home, Wrench, BookOpen, Heart, Search, Compass, FileText, Instagram } from 'lucide-react';
+import { Menu, X, Image as ImageIcon, ChevronRight, Home, Wrench, BookOpen, Heart, Search, Compass, FileText, Instagram, Sun, Moon, DollarSign } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+    
+    // Dark Mode Theme States
+    const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+        const isDark = document.documentElement.classList.contains('dark');
+        setTheme(isDark ? 'dark' : 'light');
+    }, []);
+
+    const toggleTheme = () => {
+        const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        const nextTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        if (nextTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+            setTheme('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+            setTheme('light');
+        }
+    };
 
     const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
 
@@ -146,7 +171,7 @@ const Navbar = () => {
             ]
         },
         { name: 'Blog', href: '/blog', icon: <BookOpen className="w-5 h-5" /> },
-        { name: 'Instagram Bio', href: '/instagram-tools', icon: <Instagram className="w-5 h-5" /> },
+        { name: 'Pricing', href: '/pricing', icon: <DollarSign className="w-5 h-5" /> },
     ];
 
     return (
@@ -164,13 +189,13 @@ const Navbar = () => {
                                 priority
                                 className="rounded-xl group-hover:scale-110 transition-transform duration-300"
                             />
-                            <span className="text-[1.1rem] sm:text-xl font-extrabold tracking-tight text-gray-900">
+                            <span className="text-[1.1rem] sm:text-xl font-extrabold tracking-tight text-gray-900 dark:text-white">
                                 SmartTools<span className="text-gradient">Wala</span>
                             </span>
                         </Link>
 
                         {/* Desktop Nav */}
-                        <div className="hidden md:flex items-center gap-2 bg-white/40 backdrop-blur-md px-2 py-1.5 rounded-2xl border border-white/60 shadow-sm relative">
+                        <div className="hidden md:flex items-center gap-2 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md px-2 py-1.5 rounded-2xl border border-white/60 dark:border-slate-800/60 shadow-sm relative">
                             {navLinks.map((link) => (
                                 link.isDropdown ? (
                                     <div
@@ -179,14 +204,14 @@ const Navbar = () => {
                                         onMouseEnter={() => setIsToolsDropdownOpen(true)}
                                         onMouseLeave={() => setIsToolsDropdownOpen(false)}
                                     >
-                                        <button suppressHydrationWarning className="px-5 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-white/80 rounded-xl transition-all duration-200 flex items-center gap-1">
+                                        <button suppressHydrationWarning className="px-5 py-2 text-sm font-semibold text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-slate-800/80 rounded-xl transition-all duration-200 flex items-center gap-1">
                                             {link.name}
                                             <svg className={`w-4 h-4 transition-transform duration-200 ${isToolsDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                                         </button>
 
                                         {/* Dropdown Menu */}
                                         <div
-                                            className={`absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-100 overflow-hidden transition-all duration-200 origin-top-left ${isToolsDropdownOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}
+                                            className={`absolute top-full left-0 mt-2 w-56 bg-white dark:bg-slate-900 rounded-xl shadow-lg border border-slate-100 dark:border-slate-800/80 overflow-hidden transition-all duration-200 origin-top-left ${isToolsDropdownOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}
                                             style={{ zIndex: 1000 }}
                                         >
                                             <div className="py-2">
@@ -194,7 +219,7 @@ const Navbar = () => {
                                                     <Link
                                                         key={sub.name}
                                                         href={sub.href}
-                                                        className="block px-4 py-2 text-sm text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 font-medium transition-colors"
+                                                        className="block px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-slate-800 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition-colors"
                                                     >
                                                         {sub.name}
                                                     </Link>
@@ -206,7 +231,7 @@ const Navbar = () => {
                                     <Link
                                         key={link.name}
                                         href={link.href || '#'}
-                                        className="px-5 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-white/80 rounded-xl transition-all duration-200"
+                                        className="px-5 py-2 text-sm font-semibold text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-slate-800/80 rounded-xl transition-all duration-200"
                                     >
                                         {link.name}
                                     </Link>
@@ -216,11 +241,27 @@ const Navbar = () => {
                             <button
                                 onClick={() => setIsSearchOpen(true)}
                                 suppressHydrationWarning
-                                className="px-3.5 py-2 text-gray-500 hover:text-indigo-600 hover:bg-white/80 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center shrink-0 border border-transparent hover:border-slate-100"
+                                className="px-3.5 py-2 text-gray-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/80 dark:hover:bg-slate-800/80 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center shrink-0 border border-transparent hover:border-slate-100 dark:hover:border-slate-800"
                                 aria-label="Search site"
                                 title="Search tools and blogs"
                             >
                                 <Search className="w-4 h-4" />
+                            </button>
+
+                            {/* Theme Toggle Button */}
+                            <button
+                                onClick={toggleTheme}
+                                className="px-3.5 py-2 text-gray-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/80 dark:hover:bg-slate-800/80 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center shrink-0 border border-transparent hover:border-slate-100 dark:hover:border-slate-800"
+                                aria-label="Toggle theme"
+                                title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                            >
+                                {!mounted ? (
+                                    <span className="w-4 h-4 block" />
+                                ) : theme === 'dark' ? (
+                                    <Sun className="w-4 h-4 text-amber-500" />
+                                ) : (
+                                    <Moon className="w-4 h-4 text-indigo-600" />
+                                )}
                             </button>
                         </div>
 
@@ -228,14 +269,13 @@ const Navbar = () => {
                         <div className="hidden md:flex items-center gap-2">
                             <button
                                 onClick={handleLoginClick}
-                                className="px-4 py-2 text-sm font-bold text-slate-600 bg-slate-50 hover:bg-slate-100 rounded-xl transition-all duration-200 border border-slate-200 shadow-sm cursor-pointer"
+                                className="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-all duration-200 border border-slate-200 dark:border-slate-700 shadow-sm cursor-pointer"
                             >
                                 Login
                             </button>
                             <button
                                 onClick={handleLoginClick}
-                                className="px-4 py-2 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl transition-all duration-200 shadow-sm shadow-indigo-100 cursor-pointer"
-                            >
+                                className="px-4 py-2 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl transition-all duration-200 shadow-sm shadow-indigo-100 dark:shadow-indigo-950/20 cursor-pointer">
                                 Sign Up
                             </button>
                         </div>
@@ -243,7 +283,7 @@ const Navbar = () => {
                         {/* Mobile Hamburger — only on mobile */}
                         <button
                             suppressHydrationWarning
-                            className="md:hidden p-2 rounded-xl bg-white/50 border border-white/60 text-gray-700 hover:bg-white transition-colors shadow-sm"
+                            className="md:hidden p-2 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-white/60 dark:border-slate-800/60 text-gray-700 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-800 transition-colors shadow-sm"
                             onClick={() => setIsOpen(true)}
                             aria-label="Open menu"
                         >
@@ -270,7 +310,7 @@ const Navbar = () => {
                     bottom: 0,
                     width: '280px',
                     zIndex: 999,
-                    backgroundColor: '#ffffff',
+                    backgroundColor: 'var(--bg-primary)',
                     boxShadow: '4px 0 30px rgba(0,0,0,0.15)',
                     display: 'flex',
                     flexDirection: 'column',
@@ -280,21 +320,32 @@ const Navbar = () => {
                 }}
             >
                 {/* Drawer Header */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 20px', borderBottom: '1px solid #f1f5f9' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 20px', borderBottom: '1px solid var(--border-light)' }}>
                     <Link href="/" onClick={() => setIsOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
                         <Image src="/logo.svg" alt="SmartToolsWala Logo" width={32} height={32} style={{ borderRadius: '10px' }} />
-                        <span style={{ fontSize: '15px', fontWeight: 800, color: '#111827' }}>
+                        <span style={{ fontSize: '15px', fontWeight: 800, color: 'var(--text-primary)' }}>
                             SmartTools<span style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Wala</span>
                         </span>
                     </Link>
-                    <button
-                        suppressHydrationWarning
-                        onClick={() => setIsOpen(false)}
-                        style={{ padding: '8px', borderRadius: '10px', border: 'none', background: '#f8fafc', cursor: 'pointer', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                        aria-label="Close menu"
-                    >
-                        <X size={18} />
-                    </button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        {/* Mobile Theme Toggle Button */}
+                        <button
+                            onClick={toggleTheme}
+                            style={{ padding: '8px', borderRadius: '10px', border: 'none', background: 'var(--bg-secondary)', cursor: 'pointer', color: theme === 'dark' ? '#fbbf24' : '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                            aria-label="Toggle theme"
+                            title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
+                        >
+                            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                        </button>
+                        <button
+                            suppressHydrationWarning
+                            onClick={() => setIsOpen(false)}
+                            style={{ padding: '8px', borderRadius: '10px', border: 'none', background: 'var(--bg-secondary)', cursor: 'pointer', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                            aria-label="Close menu"
+                        >
+                            <X size={18} />
+                        </button>
+                    </div>
                 </div>
 
                 {/* Mobile Search Input Button */}
@@ -308,10 +359,10 @@ const Navbar = () => {
                             gap: '12px',
                             width: '100%',
                             padding: '12px 16px',
-                            background: '#f1f5f9',
+                            background: 'var(--bg-tertiary)',
                             border: 'none',
                             borderRadius: '14px',
-                            color: '#64748b',
+                            color: 'var(--text-secondary)',
                             fontWeight: 600,
                             fontSize: '14px',
                             cursor: 'pointer',
@@ -330,10 +381,10 @@ const Navbar = () => {
                             {link.isDropdown ? (
                                 <div>
                                     <div
-                                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', color: '#374151', fontWeight: 600, fontSize: '15px', borderRadius: '14px', cursor: 'default', marginBottom: '4px', background: '#f8fafc' }}
+                                        style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px', color: 'var(--text-primary)', fontWeight: 600, fontSize: '15px', borderRadius: '14px', cursor: 'default', marginBottom: '4px', background: 'var(--bg-secondary)' }}
                                     >
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                            <span style={{ color: '#9ca3af' }}>{link.icon}</span>
+                                            <span style={{ color: 'var(--text-tertiary)' }}>{link.icon}</span>
                                             {link.name}
                                         </div>
                                     </div>
@@ -344,11 +395,10 @@ const Navbar = () => {
                                                 key={sub.name}
                                                 href={sub.href}
                                                 onClick={() => setIsOpen(false)}
-                                                style={{ display: 'flex', alignItems: 'center', padding: '10px 16px', color: '#475569', fontWeight: 500, fontSize: '14px', borderRadius: '10px', textDecoration: 'none', transition: 'background 0.15s' }}
-                                                onMouseEnter={e => (e.currentTarget.style.background = '#eef2ff')}
-                                                onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                                                style={{ display: 'flex', alignItems: 'center', padding: '10px 16px', color: 'var(--text-secondary)', fontWeight: 500, fontSize: '14px', borderRadius: '10px', textDecoration: 'none', transition: 'background 0.15s' }}
+                                                className="hover:bg-indigo-50 dark:hover:bg-slate-800"
                                             >
-                                                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#cbd5e1', marginRight: '10px' }}></div>
+                                                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--border-medium)', marginRight: '10px' }}></div>
                                                 {sub.name}
                                             </Link>
                                         ))}
@@ -358,11 +408,10 @@ const Navbar = () => {
                                 <Link
                                     href={link.href || '#'}
                                     onClick={() => setIsOpen(false)}
-                                    style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', color: '#374151', fontWeight: 600, fontSize: '15px', borderRadius: '14px', textDecoration: 'none', marginBottom: '4px', transition: 'background 0.15s' }}
-                                    onMouseEnter={e => (e.currentTarget.style.background = '#eef2ff')}
-                                    onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                                    style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', color: 'var(--text-primary)', fontWeight: 600, fontSize: '15px', borderRadius: '14px', textDecoration: 'none', marginBottom: '4px', transition: 'background 0.15s' }}
+                                    className="hover:bg-indigo-50 dark:hover:bg-slate-800"
                                 >
-                                    <span style={{ color: '#9ca3af' }}>{link.icon}</span>
+                                    <span style={{ color: 'var(--text-tertiary)' }}>{link.icon}</span>
                                     {link.name}
                                 </Link>
                             )}
@@ -371,11 +420,11 @@ const Navbar = () => {
                 </nav>
 
                 {/* Drawer Footer */}
-                <div style={{ padding: '16px', borderTop: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div style={{ padding: '16px', borderTop: '1px solid var(--border-light)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <div style={{ display: 'flex', gap: '8px' }}>
                         <button
                             onClick={() => { setIsOpen(false); handleLoginClick(); }}
-                            style={{ flex: 1, padding: '12px', background: '#f8fafc', color: '#475569', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: '1px solid #e2e8f0', cursor: 'pointer' }}
+                            style={{ flex: 1, padding: '12px', background: 'var(--bg-secondary)', color: 'var(--text-secondary)', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: '1px solid var(--border-light)', cursor: 'pointer' }}
                         >
                             Login
                         </button>
@@ -408,10 +457,10 @@ const Navbar = () => {
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: -20 }}
                             transition={{ duration: 0.2 }}
-                            className="relative w-full max-w-2xl bg-white rounded-3xl border border-slate-200/80 shadow-2xl overflow-hidden flex flex-col max-h-[70vh] z-[201]"
+                            className="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800/80 shadow-2xl overflow-hidden flex flex-col max-h-[70vh] z-[201]"
                         >
                             {/* Search Header */}
-                            <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-100 bg-slate-50/50">
+                            <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-100 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/50">
                                 <Search className="w-5 h-5 text-slate-400 shrink-0" />
                                 <input
                                     type="text"
@@ -420,12 +469,12 @@ const Navbar = () => {
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     autoFocus
                                     suppressHydrationWarning
-                                    className="w-full bg-transparent text-[15px] text-slate-800 placeholder-slate-400 font-medium focus:outline-none"
+                                    className="w-full bg-transparent text-[15px] text-slate-800 dark:text-slate-100 placeholder-slate-400 font-medium focus:outline-none"
                                 />
                                 <button
                                     onClick={() => setIsSearchOpen(false)}
                                     suppressHydrationWarning
-                                    className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 transition-colors cursor-pointer text-xs font-bold shrink-0"
+                                    className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors cursor-pointer text-xs font-bold shrink-0"
                                 >
                                     ESC
                                 </button>
@@ -434,13 +483,13 @@ const Navbar = () => {
                             {/* Search Results */}
                             <div className="flex-1 overflow-y-auto p-3 space-y-4">
                                 {!searchQuery ? (
-                                    <div className="text-center py-12 text-slate-400 font-medium text-sm">
-                                        <Compass className="w-10 h-10 mx-auto mb-3 text-slate-300 animate-pulse" />
+                                    <div className="text-center py-12 text-slate-400 dark:text-slate-500 font-medium text-sm">
+                                        <Compass className="w-10 h-10 mx-auto mb-3 text-slate-300 dark:text-slate-700 animate-pulse" />
                                         <p>Type to search all utilities and guides...</p>
                                     </div>
                                 ) : searchResults.length === 0 ? (
-                                    <div className="text-center py-12 text-slate-400 font-medium text-sm">
-                                        <FileText className="w-10 h-10 mx-auto mb-3 text-slate-300" />
+                                    <div className="text-center py-12 text-slate-400 dark:text-slate-500 font-medium text-sm">
+                                        <FileText className="w-10 h-10 mx-auto mb-3 text-slate-300 dark:text-slate-700" />
                                         <p>No results found matching "{searchQuery}"</p>
                                     </div>
                                 ) : (
@@ -457,7 +506,7 @@ const Navbar = () => {
                                                     onMouseEnter={() => setSelectedIndex(idx)}
                                                     className={`flex items-start justify-between gap-4 px-4 py-3 rounded-2xl transition-all border text-left
                                                         ${isSelected 
-                                                            ? 'bg-indigo-50/80 border-indigo-100/60 shadow-sm' 
+                                                            ? 'bg-indigo-50/80 dark:bg-slate-800/80 border-indigo-100/60 dark:border-slate-700/80 shadow-sm' 
                                                             : 'bg-transparent border-transparent'
                                                         }
                                                     `}
@@ -466,22 +515,22 @@ const Navbar = () => {
                                                         <div className="flex items-center gap-2">
                                                             <span className={`text-[10px] font-extrabold uppercase tracking-widest px-2 py-0.5 rounded-md border
                                                                 ${isTool 
-                                                                    ? 'bg-indigo-50 border-indigo-100 text-indigo-600' 
-                                                                    : 'bg-pink-50 border-pink-100 text-pink-600'
+                                                                    ? 'bg-indigo-50 border-indigo-100 dark:bg-indigo-950/20 dark:border-indigo-900/30 text-indigo-600 dark:text-indigo-400' 
+                                                                    : 'bg-pink-50 border-pink-100 dark:bg-pink-950/20 dark:border-pink-900/30 text-pink-600 dark:text-pink-400'
                                                                 }
                                                             `}>
                                                                 {isTool ? 'Tool' : 'Blog'}
                                                             </span>
-                                                            <span className="font-extrabold text-[15px] text-slate-800 leading-tight">
+                                                            <span className="font-extrabold text-[15px] text-slate-800 dark:text-slate-100 leading-tight">
                                                                 {item.title}
                                                             </span>
                                                         </div>
-                                                        <p className="text-xs text-slate-500 font-medium line-clamp-1">
+                                                        <p className="text-xs text-slate-500 dark:text-slate-400 font-medium line-clamp-1">
                                                             {item.type === 'tool' ? item.desc : item.description}
                                                         </p>
                                                     </div>
                                                     <ChevronRight className={`w-4 h-4 mt-1 shrink-0 transition-transform duration-200
-                                                        ${isSelected ? 'translate-x-1 text-indigo-500' : 'text-slate-300'}
+                                                        ${isSelected ? 'translate-x-1 text-indigo-500 dark:text-indigo-400' : 'text-slate-300 dark:text-slate-700'}
                                                     `} />
                                                 </Link>
                                             );
@@ -491,7 +540,7 @@ const Navbar = () => {
                             </div>
 
                             {/* Search Footer */}
-                            <div className="px-5 py-3 border-t border-slate-100 bg-slate-50 flex items-center justify-between text-[11px] text-slate-400 font-semibold select-none">
+                            <div className="px-5 py-3 border-t border-slate-100 dark:border-slate-800/60 bg-slate-50 dark:bg-slate-900/80 flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 font-semibold select-none">
                                 <div className="flex items-center gap-3">
                                     <span>↑↓ to navigate</span>
                                     <span>↵ to select</span>

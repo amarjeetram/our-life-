@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { Twitter, Instagram, Youtube, Mail, ChevronRight, ShieldCheck, Zap } from 'lucide-react';
 
 const Footer = () => (
-    <footer className="bg-slate-900 border-t border-slate-800 mt-20 relative overflow-hidden text-slate-300 font-sans">
+    <footer className="bg-slate-900 rounded-t-[3rem] border-t border-slate-800 mt-20 relative overflow-hidden text-slate-300 font-sans">
         {/* Glow Effects */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent"></div>
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+        <div className="absolute top-0 left-0 right-0 h-40 bg-[radial-gradient(35%_128px_at_50%_0%,rgba(249,115,22,0.15),transparent)] pointer-events-none"></div>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-orange-500/40 to-transparent"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20 relative z-10">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 xl:gap-8">

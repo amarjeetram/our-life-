@@ -17,11 +17,11 @@ export const metadata: Metadata = {
     "instagram bio for boys in hindi",
     "simple instagram bio for boys",
   ],
-  alternates: { canonical: "https://smarttoolswala.com/blog/instagram-bio-for-boys" },
+  alternates: { canonical: "https://smarttoolswala.com/blog/stylish-instagram-bio-for-boys" },
   openGraph: {
     title: "180+ Stylish Instagram Bio for Boys with Attitude (2026)",
     description: "Find 180+ best Instagram bio for boys — stylish, attitude, Hindi, English, funny, aesthetic & hobby-based bios. Copy, paste & own your profile today.",
-    url: "https://smarttoolswala.com/blog/instagram-bio-for-boys",
+    url: "https://smarttoolswala.com/blog/stylish-instagram-bio-for-boys",
     type: "article",
   },
 };
@@ -1251,7 +1251,7 @@ export default function InstagramBioForBoysPage() {
         <nav className="breadcrumb" aria-label="Breadcrumb">
           <Link href="/">Home</Link><span>/</span>
           <Link href="/blog">Blog</Link><span>/</span>
-          <span>Instagram Bio For Boys</span>
+          <span>Stylish Instagram Bio For Boys</span>
         </nav>
 
         {/* H1 */}

@@ -72,6 +72,16 @@ body {
   width: 100%;
 }
 
+/* Prevent background page scroll when Clerk auth modal is open */
+html:has(.clerk-active-modal-backdrop),
+body:has(.clerk-active-modal-backdrop),
+html:has([data-clerk-modal]),
+body:has([data-clerk-modal]),
+html:has([class*="clerk-modal"]),
+body:has([class*="clerk-modal"]) {
+  overflow: hidden !important;
+}
+
 /* Backgrounds */
 .page-bg {
   background-color: var(--bg-secondary);
@@ -372,6 +382,116 @@ body {
   background: radial-gradient(ellipse at 80% 40%, rgba(236, 72, 153, 0.12) 0%, transparent 60%) !important;
 }
 
+/* ─── Hero Grid & Pink Beam Structure ─── */
+.hero-top-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 520px;
+  background-image: 
+    linear-gradient(to right, rgba(99, 102, 241, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 70%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 70%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+.dark .hero-top-grid {
+  background-image: 
+    linear-gradient(to right, rgba(99, 102, 241, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.12) 1px, transparent 1px);
+}
+
+.hero-top-pink-glow {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 380px;
+  background: radial-gradient(ellipse at center, rgba(236, 72, 153, 0.22), rgba(139, 92, 246, 0.15), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(50px);
+}
+.dark .hero-top-pink-glow {
+  background: radial-gradient(ellipse at center, rgba(236, 72, 153, 0.35), rgba(139, 92, 246, 0.25), transparent 70%);
+}
+
+.hero-top-pink-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 320px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ec4899, #8b5cf6, transparent);
+  box-shadow: 0 0 20px #ec4899, 0 0 35px #ec4899;
+  z-index: 1;
+  border-radius: 999px;
+}
+
+/* ─── Interactive Grid Spotlight (cursor hover fills grid cells) ─── */
+.grid-spotlight {
+  --mx: 50%;
+  --my: 50%;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  /* Mask using same grid pattern as hero-top-grid but only visible near cursor */
+  background-image:
+    linear-gradient(to right, rgba(99, 102, 241, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.45) 1px, transparent 1px);
+  background-size: 36px 36px;
+  /* Radial mask centered at cursor: reveals grid lines in a circular bloom */
+  mask-image: radial-gradient(
+    circle 180px at var(--mx) var(--my),
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.6) 40%,
+    transparent 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle 180px at var(--mx) var(--my),
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.6) 40%,
+    transparent 100%
+  );
+  transition: opacity 0.35s ease;
+}
+
+/* Grid cell fill glow: a colored radial behind the grid lines */
+.grid-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle 220px at var(--mx) var(--my),
+    rgba(99, 102, 241, 0.12) 0%,
+    rgba(168, 85, 247, 0.07) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.dark .grid-spotlight {
+  background-image:
+    linear-gradient(to right, rgba(129, 140, 248, 0.55) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(129, 140, 248, 0.55) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.dark .grid-spotlight::after {
+  background: radial-gradient(
+    circle 220px at var(--mx) var(--my),
+    rgba(99, 102, 241, 0.22) 0%,
+    rgba(236, 72, 153, 0.10) 55%,
+    transparent 100%
+  );
+}
+
 /* ─── Hero Title Purple→Pink Gradient — matches screenshot ─── */
 .hero-title-blue {
   background: linear-gradient(135deg, #8b5cf6, #a855f7, #ec4899);
@@ -387,7 +507,7 @@ body {
   background-clip: text;
 }
 
-/* ─── Hero CTA Button — purple→pink gradient matching screenshot ─── */
+/* ─── Hero CTA Button — purple→pink gradient ─── */
 .hero-btn-primary {
   display: inline-flex;
   align-items: center;
@@ -401,11 +521,12 @@ body {
   box-shadow: 0 4px 20px rgba(139, 92, 246, 0.35), 0 1px 3px rgba(0, 0, 0, 0.1);
   text-decoration: none !important;
   letter-spacing: -0.01em;
-  transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, filter 0.2s ease;
   border: none;
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  outline: none;
 }
 
 .dark .hero-btn-primary {
@@ -418,8 +539,8 @@ body {
 }
 
 .hero-btn-primary:hover {
-  transform: scale(1.03);
-  filter: brightness(1.1);
+  transform: translateY(-2px) scale(1.02);
+  filter: brightness(1.08);
   box-shadow: 0 8px 32px rgba(139, 92, 246, 0.5), 0 1px 3px rgba(0, 0, 0, 0.2);
   color: #fff !important;
 }
@@ -428,9 +549,33 @@ body {
   box-shadow: 0 8px 40px rgba(139, 92, 246, 0.6), 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
-.hero-btn-primary:active {
-  transform: scale(0.98);
-  color: #fff !important;
+/* Animated Card Border Glow & Light Sweep */
+.animated-box-card {
+  position: relative;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.animated-box-card:hover {
+  transform: translateY(-8px) scale(1.015);
+  border-color: rgba(99, 102, 241, 0.7) !important;
+  box-shadow: 0 20px 45px -10px rgba(99, 102, 241, 0.3), 0 0 25px rgba(236, 72, 153, 0.2) !important;
+}
+
+.animated-box-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #6366f1, #a855f7, #ec4899, transparent);
+  transition: left 0.75s ease-in-out;
+  pointer-events: none;
+}
+
+.animated-box-card:hover::after {
+  left: 100%;
 }
 
 /* Most Popular badge — shared style */
@@ -484,21 +629,20 @@ body {
 }
 
 /* ─── Animations ─── */
-/* Animations */
 @keyframes fadeUp {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(20px);
   }
 
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
 .animate-fadeUp {
-  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes float {
@@ -519,10 +663,9 @@ body {
   animation: float 4s ease-in-out infinite;
 }
 
-/* Base class for elements that will be animated natively, ensuring they fade in if JS is slow but wait for CSS */
+/* Base class for elements that will be animated natively */
 .native-fade-in {
-  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0;
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* Staggered delays for children elements */
@@ -658,34 +801,110 @@ body {
   font-family: monospace;
 }
 
+/* ── Blog Table Wrapper (horizontal scroll on mobile) ── */
 .blog-content table {
   width: 100%;
-  border-collapse: separate;
+  border-collapse: collapse;
   border-spacing: 0;
   margin: 2rem 0;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--border-light);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Wrap tables in a scrollable container via prose override */
+.blog-content .prose table,
+.blog-content table {
+  display: table;
+  overflow-x: auto;
+}
+
+/* Outer scroll wrapper injected by tailwind typography */
+.blog-content :where(table):not(:where([class~="not-prose"] *)) {
+  overflow-x: auto;
+  display: block;
+  width: 100%;
 }
 
 .blog-content th {
-  background: var(--bg-tertiary);
-  font-weight: 600;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.82rem;
   text-align: left;
-  padding: 12px 16px;
-  color: var(--text-primary);
-  border-bottom: 1px solid var(--border-light);
+  padding: 13px 18px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  border: none;
+  white-space: nowrap;
+}
+
+.blog-content th:first-child {
+  border-radius: 12px 0 0 0;
+}
+
+.blog-content th:last-child {
+  border-radius: 0 12px 0 0;
 }
 
 .blog-content td {
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--border-light);
+  padding: 12px 18px;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.65;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+}
+
+.blog-content tr:nth-child(even) td {
+  background-color: rgba(99, 102, 241, 0.04);
+}
+
+.blog-content tr:hover td {
+  background-color: rgba(99, 102, 241, 0.08);
+  transition: background 0.15s ease;
 }
 
 .blog-content tr:last-child td {
   border-bottom: none;
+}
+
+.blog-content tr:last-child td:first-child {
+  border-radius: 0 0 0 12px;
+}
+
+.blog-content tr:last-child td:last-child {
+  border-radius: 0 0 12px 0;
+}
+
+/* Table container with card styling */
+.blog-content table {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Dark mode table */
+.dark .blog-content th {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #ffffff;
+}
+
+.dark .blog-content td {
+  color: #cbd5e1;
+  border-bottom-color: #1e293b;
+}
+
+.dark .blog-content tr:nth-child(even) td {
+  background-color: rgba(99, 102, 241, 0.07);
+}
+
+.dark .blog-content tr:hover td {
+  background-color: rgba(99, 102, 241, 0.13);
+}
+
+.dark .blog-content table {
+  border-color: #1e293b;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
 }
 
 .line-clamp-2 {
@@ -841,6 +1060,7 @@ body {
   padding: clamp(80px, 12vh, 110px) 16px 0;
 }
 @keyframes spin-cw { to { transform: rotate(360deg); } }
+@keyframes spin { to { transform: rotate(360deg); } }
 .ci-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; gap: 10px; flex-wrap: wrap; }
 .ci-compress-box { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: center; gap: 16px; padding: 16px 20px; background: #ffffff; border-radius: 24px; margin-bottom: 20px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
 .ci-compress-btn { flex: 1; min-width: 200px; padding: 16px 24px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border-radius: 16px; font-size: 16px; font-weight: 800; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 4px 14px rgba(99,102,241,0.3); transition: transform 0.2s; }
@@ -858,6 +1078,309 @@ body {
   .ci-filename { max-width: 120px; }
   .ci-happy-row { padding: 12px 16px; }
   .ci-link-row { max-width: 100%; }
+}
+
+/* ===== Premium Upload Zone Card ===== */
+.ci-upload-zone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: clamp(40px, 7vw, 72px) clamp(20px, 5vw, 48px);
+  border-radius: 28px;
+  background: linear-gradient(145deg, #fafaff 0%, #f3f4ff 100%);
+  border: 1.5px solid rgba(99, 102, 241, 0.18);
+  cursor: pointer;
+  overflow: hidden;
+  text-align: center;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+  box-shadow: 0 4px 24px rgba(99, 102, 241, 0.06), 0 1px 3px rgba(0,0,0,0.04);
+}
+.ci-upload-zone:hover {
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 8px 40px rgba(99, 102, 241, 0.12), 0 1px 3px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+.ci-upload-zone--dragging {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15), 0 12px 40px rgba(99, 102, 241, 0.2) !important;
+  transform: scale(1.015) !important;
+  background: linear-gradient(145deg, #eef2ff 0%, #ede9fe 100%) !important;
+}
+
+/* Ambient glow behind icon */
+.ci-upload-zone__glow {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 160px;
+  background: radial-gradient(ellipse, rgba(99,102,241,0.14) 0%, transparent 72%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Icon orb */
+.ci-upload-zone__orb {
+  position: relative;
+  z-index: 1;
+  width: 76px;
+  height: 76px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  box-shadow: 0 12px 32px rgba(99, 102, 241, 0.35);
+  color: #fff;
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.ci-upload-zone:hover .ci-upload-zone__orb {
+  box-shadow: 0 16px 40px rgba(99, 102, 241, 0.5);
+  transform: translateY(-2px);
+}
+.ci-upload-zone--dragging .ci-upload-zone__orb {
+  transform: scale(1.1) translateY(-4px);
+  box-shadow: 0 20px 48px rgba(99, 102, 241, 0.55);
+}
+
+/* Headline */
+.ci-upload-zone__title {
+  position: relative;
+  z-index: 1;
+  font-size: clamp(20px, 4vw, 24px);
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+.ci-upload-zone__sub {
+  position: relative;
+  z-index: 1;
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 24px;
+}
+
+/* Pills row */
+.ci-upload-zone__pills {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.ci-upload-zone__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 100px;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.18);
+  font-size: 12px;
+  font-weight: 700;
+  color: #4f46e5;
+  letter-spacing: 0.02em;
+}
+
+/* Privacy note */
+.ci-upload-zone__privacy {
+  position: relative;
+  z-index: 1;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 16px;
+}
+
+/* CTA button base (light) — dark handled via .ci-upload-btn rules */
+.ci-upload-btn {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.38);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.ci-upload-btn:hover {
+  box-shadow: 0 8px 28px rgba(99, 102, 241, 0.52);
+  transform: translateY(-1px);
+}
+
+/* ── Dark mode: upload zone ── */
+.dark .ci-upload-zone {
+  background: linear-gradient(145deg, #0d1117 0%, #0f172a 100%);
+  border-color: rgba(99, 102, 241, 0.22);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+.dark .ci-upload-zone:hover {
+  border-color: rgba(129, 140, 248, 0.5);
+  box-shadow: 0 8px 48px rgba(99, 102, 241, 0.18), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.dark .ci-upload-zone--dragging {
+  background: linear-gradient(145deg, #13112a 0%, #1e1b4b 100%) !important;
+  border-color: #818cf8 !important;
+  box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.2), 0 16px 48px rgba(99, 102, 241, 0.3) !important;
+}
+.dark .ci-upload-zone__glow {
+  background: radial-gradient(ellipse, rgba(129,140,248,0.22) 0%, transparent 72%);
+}
+.dark .ci-upload-zone__orb {
+  background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+  box-shadow: 0 12px 32px rgba(129, 140, 248, 0.45);
+}
+.dark .ci-upload-zone:hover .ci-upload-zone__orb {
+  box-shadow: 0 16px 40px rgba(129, 140, 248, 0.6);
+}
+.dark .ci-upload-zone__title {
+  color: #f1f5f9;
+}
+.dark .ci-upload-zone__sub {
+  color: #64748b;
+}
+.dark .ci-upload-zone__pill {
+  background: rgba(129, 140, 248, 0.1);
+  border-color: rgba(129, 140, 248, 0.25);
+  color: #a5b4fc;
+}
+.dark .ci-upload-zone__privacy {
+  color: #475569;
+}
+.dark .ci-upload-btn {
+  background: linear-gradient(135deg, #818cf8, #a78bfa) !important;
+  box-shadow: 0 4px 20px rgba(129, 140, 248, 0.45) !important;
+  color: #fff !important;
+}
+.dark .ci-upload-btn:hover {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+  box-shadow: 0 8px 28px rgba(129, 140, 248, 0.6) !important;
+}
+
+/* ===== CompressImageClient — Dark Mode Overrides ===== */
+/* Header row: "N images selected" text + action buttons */
+.dark .ci-header-row p { color: var(--text-primary) !important; }
+.dark .ci-header-row button[style*="#f8faff"],
+.dark .ci-header-row button[style*="f8faff"] {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #818cf8 !important;
+}
+.dark .ci-header-row button[style*="#fff1f2"],
+.dark .ci-header-row button[style*="fff1f2"] {
+  background: #2d1b21 !important;
+  border-color: #4c2030 !important;
+  color: #f87171 !important;
+}
+
+/* Compress box (size selector + compress button row) */
+.dark .ci-compress-box {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+}
+.dark .ci-compress-box button:not(.ci-compress-btn) {
+  background: #1e293b !important;
+  border-color: #334155 !important;
+  color: #818cf8 !important;
+}
+
+/* File list rows */
+.dark .ci-filename { color: var(--text-primary) !important; }
+
+/* Per-file card: outer wrapper */
+.dark [style*="background: #fafbff"],
+.dark [style*="background:#fafbff"] {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+}
+
+/* File bar row (filename + delete button area) */
+.dark [style*="background: #fff"][style*="border-bottom"],
+.dark [style*="background:#fff"][style*="border-bottom"] {
+  background: #0f172a !important;
+  border-bottom-color: #1e293b !important;
+}
+
+/* "Original: XX KB" size label */
+.dark .compress-image-wrapper [style*="color: #64748b"],
+.dark .compress-image-wrapper [style*="color:#64748b"] {
+  color: #94a3b8 !important;
+}
+
+/* Delete button on file rows */
+.dark .compress-image-wrapper button[style*="border: 1px solid #fecdd3"],
+.dark .compress-image-wrapper button[style*="border:1px solid #fecdd3"] {
+  background: #2d1b21 !important;
+  border-color: #4c2030 !important;
+  color: #f87171 !important;
+}
+
+/* Progress bar container */
+.dark .compress-image-wrapper [style*="background: #fff"][style*="border-radius: 20px"],
+.dark .compress-image-wrapper [style*="background:#fff"][style*="border-radius:20px"] {
+  background: #0f172a !important;
+  border-color: #1e293b !important;
+}
+.dark .compress-image-wrapper [style*="background: #f1f5f9"][style*="border-radius: 5px"] {
+  background: #1e293b !important;
+}
+
+/* Thumbnail border inside file row */
+.dark .compress-image-wrapper [style*="border: 2px solid #e0e7ff"],
+.dark .compress-image-wrapper [style*="border:2px solid #e0e7ff"] {
+  border-color: #312e81 !important;
+}
+
+/* Progress label "Compressing..." */
+.dark .compress-image-wrapper [style*="color: #1e293b"] {
+  color: var(--text-primary) !important;
+}
+
+/* ── Action buttons: bright visible gradient in dark mode ── */
+/* "Choose Images" upload button */
+.dark .ci-upload-btn {
+  background: linear-gradient(135deg, #818cf8, #a78bfa) !important;
+  box-shadow: 0 4px 20px rgba(129, 140, 248, 0.45) !important;
+  color: #fff !important;
+}
+.dark .ci-upload-btn:hover {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.55) !important;
+}
+
+/* Per-file "Download" button */
+.dark .ci-download-btn {
+  background: linear-gradient(135deg, #818cf8, #a78bfa) !important;
+  box-shadow: 0 4px 16px rgba(129, 140, 248, 0.4) !important;
+  color: #fff !important;
+}
+.dark .ci-download-btn:hover {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+}
+
+/* "Download All (ZIP)" floating button */
+.dark .ci-download-zip-btn {
+  background: linear-gradient(135deg, #1e293b, #312e81) !important;
+  border: 1px solid #4338ca !important;
+  box-shadow: 0 8px 32px rgba(49, 46, 129, 0.55) !important;
+  color: #e0e7ff !important;
+}
+.dark .ci-download-zip-btn:hover {
+  background: linear-gradient(135deg, #312e81, #4338ca) !important;
 }
 
 /* ===== SMART DARK MODE GLOBAL OVERRIDES ===== */

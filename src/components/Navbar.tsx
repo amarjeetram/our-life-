@@ -2,14 +2,25 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Menu, X, Image as ImageIcon, ChevronRight, Home, Wrench, BookOpen, Heart, Search, Compass, FileText, Instagram, Sun, Moon, DollarSign } from 'lucide-react';
+import { Menu, X, Image as ImageIcon, ChevronRight, Home, Wrench, BookOpen, Heart, Search, Compass, FileText, Instagram, Sun, Moon, DollarSign, LayoutDashboard, Sparkles } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import { SignInButton, SignUpButton, Show, UserButton } from '@clerk/nextjs';
 
 const Navbar = () => {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+
+    // Reset all nav, drawer & search states on client-side route changes
+    useEffect(() => {
+        setIsOpen(false);
+        setIsToolsDropdownOpen(false);
+        setIsAiDropdownOpen(false);
+        setIsSearchOpen(false);
+    }, [pathname]);
     
     // Dark Mode Theme States
     const [theme, setTheme] = useState<'light' | 'dark'>('dark');
@@ -17,8 +28,16 @@ const Navbar = () => {
 
     useEffect(() => {
         setMounted(true);
-        const isDark = document.documentElement.classList.contains('dark');
-        setTheme(isDark ? 'dark' : 'light');
+        const saved = localStorage.getItem('theme');
+        // Default to dark if no preference saved
+        if (saved === 'light') {
+            setTheme('light');
+            document.documentElement.classList.remove('dark');
+        } else {
+            setTheme('dark');
+            document.documentElement.classList.add('dark');
+            if (!saved) localStorage.setItem('theme', 'dark');
+        }
     }, []);
 
     const toggleTheme = () => {
@@ -37,6 +56,7 @@ const Navbar = () => {
     };
 
     const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
+    const [isAiDropdownOpen, setIsAiDropdownOpen] = useState(false);
 
     // Global Search States
     const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -114,23 +134,7 @@ const Navbar = () => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [isSearchOpen, searchResults, selectedIndex]);
 
-    const handleLoginClick = () => {
-        toast.dismiss(); // Clear any existing toasts to prevent stacking
-        toast("Login system is under development. Coming soon! 🚀", {
-            id: 'login-toast', // Fixed ID to overwrite instead of creating new toast instances
-            duration: 3000,    // Set duration to 3 seconds
-            icon: '🔒',
-            style: {
-                borderRadius: '12px',
-                background: '#334155',
-                color: '#fff',
-                fontSize: '14px',
-                fontWeight: '600',
-                lineHeight: '1.5',
-                padding: '12px 18px',
-            }
-        });
-    };
+    // handleLoginClick removed because we will use native Next Links instead.
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -159,6 +163,7 @@ const Navbar = () => {
             isDropdown: true,
             icon: <Wrench className="w-5 h-5" />,
             subItems: [
+                { name: '🤖 AI Directory', href: '/directory' },
                 { name: 'Image Tools', href: '/image-tools' },
                 { name: 'YouTube Tools', href: '/youtube-tools' },
                 { name: 'Instagram Tools', href: '/instagram-tools' },
@@ -168,10 +173,11 @@ const Navbar = () => {
                 { name: 'Date & Time Tools', href: '/date-time-tools' },
                 { name: 'Generators', href: '/generators' },
                 { name: 'Other Tools', href: '/other-tools' },
+                { name: '✨ AI Prompts', href: '/ai-prompts' },
             ]
         },
+        { name: 'AI Directory', href: '/directory', icon: <Compass className="w-5 h-5" /> },
         { name: 'Blog', href: '/blog', icon: <BookOpen className="w-5 h-5" /> },
-        { name: 'Pricing', href: '/pricing', icon: <DollarSign className="w-5 h-5" /> },
     ];
 
     return (
@@ -227,6 +233,40 @@ const Navbar = () => {
                                             </div>
                                         </div>
                                     </div>
+                                ) : (link as any).isAiDropdown ? (
+                                    <div
+                                        key={link.name}
+                                        className="relative"
+                                        onMouseEnter={() => setIsAiDropdownOpen(true)}
+                                        onMouseLeave={() => setIsAiDropdownOpen(false)}
+                                    >
+                                        <button suppressHydrationWarning className="px-4 py-2 text-sm font-bold rounded-xl transition-all duration-200 flex items-center gap-1.5" style={{ background: 'linear-gradient(135deg, #7c3aed, #a855f7)', color: 'white', boxShadow: '0 2px 10px rgba(124,58,237,0.35)' }}>
+                                            <Sparkles className="w-3.5 h-3.5" />
+                                            {link.name}
+                                            <svg className={`w-3.5 h-3.5 transition-transform duration-200 ${isAiDropdownOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" /></svg>
+                                        </button>
+
+                                        {/* AI Dropdown Menu */}
+                                        <div
+                                            className={`absolute top-full left-0 mt-2 w-72 bg-white dark:bg-slate-900 rounded-xl shadow-xl border border-purple-100 dark:border-purple-900/40 overflow-hidden transition-all duration-200 origin-top-left ${isAiDropdownOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}
+                                            style={{ zIndex: 1000 }}
+                                        >
+                                            <div className="px-4 py-2.5 border-b border-purple-50 dark:border-purple-900/30 sticky top-0" style={{ background: 'linear-gradient(135deg, #f5f3ff, #faf5ff)' }}>
+                                                <p className="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider">✨ All Tools</p>
+                                            </div>
+                                            <div className="py-2 overflow-y-auto" style={{ maxHeight: '70vh' }}>
+                                                {link.subItems?.map(sub => (
+                                                    <Link
+                                                        key={sub.name}
+                                                        href={sub.href}
+                                                        className="block px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:text-purple-700 dark:hover:text-purple-300 font-medium transition-colors"
+                                                    >
+                                                        {sub.name}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
                                 ) : (
                                     <Link
                                         key={link.name}
@@ -251,6 +291,7 @@ const Navbar = () => {
                             {/* Theme Toggle Button */}
                             <button
                                 onClick={toggleTheme}
+                                suppressHydrationWarning
                                 className="px-3.5 py-2 text-gray-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-white/80 dark:hover:bg-slate-800/80 rounded-xl transition-all duration-200 cursor-pointer flex items-center justify-center shrink-0 border border-transparent hover:border-slate-100 dark:hover:border-slate-800"
                                 aria-label="Toggle theme"
                                 title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
@@ -267,17 +308,34 @@ const Navbar = () => {
 
                         {/* Desktop CTA */}
                         <div className="hidden md:flex items-center gap-2">
-                            <button
-                                onClick={handleLoginClick}
-                                className="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-all duration-200 border border-slate-200 dark:border-slate-700 shadow-sm cursor-pointer"
+                            <Show when="signed-out">
+                                <SignInButton mode="modal" forceRedirectUrl="/dashboard" fallbackRedirectUrl="/dashboard">
+                                    <button className="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-all duration-200 border border-slate-200 dark:border-slate-700 shadow-sm cursor-pointer">
+                                        Login
+                                    </button>
+                                </SignInButton>
+                                <SignUpButton mode="modal" forceRedirectUrl="/dashboard" fallbackRedirectUrl="/dashboard">
+                                    <button className="px-4 py-2 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl transition-all duration-200 shadow-sm shadow-indigo-100 dark:shadow-indigo-950/20 cursor-pointer">
+                                        Sign Up
+                                    </button>
+                                </SignUpButton>
+                            </Show>
+                            <Show when="signed-in">
+                                <Link
+                                    href="/dashboard"
+                                    className="px-4 py-2 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl transition-all duration-200 shadow-sm shadow-indigo-100 dark:shadow-indigo-950/20 cursor-pointer flex items-center gap-2 mr-1">
+                                    <LayoutDashboard size={16} /> Dashboard
+                                </Link>
+                                <UserButton />
+                            </Show>
+                            <Link
+                                href="/directory/submit"
+                                className="px-4 py-2 text-sm font-extrabold rounded-xl transition-all duration-200 flex items-center gap-1.5 hover:scale-105 ml-1"
+                                style={{ background: 'linear-gradient(135deg, #f97316, #ef4444)', color: 'white', boxShadow: '0 2px 10px rgba(249,115,22,0.35)' }}
                             >
-                                Login
-                            </button>
-                            <button
-                                onClick={handleLoginClick}
-                                className="px-4 py-2 text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl transition-all duration-200 shadow-sm shadow-indigo-100 dark:shadow-indigo-950/20 cursor-pointer">
-                                Sign Up
-                            </button>
+                                <Sparkles className="w-3.5 h-3.5" />
+                                Submit Tool
+                            </Link>
                         </div>
 
                         {/* Mobile Hamburger — only on mobile */}
@@ -331,6 +389,7 @@ const Navbar = () => {
                         {/* Mobile Theme Toggle Button */}
                         <button
                             onClick={toggleTheme}
+                            suppressHydrationWarning
                             style={{ padding: '8px', borderRadius: '10px', border: 'none', background: 'var(--bg-secondary)', cursor: 'pointer', color: theme === 'dark' ? '#fbbf24' : '#4f46e5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                             aria-label="Toggle theme"
                             title={theme === 'dark' ? "Switch to Light Mode" : "Switch to Dark Mode"}
@@ -404,6 +463,31 @@ const Navbar = () => {
                                         ))}
                                     </div>
                                 </div>
+                            ) : (link as any).isAiDropdown ? (
+                                <div>
+                                    <div
+                                        style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '12px 16px', fontWeight: 700, fontSize: '15px', borderRadius: '14px', marginBottom: '4px', background: 'linear-gradient(135deg, #7c3aed15, #a855f715)', color: '#7c3aed' }}
+                                    >
+                                        <Sparkles size={18} style={{ color: '#a855f7' }} />
+                                        {link.name}
+                                        <span style={{ marginLeft: 'auto', fontSize: '10px', background: 'linear-gradient(135deg,#7c3aed,#a855f7)', color: 'white', borderRadius: '6px', padding: '2px 7px', fontWeight: 800, letterSpacing: '0.05em' }}>NEW</span>
+                                    </div>
+                                    {/* AI Mobile Submenu Items */}
+                                    <div style={{ paddingLeft: '24px', marginBottom: '8px', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                                        {link.subItems?.map(sub => (
+                                            <Link
+                                                key={sub.name}
+                                                href={sub.href}
+                                                onClick={() => setIsOpen(false)}
+                                                style={{ display: 'flex', alignItems: 'center', padding: '10px 16px', color: '#7c3aed', fontWeight: 500, fontSize: '14px', borderRadius: '10px', textDecoration: 'none', transition: 'background 0.15s' }}
+                                                className="hover:bg-purple-50 dark:hover:bg-purple-900/20"
+                                            >
+                                                <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#a855f7', marginRight: '10px' }}></div>
+                                                {sub.name}
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
                             ) : (
                                 <Link
                                     href={link.href || '#'}
@@ -422,18 +506,30 @@ const Navbar = () => {
                 {/* Drawer Footer */}
                 <div style={{ padding: '16px', borderTop: '1px solid var(--border-light)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <div style={{ display: 'flex', gap: '8px' }}>
-                        <button
-                            onClick={() => { setIsOpen(false); handleLoginClick(); }}
-                            style={{ flex: 1, padding: '12px', background: 'var(--bg-secondary)', color: 'var(--text-secondary)', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: '1px solid var(--border-light)', cursor: 'pointer' }}
-                        >
-                            Login
-                        </button>
-                        <button
-                            onClick={() => { setIsOpen(false); handleLoginClick(); }}
-                            style={{ flex: 1, padding: '12px', background: '#4f46e5', color: '#ffffff', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: 'none', cursor: 'pointer' }}
-                        >
-                            Sign Up
-                        </button>
+                        <Show when="signed-in">
+                            <Link
+                                href="/dashboard"
+                                onClick={() => setIsOpen(false)}
+                                style={{ flex: 1, padding: '12px', background: '#4f46e5', color: '#ffffff', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: 'none', cursor: 'pointer', textAlign: 'center', textDecoration: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}
+                            >
+                                <LayoutDashboard size={16} /> Dashboard
+                            </Link>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <UserButton />
+                            </div>
+                        </Show>
+                        <Show when="signed-out">
+                            <SignInButton mode="modal" forceRedirectUrl="/dashboard" fallbackRedirectUrl="/dashboard">
+                                <button onClick={() => setIsOpen(false)} style={{ flex: 1, padding: '12px', background: 'var(--bg-secondary)', color: 'var(--text-secondary)', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: '1px solid var(--border-light)', cursor: 'pointer', textAlign: 'center' }}>
+                                    Login
+                                </button>
+                            </SignInButton>
+                            <SignUpButton mode="modal" forceRedirectUrl="/dashboard" fallbackRedirectUrl="/dashboard">
+                                <button onClick={() => setIsOpen(false)} style={{ flex: 1, padding: '12px', background: '#4f46e5', color: '#ffffff', fontWeight: 700, fontSize: '14px', borderRadius: '12px', border: 'none', cursor: 'pointer', textAlign: 'center' }}>
+                                    Sign Up
+                                </button>
+                            </SignUpButton>
+                        </Show>
                     </div>
                 </div>
             </div>

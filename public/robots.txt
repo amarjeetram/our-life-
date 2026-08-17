@@ -1,0 +1,16 @@
+User-agent: *
+Disallow: /manage
+Disallow: /manage/
+Disallow: /api/manage/
+Disallow: /api/directory/admin/
+Disallow: /dashboard
+Disallow: /dashboard/
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /api/
+
+Allow: /directory
+Allow: /directory/
+Allow: /directory/tools/
+
+Sitemap: https://smarttoolswala.com/sitemap.xml

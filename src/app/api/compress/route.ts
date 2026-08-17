@@ -1,37 +1,42 @@
 import { NextRequest, NextResponse } from 'next/server';
 import sharp from 'sharp';
 import { LRUCache } from 'lru-cache';
+import { validateImageBuffer, isValidOrigin } from '@/lib/directory/validate';
 
-// Rate Limiter: Max 20 requests per IP per minute
-const rateLimit = new LRUCache<string, number>({
-    max: 500, // Max number of IPs to track
+// Rate Limiter: Max 20 requests per IP per minute (in-memory, per-instance)
+const rateLimiter = new LRUCache<string, number>({
+    max: 500,
     ttl: 1000 * 60, // 1 minute
 });
 
 export async function POST(req: NextRequest) {
     try {
+        // H-2 FIX: CSRF check for multipart/form-data
+        if (!isValidOrigin(req)) {
+            return NextResponse.json({ error: 'Invalid request origin' }, { status: 403 });
+        }
+
         const formData = await req.formData();
         const file = formData.get('file') as File;
         const targetSizeKb = parseInt(formData.get('targetSize') as string) || 20;
         const width = formData.get('width') ? parseInt(formData.get('width') as string) : null;
         const height = formData.get('height') ? parseInt(formData.get('height') as string) : null;
 
-        // Rate Limiting Logic
-        const ip = req.headers.get('x-forwarded-for') || 'unknown-ip';
-        const currentUsage = rateLimit.get(ip) || 0;
+        // Rate Limiting
+        const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown-ip';
+        const currentUsage = rateLimiter.get(ip) || 0;
 
         if (currentUsage >= 20) {
-            return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 });
+            return NextResponse.json(
+                { error: 'Too many requests. Please try again later.' },
+                { status: 429, headers: { 'Retry-After': '60' } }
+            );
         }
-        rateLimit.set(ip, currentUsage + 1);
+        rateLimiter.set(ip, currentUsage + 1);
 
-        // Security Validation
+        // Basic presence check
         if (!file) {
             return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
-        }
-
-        if (!file.type.startsWith('image/')) {
-            return NextResponse.json({ error: 'Invalid file type. Only images are allowed.' }, { status: 415 });
         }
 
         const fileSizeMB = file.size / (1024 * 1024);
@@ -41,6 +46,17 @@ export async function POST(req: NextRequest) {
 
         const targetBytes = targetSizeKb * 1024;
         const buffer = Buffer.from(await file.arrayBuffer());
+
+        // H-3 FIX: Magic bytes validation — never trust client-declared MIME type.
+        // A renamed .exe or .php file passes file.type check but fails magic bytes.
+        const validation = validateImageBuffer(buffer, file.type, file.name);
+        if (!validation.valid) {
+            return NextResponse.json(
+                { error: validation.error ?? 'Invalid file type' },
+                { status: 415 }
+            );
+        }
+
         
         // Initial sharp instance
         let sharpInstance = sharp(buffer);

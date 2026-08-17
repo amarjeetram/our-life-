@@ -459,67 +459,143 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
 
                 {/* ── Main Tool Card ── */}
                 <div style={{
-                    background: '#ffffff',
-                    borderRadius: '32px',
-                    border: '1px solid #e2e8f8',
-                    boxShadow: '0 8px 8px -4px rgba(0,0,0,0.04), 0 24px 64px -12px rgba(99,102,241,0.14)',
                     marginBottom: '20px',
                 }}>
-                    {/* Card top accent */}
-                    <div style={{ height: '4px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7, #ec4899)', borderTopLeftRadius: '32px', borderTopRightRadius: '32px' }} />
+                    {/* Gradient top line accent */}
+                    <div style={{ height: '3px', background: 'linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7, #ec4899)', borderRadius: '3px', marginBottom: '16px' }} />
 
-                    <div style={{ padding: 'clamp(20px, 4vw, 36px)' }}>
+                    <div style={{ padding: '0' }}>
                         <AnimatePresence mode="wait">
                             {isEmpty ? (
                                 /* ── Upload State ── */
                                 <motion.div key="upload" initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.98 }}>
+                                    <input id="file-input-20kb" type="file" hidden accept="image/*" multiple onChange={handleUpload} />
+
+                                    {/* ── Premium Upload Card ── */}
                                     <div
                                         onClick={() => document.getElementById('file-input-20kb')?.click()}
                                         onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
                                         onDragLeave={() => setIsDragging(false)}
                                         onDrop={handleDrop}
                                         style={{
-                                            border: `2px dashed ${isDragging ? '#4f46e5' : '#94a3b8'}`,
-                                            borderRadius: '24px',
-                                            background: isDragging ? '#f5f3ff' : '#ffffff',
-                                            padding: 'clamp(32px, 6vw, 60px) clamp(16px, 4vw, 24px)',
+                                            position: 'relative',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
                                             textAlign: 'center',
+                                            padding: 'clamp(44px, 8vw, 80px) clamp(24px, 5vw, 56px)',
+                                            borderRadius: '28px',
                                             cursor: 'pointer',
+                                            overflow: 'hidden',
                                             transition: 'all 0.25s ease',
-                                            transform: isDragging ? 'scale(1.01)' : 'scale(1)',
+                                            background: isDragging
+                                                ? 'linear-gradient(145deg, #eef2ff, #ede9fe)'
+                                                : 'linear-gradient(145deg, #0d1117 0%, #0f172a 60%, #13112a 100%)',
+                                            border: isDragging
+                                                ? '2px solid #818cf8'
+                                                : '1.5px solid rgba(129, 140, 248, 0.22)',
+                                            boxShadow: isDragging
+                                                ? '0 0 0 4px rgba(129,140,248,0.2), 0 16px 48px rgba(99,102,241,0.28)'
+                                                : '0 4px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05)',
+                                            transform: isDragging ? 'scale(1.018)' : 'scale(1)',
                                         }}
                                     >
-                                        <input id="file-input-20kb" type="file" hidden accept="image/*" multiple onChange={handleUpload} />
-
+                                        {/* Ambient glow blob */}
                                         <div style={{
-                                            width: ' clamp(64px, 10vw, 88px)', height: 'clamp(64px, 10vw, 88px)', borderRadius: ' clamp(20px, 4vw, 28px)',
-                                            margin: '0 auto 22px',
-                                            background: 'linear-gradient(135deg, #ede9fe, #dbeafe)',
+                                            position: 'absolute', top: '-40px', left: '50%',
+                                            transform: 'translateX(-50%)',
+                                            width: '280px', height: '200px',
+                                            background: 'radial-gradient(ellipse, rgba(129,140,248,0.18) 0%, transparent 70%)',
+                                            pointerEvents: 'none',
+                                        }} />
+
+                                        {/* Icon orb */}
+                                        <div style={{
+                                            position: 'relative',
+                                            width: '80px', height: '80px',
+                                            borderRadius: '24px',
+                                            background: 'linear-gradient(135deg, #818cf8 0%, #a78bfa 100%)',
                                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                            boxShadow: '0 12px 28px rgba(99,102,241,0.18)',
+                                            marginBottom: '24px',
+                                            boxShadow: '0 12px 36px rgba(129,140,248,0.5)',
+                                            color: '#fff',
+                                            flexShrink: 0,
+                                            transition: 'transform 0.25s, box-shadow 0.25s',
+                                            transform: isDragging ? 'scale(1.12) translateY(-4px)' : 'none',
                                         }}>
-                                            <Upload size={30} color="#5b21b6" strokeWidth={1.6} />
+                                            <Upload size={30} strokeWidth={1.8} />
                                         </div>
 
-                                        <p style={{ fontSize: 'clamp(18px, 4vw, 20px)', fontWeight: 800, color: '#1e293b', marginBottom: '8px', letterSpacing: '-0.02em' }}>
-                                            Drop your photos here
+                                        {/* Headline */}
+                                        <p style={{
+                                            fontSize: 'clamp(20px, 4vw, 26px)',
+                                            fontWeight: 800,
+                                            color: '#f1f5f9',
+                                            letterSpacing: '-0.03em',
+                                            marginBottom: '8px',
+                                            lineHeight: 1.2,
+                                        }}>
+                                            {isDragging ? '✦ Release to upload' : 'Drop your images here'}
                                         </p>
-                                        <p style={{ fontSize: 'clamp(12px, 3vw, 14px)', color: '#64748b', marginBottom: '28px' }}>
-                                            or click to browse · JPG, PNG, WEBP · Up to 10 files, Max 20MB/file
+                                        <p style={{
+                                            fontSize: '14px',
+                                            color: '#64748b',
+                                            marginBottom: '24px',
+                                        }}>
+                                            or click anywhere to browse your files
                                         </p>
 
-                                        <button style={{
-                                            display: 'inline-flex', alignItems: 'center', gap: '10px',
-                                            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                                            color: '#fff', border: 'none', borderRadius: '16px',
-                                            padding: '14px 32px', fontSize: '15px', fontWeight: 700,
-                                            cursor: 'pointer', letterSpacing: '-0.01em',
-                                            boxShadow: '0 4px 16px rgba(99,102,241,0.38)',
+                                        {/* Format pills */}
+                                        <div style={{
+                                            display: 'flex', flexWrap: 'wrap',
+                                            justifyContent: 'center', gap: '8px',
+                                            marginBottom: '32px',
                                         }}>
-                                            <ImageIcon size={17} /> Choose Images
+                                            {['JPG', 'PNG', 'WEBP', 'Up to 10 files', 'Max 20 MB'].map(label => (
+                                                <span key={label} style={{
+                                                    display: 'inline-flex', alignItems: 'center',
+                                                    padding: '5px 14px',
+                                                    borderRadius: '100px',
+                                                    background: 'rgba(129,140,248,0.1)',
+                                                    border: '1px solid rgba(129,140,248,0.25)',
+                                                    fontSize: '12px', fontWeight: 700,
+                                                    color: '#a5b4fc',
+                                                    letterSpacing: '0.02em',
+                                                }}>
+                                                    {label}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        {/* CTA button */}
+                                        <button
+                                            className="ci-upload-btn"
+                                            onClick={e => { e.stopPropagation(); document.getElementById('file-input-20kb')?.click(); }}
+                                            style={{
+                                                display: 'inline-flex', alignItems: 'center', gap: '10px',
+                                                padding: '14px 36px',
+                                                borderRadius: '16px',
+                                                background: 'linear-gradient(135deg, #818cf8, #a78bfa)',
+                                                color: '#fff',
+                                                fontSize: '15px', fontWeight: 700,
+                                                border: 'none', cursor: 'pointer',
+                                                letterSpacing: '-0.01em',
+                                                boxShadow: '0 4px 20px rgba(129,140,248,0.45)',
+                                                position: 'relative', zIndex: 1,
+                                            }}
+                                        >
+                                            <ImageIcon size={16} /> Choose Images
                                         </button>
-                                        <p style={{ fontSize: '12px', color: '#475569', marginTop: '18px' }}>
-                                            Max 20 MB each · No signup needed · 100% private
+
+                                        {/* Privacy note */}
+                                        <p style={{
+                                            fontSize: '12px',
+                                            color: '#475569',
+                                            marginTop: '18px',
+                                            position: 'relative', zIndex: 1,
+                                        }}>
+                                            🔒 No signup · 100% private · Files never stored
                                         </p>
                                     </div>
                                 </motion.div>
@@ -821,7 +897,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                         }
                                                                         <div>
                                                                             <p style={{ fontSize: '13px', fontWeight: 800, color: isSuccess ? '#14532d' : '#881337' }}>
-                                                                                {isSuccess ? '✓ Compressed Successfully' : `Above ${targetSizeKB}KB`}
+                                                                                {isSuccess ? '✓ Compressed Successfully' : `Above ${userTargetSize}KB`}
                                                                             </p>
                                                                             <p style={{ fontSize: '11px', color: isSuccess ? '#15803d' : '#be123c', marginTop: '1px', fontWeight: 600 }}>
                                                                                 {(item.file.size / 1024).toFixed(1)} KB ➝ {resultKB!.toFixed(1)} KB
@@ -829,12 +905,12 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                                             </p>
                                                                         </div>
                                                                     </div>
-
                                                                     <button
+                                                                        className="ci-download-btn"
                                                                         onClick={() => {
                                                                             const link = document.createElement('a');
                                                                             link.href = item.optimizedUrl!;
-                                                                            link.download = `smarttoolswala-20kb-${item.file.name.split('.')[0]}.jpg`;
+                                                                            link.download = `smarttoolswala-${userTargetSize}kb-${item.file.name.split('.')[0]}.jpg`;
                                                                             link.click();
                                                                         }}
                                                                         style={{
@@ -877,6 +953,7 @@ export default function CompressImageClient({ targetSizeKB, titleOverride, subti
                                                 }}
                                             >
                                                 <button
+                                                    className="ci-download-zip-btn"
                                                     onClick={handleDownloadZip}
                                                     style={{
                                                         pointerEvents: 'auto',

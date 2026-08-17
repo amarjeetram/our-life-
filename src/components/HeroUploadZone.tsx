@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Upload, X, Zap, ChevronDown, ImagePlus, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -25,6 +25,8 @@ interface PreviewFile {
 
 export default function HeroUploadZone() {
     const router = useRouter();
+    const pathname = usePathname();
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [files, setFiles] = useState<PreviewFile[]>([]);
     const [targetSize, setTargetSize] = useState(SIZE_OPTIONS[0]);
@@ -32,6 +34,22 @@ export default function HeroUploadZone() {
     const [isProcessing, setIsProcessing] = useState(false);
     const [showSizeDropdown, setShowSizeDropdown] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    // Reset dropdown on route change
+    useEffect(() => {
+        setShowSizeDropdown(false);
+    }, [pathname]);
+
+    // Close dropdown on click outside
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+                setShowSizeDropdown(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     const processFiles = useCallback((rawFiles: File[]) => {
         const imageFiles = rawFiles.filter(f => f.type.startsWith("image/")).slice(0, 10);
@@ -262,7 +280,7 @@ export default function HeroUploadZone() {
                         {/* Target size + compress row */}
                         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", alignItems: "stretch" }}>
                             {/* Size dropdown */}
-                            <div style={{ position: "relative", flexShrink: 0 }}>
+                            <div ref={dropdownRef} style={{ position: "relative", flexShrink: 0 }}>
                                 <button
                                     onClick={(e) => { e.stopPropagation(); setShowSizeDropdown(v => !v); }}
                                     style={{

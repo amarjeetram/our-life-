@@ -40,7 +40,6 @@ function sanitizeText(html: string, maxLength?: number): string {
         .trim();
 
     if (maxLength && text.length > maxLength) {
-        // Trim to maxLength and add an ellipsis, avoiding splitting words if possible
         const trimmed = text.substring(0, maxLength);
         const lastSpace = trimmed.lastIndexOf(' ');
         text = (lastSpace > 0 ? trimmed.substring(0, lastSpace) : trimmed) + '...';
@@ -50,42 +49,85 @@ function sanitizeText(html: string, maxLength?: number): string {
 }
 
 /**
- * Fetches the latest posts from the WordPress REST API and maps them to our application's `Post` interface.
+ * Internal helper — fetches a single page from the WordPress REST API.
+ * Returns null if the fetch fails or times out so callers can handle gracefully.
  */
-export async function getLatestWPPosts(limit: number = 10): Promise<Post[]> {
+async function fetchWPPage(page: number, perPage: number): Promise<WPPost[] | null> {
+    // 8-second hard timeout — avoids hanging the Next.js render
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
     try {
-        const response = await fetch(
-            `https://blog.smarttoolswala.com/wp-json/wp/v2/posts?_embed&per_page=${limit}`,
-            {
-                // Revalidate cache every 1 hour (3600 seconds) to ensure fresh posts are picked up
-                next: { revalidate: 3600 }
-            }
-        );
+        const url = `https://blog.smarttoolswala.com/wp-json/wp/v2/posts?_embed&per_page=${perPage}&page=${page}&orderby=date&order=desc`;
+        const response = await fetch(url, {
+            signal: controller.signal,
+            // ISR cache — revalidate every hour
+            next: { revalidate: 3600 },
+        });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
-            console.error(`WordPress API responded with status: ${response.status}`);
-            return [];
+            console.warn(`[WP] Page ${page} responded with status ${response.status}`);
+            return null;
         }
 
-        const wpPosts: WPPost[] = await response.json();
-
-        return wpPosts.map((wpPost) => {
-            const authorName = wpPost._embedded?.author?.[0]?.name || 'SmartToolsWala';
-            const imageUrl = wpPost._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/og-image.png';
-
-            return {
-                slug: wpPost.slug,
-                title: sanitizeText(wpPost.title.rendered),
-                description: sanitizeText(wpPost.excerpt.rendered, 160),
-                date: wpPost.date,
-                author: authorName,
-                image: imageUrl,
-                content: '', // Next.js never renders full content for these posts
-                externalLink: `https://blog.smarttoolswala.com/${wpPost.slug}`,
-            };
-        });
-    } catch (error) {
-        console.error('Failed to fetch WordPress posts:', error);
-        return [];
+        return await response.json() as WPPost[];
+    } catch (err: any) {
+        clearTimeout(timeoutId);
+        if (err?.name === 'AbortError') {
+            console.warn(`[WP] Fetch timed out (page ${page})`);
+        } else {
+            console.warn(`[WP] Fetch failed (page ${page}):`, err?.message ?? err);
+        }
+        return null;
     }
+}
+
+/**
+ * Maps a raw WPPost to our unified Post interface.
+ */
+function mapWPPost(wpPost: WPPost): Post {
+    const authorName = wpPost._embedded?.author?.[0]?.name || 'SmartToolsWala';
+    const imageUrl   = wpPost._embedded?.['wp:featuredmedia']?.[0]?.source_url || '/og-image.png';
+    return {
+        slug:         wpPost.slug,
+        title:        sanitizeText(wpPost.title.rendered),
+        description:  sanitizeText(wpPost.excerpt.rendered, 160),
+        date:         wpPost.date,
+        author:       authorName,
+        image:        imageUrl,
+        content:      '',
+        externalLink: `https://blog.smarttoolswala.com/${wpPost.slug}`,
+    };
+}
+
+// WordPress REST API max per_page with _embed is reliably 50
+const WP_PER_PAGE = 50;
+
+/**
+ * Fetches up to `limit` posts from WordPress, fetching multiple pages if needed.
+ * Never throws — always returns an array (possibly empty) so pages can degrade gracefully.
+ */
+export async function getLatestWPPosts(limit: number = 10): Promise<Post[]> {
+    // How many API pages do we need?
+    const pagesToFetch = Math.ceil(limit / WP_PER_PAGE);
+    const perPage      = Math.min(limit, WP_PER_PAGE);
+
+    const results: Post[] = [];
+
+    for (let page = 1; page <= pagesToFetch; page++) {
+        const wpPosts = await fetchWPPage(page, perPage);
+
+        // If a page fails, stop — don't keep trying further pages
+        if (!wpPosts) break;
+
+        results.push(...wpPosts.map(mapWPPost));
+
+        // Stop early if we got fewer posts than requested (last page)
+        if (wpPosts.length < perPage) break;
+    }
+
+    // Trim to exact requested limit
+    return results.slice(0, limit);
 }

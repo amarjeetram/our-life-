@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function BlooketCalculatorPage() {
     return (
-        <div className="min-h-screen bg-[#fafbff]">
+        <div className="min-h-screen" style={{background: 'var(--bg-secondary)'}}>
             {/* JSON-LD Schemas */}
             <script
                 type="application/ld+json"
@@ -137,19 +137,22 @@ export default function BlooketCalculatorPage() {
             <main className="py-12 md:py-20">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 
-
-
                     {/* Page Header */}
-                    <div className="text-center mb-12">
-                        <span className="inline-block py-1.5 px-4 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 font-bold text-xs uppercase tracking-widest mb-4">
-                            Updated for 2026
+                    <div className="text-center mb-12 relative">
+                        {/* Decorative background glow */}
+                        <div className="absolute inset-0 -z-10 flex items-center justify-center">
+                            <div className="w-96 h-40 bg-indigo-100/60 dark:bg-indigo-900/20 rounded-full blur-3xl"></div>
+                        </div>
+                        <span className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-indigo-600 text-white font-bold text-xs uppercase tracking-widest mb-6 shadow-md shadow-indigo-300 dark:shadow-indigo-900">
+                            <span>✦</span> Updated for 2026
                         </span>
-                        <h1 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight mb-4">
-                            Blooket Calculator
+                        <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-5">
+                            <span className="text-slate-900 dark:text-white">Blooket </span>
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-purple-600">Calculator</span>
                         </h1>
-                        <p className="text-lg text-slate-500 font-medium max-w-2xl mx-auto">
-                            Calculate exact mathematical box probabilities and manage your tokens like a pro. 
-                            Never waste your hard-earned tokens guessing again!
+                        <p className="text-lg text-slate-600 dark:text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
+                            Calculate exact mathematical box probabilities and manage your tokens like a pro.
+                            <span className="block mt-1 text-slate-500 dark:text-slate-500">Never waste your hard-earned tokens guessing again!</span>
                         </p>
                     </div>
 
@@ -157,7 +160,7 @@ export default function BlooketCalculatorPage() {
                     <BlooketCalculatorWrapper />
 
                     {/* SEO Rich Article Below */}
-                    <div className="mt-16 bg-white p-8 md:p-12 rounded-[2rem] shadow-sm border border-slate-200">
+                    <div className="mt-16 p-8 md:p-12 rounded-[2rem] shadow-sm border" style={{background: 'var(--bg-primary)', borderColor: 'var(--border-light)'}}>
                         <ArticleBlooketCalculator />
                     </div>
 

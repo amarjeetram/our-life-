@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Coins, Package, Percent, Target, ArrowRight, Activity, ShieldAlert, Sparkles } from 'lucide-react';
+import { Coins, Package, Percent, Target, Activity, ShieldAlert, Sparkles } from 'lucide-react';
 
 export default function BlooketCalculatorClient() {
     const initTokens = 500;
@@ -18,12 +18,10 @@ export default function BlooketCalculatorClient() {
     const [packCost, setPackCost] = useState<number | ''>(initCost);
     const [dropRate, setDropRate] = useState<number | ''>(initRate);
 
-    // Calculated values
     const [packsAfforded, setPacksAfforded] = useState(initAffordable);
     const [probability, setProbability] = useState(initProb);
     const [tokensLeft, setTokensLeft] = useState(initRemainder);
 
-    // Common drop rates for quick selection
     const QUICK_RATES = [
         { label: "Uncommon", value: 15 },
         { label: "Rare", value: 5 },
@@ -33,7 +31,6 @@ export default function BlooketCalculatorClient() {
         { label: "Mystical", value: 0.02 },
     ];
 
-    // Common pack costs
     const QUICK_COSTS = [15, 20, 25];
 
     useEffect(() => {
@@ -42,7 +39,7 @@ export default function BlooketCalculatorClient() {
 
     const calculateProbabilities = () => {
         const tTokens = typeof totalTokens === 'number' ? totalTokens : 0;
-        const pCost = typeof packCost === 'number' ? packCost : 1; // prevent divide by zero realistically
+        const pCost = typeof packCost === 'number' ? packCost : 1;
         const dRate = typeof dropRate === 'number' ? dropRate : 0;
 
         if (pCost <= 0) {
@@ -54,47 +51,31 @@ export default function BlooketCalculatorClient() {
 
         const affordable = Math.floor(tTokens / pCost);
         const remainder = tTokens % pCost;
-        
-        // P(at least 1) = 1 - (1 - P(event))^n
         const decimalRate = dRate / 100;
         const chanceNotGetting = Math.pow(1 - decimalRate, affordable);
         const chanceGettingAtLeastOne = (1 - chanceNotGetting) * 100;
 
         setPacksAfforded(affordable);
         setTokensLeft(remainder);
-        
-        // Fix weird JS math errors and cap at 99.99 for display clarity if it's super close
+
         if (chanceGettingAtLeastOne > 99.99) {
             setProbability(99.99);
         } else if (chanceGettingAtLeastOne < 0.01 && chanceGettingAtLeastOne > 0) {
-            setProbability(0.01); 
+            setProbability(0.01);
         } else {
             setProbability(Number(chanceGettingAtLeastOne.toFixed(2)));
         }
     };
 
     const handleNumberInput = (
-        e: React.ChangeEvent<HTMLInputElement>, 
+        e: React.ChangeEvent<HTMLInputElement>,
         setter: React.Dispatch<React.SetStateAction<number | ''>>,
         allowDecimal: boolean = false
     ) => {
         const val = e.target.value;
-        if (val === '') {
-            setter('');
-            return;
-        }
-        
+        if (val === '') { setter(''); return; }
         const num = allowDecimal ? parseFloat(val) : parseInt(val, 10);
-        if (!isNaN(num) && num >= 0) {
-            setter(num);
-        }
-    };
-
-    const getProbabilityColorTag = (prob: number) => {
-        if (prob >= 80) return "text-emerald-600 bg-emerald-50 border-emerald-200";
-        if (prob >= 50) return "text-blue-600 bg-blue-50 border-blue-200";
-        if (prob >= 20) return "text-amber-600 bg-amber-50 border-amber-200";
-        return "text-rose-700 bg-rose-50 border-rose-200";
+        if (!isNaN(num) && num >= 0) setter(num);
     };
 
     const getProbabilityMessage = (prob: number) => {
@@ -104,48 +85,55 @@ export default function BlooketCalculatorClient() {
         return "Extreme luck required! Very unlikely to pull.";
     };
 
+    const isGood = probability >= 50;
+
     return (
-        <div className="w-full bg-slate-50 border border-slate-200 rounded-[2rem] overflow-hidden shadow-xl">
-            {/* Header */}
-            <div className="bg-white border-b border-slate-100 p-6 md:p-8">
-                <div className="flex items-center gap-4 mb-2">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+        <div className="w-full rounded-[2rem] overflow-hidden shadow-2xl border border-indigo-200 dark:border-indigo-900 bg-white dark:bg-slate-900">
+
+            {/* ── Header ── */}
+            <div className="p-6 md:p-8 border-b border-slate-100 dark:border-slate-800 bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/60 dark:to-purple-950/40">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
                         <Activity className="w-6 h-6" />
                     </div>
                     <div>
-                        <h2 className="text-2xl font-black text-slate-800 tracking-tight">Pack Probability Calculator</h2>
-                        <p className="text-slate-500 font-medium text-sm">Calculate your exact chances of pulling rare blooks.</p>
+                        <h2 className="text-2xl font-black text-slate-800 dark:text-white tracking-tight">
+                            Pack Probability Calculator
+                        </h2>
+                        <p className="text-slate-500 dark:text-slate-400 font-medium text-sm">
+                            Calculate your exact chances of pulling rare blooks.
+                        </p>
                     </div>
                 </div>
             </div>
 
-            {/* Main Content Area */}
-            <div className="p-6 md:p-8 grid lg:grid-cols-5 gap-8">
-                
+            {/* ── Main Content ── */}
+            <div className="p-6 md:p-8 grid lg:grid-cols-5 gap-8 bg-slate-50 dark:bg-slate-900">
+
                 {/* Input Controls */}
-                <div className="lg:col-span-3 space-y-6">
-                    
+                <div className="lg:col-span-3 space-y-5">
+
                     {/* Block 1: Total Tokens */}
-                    <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+                    <div className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm">
                         <label className="flex items-center justify-between mb-3">
-                            <span className="font-bold text-slate-700 flex items-center gap-2">
+                            <span className="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
                                 <Coins className="w-4 h-4 text-amber-500" /> Total Tokens
                             </span>
-                            <span className="text-xs font-bold text-slate-500 uppercase">Input</span>
+                            <span className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Input</span>
                         </label>
                         <input
                             type="number"
                             value={totalTokens}
                             onChange={(e) => handleNumberInput(e, setTotalTokens)}
                             placeholder="e.g. 5000"
-                            className="w-full px-4 py-3 bg-slate-50 border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 rounded-xl outline-none font-bold text-lg text-slate-800 transition-all"
+                            className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700/60 border border-slate-200 dark:border-slate-600 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-900 rounded-xl outline-none font-bold text-lg text-slate-800 dark:text-white transition-all"
                         />
                     </div>
 
                     {/* Block 2: Pack Cost */}
-                    <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+                    <div className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm">
                         <label className="flex items-center justify-between mb-3">
-                            <span className="font-bold text-slate-700 flex items-center gap-2">
+                            <span className="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
                                 <Package className="w-4 h-4 text-indigo-500" /> Cost Per Pack
                             </span>
                         </label>
@@ -154,53 +142,49 @@ export default function BlooketCalculatorClient() {
                                 <button
                                     key={`cost-${cost}`}
                                     onClick={() => setPackCost(cost)}
-                                    className={`flex-1 py-2 rounded-xl border text-sm font-bold transition-all ${
-                                        packCost === cost 
-                                            ? 'bg-indigo-600 border-indigo-600 text-white shadow-md' 
-                                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                                    className={`flex-1 py-2.5 rounded-xl border text-sm font-bold transition-all ${
+                                        packCost === cost
+                                            ? 'bg-indigo-600 border-indigo-600 text-white shadow-md shadow-indigo-500/30'
+                                            : 'bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600'
                                     }`}
                                 >
                                     {cost}
                                 </button>
                             ))}
                         </div>
-                        <div className="relative">
-                            <input
-                                type="number"
-                                value={packCost}
-                                onChange={(e) => handleNumberInput(e, setPackCost)}
-                                placeholder="Custom cost"
-                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 rounded-xl outline-none font-bold text-lg text-slate-800 transition-all"
-                            />
-                        </div>
+                        <input
+                            type="number"
+                            value={packCost}
+                            onChange={(e) => handleNumberInput(e, setPackCost)}
+                            placeholder="Custom cost"
+                            className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700/60 border border-slate-200 dark:border-slate-600 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-900 rounded-xl outline-none font-bold text-lg text-slate-800 dark:text-white transition-all"
+                        />
                     </div>
 
                     {/* Block 3: Drop Rate */}
-                    <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm">
+                    <div className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm">
                         <label className="flex items-center justify-between mb-3">
-                            <span className="font-bold text-slate-700 flex items-center gap-2">
+                            <span className="font-bold text-slate-700 dark:text-slate-200 flex items-center gap-2">
                                 <Percent className="w-4 h-4 text-rose-500" /> Blook Drop Rate (%)
                             </span>
                         </label>
-                        <div className="relative mb-4">
-                            <input
-                                type="number"
-                                step="0.01"
-                                value={dropRate}
-                                onChange={(e) => handleNumberInput(e, setDropRate, true)}
-                                placeholder="0.05"
-                                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 focus:border-rose-500 focus:ring-2 focus:ring-rose-200 rounded-xl outline-none font-bold text-lg text-slate-800 transition-all"
-                            />
-                        </div>
+                        <input
+                            type="number"
+                            step="0.01"
+                            value={dropRate}
+                            onChange={(e) => handleNumberInput(e, setDropRate, true)}
+                            placeholder="0.05"
+                            className="w-full px-4 py-3 mb-4 bg-slate-50 dark:bg-slate-700/60 border border-slate-200 dark:border-slate-600 focus:border-rose-500 dark:focus:border-rose-400 focus:ring-2 focus:ring-rose-200 dark:focus:ring-rose-900 rounded-xl outline-none font-bold text-lg text-slate-800 dark:text-white transition-all"
+                        />
                         <div className="grid grid-cols-3 gap-2">
                             {QUICK_RATES.map(rate => (
                                 <button
                                     key={rate.label}
                                     onClick={() => setDropRate(rate.value)}
                                     className={`py-2 px-2 rounded-lg border text-xs font-bold transition-all ${
-                                        dropRate === rate.value 
-                                            ? 'bg-rose-600 border-rose-600 text-white shadow-md' 
-                                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
+                                        dropRate === rate.value
+                                            ? 'bg-rose-600 border-rose-600 text-white shadow-md shadow-rose-500/30'
+                                            : 'bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600'
                                     }`}
                                 >
                                     {rate.label} ({rate.value}%)
@@ -208,58 +192,57 @@ export default function BlooketCalculatorClient() {
                             ))}
                         </div>
                     </div>
-
                 </div>
 
                 {/* Results Panel */}
                 <div className="lg:col-span-2 space-y-4">
-                    
+
                     {/* Packs Afforded Card */}
-                    <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col items-center justify-center text-center relative overflow-hidden group">
-                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-amber-50 rounded-full blur-2xl group-hover:bg-amber-100 transition-colors"></div>
-                        <span className="font-bold text-slate-500 uppercase tracking-widest text-xs mb-2 z-10">Packs You Can Buy</span>
-                        <div className="text-5xl font-black text-slate-800 mb-2 z-10 flex items-baseline gap-1">
-                            {packsAfforded} <span className="text-xl text-slate-400">📦</span>
+                    <div className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col items-center justify-center text-center relative overflow-hidden">
+                        <div className="absolute -right-6 -top-6 w-24 h-24 bg-amber-100 dark:bg-amber-900/20 rounded-full blur-2xl"></div>
+                        <span className="font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-xs mb-2 z-10">
+                            Packs You Can Buy
+                        </span>
+                        <div className="text-5xl font-black text-slate-800 dark:text-white mb-2 z-10 flex items-baseline gap-1">
+                            {packsAfforded} <span className="text-xl">📦</span>
                         </div>
                         {tokensLeft > 0 && (
-                            <span className="text-sm font-bold text-slate-400 z-10 bg-slate-50 px-3 py-1 rounded-full">
+                            <span className="text-sm font-bold text-slate-400 dark:text-slate-500 z-10 bg-slate-50 dark:bg-slate-700 px-3 py-1 rounded-full">
                                 {tokensLeft} tokens remaining
                             </span>
                         )}
                     </div>
 
                     {/* Probability Card */}
-                    <div className="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden text-center relative flex flex-col min-h-[220px]">
+                    <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden text-center flex flex-col min-h-[220px]">
                         {/* Top color bar */}
-                        <div className={`h-2 w-full ${probability >= 50 ? 'bg-emerald-500' : 'bg-rose-500'}`}></div>
-                        
-                        <div className="p-6 flex flex-col flex-grow items-center justify-center relative z-10">
-                            <span className="font-bold text-slate-500 uppercase tracking-widest text-xs mb-3 flex items-center gap-1">
+                        <div className={`h-2 w-full ${isGood ? 'bg-emerald-500' : 'bg-rose-500'}`}></div>
+
+                        <div className="p-6 flex flex-col flex-grow items-center justify-center">
+                            <span className="font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest text-xs mb-3 flex items-center gap-1">
                                 <Target className="w-3 h-3" /> Chance to Pull
                             </span>
-                            
-                            <div className={`text-6xl md:text-7xl font-black tracking-tighter mb-4 ${probability >= 50 ? 'text-emerald-600' : 'text-slate-800'}`}>
+
+                            <div className={`text-6xl md:text-7xl font-black tracking-tighter mb-4 ${isGood ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-800 dark:text-white'}`}>
                                 {probability}%
                             </div>
-                            
-                            <div className={`w-full py-2.5 px-4 rounded-xl border ${getProbabilityColorTag(probability)}`}>
-                                <p className="text-sm font-bold flex items-center justify-center gap-2">
-                                    {probability >= 50 ? <Sparkles className="w-4 h-4" /> : <ShieldAlert className="w-4 h-4" />}
-                                    {getProbabilityMessage(probability)}
-                                </p>
+
+                            <div className={`w-full py-2.5 px-4 rounded-xl border text-sm font-bold flex items-center justify-center gap-2 ${
+                                isGood
+                                    ? 'text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800'
+                                    : 'text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/50 border-rose-200 dark:border-rose-800'
+                            }`}>
+                                {isGood ? <Sparkles className="w-4 h-4" /> : <ShieldAlert className="w-4 h-4" />}
+                                {getProbabilityMessage(probability)}
                             </div>
                         </div>
-                        
-                        {/* Decorative background */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50/50 pointer-events-none"></div>
                     </div>
-
                 </div>
             </div>
 
-            {/* Footer warning */}
-            <div className="bg-indigo-50/50 p-4 border-t border-indigo-100/50 text-center">
-                <p className="text-xs font-bold text-indigo-700 uppercase tracking-wide">
+            {/* Footer */}
+            <div className="p-4 border-t border-indigo-100 dark:border-indigo-900/50 text-center bg-indigo-50 dark:bg-indigo-950/30">
+                <p className="text-xs font-bold text-indigo-700 dark:text-indigo-400 uppercase tracking-wide">
                     Math calculates probability, but RNG controls your luck!
                 </p>
             </div>

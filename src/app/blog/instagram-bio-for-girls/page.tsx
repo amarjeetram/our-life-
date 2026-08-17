@@ -30,40 +30,101 @@ const CSS_STYLES = `
   .hero-featured-image { width: 100%; height: 400px; object-fit: cover; object-position: center; border-radius: 20px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(233,30,140,0.08); }
   @media (max-width: 768px) { .hero-featured-image { height: 300px; } }
   @media (max-width: 480px) { .hero-featured-image { height: 200px; } }
-  .hero-banner { background: linear-gradient(135deg, #ff6b9d 0%, #c44dff 50%, #845ef7 100%); border-radius: 24px; padding: 48px 32px; margin-bottom: 32px; color: white; text-align: center; box-shadow: 0 10px 30px rgba(233,30,140,0.15); }
-  .hero-banner h1 { color: white; font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 900; margin: 0; line-height: 1.25; }
-  .hero-banner p { color: rgba(255,255,255,0.92); font-size: 1.1rem; margin: 16px 0 0; font-weight: 500; }
+
+  /* ── Light mode base ── */
+  .page-h1 { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 900; color: #1a1a2e; margin: 0 0 8px; line-height: 1.25; letter-spacing: -0.02em; }
+  .page-subtitle { font-size: 1rem; color: #666; margin: 0 0 24px; font-weight: 500; }
   h2.sec { font-size: clamp(1.4rem, 3.2vw, 1.95rem); font-weight: 850; color: #1a1a2e; margin: 3.5rem 0 1.2rem; border-left: 5px solid #e91e8c; padding-left: 16px; letter-spacing: -0.02em; line-height: 1.3; }
   h3.sub { font-size: clamp(1.1rem, 2.5vw, 1.35rem); font-weight: 750; color: #2d2d44; margin: 2.2rem 0 0.8rem; }
   p.txt { font-size: 1.05rem; line-height: 1.85; color: #3d3d5c; margin-bottom: 1.2rem; }
   ul.ul, ol.ol { padding-left: 1.5rem; margin-bottom: 1.2rem; }
   ul.ul li, ol.ol li { font-size: 1.02rem; line-height: 1.8; color: #3d3d5c; margin-bottom: 6px; }
-  .toc-box { background: linear-gradient(135deg, #fff0f6 0%, #f8f0ff 100%); border-radius: 18px; border: 1.5px solid #ffc0d9; padding: 28px; margin: 32px 0; }
-  .toc-box h2 { margin-top: 0; font-size: 1.25rem; color: #c44dff; font-weight: 800; border: none; padding: 0; margin-bottom: 14px; }
-  .toc-box a { color: #e91e8c; text-decoration: none; font-weight: 600; transition: color 0.2s; }
-  .toc-box a:hover { color: #c44dff; text-decoration: underline; }
+  .toc-box { background: linear-gradient(135deg, #fff0f6 0%, #f8f0ff 100%); border-radius: 20px; border: 1.5px solid #ffc0d9; padding: 28px; margin: 32px 0; }
+  .toc-box h2 { margin-top: 0; font-size: 1.15rem; color: #c44dff; font-weight: 800; border: none; padding: 0; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+  .toc-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  @media (max-width: 600px) { .toc-grid { grid-template-columns: 1fr; } }
+  .toc-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; background: rgba(255,255,255,0.6); border: 1px solid rgba(233,30,140,0.12); text-decoration: none; transition: all 0.2s; font-size: 0.9rem; font-weight: 600; color: #2d1b4e; }
+  .toc-item:hover { background: rgba(233,30,140,0.08); border-color: rgba(233,30,140,0.3); transform: translateX(3px); color: #e91e8c; }
+  .toc-item-wide { grid-column: span 2; }
+  @media (max-width: 600px) { .toc-item-wide { grid-column: span 1; } }
+  .toc-icon { font-size: 1.1rem; flex-shrink: 0; }
+  .toc-item span:nth-child(2) { flex: 1; }
+  .toc-arrow { color: #e91e8c; opacity: 0.5; transition: opacity 0.2s, transform 0.2s; }
+  .toc-item:hover .toc-arrow { opacity: 1; transform: translateX(3px); }
   .tip-box { background: linear-gradient(135deg, #e8f4fd 0%, #f0e8ff 100%); border-left: 4px solid #845ef7; border-radius: 14px; padding: 20px 24px; margin: 24px 0; }
+  .tip-box.tip-box-pink { background: linear-gradient(135deg, #fff0f6 0%, #f8f0ff 100%); border-left-color: #e91e8c; }
   .tip-box p { margin: 0; font-size: 1rem; color: #3d3d5c; line-height: 1.7; }
-  .faq-item { border: 1px solid #ffd6e7; border-radius: 16px; margin-bottom: 16px; overflow: hidden; background: white; }
-  .faq-q { background: linear-gradient(135deg, #fff0f6 0%, #f8f0ff 100%); padding: 18px 24px; font-weight: 750; color: #1a1a2e; font-size: 1.05rem; border-bottom: 1px solid #ffe3ef; }
+  .faq-item { border: 1px solid #ffd6e7; border-radius: 16px; margin-bottom: 16px; overflow: hidden; background: white; transition: border-color 0.2s; }
+  .faq-q { background: linear-gradient(135deg, #fff0f6 0%, #f8f0ff 100%); padding: 18px 24px; font-weight: 750; color: #1a1a2e; font-size: 1.05rem; border-bottom: 1px solid #ffe3ef; margin: 0; }
   .faq-a { background: white; padding: 16px 24px; color: #4a4a6a; font-size: 1rem; line-height: 1.8; }
   .divider { height: 2px; background: linear-gradient(90deg, #ff6b9d, #c44dff, #845ef7); border: none; border-radius: 2px; margin: 48px 0; }
-  .author-box { display: flex; align-items: center; gap: 16px; background: white; border: 1.5px solid #ffd6e7; border-radius: 18px; padding: 24px; margin: 40px 0; }
-  .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #ff6b9d, #c44dff); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 900; }
-  .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #888; margin-bottom: 28px; }
+  .author-box { display: flex; align-items: center; gap: 16px; background: white; border: 1.5px solid #ffd6e7; border-radius: 18px; padding: 24px; margin: 40px 0; transition: background 0.2s, border-color 0.2s; }
+  .author-name { margin: 0; font-weight: 800; color: #1a1a2e; }
+  .author-meta { margin: 0; color: #666; font-size: 0.85rem; }
+  .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #ff6b9d, #c44dff); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: 900; flex-shrink: 0; }
+  .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #888; margin-bottom: 28px; flex-wrap: wrap; }
   .breadcrumb a { color: #e91e8c; text-decoration: none; font-weight: 600; }
   .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 32px 0; }
   @media (max-width: 640px) { .stats-bar { grid-template-columns: 1fr; } }
-  .stat-card { background: white; border: 1.5px solid #ffd6e7; border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(233,30,140,0.02); }
-  .stat-num { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, #ff6b9d, #c44dff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat-card { background: white; border: 1.5px solid #ffd6e7; border-radius: 16px; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(233,30,140,0.04); transition: background 0.2s, border-color 0.2s; }
+  .stat-num { font-size: 2.2rem; font-weight: 900; background: linear-gradient(135deg, #ff6b9d, #c44dff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .stat-label { font-size: 0.9rem; color: #666; margin-top: 6px; font-weight: 700; }
   .bio-list { list-style: none; padding: 0; margin: 20px 0; }
-  .bio-list li { border-bottom: 1px solid #fff0f6; padding: 12px 0; font-size: 1.02rem; color: #222; display: flex; gap: 12px; align-items: flex-start; }
+  .bio-list li { border-bottom: 1px solid #fff0f6; padding: 12px 0; font-size: 1.02rem; color: #222; display: flex; gap: 12px; align-items: flex-start; transition: color 0.2s; }
   .bio-list li::before { content: "✦"; color: #e91e8c; flex-shrink: 0; margin-top: 2px; }
   table.bio-table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.95rem; border: 1.5px solid #ffd6e7; border-radius: 12px; overflow: hidden; }
   table.bio-table th { background: linear-gradient(135deg, #ff6b9d, #c44dff); color: white; padding: 14px 18px; text-align: left; font-weight: 700; }
-  table.bio-table td { padding: 12px 18px; border-bottom: 1px solid #ffd6e7; color: #444; }
+  table.bio-table td { padding: 12px 18px; border-bottom: 1px solid #ffd6e7; color: #444; background: white; }
   table.bio-table tr:nth-child(even) td { background: #fff9fc; }
+  .bio-page-footer { margin-top: 40px; border-top: 1px solid #ffd6e7; padding-top: 20px; text-align: center; color: #888; font-size: 0.85rem; transition: border-color 0.2s, color 0.2s; }
+
+  /* ══════════════════════════════════
+     DARK MODE OVERRIDES
+  ══════════════════════════════════ */
+  .dark .page-h1 { color: #f0e6ff; }
+  .dark .page-subtitle { color: #a0a0c0; }
+  .dark h2.sec { color: #f0e6ff; border-left-color: #ff6b9d; }
+  .dark h3.sub { color: #d4c4f0; }
+  .dark p.txt { color: #b8b8d4; }
+  .dark ul.ul li, .dark ol.ol li { color: #b8b8d4; }
+  .dark .breadcrumb { color: #6b6b88; }
+
+  /* TOC box dark */
+  .dark .toc-box { background: linear-gradient(135deg, rgba(233,30,140,0.08) 0%, rgba(196,77,255,0.08) 100%); border-color: rgba(233,30,140,0.25); }
+  .dark .toc-box h2 { color: #d97bff; }
+  .dark .toc-item { background: rgba(255,255,255,0.04); border-color: rgba(233,30,140,0.15); color: #c8c8e0; }
+  .dark .toc-item:hover { background: rgba(233,30,140,0.1); border-color: rgba(233,30,140,0.3); color: #ff79b0; }
+  .dark .toc-arrow { color: #ff79b0; }
+
+  /* Tip box dark */
+  .dark .tip-box { background: linear-gradient(135deg, rgba(99,102,241,0.1) 0%, rgba(132,94,247,0.1) 100%); border-left-color: #845ef7; }
+  .dark .tip-box.tip-box-pink { background: linear-gradient(135deg, rgba(233,30,140,0.1) 0%, rgba(196,77,255,0.1) 100%); border-left-color: #e91e8c; }
+  .dark .tip-box p { color: #b8b8d4; }
+
+  /* Author box dark */
+  .dark .author-box { background: rgba(255,255,255,0.04); border-color: rgba(233,30,140,0.2); }
+  .dark .author-name { color: #f0e6ff; }
+  .dark .author-meta { color: #8888aa; }
+
+  /* Stat cards dark */
+  .dark .stat-card { background: rgba(255,255,255,0.04); border-color: rgba(233,30,140,0.2); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  .dark .stat-label { color: #9090b0; }
+
+  /* Bio list dark */
+  .dark .bio-list li { color: #c8c8e0; border-bottom-color: rgba(255,107,157,0.12); }
+
+  /* Table dark */
+  .dark table.bio-table { border-color: rgba(233,30,140,0.2); }
+  .dark table.bio-table td { color: #c0c0dc; background: rgba(255,255,255,0.03); border-bottom-color: rgba(233,30,140,0.12); }
+  .dark table.bio-table tr:nth-child(even) td { background: rgba(255,107,157,0.05); }
+
+  /* FAQ dark */
+  .dark .faq-item { background: rgba(255,255,255,0.03); border-color: rgba(233,30,140,0.2); }
+  .dark .faq-q { background: linear-gradient(135deg, rgba(233,30,140,0.08) 0%, rgba(196,77,255,0.08) 100%); color: #f0e6ff; border-bottom-color: rgba(233,30,140,0.15); }
+  .dark .faq-a { background: rgba(255,255,255,0.02); color: #b0b0cc; }
+
+  /* Footer dark */
+  .dark .bio-page-footer { border-top-color: rgba(233,30,140,0.2); color: #6b6b88; }
 `;
 
 export default function InstagramBioForGirlsPage() {
@@ -76,6 +137,10 @@ export default function InstagramBioForGirlsPage() {
           <Link href="/blog">Blog</Link><span>/</span>
           <span>Instagram Bio For Girls</span>
         </nav>
+
+        <h1 className="page-h1">[1500+] Best Instagram Bio For Girls – Cute, Stylish &amp; VIP Bios (2026)</h1>
+        <p className="page-subtitle">Copy &amp; Paste Ready | Emojis Included | Updated 2026 | 15+ Categories</p>
+
         <Image 
           src="/images/blogs/instagram-bio-for-girls-featured.webp" 
           alt="Best Instagram Bio for Girls" 
@@ -86,16 +151,11 @@ export default function InstagramBioForGirlsPage() {
           className="hero-featured-image" 
         />
 
-        <div className="hero-banner">
-          <h1>[1500+] Best Instagram Bio For Girls – Cute, Stylish & VIP Bios (2026)</h1>
-          <p>Copy & Paste Ready | Emojis Included | Updated 2026 | 15+ Categories</p>
-        </div>
-
         <div className="author-box">
           <div className="author-avatar">P</div>
           <div>
-            <p style={{ margin: 0, fontWeight: 800, color: "#1a1a2e" }}>Priya Sharma</p>
-            <p style={{ margin: 0, color: "#666", fontSize: "0.85rem" }}>Social Media Strategist & Content Creator • June 7, 2026</p>
+            <p className="author-name">Priya Sharma</p>
+            <p className="author-meta">Social Media Strategist &amp; Content Creator • June 7, 2026</p>
           </div>
         </div>
 
@@ -122,33 +182,33 @@ export default function InstagramBioForGirlsPage() {
           In this mega guide, we have compiled the <strong>1500+ best Instagram bio for girls in 2026</strong>. This is the most comprehensive collection available on the internet, covering every mood, style, and personality type. Each bio is crafted to be unique, emoji-friendly, and instantly copy-paste ready. Whether you are a student, fashionista, travel lover, or a queen who refuses to be basic — you will find your perfect bio right here.
         </p>
 
-        <div className="tip-box" style={{ borderLeftColor: "#e91e8c", background: "linear-gradient(135deg, #fff0f6 0%, #f8f0ff 100%)" }}>
+        <div className="tip-box tip-box-pink">
           <p>✍️ <strong>Design Your Own Bio:</strong> Want to create a fully customized bio using your name, username, and specific keywords? Try our free <Link href="/instagram-tools/instagram-bio-generator" style={{ color: "#e91e8c", fontWeight: "bold", textDecoration: "underline" }}>Instagram Bio Generator Tool</Link> to generate custom bios instantly with a live mobile preview!</p>
         </div>
 
         <div className="toc-box">
-          <h2>Table of Contents</h2>
-          <ol className="ol">
-            <li><a href="#directory">Interactive Bio Directory & Mobile Previewer</a></li>
-            <li><a href="#cute">Cute Instagram Bio For Girls</a></li>
-            <li><a href="#stylish">Stylish Instagram Bio For Girls</a></li>
-            <li><a href="#vip">VIP Bio For Girls</a></li>
-            <li><a href="#attitude">Attitude Bio For Girls</a></li>
-            <li><a href="#aesthetic">Aesthetic Instagram Bio For Girls</a></li>
-            <li><a href="#savage">Savage Bio For Instagram For Girls</a></li>
-            <li><a href="#emotional">Emotional & Sad Bio For Girls</a></li>
-            <li><a href="#short">Short Bio For Instagram For Girls</a></li>
-            <li><a href="#emoji">Instagram Bio With Emoji For Girls</a></li>
-            <li><a href="#love">Love & Romantic Bio For Girls</a></li>
-            <li><a href="#funny">Funny Instagram Bio For Girls</a></li>
-            <li><a href="#hindi">Instagram Bio For Girls in Hindi</a></li>
-            <li><a href="#classy">Classy & Elegant Bio For Girls</a></li>
-            <li><a href="#trending">Trending 2026 Bios For Girls</a></li>
-            <li><a href="#cool">Cool & Swag Bios For Girls</a></li>
-            <li><a href="#howto">How to Write the Perfect Bio (Step-by-Step)</a></li>
-            <li><a href="#tips">Pro Tips For Bio Formatting</a></li>
-            <li><a href="#faq">Frequently Asked Questions (FAQ)</a></li>
-          </ol>
+          <h2>📋 Table of Contents</h2>
+          <div className="toc-grid">
+            <a href="#directory" className="toc-item"><span className="toc-icon">🔍</span><span>Interactive Bio Directory</span><span className="toc-arrow">→</span></a>
+            <a href="#cute" className="toc-item"><span className="toc-icon">🌸</span><span>Cute Instagram Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#stylish" className="toc-item"><span className="toc-icon">✨</span><span>Stylish Instagram Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#vip" className="toc-item"><span className="toc-icon">👑</span><span>VIP Bios For Girls</span><span className="toc-arrow">→</span></a>
+            <a href="#attitude" className="toc-item"><span className="toc-icon">🔥</span><span>Attitude Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#aesthetic" className="toc-item"><span className="toc-icon">🌙</span><span>Aesthetic Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#savage" className="toc-item"><span className="toc-icon">⚡</span><span>Savage Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#emotional" className="toc-item"><span className="toc-icon">💔</span><span>Emotional &amp; Sad Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#short" className="toc-item"><span className="toc-icon">💎</span><span>Short Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#emoji" className="toc-item"><span className="toc-icon">🎀</span><span>Emoji Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#love" className="toc-item"><span className="toc-icon">💕</span><span>Love &amp; Romantic Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#funny" className="toc-item"><span className="toc-icon">😂</span><span>Funny Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#hindi" className="toc-item"><span className="toc-icon">🇮🇳</span><span>Hindi Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#classy" className="toc-item"><span className="toc-icon">🥂</span><span>Classy &amp; Elegant Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#trending" className="toc-item"><span className="toc-icon">🚀</span><span>Trending 2026 Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#cool" className="toc-item"><span className="toc-icon">😎</span><span>Cool &amp; Swag Bios</span><span className="toc-arrow">→</span></a>
+            <a href="#howto" className="toc-item toc-item-wide"><span className="toc-icon">📝</span><span>How to Write the Perfect Bio</span><span className="toc-arrow">→</span></a>
+            <a href="#tips" className="toc-item"><span className="toc-icon">💡</span><span>Pro Tips For Formatting</span><span className="toc-arrow">→</span></a>
+            <a href="#faq" className="toc-item"><span className="toc-icon">❓</span><span>FAQ</span><span className="toc-arrow">→</span></a>
+          </div>
         </div>
 
         <section id="what-is-bio">
@@ -588,7 +648,7 @@ export default function InstagramBioForGirlsPage() {
           </div>
         </section>
 
-        <footer style={{ marginTop: "40px", borderTop: "1px solid #ffd6e7", paddingTop: "20px", textAlign: "center", color: "#888", fontSize: "0.85rem" }}>
+        <footer className="bio-page-footer">
           <p>© 2026 SmartToolsWala. All Rights Reserved. Crafted with love for social media growth.</p>
         </footer>
       </main>

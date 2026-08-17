@@ -89,7 +89,12 @@ const jsonLd = {
 
 export default function FlamesCalculatorPage() {
     return (
-        <div className="min-h-screen bg-rose-50/30 font-sans pt-24">
+        <div
+            className="min-h-screen font-sans pt-24"
+            style={{
+                background: "linear-gradient(135deg, #0a0a14 0%, #0f0a1a 40%, #0a0f14 100%)",
+            }}
+        >
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -97,10 +102,18 @@ export default function FlamesCalculatorPage() {
 
             <main className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl md:text-5xl font-black text-rose-900 tracking-tight mb-4 leading-tight">
+                    <h1
+                        className="text-4xl md:text-5xl font-black tracking-tight mb-4 leading-tight"
+                        style={{
+                            background: "linear-gradient(135deg, #f472b6, #c084fc, #fb923c)",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            filter: "drop-shadow(0 0 20px rgba(244,114,182,0.4))",
+                        }}
+                    >
                         FLAMES Calculator Online
                     </h1>
-                    <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto">
+                    <p className="text-lg font-medium max-w-2xl mx-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
                         Check your destiny! Enter your name and your crush&apos;s name to play the classic FLAMES game instantly.
                     </p>
                 </div>

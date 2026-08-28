@@ -56,12 +56,16 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://*.clerk.accounts.dev https://js.clerk.dev",
+              // Scripts: added AdSense + GTM domains
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://*.clerk.accounts.dev https://js.clerk.dev https://pagead2.googlesyndication.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://www.googletagmanager.com https://www.googletagservices.com https://adservice.google.com https://*.doubleclick.net",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
-              "img-src 'self' data: blob: https:",
-              "connect-src 'self' https://*.supabase.co https://*.clerk.accounts.dev https://api.razorpay.com wss://*.supabase.co",
-              "frame-src https://checkout.razorpay.com",
+              // Images: AdSense serves ad images from these domains
+              "img-src 'self' data: blob: https: https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.gstatic.com",
+              // Connections: AdSense reporting + Razorpay + Supabase + Clerk
+              "connect-src 'self' https://*.supabase.co https://*.clerk.accounts.dev https://api.razorpay.com wss://*.supabase.co https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://adservice.google.com",
+              // Frames: AdSense renders ads in iframes from these domains
+              "frame-src https://checkout.razorpay.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",

@@ -180,7 +180,25 @@ export default function BlogTOC({ headings }: BlogTOCProps) {
                 .btoc-chevron-open { transform: rotate(180deg); }
 
                 /* ── Nav / List ── */
-                .btoc-nav { padding: 0.75rem 0.85rem; }
+                .btoc-nav {
+                    padding: 0.75rem 0.85rem;
+                    max-height: min(420px, calc(100vh - 180px));
+                    overflow-y: auto;
+                    overscroll-behavior: contain;
+                }
+                .btoc-nav::-webkit-scrollbar {
+                    width: 4px;
+                }
+                .btoc-nav::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                .btoc-nav::-webkit-scrollbar-thumb {
+                    background: rgba(148, 163, 184, 0.2);
+                    border-radius: 4px;
+                }
+                .dark .btoc-nav::-webkit-scrollbar-thumb {
+                    background: rgba(255, 255, 255, 0.1);
+                }
                 .btoc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; }
 
                 /* H3 items — indented */

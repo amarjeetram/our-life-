@@ -187,10 +187,12 @@ function extractHeadings(content: string): { id: string; text: string; level: nu
         const h3 = line.match(/^###\s+(.+)/);
         if (h2) {
             const text = h2[1].trim();
+            if (text.toLowerCase().includes('table of content')) continue;
             const id = text.toLowerCase().replace(/[^a-z0-9\u0900-\u097f\s]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').slice(0, 60);
             headings.push({ id, text, level: 2 });
         } else if (h3) {
             const text = h3[1].trim();
+            if (text.toLowerCase().includes('table of content')) continue;
             const id = text.toLowerCase().replace(/[^a-z0-9\u0900-\u097f\s]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').slice(0, 60);
             headings.push({ id, text, level: 3 });
         }
@@ -362,6 +364,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         CTACoupleName: () => <MDXInlineCTA config={TAG_CTA['cta-couple-name']} />,
         CTAFlames: () => <MDXInlineCTA config={TAG_CTA['cta-flames']} />,
         CTAInstagramBio: () => <MDXInlineCTA config={TAG_CTA['cta-instagram-bio']} />,
+        BlogInlineTOC: () => (
+            <div className="block lg:hidden my-8 not-prose">
+                <BlogTOC headings={headings} />
+            </div>
+        ),
+        TableOfContents: () => (
+            <div className="block lg:hidden my-8 not-prose">
+                <BlogTOC headings={headings} />
+            </div>
+        ),
         InteractiveCoupleName: () => (
             <span className="block my-12 not-prose border border-pink-100 rounded-3xl bg-white shadow-xl overflow-hidden relative z-10">
                 <span className="block bg-pink-50/50 p-4 text-center border-b border-pink-100">
@@ -462,6 +474,22 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         }
     };
 
+    // Process content for TOC:
+    // On desktop, the sidebar displays BlogTOC.
+    // On mobile, the TOC appears directly in the blog content (after the intro/CTA), styled with BlogTOC.
+    let contentToRender = post.content;
+    const manualTocRegex = /(?:^|\n)(?:---\s*\n+)?##\s+Table of Contents[\s\S]*?(?=(?:^---\s*$|^##\s+))/im;
+    if (headings.length > 2) {
+        if (manualTocRegex.test(contentToRender)) {
+            contentToRender = contentToRender.replace(manualTocRegex, '\n\n<BlogInlineTOC />\n\n');
+        } else if (!contentToRender.includes('<BlogInlineTOC')) {
+            const firstH2Match = contentToRender.search(/^##\s+/m);
+            if (firstH2Match !== -1) {
+                contentToRender = contentToRender.slice(0, firstH2Match) + '<BlogInlineTOC />\n\n' + contentToRender.slice(firstH2Match);
+            }
+        }
+    }
+
     if (post.slug === 'stylish-couple-name-maker-with-meaning-find-unique-names-with-romantic-significance') {
         return (
             <div className="min-h-screen bg-[#07090f] pt-28 pb-20">
@@ -499,7 +527,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 <div className="px-4 sm:px-6 relative z-20"><CoupleNameClientWrapper /></div>
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 mt-16">
                     <div className="blog-article-prose">
-                        <MDXRemote source={post.content} components={mdxComponents} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
+                        <MDXRemote source={contentToRender} components={mdxComponents} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
                     </div>
                 </div>
             </div>
@@ -595,9 +623,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 {/* ══ BODY: TOC LEFT + CONTENT RIGHT ══════════════════════════ */}
                 <div className="bp-body-layout">
 
-                    {/* ── TOC sidebar (right on desktop) ── */}
+                    {/* ── TOC sidebar (right on desktop only) ── */}
                     {headings.length > 2 && (
-                        <aside className="bp-toc-sidebar">
+                        <aside className="bp-toc-sidebar hidden lg:block">
                             <BlogTOC headings={headings} />
                         </aside>
                     )}
@@ -619,7 +647,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
                         <div className="blog-article-prose">
                             <MDXRemote
-                                source={post.content}
+                                source={contentToRender}
                                 components={mdxComponents}
                                 options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
                             />
@@ -818,14 +846,18 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         .bp-body-layout { grid-template-columns: 1fr 300px; }
                     }
 
-                    /* ── TOC Sidebar ── */
+                    /* ── TOC Sidebar (Desktop Only) ── */
                     .bp-toc-sidebar {
-                        position: sticky; top: 90px;
-                        height: fit-content;
-                        order: -1; /* mobile: show TOC before content */
+                        display: none;
                     }
                     @media (min-width: 1024px) {
-                        .bp-toc-sidebar { order: 0; }
+                        .bp-toc-sidebar {
+                            display: block;
+                            position: sticky;
+                            top: 90px;
+                            height: fit-content;
+                            order: 0;
+                        }
                     }
 
                     /* ── CONTENT ── */

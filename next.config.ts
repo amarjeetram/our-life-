@@ -56,14 +56,14 @@ const nextConfig: NextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              // Scripts: added AdSense + GTM domains
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://*.clerk.accounts.dev https://js.clerk.dev https://pagead2.googlesyndication.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://www.googletagmanager.com https://www.googletagservices.com https://adservice.google.com https://*.doubleclick.net",
+              // Scripts: GA4 + AdSense + GTM domains
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://*.clerk.accounts.dev https://js.clerk.dev https://pagead2.googlesyndication.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://www.googletagmanager.com https://www.googletagservices.com https://adservice.google.com https://*.doubleclick.net https://www.google-analytics.com https://ssl.google-analytics.com https://analytics.ahrefs.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com",
-              // Images: AdSense serves ad images from these domains
-              "img-src 'self' data: blob: https: https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.gstatic.com",
-              // Connections: AdSense reporting + Razorpay + Supabase + Clerk
-              "connect-src 'self' https://*.supabase.co https://*.clerk.accounts.dev https://api.razorpay.com wss://*.supabase.co https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://adservice.google.com",
+              // Images: AdSense + GA serve images from these domains
+              "img-src 'self' data: blob: https: https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://*.google.com https://*.gstatic.com https://www.google-analytics.com",
+              // Connections: GA4 beacon + AdSense reporting + Razorpay + Supabase + Clerk
+              "connect-src 'self' https://*.supabase.co https://*.clerk.accounts.dev https://api.razorpay.com wss://*.supabase.co https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://adservice.google.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://region1.analytics.google.com https://stats.g.doubleclick.net",
               // Frames: AdSense renders ads in iframes from these domains
               "frame-src https://checkout.razorpay.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net",
               "object-src 'none'",

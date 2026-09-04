@@ -5,8 +5,8 @@ import { getAllPosts } from '@/lib/mdx';
 import { getLatestWPPosts } from '@/lib/wordpress';
 import BlogPageClient from '@/components/BlogPageClient';
 
-// ISR — refresh every hour
-export const revalidate = 3600;
+// ISR — refresh every 60 seconds so new blog posts appear quickly
+export const revalidate = 60;
 
 export const metadata: Metadata = {
     title: 'Blog | Image Optimization Guides & Tutorials | SmartToolsWala',

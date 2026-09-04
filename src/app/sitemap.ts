@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/mdx';
 
-export const dynamic = 'force-static';
+// ISR: regenerate sitemap every 60 seconds so new posts are picked up quickly
+export const revalidate = 60;
 
 // Sitemap configuration
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

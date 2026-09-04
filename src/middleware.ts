@@ -10,7 +10,7 @@
 // The async keyword is added to the callback for proper resolution.
 
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse, NextFetchEvent } from "next/server";
 
 // Routes that require a Clerk session (authentication gate only)
 const isAdminRoute = createRouteMatcher([
@@ -26,7 +26,7 @@ const isProtectedRoute = createRouteMatcher([
   "/api/directory/reviews(.*)",
 ]);
 
-export default clerkMiddleware(async (auth, req) => {
+const clerkHandler = clerkMiddleware(async (auth, req) => {
   // All /manage + /api/manage/* require a Clerk session.
   if (isAdminRoute(req)) {
     const authObj = await auth();
@@ -53,6 +53,30 @@ export default clerkMiddleware(async (auth, req) => {
     }
   }
 });
+
+export default function middleware(req: NextRequest, event: NextFetchEvent) {
+  const userAgent = req.headers.get("user-agent") || "";
+
+  // 1. Immediately bypass Clerk for Search Engine crawlers and Google Inspection tools
+  // This prevents Clerk development handshake redirects (307) which cause Google Search Console "Redirect error"
+  const isSearchBot = /Googlebot|Google-InspectionTool|Google-PageSpeed|Bingbot|Slurp|DuckDuckBot|Baiduspider|YandexBot|facebot|facebookexternalhit/i.test(userAgent);
+  if (isSearchBot) {
+    return NextResponse.next();
+  }
+
+  // 2. Bypass Clerk for purely public content routes (blogs, static tools, sitemaps, robots.txt)
+  const { pathname } = req.nextUrl;
+  if (
+    pathname.startsWith("/blog") ||
+    pathname.startsWith("/images") ||
+    pathname === "/sitemap.xml" ||
+    pathname === "/robots.txt"
+  ) {
+    return NextResponse.next();
+  }
+
+  return clerkHandler(req, event);
+}
 
 export const config = {
   matcher: [

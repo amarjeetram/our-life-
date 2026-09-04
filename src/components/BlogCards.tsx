@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Post } from '@/lib/mdx';
+import { getAuthorAvatar } from '@/lib/authors';
 
 /* ─── Category Detection ─── */
 const getPostCategory = (post: Post) => {
@@ -111,6 +112,7 @@ function FeaturedCard({ post }: { post: Post }) {
     const cfg = CATEGORY_CONFIG[category];
     const CategoryIcon = cfg.icon;
     const readTime = getReadingTime(post.description);
+    const authorAvatar = getAuthorAvatar(post.author);
 
     return (
         <motion.div
@@ -161,7 +163,11 @@ function FeaturedCard({ post }: { post: Post }) {
                                         {readTime} min read
                                     </span>
                                     <span className="meta-chip">
-                                        <User className="w-3 h-3" />
+                                        {authorAvatar ? (
+                                            <Image src={authorAvatar} alt={post.author} width={14} height={14} className="w-3.5 h-3.5 rounded-full object-cover ring-1 ring-indigo-400/40 inline-block -ml-0.5" />
+                                        ) : (
+                                            <User className="w-3 h-3" />
+                                        )}
                                         {post.author}
                                     </span>
                                 </div>
@@ -206,6 +212,7 @@ function RegularCard({ post, index }: { post: Post; index: number }) {
     const cfg = CATEGORY_CONFIG[category];
     const CategoryIcon = cfg.icon;
     const readTime = getReadingTime(post.description);
+    const authorAvatar = getAuthorAvatar(post.author);
 
     return (
         <motion.div
@@ -265,7 +272,11 @@ function RegularCard({ post, index }: { post: Post; index: number }) {
                             </span>
                             <span className="reg-meta-dot" />
                             <span className="reg-meta-item">
-                                <User className="w-3 h-3" />
+                                {authorAvatar ? (
+                                    <Image src={authorAvatar} alt={post.author} width={14} height={14} className="w-3.5 h-3.5 rounded-full object-cover ring-1 ring-indigo-400/40 inline-block -ml-0.5" />
+                                ) : (
+                                    <User className="w-3 h-3" />
+                                )}
                                 {post.author}
                             </span>
                         </div>

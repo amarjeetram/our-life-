@@ -13,6 +13,7 @@ import InstagramBioClientWrapper from '@/components/InstagramBioClientWrapper';
 import AIPromptCard from '@/components/AIPromptCard';
 import BioCard from '@/components/BioCard';
 import BlogTOC from '@/components/BlogTOC';
+import { getAuthorAvatar } from '@/lib/authors';
 
 // EXPLICIT FORCE STATIC - Critical for fast indexing and crawling
 export const dynamic = 'force-static';
@@ -125,7 +126,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     const canonical = `${SITE}/blog/${post.slug}`;
     const publishedTime = post.date || new Date().toISOString();
-    const ogImage = post.image ? `${SITE}${post.image}` : `${SITE}/og-image.png`;
+    const encodedImage = post.image ? (post.image.startsWith('http') ? post.image : `${SITE}${encodeURI(post.image)}`) : `${SITE}/og-image.png`;
+    const ogImage = encodedImage;
 
     return {
         title: `${post.title}`,
@@ -213,6 +215,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     const relatedPosts = allPosts.filter(p => p.slug !== post.slug).slice(0, 3);
 
     const canonical = `${SITE}/blog/${post.slug}`;
+    const authorAvatar = getAuthorAvatar(post.author);
     const datePublishedStr = new Date(post.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
 
     // Auto-calculate reading time based on word count
@@ -221,7 +224,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
     let schemaImageUrl = `${SITE}/og-image.png`;
     if (post.image) {
-        schemaImageUrl = post.image.startsWith('http') ? post.image : `${SITE}${post.image}`;
+        schemaImageUrl = post.image.startsWith('http') ? post.image : `${SITE}${encodeURI(post.image)}`;
     }
 
     const jsonLd = {
@@ -239,7 +242,8 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         "author": {
             "@type": "Person",
             "name": post.author,
-            "url": SITE
+            "url": SITE,
+            ...(authorAvatar ? { "image": `${SITE}${authorAvatar}` } : {})
         },
         "publisher": {
             "@type": "Organization",
@@ -578,7 +582,17 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         {/* Meta strip */}
                         <div className="bp-meta-strip">
                             <span className="bp-meta-chip">
-                                <User className="w-3.5 h-3.5" />
+                                {authorAvatar ? (
+                                    <Image
+                                        src={authorAvatar}
+                                        alt={post.author}
+                                        width={18}
+                                        height={18}
+                                        className="w-4 h-4 rounded-full object-cover ring-1 ring-indigo-400/40 inline-block -ml-0.5"
+                                    />
+                                ) : (
+                                    <User className="w-3.5 h-3.5" />
+                                )}
                                 {post.author}
                             </span>
                             <span className="bp-meta-dot" />
@@ -655,7 +669,19 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
                         {/* Author footer */}
                         <div className="bp-author-footer">
-                            <div className="bp-author-avatar">{post.author.charAt(0)}</div>
+                            <div className="bp-author-avatar">
+                                {authorAvatar ? (
+                                    <Image
+                                        src={authorAvatar}
+                                        alt={post.author}
+                                        width={48}
+                                        height={48}
+                                        className="w-full h-full rounded-full object-cover"
+                                    />
+                                ) : (
+                                    post.author.charAt(0)
+                                )}
+                            </div>
                             <div className="bp-author-info">
                                 <p className="bp-author-label">Written by</p>
                                 <p className="bp-author-name">{post.author}</p>
@@ -961,6 +987,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                         background: linear-gradient(135deg,#6366f1,#8b5cf6);
                         display: flex; align-items: center; justify-content: center;
                         font-weight: 800; font-size: 1.1rem; color: #fff; flex-shrink: 0;
+                        overflow: hidden;
                     }
                     .bp-author-info { display: flex; flex-direction: column; flex: 1; }
                     .bp-author-label { font-size: 11px; font-weight: 600; color: #334155; text-transform: uppercase; letter-spacing: 0.06em; }

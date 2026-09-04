@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Post } from '@/lib/mdx';
+import { getAuthorAvatar } from '@/lib/authors';
 
 /* ─── Constants ─── */
 const POSTS_PER_PAGE = 9;
@@ -62,6 +63,7 @@ function FeaturedCard({ post }: { post: Post }) {
     const cfg = CATEGORY_CONFIG[getPostCategory(post)];
     const CategoryIcon = cfg.icon;
     const readTime = getReadingTime(post.description);
+    const authorAvatar = getAuthorAvatar(post.author);
     return (
         <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="bp-featured-root">
             <Link href={post.externalLink || `/blog/${post.slug}`} className="block h-full">
@@ -82,7 +84,14 @@ function FeaturedCard({ post }: { post: Post }) {
                                 <div className="bp-feat-meta">
                                     <span className="bp-meta-chip"><Calendar className="w-3 h-3" />{new Date(post.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
                                     <span className="bp-meta-chip"><Clock className="w-3 h-3" />{readTime} min read</span>
-                                    <span className="bp-meta-chip"><User className="w-3 h-3" />{post.author}</span>
+                                    <span className="bp-meta-chip">
+                                        {authorAvatar ? (
+                                            <Image src={authorAvatar} alt={post.author} width={14} height={14} className="w-3.5 h-3.5 rounded-full object-cover ring-1 ring-indigo-400/40 inline-block -ml-0.5" />
+                                        ) : (
+                                            <User className="w-3 h-3" />
+                                        )}
+                                        {post.author}
+                                    </span>
                                 </div>
                                 <span className="bp-feat-cta" style={{ background: cfg.gradient }}>Read Article <ArrowRight className="w-4 h-4 bp-feat-arrow" /></span>
                             </div>
@@ -108,6 +117,7 @@ function RegularCard({ post, index }: { post: Post; index: number }) {
     const cfg = CATEGORY_CONFIG[getPostCategory(post)];
     const CategoryIcon = cfg.icon;
     const readTime = getReadingTime(post.description);
+    const authorAvatar = getAuthorAvatar(post.author);
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -134,7 +144,14 @@ function RegularCard({ post, index }: { post: Post; index: number }) {
                         <div className="bp-reg-meta">
                             <span className="bp-reg-meta-item"><Calendar className="w-3 h-3" />{new Date(post.date).toLocaleDateString('en-US', { day: 'numeric', month: 'short' })}</span>
                             <span className="bp-reg-meta-dot" />
-                            <span className="bp-reg-meta-item"><User className="w-3 h-3" />{post.author}</span>
+                            <span className="bp-reg-meta-item">
+                                {authorAvatar ? (
+                                    <Image src={authorAvatar} alt={post.author} width={14} height={14} className="w-3.5 h-3.5 rounded-full object-cover ring-1 ring-indigo-400/40 inline-block -ml-0.5" />
+                                ) : (
+                                    <User className="w-3 h-3" />
+                                )}
+                                {post.author}
+                            </span>
                         </div>
                         <h3 className="bp-reg-title">{post.title}</h3>
                         <p className="bp-reg-desc">{post.description}</p>

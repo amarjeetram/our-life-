@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import ArticleResize100KB from '@/components/articles/ArticleResize100KB';
+import AdBanner from '@/components/AdBanner';
 
 export const metadata: Metadata = {
     title: 'Resize Image to 100KB Online Free – JPG & JPEG',
@@ -123,6 +124,10 @@ export default function Page() {
                 titleOverride={<>Resize Image to <span style={{ background: 'linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>100KB Online</span></>}
                 subtitleOverride="Free browser-based tool to resize image to 100KB instantly. Download compressed JPG or JPEG — no watermark, no signup, 100% free."
             >
+                {/* Ad — Below Tool, Above Article */}
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 my-4">
+                    <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
+                </div>
                 <SEOBottomSection keyword="resize image to 100kb" faqs={faqs}>
                     <ArticleResize100KB />
                 </SEOBottomSection>

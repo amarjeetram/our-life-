@@ -87,8 +87,8 @@ export function getAllPosts(): Post[] {
         const posts = slugs
             .map((slug) => getPostBySlug(slug))
             .filter((post): post is Post => post !== null)
-            // Filter out future posts
-            .filter((post) => new Date(post.date).getTime() <= Date.now())
+            // Filter out future posts (with 24h grace period for timezone differences)
+            .filter((post) => new Date(post.date).getTime() <= Date.now() + 24 * 60 * 60 * 1000)
             // Sort posts by date in descending order
             .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
 

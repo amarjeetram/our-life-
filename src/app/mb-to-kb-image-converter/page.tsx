@@ -3,6 +3,7 @@ import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import ArticleMBtoKBImage from '@/components/articles/ArticleMBtoKBImage';
 import Link from 'next/link';
+import AdBanner from '@/components/AdBanner';
 
 export const metadata: Metadata = {
     title: { absolute: 'Compress Image MB to KB (20/50/100KB) - SmartToolsWala' },
@@ -114,6 +115,11 @@ export default function Page() {
                 titleOverride={<>MB to KB <span className="text-indigo-600">Image Converter</span></>}
                 subtitleOverride="Upload your image and instantly convert MB to KB. Preview your compressed photo before downloading — no signup, no watermark, 100% free."
             >
+
+                {/* Ad — Below Tool, Above Article */}
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 my-4">
+                    <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
+                </div>
 
                 <SEOBottomSection
                     keyword="mb to kb image converter"

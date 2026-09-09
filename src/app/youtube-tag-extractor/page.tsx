@@ -3,6 +3,7 @@ import Link from 'next/link';
 import YoutubeTagClient from '@/components/YoutubeTagClient';
 import ArticleYoutubeTags from '@/components/articles/ArticleYoutubeTags';
 import { ArrowLeft } from 'lucide-react';
+import AdBanner from '@/components/AdBanner';
 
 export const metadata: Metadata = {
     title: 'YouTube Tag Extractor - Get Hidden SEO Tags from Any Video',
@@ -142,6 +143,9 @@ export default function YoutubeTagExtractorPage() {
                 </h1>
 
                 <YoutubeTagClient />
+
+                {/* Ad — Below Tool, Above Article */}
+                <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
 
                 <ArticleYoutubeTags />
             </div>

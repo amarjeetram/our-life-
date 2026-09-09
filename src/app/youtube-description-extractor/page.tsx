@@ -3,6 +3,7 @@ import Link from 'next/link';
 import YoutubeDescriptionClient from '@/components/YoutubeDescriptionClient';
 import ArticleYoutubeDescription from '@/components/articles/ArticleYoutubeDescription';
 import { ArrowLeft } from 'lucide-react';
+import AdBanner from '@/components/AdBanner';
 
 export const metadata: Metadata = {
     title: 'YouTube Description Extractor – Copy Title & Tags Free',
@@ -147,6 +148,9 @@ export default function YoutubeDescriptionExtractorPage() {
                 }} aria-hidden="true" />
 
                 <YoutubeDescriptionClient />
+
+                {/* Ad — Below Tool, Above Article */}
+                <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
 
                 <ArticleYoutubeDescription />
             </div>

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import Article100KB from '@/components/articles/Article100KB';
+import AdBanner from '@/components/AdBanner';
 
 
 
@@ -132,6 +133,10 @@ export default function Page() {
                 targetSizeKB={100}
                 subtitleOverride="Compress image to 100KB online while maintaining high clarity and detail. Image resizer 100KB tool helps resize image to 100KB for professional and web uploads."
             >
+                {/* Ad — Below Tool, Above Article */}
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 my-4">
+                    <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
+                </div>
                 <SEOBottomSection
                     keyword="compress image to 100kb online"
                     faqs={faqs}

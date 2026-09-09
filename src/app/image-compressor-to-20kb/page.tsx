@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import Article20KB from '@/components/articles/Article20KB';
+import AdBanner from '@/components/AdBanner';
 
 
 export const metadata: Metadata = {
@@ -132,6 +133,10 @@ export default function Page() {
                 targetSizeKB={20}
                 subtitleOverride="Compress image to 20KB online free using our advanced photo size reducer. Resize image to 20KB JPG instantly for government forms without losing quality."
             >
+                {/* Ad — Below Tool, Above Article */}
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 my-4">
+                    <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
+                </div>
                 <SEOBottomSection
                     keyword="image compressor to 20kb"
                     faqs={faqs}

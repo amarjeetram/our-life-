@@ -2,6 +2,7 @@ import YoutubeTitleClient from '@/components/YoutubeTitleClient';
 import ArticleYoutubeTitle from '@/components/articles/ArticleYoutubeTitle';
 import { Metadata } from 'next';
 import Script from 'next/script';
+import AdBanner from '@/components/AdBanner';
 
 export const metadata: Metadata = {
     title: 'YouTube Title Extractor & Copier Online - Free Tool',
@@ -134,6 +135,12 @@ export default function YoutubeTitleExtractorPage() {
             />
 
             <YoutubeTitleClient />
+
+            {/* The massive 2000-word SEO article for Title Extractor */}
+            <div className="max-w-4xl mx-auto px-4 pb-4 w-full">
+                {/* Ad — Below Tool, Above Article */}
+                <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
+            </div>
 
             {/* The massive 2000-word SEO article for Title Extractor */}
             <div className="max-w-4xl mx-auto px-4 pb-20 w-full">

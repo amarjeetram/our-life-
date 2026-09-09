@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import Article200KB from '@/components/articles/Article200KB';
+import AdBanner from '@/components/AdBanner';
 
 
 
@@ -132,6 +133,10 @@ export default function Page() {
                 targetSizeKB={200}
                 subtitleOverride="Compress image to 200KB online free for large high resolution files. Reduce image size to 200KB easily for HD documents, websites, and portal upload requirements."
             >
+                {/* Ad — Below Tool, Above Article */}
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 my-4">
+                    <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
+                </div>
                 <SEOBottomSection
                     keyword="compress image to 200kb"
                     faqs={faqs}

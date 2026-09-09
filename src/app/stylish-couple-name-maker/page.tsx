@@ -4,6 +4,7 @@ import Script from 'next/script';
 import { Heart, Sparkles, Hash, Type } from 'lucide-react';
 import CoupleNameClient from "@/components/CoupleNameClient";
 import ArticleCoupleName from '@/components/articles/ArticleCoupleName';
+import AdBanner from '@/components/AdBanner';
 
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
@@ -224,6 +225,11 @@ export default function StylishCoupleNameMakerPage() {
             {/* ── Interactive Tool Component ─────────────────────────────────── */}
             <div className="px-4 sm:px-6 relative z-20">
                 <CoupleNameClient />
+            </div>
+
+            {/* ── Ad — Below Tool, Above Article ─────────────────────────────── */}
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 my-4">
+                <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
             </div>
 
             {/* ── SEO Article Section ────────────────────────────────────────── */}

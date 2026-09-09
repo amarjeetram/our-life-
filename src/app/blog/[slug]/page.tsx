@@ -14,6 +14,7 @@ import AIPromptCard from '@/components/AIPromptCard';
 import BioCard from '@/components/BioCard';
 import BlogTOC from '@/components/BlogTOC';
 import { getAuthorAvatar } from '@/lib/authors';
+import AdBanner from '@/components/AdBanner';
 
 // EXPLICIT FORCE STATIC - Critical for fast indexing and crawling
 export const dynamic = 'force-static';
@@ -463,12 +464,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
             // Exclude programming code
             const isCodeContent = codeText.includes('function ') ||
-                                  codeText.includes('import ') ||
-                                  codeText.includes('const ') ||
-                                  codeText.includes('class ') ||
-                                  codeText.includes('<html>') ||
-                                  codeText.includes('css') ||
-                                  codeText.includes('//');
+                codeText.includes('import ') ||
+                codeText.includes('const ') ||
+                codeText.includes('class ') ||
+                codeText.includes('<html>') ||
+                codeText.includes('css') ||
+                codeText.includes('//');
 
             if (isCodeContent) {
                 return <pre {...props}>{children}</pre>;
@@ -634,6 +635,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                     </div>
                 )}
 
+                {/* ══ AD — Below Hero (Top Banner) ═══════════════════════════════ */}
+                <div className="max-w-4xl mx-auto px-4 sm:px-6">
+                    <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
+                </div>
+
                 {/* ══ BODY: TOC LEFT + CONTENT RIGHT ══════════════════════════ */}
                 <div className="bp-body-layout">
 
@@ -667,6 +673,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                             />
                         </div>
 
+                        {/* ══ AD — Mid Content (Below Article Body) ══════════════ */}
+                        <div className="mt-8 mb-4">
+                            <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
+                        </div>
+
                         {/* Author footer */}
                         <div className="bp-author-footer">
                             <div className="bp-author-avatar">
@@ -691,6 +702,11 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                             </Link>
                         </div>
                     </main>
+                </div>
+
+                {/* ══ AD — Above Related Articles ════════════════════════════ */}
+                <div className="max-w-4xl mx-auto px-4 sm:px-6">
+                    <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
                 </div>
 
                 {/* ══ RELATED ARTICLES ════════════════════════════════════════ */}

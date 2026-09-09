@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import CompressImageClient from '@/components/CompressImageClient';
 import SEOBottomSection from '@/components/SEOBottomSection';
 import Article30KB from '@/components/articles/Article30KB';
+import AdBanner from '@/components/AdBanner';
 
 
 
@@ -133,6 +134,10 @@ export default function Page() {
                 targetSizeKB={30}
                 subtitleOverride="Compress image to 30KB online quickly with precise control. Reduce image size to 30KB for state exams, compliance uploads, and secure official document submissions."
             >
+                {/* Ad — Below Tool, Above Article */}
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 my-4">
+                    <AdBanner dataAdFormat="auto" dataFullWidthResponsive="true" />
+                </div>
                 <SEOBottomSection
                     keyword="compress image to 30kb"
                     faqs={faqs}

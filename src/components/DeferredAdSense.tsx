@@ -1,39 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Script from "next/script";
 
+// Loads the AdSense script immediately after the page becomes interactive.
+// Removed the interaction-gate (scroll/mousemove listeners) because it was
+// preventing Google Auto Ads from initializing correctly, which was causing
+// near-zero ad impressions across the entire site.
 export default function DeferredAdSense() {
-    const [loadAd, setLoadAd] = useState(false);
-
-    useEffect(() => {
-        const handleInteraction = () => {
-            setLoadAd(true);
-            window.removeEventListener("scroll", handleInteraction);
-            window.removeEventListener("mousemove", handleInteraction);
-            window.removeEventListener("touchstart", handleInteraction);
-            window.removeEventListener("keydown", handleInteraction);
-        };
-
-        window.addEventListener("scroll", handleInteraction, { passive: true, once: true });
-        window.addEventListener("mousemove", handleInteraction, { passive: true, once: true });
-        window.addEventListener("touchstart", handleInteraction, { passive: true, once: true });
-        window.addEventListener("keydown", handleInteraction, { passive: true, once: true });
-
-        // Fallback for dynamic load after 6 seconds of idle reading
-        const timeout = setTimeout(handleInteraction, 6000);
-
-        return () => {
-            window.removeEventListener("scroll", handleInteraction);
-            window.removeEventListener("mousemove", handleInteraction);
-            window.removeEventListener("touchstart", handleInteraction);
-            window.removeEventListener("keydown", handleInteraction);
-            clearTimeout(timeout);
-        };
-    }, []);
-
-    if (!loadAd) return null;
-
     return (
         <Script
             id="adsense-script"

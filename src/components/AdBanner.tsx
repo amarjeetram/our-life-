@@ -1,6 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
-
+import { useEffect, useState, useRef } from 'react';
 
 type AdBannerProps = {
     dataAdSlot?: string;
@@ -16,18 +15,30 @@ export default function AdBanner({
     className = '',
 }: AdBannerProps) {
     const [isMounted, setIsMounted] = useState(false);
+    const adRef = useRef<HTMLModElement>(null);
 
     useEffect(() => {
         setIsMounted(true);
     }, []);
 
     useEffect(() => {
-        if (isMounted) {
+        // Never call adsbygoogle in development mode since placeholder is rendered
+        if (process.env.NODE_ENV === 'development') return;
+
+        if (isMounted && adRef.current) {
+            // If this ins element already has an ad or status, don't push again
+            if (
+                adRef.current.getAttribute('data-adsbygoogle-status') ||
+                adRef.current.innerHTML.trim().length > 0
+            ) {
+                return;
+            }
+
             try {
                 // @ts-ignore
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
-            } catch (err) {
-                console.error('AdSense error', err);
+            } catch {
+                // Ignore duplicate or already-filled TagErrors silently
             }
         }
     }, [isMounted, dataAdSlot]);
@@ -40,10 +51,10 @@ export default function AdBanner({
     // Show a visible placeholder during local development
     if (process.env.NODE_ENV === 'development') {
         return (
-            <div className={`w-full flex justify-center items-center overflow-hidden my-6 min-h-[250px] bg-slate-100 border-2 border-dashed border-slate-300 rounded-lg ${className}`}>
+            <div className={`w-full flex justify-center items-center overflow-hidden my-6 min-h-[250px] bg-slate-100 dark:bg-slate-900 border-2 border-dashed border-slate-300 dark:border-slate-800 rounded-lg ${className}`}>
                 <div className="text-center">
-                    <p className="text-slate-500 font-bold text-lg">AdSense Advertisement</p>
-                    <p className="text-xs text-slate-400">Slot: {activeAdSlot} ({isNumeric ? 'Custom' : 'Fallback Default'})</p>
+                    <p className="text-slate-500 dark:text-slate-400 font-bold text-lg">AdSense Advertisement</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500">Slot: {activeAdSlot} ({isNumeric ? 'Custom' : 'Fallback Default'})</p>
                 </div>
             </div>
         );
@@ -51,9 +62,9 @@ export default function AdBanner({
 
     return (
         <div className={`w-full flex justify-center overflow-hidden my-6 min-h-[250px] ${className}`}>
-            
             {isMounted ? (
                 <ins
+                    ref={adRef}
                     key={activeAdSlot}
                     className="adsbygoogle"
                     style={{ display: 'block', width: '100%' }}

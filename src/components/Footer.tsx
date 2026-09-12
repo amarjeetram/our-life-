@@ -17,6 +17,7 @@ const POPULAR_TOOLS = [
     { name: 'Compress to 20KB', href: '/image-compressor-to-20kb' },
     { name: 'Compress to 50KB', href: '/compress-image-to-50kb' },
     { name: 'MB to KB Converter', href: '/mb-to-kb-image-converter' },
+    { name: 'Flipkart Label Cropper', href: '/flipkart-label-cropper' },
     { name: 'YouTube Tags', href: '/youtube-tag-extractor' },
     { name: 'Instagram Bio Gen', href: '/instagram-tools' },
     { name: 'Derivative Calc', href: '/calculators/derivative-calculator' },

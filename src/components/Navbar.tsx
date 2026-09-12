@@ -666,6 +666,7 @@ const TOOLS = [
     { title: 'Compress Image to 200KB', desc: 'Compress image size to 200KB.', route: '/compress-image-to-200kb', type: 'tool' as const, category: 'Image Tools' },
     { title: 'MB to KB Image Converter', desc: 'Convert image files from Megabytes to Kilobytes.', route: '/mb-to-kb-image-converter', type: 'tool' as const, category: 'Image Tools' },
     { title: 'KB to MB Image Converter', desc: 'Convert image files from Kilobytes to Megabytes.', route: '/kb-to-mb-image-converter', type: 'tool' as const, category: 'Image Tools' },
+    { title: 'Flipkart Label Cropper', desc: 'Crop Flipkart shipping labels from A4 PDF invoices. Quick label crop for thermal printing.', route: '/flipkart-label-cropper', type: 'tool' as const, category: 'Image Tools' },
     { title: 'Signature Resize & Compressor', desc: 'Resize signature image for government applications.', route: '/govt-exam-tools/signature-resize', type: 'tool' as const, category: 'Govt Exam Tools' },
     { title: 'SSC Signature Resizer', desc: 'Crop and resize signature image specifically for SSC exams.', route: '/govt-exam-tools/ssc-signature-resize', type: 'tool' as const, category: 'Govt Exam Tools' },
     { title: 'RRB Signature Resizer', desc: 'Resize signature photo for RRB exams.', route: '/govt-exam-tools/rrb-signature-resizer', type: 'tool' as const, category: 'Govt Exam Tools' },

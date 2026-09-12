@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ImageIcon, Minimize2, RefreshCw, ArrowLeftRight, GraduationCap } from "lucide-react";
+import { ArrowRight, ImageIcon, Minimize2, RefreshCw, ArrowLeftRight, GraduationCap, ShoppingBag } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -69,6 +69,17 @@ const groups = [
             { route: '/govt-exam-tools/signature-resize', title: 'Signature Resize', desc: 'Resize your signature to 10-20KB, specify dimensions in cm or pixels for SSC & RRB exams.', tags: ['Signature', 'SSC', 'RRB'] },
         ],
     },
+    {
+        id: "seller",
+        heading: "E-Commerce Seller Tools",
+        subtitle: "Label cropping and image tools for Flipkart, Meesho, Amazon, and other marketplace sellers in India.",
+        iconColor: "#f97316", // Orange
+        gradient: "linear-gradient(135deg, #f97316, #f59e0b)",
+        bgLight: "#fff7ed",
+        tools: [
+            { route: '/flipkart-label-cropper', title: 'Flipkart Label Cropper', desc: 'Crop Flipkart shipping label from A4 invoice PDF in 1 click. Free quick label crop for thermal printers — 100% private.', tags: ['Flipkart', 'Thermal Print', 'Label Crop'] },
+        ],
+    },
 ];
 
 const groupIcons: Record<string, React.ReactNode> = {
@@ -76,6 +87,7 @@ const groupIcons: Record<string, React.ReactNode> = {
     resize: <RefreshCw size={24} color="#fff" />,
     converters: <ArrowLeftRight size={24} color="#fff" />,
     govt: <GraduationCap size={24} color="#fff" />,
+    seller: <ShoppingBag size={24} color="#fff" />,
 };
 
 export default function ImageCompressionToolsPage() {
